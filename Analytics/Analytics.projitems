@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="SharedProjectFile_SccProperties">
+    <SharedProjectFile_ProjectGuid>{f20fd95f-6dcd-46e7-9e55-87a62464d55c}</SharedProjectFile_ProjectGuid>
+    <SharedProjectFile_SccProjectName>SAK</SharedProjectFile_SccProjectName>
+    <SharedProjectFile_SccAuxPath>SAK</SharedProjectFile_SccAuxPath>
+    <SharedProjectFile_SccLocalPath>SAK</SharedProjectFile_SccLocalPath>
+    <SharedProjectFile_SccProvider>SAK</SharedProjectFile_SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>06a8c764-fff2-4e80-af20-745a9820c7cc</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Analytics</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CrystalBall.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PitStop.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RateTrainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)xSigma.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Poisson.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Stability.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StepChange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Survival.cs" />
+  </ItemGroup>
+</Project>

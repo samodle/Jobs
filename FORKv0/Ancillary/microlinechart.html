@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>amCharts examples</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="amcharts.js" type="text/javascript"></script>
+    <script src="serial.js" type="text/javascript"></script>
+    
+
+    <script>
+      AmCharts.ready(function() {
+
+        // line chart, with a bullet at the end
+        var chart = new AmCharts.AmSerialChart();
+        chart.dataProvider = [{
+          "day": 1,
+          "value": 120
+        }, {
+          "day": 2,
+          "value": 124
+        }, {
+          "day": 3,
+          "value": 127
+        }, {
+          "day": 4,
+          "value": 122
+        }, {
+          "day": 5,
+          "value": 121
+        }, {
+          "day": 6,
+          "value": 123
+        }, {
+          "day": 7,
+          "value": 118
+        }, {
+          "day": 8,
+          "value": 113
+        }, {
+          "day": 9,
+          "value": 122
+        }, {
+          "day": 10,
+          "value": 125,
+          bullet: "round"
+        }];
+        chart.categoryField = "day";
+        chart.autoMargins = false;
+        chart.marginLeft = 0;
+        chart.marginRight = 5;
+        chart.marginTop = 0;
+        chart.marginBottom = 0;
+
+        var graph = new AmCharts.AmGraph();
+        graph.valueField = "value";
+        graph.bulletField = "bullet";
+        graph.showBalloon = false;
+        graph.lineColor = "#a9ec49";
+        chart.addGraph(graph);
+
+        var valueAxis = new AmCharts.ValueAxis();
+        valueAxis.gridAlpha = 0;
+        valueAxis.axisAlpha = 0;
+        chart.addValueAxis(valueAxis);
+
+        var categoryAxis = chart.categoryAxis;
+        categoryAxis.gridAlpha = 0;
+        categoryAxis.axisAlpha = 0;
+        categoryAxis.startOnAxis = true;
+        chart.write("line1");
+
+
+       
+
+      });
+
+    </script>
+  </head>
+
+  <body>
+
+    <!-- first chart group -->
+    <div class="chart-block">
+     
+     
+      <div id="line1" style="vertical-align: middle; display: inline-block; width: 100%; height: 30px;"></div>
+     
+    </div>
+
+  
+
+   
+</html>
