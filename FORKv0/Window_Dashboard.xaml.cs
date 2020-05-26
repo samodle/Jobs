@@ -388,7 +388,6 @@ namespace Windows_Desktop
             foreach (object Name in LineSelectionlistBox.SelectedItems)
             {
                 selectedLines.Add(Name.ToString());
-                //      newLabelString += Name.ToString() + Environment.NewLine;
             }
 
 
@@ -400,16 +399,9 @@ namespace Windows_Desktop
             {
                 for (int i = 0; i < tmpList.Count; i++)
                 {
-                    //   if (DEMO_MODE)
-                    //   {
+
                     List<DTevent> rawDataList = DemoMode.getDemoData(CurrentEndTime, tmpList[i]);
-                    //  }
-                    //   else
-                    //   {
-                    //  rawDataList = DataEngine.getRawDowntimeData_Threaded(_endTime, _startTime, lineToAnalyze.mainProdUnit, "");
-                    //   DowntimeDataScrub.CleanList(rawDataList, CurrentLineConfig.Mapping);
-                    //   EventMapping.MapDTEventList(rawDataList, lineToAnalyze.Mapping);
-                    //   }
+
                     masterEventList.Add(rawDataList);
                 }
                 intermediate.Multi_AddDataForNewLines(masterEventList, tmpList, CurrentLineConfig);
