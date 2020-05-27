@@ -6,21 +6,23 @@ namespace Analytics
 {
     public class AttributeLevel
     {
-        public string Name { get; set; }
+        public double Value { get; set; }
         public double N { get; set; }
+        public double StandardError { get; set; }
         public double LowerCIBound { get; set; }
         public double UpperCIBound { get; set; }
         public bool RecommentSuppress { get; set; }
         public DateTime Date { get; set; }
         public string Source { get; set; }
 
-        public AttributeLevel(string name, double n, double lowerCI, double upperCI, bool suppress, DateTime date, string source)
+        public AttributeLevel(double value, double n, double stdError, double lowerCI, double upperCI, string suppress, DateTime date, string source)
         {
-            this.Name = name;
+            this.Value = value;
             this.N = n;
+            this.StandardError = stdError;
             this.LowerCIBound = lowerCI;
             this.UpperCIBound = upperCI;
-            this.RecommentSuppress = suppress;
+            this.RecommentSuppress = suppress == "Y" ? true : false;
             this.Date = date;
             this.Source = source;
         }
@@ -30,9 +32,9 @@ namespace Analytics
     {
         public bool NotRelevant { get; set; }
 
-        public AttributeImportance(string name, double n, double lowerCI, double upperCI, bool suppress, DateTime date, string source, bool notRelevant) : base(name, n, lowerCI, upperCI, suppress, date, source)
+        public AttributeImportance(double value, double n, double stdError, double lowerCI, double upperCI, string suppress, DateTime date, string source, string notRelevant) : base(value, n, stdError, lowerCI, upperCI, suppress, date, source)
         {
-            this.NotRelevant = notRelevant;
+            this.NotRelevant = notRelevant == "N" ? false : true;
         }
     }
 }

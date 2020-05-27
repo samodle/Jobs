@@ -244,3 +244,7 @@ C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.csproj.Core
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.exe.manifest
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.application
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.csproj.CopyComplete
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\LumenWorks.Framework.IO.dll
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\LumenWorks.Framework.IO.xml
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.csprojAssemblyReference.cache

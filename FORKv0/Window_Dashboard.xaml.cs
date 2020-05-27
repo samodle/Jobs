@@ -1,4 +1,5 @@
 ﻿using Analytics;
+using DataPersistancy;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,8 @@ namespace Windows_Desktop
             HideAllDashboards();
             ContentCanvasA.Visibility = Visibility.Visible;
             LaunchCanvas.Visibility = Visibility.Hidden;
+
+            ONETImportScripts.ONET_importOccupations();
         }
 
         public void ManageScreenResolution()     // To make it fit for use on any screen - maximize the program if screen resolution of device is less than a threshold, to make the UI legible

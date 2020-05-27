@@ -8,10 +8,8 @@ namespace Windows_Desktop
     {
         public static void verifyFolderStructure()
         {
-         /*   createFolder(Globals.HTML.PATH_FORK);
-            createFolder(Globals.HTML.PATH_FORK_GLIDEPATH);
-            createFolder(Globals.HTML.PATH_FORK_RAWDATA);
-            createFolder(Globals.HTML.SERVER_FOLDER_PATH);*/
+            createFolder(Publics.FILEPATHS.PATH_FORK);
+            createFolder(Publics.FILEPATHS.PATH_FORK_JSON);
         }
         private static void createFolder(string folderName)
         {
@@ -27,6 +25,16 @@ namespace Windows_Desktop
         public static System.Windows.Input.MouseButtonEventArgs f { get; set; }
         public static EventArgs g { get; set; }
 
+        public static class FILEPATHS
+        {
+            public const string PATH_FORK = "C:\\Users\\Public\\Public_fork\\";
+            public const string PATH_FORK_JSON = PATH_FORK + "Common\\";
+        }
+        public static class FILENAMES
+        {
+            public const string FILE_OCCUPATIONS = "ForkOccupationList";
+            public const string FILE_SKILLS = "ForkSkillList";
+        }
     }
 
     static class GlobalFcns

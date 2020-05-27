@@ -2,16 +2,16 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-
+using Windows_Desktop;
 
 namespace DataPersistancy
 {
     public static class JSON_IO
     {
-        public static void JSON_Export(Occupation exportObject, string FileName, string FileType = ".txt")
+        public static void JSON_Export_OccupationList(List<Occupation> exportObject, string FileName, string FileType = ".txt")
         {
             string jsonData = JsonConvert.SerializeObject(exportObject);
-            string fileName = "Globals.HTML.PATH_FORK_GLIDEPATH" + FileName + FileType;
+            string fileName = Publics.FILEPATHS.PATH_FORK_JSON + FileName + FileType;
             FileStream fcreate = File.Open(fileName, FileMode.Create);
             using (StreamWriter writer = new StreamWriter(fcreate))
             {
@@ -20,11 +20,11 @@ namespace DataPersistancy
             }
         }
 
-     public static Occupation CrystalBall_Changelog_Import(string fileName)
+     public static List<Occupation> JSON_Import_OccupationList(string fileName)
         {
-            Occupation tmpData;
-            string rawJSONstring = File.ReadAllText("Globals.HTML.PATH_FORK_GLIDEPATH + fileName");
-            tmpData = JsonConvert.DeserializeObject<Occupation>(rawJSONstring);
+            List<Occupation> tmpData;
+            string rawJSONstring = File.ReadAllText(Publics.FILEPATHS.PATH_FORK_JSON + fileName);
+            tmpData = JsonConvert.DeserializeObject<List<Occupation>>(rawJSONstring);
             return tmpData;
         }
     }
