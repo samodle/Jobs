@@ -16,13 +16,10 @@
     <Import_RootNamespace>Analytics</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CrystalBall.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PitStop.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)RateTrainer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)xSigma.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Poisson.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Stability.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StepChange.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Survival.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Ability.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Knowledge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LevelImportance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Occupation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Skill.cs" />
   </ItemGroup>
 </Project>

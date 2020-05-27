@@ -8,15 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/amcharts.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/export.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/fabric.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/filesaver.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/jszip.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/microlinechart.html")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/pie.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/serial.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ancillary/style.css")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/lens.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/dragiconroundbig.png")]
 

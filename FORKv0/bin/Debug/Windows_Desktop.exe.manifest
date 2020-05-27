@@ -198,98 +198,17 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Windows_Desktop.exe" size="6913024">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Windows_Desktop.exe" size="1720320">
       <assemblyIdentity name="Windows_Desktop" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>RG21owCm68szkClTu4m8jTcS/WZMyY3GgDDn1Tp+37s=</dsig:DigestValue>
+        <dsig:DigestValue>oSJqDehcYNmNNRYioluEm0EoYWo68hQ1Tx7iWmo53/U=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Ancillary\amcharts.js" size="366237">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>+ONZHFv4TD8JFEFOI4e7/mitndkxI1gzCescdv3kpZk=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Ancillary\export.js" size="54344">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>EFt50JjiOJJtXIt3vOdEbeSw5j1/eq4hO9OnGNy2ZUc=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Ancillary\fabric.js" size="681092">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>afKrV9F14JJDxaR0hEnp2EDIvFi5qbIt9wAs7tTie+A=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Ancillary\FileSaver.js" size="7956">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>V2GRXlqRVY3/g7a52UnbHMDqnCLwBH4lxyCvewGE8BU=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Ancillary\jsZip.js" size="293471">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>MEJ1Uuz2O87C31R/LQC0N0sIj0OI34X3StDCS2Jb0yo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Ancillary\microlinechart.html" size="2306">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>9rqQmqkWZgS3LIy+Pn08AzSRehUY100pBu+/czixqxo=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Ancillary\pie.js" size="10062">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>NCjWzWF9Q1/CXxeyJrCf3BZI31YRqHZW1Lysn1nJeIc=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Ancillary\serial.js" size="44707">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>WehZ/dTcMFUkQp/DoynpIqshh6UMZFayqOGDkGtx+8c=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="Ancillary\style.css" size="238">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>6i04tVk356zh8aJYG/iCpy5hZe8da/9jXoR+UMX97N8=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="Images\dragIconRoundBig.png" size="1333">
     <hash>
       <dsig:Transforms>
@@ -308,13 +227,13 @@
       <dsig:DigestValue>2hN7q92Oy+OQW3A8x2z7zcxruHKAWTcnUr0uWYnkI2o=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Windows_Desktop.exe.config" size="5730">
+  <file name="Windows_Desktop.exe.config" size="822">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>41kzLPhR6s9s5eySBWOasQbWho1V8iftA9+jn/bZZJI=</dsig:DigestValue>
+      <dsig:DigestValue>Pb8Yse/lq4fMy9nmMeeyy3CQChHkxSTTuor0a46NR2o=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
