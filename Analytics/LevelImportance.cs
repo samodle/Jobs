@@ -26,6 +26,11 @@ namespace Analytics
             this.Date = date;
             this.Source = source;
         }
+
+       public override string ToString()
+        {
+            return "Value: " + Value + ", Standard Error:" + StandardError + ", Lower CI Bound:" + LowerCIBound + ", Upper CI Bound:" + UpperCIBound;
+        } 
     }
 
     public class AttributeImportance : AttributeLevel

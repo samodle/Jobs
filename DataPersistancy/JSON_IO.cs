@@ -20,7 +20,19 @@ namespace DataPersistancy
             }
         }
 
-     public static List<Occupation> JSON_Import_OccupationList(string fileName)
+        public static void JSON_Export_SkillList(List<Skill> exportObject, string FileName, string FileType = ".txt")
+        {
+            string jsonData = JsonConvert.SerializeObject(exportObject);
+            string fileName = Publics.FILEPATHS.PATH_FORK_JSON + FileName + FileType;
+            FileStream fcreate = File.Open(fileName, FileMode.Create);
+            using (StreamWriter writer = new StreamWriter(fcreate))
+            {
+                writer.Write(jsonData);
+                writer.Close();
+            }
+        }
+
+        public static List<Occupation> JSON_Import_OccupationList(string fileName)
         {
             List<Occupation> tmpData;
             string rawJSONstring = File.ReadAllText(Publics.FILEPATHS.PATH_FORK_JSON + fileName);

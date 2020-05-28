@@ -51,6 +51,7 @@ namespace Windows_Desktop
             ContentCanvasA.Visibility = Visibility.Visible;
             LaunchCanvas.Visibility = Visibility.Hidden;
 
+            //ONETImportScripts.ONET_importRawOccupations();
             ONETImportScripts.ONET_importOccupations();
         }
 
