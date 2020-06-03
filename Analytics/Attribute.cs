@@ -1,60 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
+using static Analytics.Constants;
 
 namespace Analytics
 {
-    public class Skill //: IEquatable<Skill>
+    public class Attribute
     {
         public string Name { get; set; }
         public string ElementID { get; set; }
         public List<string> OccupationIDs { get; set; } = new List<string>();
+        public AttributeType Type { get; set; }
 
-        public Skill(string name, string id, string occupationID)
+        public Attribute(string name, string id, string occupationID, AttributeType type)
         {
             this.Name = name;
             this.ElementID = id;
-            OccupationIDs.Add(occupationID);
+            this.OccupationIDs.Add(occupationID);
+            this.Type = type;
         }
 
         public override string ToString()
         {
-            return "Skill: " + Name + ", Associated Occupations:" + OccupationIDs.Count;
+            return getStringForAttributeType(this.Type) + ": " + Name + ", Associated Occupations:" + OccupationIDs.Count;
         }
-        //public List<WorkActivity>
-
-
-        /*  public bool Equals(Skill other)
-          {
-              if (other.ElementID.Equals(ElementID))
-              {
-                  return true;
-              }
-              else
-              {
-                  return false;
-              }
-          }*/
     }
 
-    public class JobSkill
+    public class JobAttribute
     {
         public string Name { get; set; }
         public string ElementID { get; set; }
         public AttributeImportance Importance { get; set; }
         public AttributeLevel Level { get; set; }
+        public AttributeType Type { get; set; }
 
-        public JobSkill(string name, string id, AttributeImportance importance, AttributeLevel level)
+        public JobAttribute(string name, string id, AttributeImportance importance, AttributeLevel level, AttributeType type)
         {
             this.Name = name;
             this.ElementID = id;
             this.Importance = importance;
             this.Level = level;
+            this.Type = type;
+
         }
 
         public override string ToString()
         {
-            return "Skill: " + Name + ", Importance: " + Importance.Value + ", Level: " + Level.Value;
+            return getStringForAttributeType(this.Type) + ": " + Name + ", Importance: " + Importance.Value + ", Level: " + Level.Value;
         }
     }
 }

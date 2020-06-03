@@ -16,10 +16,9 @@
     <Import_RootNamespace>Analytics</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Ability.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Knowledge.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LevelImportance.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Occupation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Skill.cs" />
   </ItemGroup>
 </Project>

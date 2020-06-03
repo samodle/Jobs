@@ -11,9 +11,9 @@ namespace Analytics
         public string SOCCode { get; set; }
         public string Description { get; set; }
         public List<string> AlternateNames { get; set; }
-        public List<JobSkill> Skills { get; set; } = new List<JobSkill>();
-        public List<Knowledge> Knowledge { get; set; } = new List<Knowledge>();
-        public List<Ability> Abilities { get; set; } = new List<Ability>();
+        public List<JobAttribute> Skills { get; set; } = new List<JobAttribute>();
+        public List<JobAttribute> Knowledge { get; set; } = new List<JobAttribute>();
+        public List<JobAttribute> Abilities { get; set; } = new List<JobAttribute>();
 
         public Occupation(string name, string socCode, string descriptions)
         {

@@ -20,7 +20,7 @@ namespace DataPersistancy
             }
         }
 
-        public static void JSON_Export_SkillList(List<Skill> exportObject, string FileName, string FileType = ".txt")
+        public static void JSON_Export_SkillList(List<Attribute> exportObject, string FileName, string FileType = ".txt")
         {
             string jsonData = JsonConvert.SerializeObject(exportObject);
             string fileName = Publics.FILEPATHS.PATH_FORK_JSON + FileName + FileType;

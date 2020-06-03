@@ -32,8 +32,10 @@ namespace Windows_Desktop
         }
         public static class FILENAMES
         {
-            public const string FILE_OCCUPATIONS = "ForkOccupationList";
-            public const string FILE_SKILLS = "ForkSkillList";
+            public const string OCCUPATIONS = "ForkOccupationList";
+            public const string SKILLS = "ForkSkillList";
+            public const string ABILITIES = "ForkAbilityList";
+            public const string KNOWLEDGE = "ForkKnowledgeList";
         }
     }
 
