@@ -14,6 +14,7 @@ namespace Analytics
         public List<JobAttribute> Skills { get; set; } = new List<JobAttribute>();
         public List<JobAttribute> Knowledge { get; set; } = new List<JobAttribute>();
         public List<JobAttribute> Abilities { get; set; } = new List<JobAttribute>();
+        public JobZone Zone { get; set; }
 
         public Occupation(string name, string socCode, string descriptions)
         {
@@ -24,7 +25,7 @@ namespace Analytics
 
         public override string ToString()
         {
-            return "Occupation: " + Name + ", Associated Skills:" + Skills.Count;
+            return "Occupation: " + Name + ", Skills:" + Skills.Count + ", Knowledge: " + Knowledge.Count + ", Abilities:" + Abilities.Count;
         }
 
         /*   public bool Equals(Occupation other)

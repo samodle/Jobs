@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using Windows_Desktop;
+using Attribute = Analytics.Attribute;
 
 namespace DataPersistancy
 {
@@ -20,7 +21,7 @@ namespace DataPersistancy
             }
         }
 
-        public static void JSON_Export_SkillList(List<Attribute> exportObject, string FileName, string FileType = ".txt")
+        public static void Export_AttributeList(List<Attribute> exportObject, string FileName, string FileType = ".txt")
         {
             string jsonData = JsonConvert.SerializeObject(exportObject);
             string fileName = Publics.FILEPATHS.PATH_FORK_JSON + FileName + FileType;

@@ -6,6 +6,15 @@ namespace Analytics
 {
     public static class Constants
     {
+        public enum JobZone
+        {
+            One,
+            Two,
+            Three,
+            Four,
+            Five
+        }
+
         public enum AttributeType
         {
             Skill,

@@ -97,9 +97,9 @@ namespace DataPersistancy
 
             JSON_IO.JSON_Export_OccupationList(MasterOccupationList, Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + "2");
 
-            JSON_IO.JSON_Export_SkillList(MasterSkillList, Windows_Desktop.Publics.FILENAMES.SKILLS + "");
-            JSON_IO.JSON_Export_SkillList(MasterKnowledgeList, Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + "");
-            JSON_IO.JSON_Export_SkillList(MasterAbilityList, Windows_Desktop.Publics.FILENAMES.ABILITIES + "");
+            JSON_IO.Export_AttributeList(MasterSkillList, Windows_Desktop.Publics.FILENAMES.SKILLS + "");
+            JSON_IO.Export_AttributeList(MasterKnowledgeList, Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + "");
+            JSON_IO.Export_AttributeList(MasterAbilityList, Windows_Desktop.Publics.FILENAMES.ABILITIES + "");
         }
 
         private static void importAbility()
@@ -163,7 +163,7 @@ namespace DataPersistancy
                 AttributeLevel tmpLevel;
                 AttributeImportance tmpImportance;
 
-                if (csvTable.Rows[i][7] is System.DBNull)
+                if (csvTable.Rows[i][7] is System.DBNull || csvTable.Rows[i][9] is System.DBNull || csvTable.Rows[j][9] is System.DBNull)
                 {
                     tmpImportance = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: "N");
                     tmpLevel = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
@@ -180,7 +180,7 @@ namespace DataPersistancy
                 int occupationIndex = MasterOccupationList.FindIndex(p => p.SOCCode.Equals(occupationID));
 
                 JobAttribute tmpAttribute = new JobAttribute(elementName, elementID, tmpImportance, tmpLevel, Constants.AttributeType.Knowledge);
-                MasterOccupationList[occupationIndex].Abilities.Add(tmpAttribute);
+                MasterOccupationList[occupationIndex].Knowledge.Add(tmpAttribute);
 
                 int attributeIndex = MasterKnowledgeList.FindIndex(p => p.ElementID.Equals(elementID));
                 if (attributeIndex == -1)
