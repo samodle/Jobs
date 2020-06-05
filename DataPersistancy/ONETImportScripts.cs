@@ -47,6 +47,7 @@ namespace DataPersistancy
                 o.Skills = new List<JobAttribute>();
                 o.Abilities = new List<JobAttribute>();
                 o.Knowledge = new List<JobAttribute>();
+                o.AlternateNames = new List<string>();
             }
 
             var csvTable = new DataTable();
@@ -94,12 +95,57 @@ namespace DataPersistancy
 
             importAbility();
             importKnowledge();
+            importJobZones();
+            importAltOccNames();
 
             JSON_IO.JSON_Export_OccupationList(MasterOccupationList, Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + "2");
 
             JSON_IO.Export_AttributeList(MasterSkillList, Windows_Desktop.Publics.FILENAMES.SKILLS + "");
             JSON_IO.Export_AttributeList(MasterKnowledgeList, Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + "");
             JSON_IO.Export_AttributeList(MasterAbilityList, Windows_Desktop.Publics.FILENAMES.ABILITIES + "");
+        }
+        
+        private static void importAltOccNames() 
+        {
+            var csvTable = new DataTable();
+            using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(@"C:\Users\Sam\Desktop\Fork\db_24_3_excel\csv\Alternate Titles.csv")), true))
+            {
+                csvTable.Load(csvReader);
+            }
+
+            for (int i = 0; i < csvTable.Rows.Count; i ++)
+            {
+                string occupationID = csvTable.Rows[i][0].ToString();
+                int occupationIndex = MasterOccupationList.FindIndex(p => p.SOCCode.Equals(occupationID));
+                if (!(csvTable.Rows[i][2] is System.DBNull))
+                {
+                    MasterOccupationList[occupationIndex].AlternateNames.Add(csvTable.Rows[i][2].ToString());
+                }
+                if (!(csvTable.Rows[i][3] is System.DBNull))
+                {
+                    MasterOccupationList[occupationIndex].AlternateNames.Add(csvTable.Rows[i][3].ToString());
+                }
+
+            }
+        }
+
+        private static void importJobZones()
+        {
+            var csvTable = new DataTable();
+            using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(@"C:\Users\Sam\Desktop\Fork\db_24_3_excel\csv\Job Zones.csv")), true))
+            {
+                csvTable.Load(csvReader);
+            }
+
+            for (int i = 0; i < csvTable.Rows.Count; i++)
+            {
+                string occupationID = csvTable.Rows[i][0].ToString();
+                int occupationIndex = MasterOccupationList.FindIndex(p => p.SOCCode.Equals(occupationID));
+                if (!(csvTable.Rows[i][2] is System.DBNull))
+                {
+                    MasterOccupationList[occupationIndex].Zone = (Constants.JobZone)Convert.ToInt32(csvTable.Rows[i][2].ToString());
+                }
+            }
         }
 
         private static void importAbility()

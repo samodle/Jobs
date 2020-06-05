@@ -14,7 +14,7 @@ namespace Analytics
         public List<JobAttribute> Skills { get; set; } = new List<JobAttribute>();
         public List<JobAttribute> Knowledge { get; set; } = new List<JobAttribute>();
         public List<JobAttribute> Abilities { get; set; } = new List<JobAttribute>();
-        public JobZone Zone { get; set; }
+        public Constants.JobZone Zone { get; set; }
 
         public Occupation(string name, string socCode, string descriptions)
         {

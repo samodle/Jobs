@@ -12,7 +12,7 @@ namespace Analytics
         public string ElementID { get; set; }
         public List<string> OccupationIDs { get; set; } = new List<string>();
         public AttributeType Type { get; set; }
-        public bool isHot { get; set; }
+        //public bool isHot { get; set; }
 
         public Attribute(string name, string id, string occupationID, AttributeType type)
         {
@@ -24,7 +24,7 @@ namespace Analytics
 
         public override string ToString()
         {
-            return getStringForAttributeType(this.Type) + ": " + Name + ", Associated Occupations:" + OccupationIDs.Count;
+            return getStringForAttributeType(this.Type) + ": " + Name + ", Occupations:" + OccupationIDs.Count;
         }
     }
 

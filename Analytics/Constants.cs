@@ -8,11 +8,11 @@ namespace Analytics
     {
         public enum JobZone
         {
-            One,
-            Two,
-            Three,
-            Four,
-            Five
+            One = 1,
+            Two = 2,
+            Three = 3,
+            Four = 4, 
+            Five = 5
         }
 
         public enum AttributeType
