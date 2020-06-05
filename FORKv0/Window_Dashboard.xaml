@@ -93,7 +93,7 @@
             </Canvas>
 
             <!--MainMenuCanvas-->
-            <Canvas x:Name="MenuCanvas" Visibility="Hidden"
+            <Canvas x:Name="MenuCanvas" Visibility="Visible"
                     Margin="0,0,938,-4" RenderTransformOrigin="1,0"  Grid.ColumnSpan="2"
                     >
                 <Rectangle x:Name="MenuSplashRectangle"  Height="663" Width="1250" Fill="#FF1F1F1F" Opacity="0.5" MouseDown="CloseMenu"/>
@@ -105,12 +105,12 @@
 
                     <Canvas x:Name="Menu1"  Height="44"   Width="305"  MouseDown="ToggleShowHide_CanvasA" >
                         <Image x:Name="Menu1Image" Height="34" Width="54" Source="Images/LossCompass.png" Cursor="Hand"  Canvas.Left="5" Canvas.Top="2" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked"/>
-                        <Label x:Name="Menu1Label" Content="Occupation Compass" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
+                        <Label x:Name="Menu1Label" Content="Occupation Skill Data" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
                     </Canvas>
 
-                    <Canvas x:Name="Menu2"  Height="44" Canvas.Top="50" Width="305"  MouseDown="ToggleShowHide_CanvasB" Visibility="Hidden" >
-                        <Image x:Name="Menu2Image" Height="34" Width="42" Source="Images/Xsigma.png" Cursor="Hand"  Canvas.Left="10" Canvas.Top="3" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked"/>
-                        <Label x:Name="Menu2Label" Content="inControl" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
+                    <Canvas x:Name="Menu2"  Height="44" Canvas.Top="50" Width="305"  MouseDown="ToggleShowHide_CanvasB" Visibility="Visible" >
+                        <Image x:Name="Menu2Image" Height="34" Width="42" Source="Images/LossNetwork.png" Cursor="Hand"  Canvas.Left="10" Canvas.Top="3" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked"/>
+                        <Label x:Name="Menu2Label" Content="Adjacency Explorer" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
                     </Canvas>
 
                     <Canvas x:Name="Menu3"  Height="44" Canvas.Top="100" Width="305"  MouseDown="ToggleShowHide_CanvasC"  Visibility="Hidden" >
@@ -146,7 +146,7 @@
                 <Separator x:Name="MenuSeperator"  Height="11" Margin="0" Canvas.Top="593" Width="305" Background="#FFF0F0F0"/>
 
             </Canvas>
-            <Canvas x:Name="LaunchCanvas" Visibility="Visible"
+            <Canvas x:Name="LaunchCanvas" Visibility="Hidden"
                     Margin="4,0,-4,0" Background="White" 
                     >
                 <Viewbox Height="659" Width="1248" Stretch="UniformToFill" Canvas.Left="-5">

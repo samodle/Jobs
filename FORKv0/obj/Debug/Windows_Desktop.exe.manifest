@@ -210,14 +210,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Windows_Desktop.exe" size="1735168">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Windows_Desktop.exe" size="1736192">
       <assemblyIdentity name="Windows_Desktop" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UCKNWhrX481t3O0Ll2qgdyEMzqcuga0CvekG8SunGiU=</dsig:DigestValue>
+        <dsig:DigestValue>/7JqTDvJQ8ayoBl7AI4j9TaSF4JkBZbANZhrTRFXa3c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

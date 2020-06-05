@@ -33,11 +33,19 @@ namespace DataPersistancy
             }
         }
 
-        public static List<Occupation> JSON_Import_OccupationList(string fileName)
+        public static List<Occupation> Import_OccupationList(string fileName)
         {
             List<Occupation> tmpData;
             string rawJSONstring = File.ReadAllText(Publics.FILEPATHS.PATH_FORK_JSON + fileName);
             tmpData = JsonConvert.DeserializeObject<List<Occupation>>(rawJSONstring);
+            return tmpData;
+        }
+
+        public static List<Attribute> Import_AttributeList(string fileName)
+        {
+            List<Attribute> tmpData;
+            string rawJSONstring = File.ReadAllText(Publics.FILEPATHS.PATH_FORK_JSON + fileName);
+            tmpData = JsonConvert.DeserializeObject<List<Attribute>>(rawJSONstring);
             return tmpData;
         }
     }

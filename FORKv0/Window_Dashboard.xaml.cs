@@ -34,6 +34,8 @@ namespace Windows_Desktop
     public partial class dashboardwindow : Window
     {
         public int Menuitemclicked_number = -1;
+        public ONETReport ForkReport { get; set; }
+        private bool initComplete = false;
 
         public void fork_onload(object sender, RoutedEventArgs e)
         {
@@ -43,6 +45,19 @@ namespace Windows_Desktop
 
             MakeLaunchReady();
             ManageScreenResolution();
+
+            Thread onetThread = new Thread(setONETReport);
+            onetThread.Start();
+        }
+
+        private void setONETReport()
+        {
+            ForkReport = new ONETReport();
+            ForkReport.MasterOccupationList = JSON_IO.Import_OccupationList(Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + ".txt");
+            ForkReport.MasterSkillList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.SKILLS + ".txt");
+            ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.ABILITIES + ".txt");
+            ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + ".txt");
+            initComplete = true;
         }
 
         public void do_analyze(object sender, RoutedEventArgs e)
@@ -50,9 +65,6 @@ namespace Windows_Desktop
             HideAllDashboards();
             ContentCanvasA.Visibility = Visibility.Visible;
             LaunchCanvas.Visibility = Visibility.Hidden;
-
-            //ONETImportScripts.ONET_importRawOccupations();
-            ONETImportScripts.ONET_importOccupations();
         }
 
         public void ManageScreenResolution()     // To make it fit for use on any screen - maximize the program if screen resolution of device is less than a threshold, to make the UI legible

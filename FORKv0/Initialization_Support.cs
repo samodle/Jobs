@@ -10,6 +10,7 @@ namespace Windows_Desktop
         {
             createFolder(Publics.FILEPATHS.PATH_FORK);
             createFolder(Publics.FILEPATHS.PATH_FORK_JSON);
+            createFolder(Publics.FILEPATHS.PATH_FORK_HTML);
         }
         private static void createFolder(string folderName)
         {
@@ -29,6 +30,7 @@ namespace Windows_Desktop
         {
             public const string PATH_FORK = "C:\\Users\\Public\\Public_fork\\";
             public const string PATH_FORK_JSON = PATH_FORK + "Common\\";
+            public const string PATH_FORK_HTML = PATH_FORK + "html\\";
         }
         public static class FILENAMES
         {

@@ -41,7 +41,7 @@ namespace DataPersistancy
         //create skills, add them to the occupations
         public static void ONET_importOccupations()
         {
-            MasterOccupationList = JSON_IO.JSON_Import_OccupationList(Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + ".txt");
+            MasterOccupationList = JSON_IO.Import_OccupationList(Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + ".txt");
             foreach (Occupation o in MasterOccupationList)
             {
                 o.Skills = new List<JobAttribute>();
