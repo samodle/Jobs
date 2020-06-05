@@ -61,39 +61,81 @@
 
     <Viewbox x:Name="MainViewBox" Stretch="Fill">
         <Grid>
-            <Canvas x:Name="DashboardContentCanvas" Margin="0,62,-4,0" Background="#FFF0F0F0" Visibility="Hidden">
+            <Canvas x:Name="DashboardContentCanvas" Margin="0,62,-4,0" Background="#FFF0F0F0" Visibility="Visible">
                 <!--A Canvas-->
-                <Canvas x:Name="ContentCanvasA" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasA" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
+ 
                 </Canvas>
 
                 <!--B Canvas-->
                 <Canvas x:Name="ContentCanvasB" Visibility="Visible"
                         Height="597" Width="1239" Background="White">
 
+                    <Canvas x:Name="MainBChartCanvas"  Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
+                        <Rectangle Fill="White" Height="512" Canvas.Top="1" Width="1219">
+                            <Rectangle.Effect>
+                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+
+
+                        <Canvas x:Name="BHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
+                            <Label x:Name="CanvasBHeaderLabel1" Content="Skill Graph" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader1Clicked" Canvas.Left="31"/>
+                            <Label x:Name="CanvasBHeaderLabel2" Content="Ability Graph" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="192" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader2Clicked"/>
+                            <Label x:Name="CanvasBHeaderLabel3" Content="Combined Graph" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="356" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader3Clicked"/>
+
+                            <Rectangle x:Name="CanvasBSelectionBar1"  Fill="#FF2FE7F9" Height="2" Canvas.Left="69" Canvas.Top="39" Width="95"/>
+                            <Rectangle x:Name="CanvasBSelectionBar2"  Fill="#FF2FE7F9" Height="2" Canvas.Left="230" Canvas.Top="39" Width="95" Visibility="Hidden"/>
+                            <Rectangle x:Name="CanvasBSelectionBar3"  Fill="#FF2FE7F9" Height="2" Canvas.Left="393" Canvas.Top="39" Width="100" Visibility="Hidden"/>
+                            <Image Height="41" Width="51" Source="Images/LossNetwork.png" Canvas.Top="4"/>
+                        </Canvas>
+
+                        <!-- Skill -->
+                        <Canvas x:Name="B1Canvas" Visibility="Visible" 
+                                Height="521" Canvas.Left="3" Width="1216"  >
+
+                          
+
+                        </Canvas>
+                        
+                        <!-- Ability -->
+                        <Canvas x:Name="B2Canvas" Visibility="Hidden" 
+                                Height="521" Canvas.Left="3" Width="1216"  >
+
+
+
+                        </Canvas>
+                        <!-- Combined -->
+                        <Canvas x:Name="B3Canvas" Visibility="Hidden" 
+                                Height="521" Canvas.Left="3" Width="1216"  >
+
+
+
+                        </Canvas>
+                    </Canvas>
+
+
                 </Canvas>
 
                 <!--C Canvas-->
-                <Canvas x:Name="ContentCanvasC" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasC" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
                 </Canvas>
 
             </Canvas>
 
-            <Canvas x:Name="StatusBarCanvas" Margin="0,656,0,3" Visibility="Hidden" Grid.ColumnSpan="2">
-            </Canvas>
-
             <Canvas x:Name="MainSeparatorCanvas"  HorizontalAlignment="Left" Height="3" Margin="-3,60,-4,0" VerticalAlignment="Top" Width="1250" Background="#FFF0F0F0" Grid.ColumnSpan="2"/>
             <Canvas x:Name="Header" Margin="0,0,0,616" Background="White" Grid.ColumnSpan="2">
-                <Label x:Name="LineNameLabel" Content="Job Title" Canvas.Left="245" Canvas.Top="10" Height="40" Width="274" VerticalContentAlignment="Center" Padding="2" FontFamily="Microsoft Sans Serif" FontSize="18.667" Foreground="#FF666666" Cursor="Hand"/>
+                <Label x:Name="HeaderTitleLabel" Content="--- --- --- ---" Canvas.Left="245" Canvas.Top="10" Height="40" Width="274" VerticalContentAlignment="Center" Padding="2" FontFamily="Microsoft Sans Serif" FontSize="18.667" Foreground="#FF666666" Cursor="Hand"/>
                 <Image x:Name="MenuLaunchIcon" Height="13" Canvas.Left="15" Canvas.Top="24" Width="24" Source="Images/MenuiconMain.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
                 <Canvas x:Name="HeaderKPIcanvas"  Height="43" Canvas.Left="514" Canvas.Top="8" Width="547"/>
             </Canvas>
 
             <!--MainMenuCanvas-->
-            <Canvas x:Name="MenuCanvas" Visibility="Visible"
+            <Canvas x:Name="MenuCanvas" Visibility="Hidden"
                     Margin="0,0,938,-4" RenderTransformOrigin="1,0"  Grid.ColumnSpan="2"
                     >
                 <Rectangle x:Name="MenuSplashRectangle"  Height="663" Width="1250" Fill="#FF1F1F1F" Opacity="0.5" MouseDown="CloseMenu"/>

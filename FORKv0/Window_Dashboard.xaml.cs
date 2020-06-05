@@ -250,7 +250,46 @@ namespace Windows_Desktop
         }
         #endregion
 
-        #region "Mouse Move/Leave/Down"
+        #region Canvas A - Skill Chart
+
+        #endregion
+
+        #region Canvas B - Network
+        public void CanvasBHeader1Clicked(object sender, MouseButtonEventArgs e)
+        {
+            B1Canvas.Visibility = Visibility.Visible;
+            B2Canvas.Visibility = Visibility.Hidden;
+            B3Canvas.Visibility = Visibility.Hidden;
+            CanvasBSelectionBar1.Visibility = Visibility.Visible;
+            CanvasBSelectionBar2.Visibility = Visibility.Hidden;
+            CanvasBSelectionBar3.Visibility = Visibility.Hidden;
+            AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasBSelectionBar1);
+
+        }
+        public void CanvasBHeader2Clicked(object sender, MouseButtonEventArgs e)
+        {
+            B2Canvas.Visibility = Visibility.Visible;
+            B1Canvas.Visibility = Visibility.Hidden;
+            B3Canvas.Visibility = Visibility.Hidden;
+            CanvasBSelectionBar2.Visibility = Visibility.Visible;
+            CanvasBSelectionBar1.Visibility = Visibility.Hidden;
+            CanvasBSelectionBar3.Visibility = Visibility.Hidden;
+            AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasBSelectionBar2);
+
+        }
+        public void CanvasBHeader3Clicked(object sender, MouseButtonEventArgs e)
+        {
+            B3Canvas.Visibility = Visibility.Visible;
+            B1Canvas.Visibility = Visibility.Hidden;
+            B2Canvas.Visibility = Visibility.Hidden;
+            CanvasBSelectionBar3.Visibility = Visibility.Visible;
+            CanvasBSelectionBar1.Visibility = Visibility.Hidden;
+            CanvasBSelectionBar2.Visibility = Visibility.Hidden;
+            AnimateZoomUIElement(0, 100, 0.2, WidthProperty, CanvasBSelectionBar3);
+        }
+        #endregion
+
+        #region Mouse Move/Leave/Down
         private void Generalmousemove(object sender, EventArgs e)
         {
             if (sender.GetType().ToString().EndsWith("Image"))
@@ -294,25 +333,27 @@ namespace Windows_Desktop
             if (ContentCanvasA.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
+                HeaderTitleLabel.Content = "Occupation Skills Data";
                 ContentCanvasA.Visibility = Visibility.Visible;
             }
         }
 
         public void ToggleShowHide_CanvasB(object sender, MouseButtonEventArgs e)
         {
-            if (ContentCanvasA.Visibility != Visibility.Visible)
+            if (ContentCanvasB.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                ContentCanvasA.Visibility = Visibility.Visible;
+                HeaderTitleLabel.Content = "Adjacency Explorer";
+                ContentCanvasB.Visibility = Visibility.Visible;
             }
         }
 
         public void ToggleShowHide_CanvasC(object sender, MouseButtonEventArgs e)
         {
-            if (ContentCanvasA.Visibility != Visibility.Visible)
+            if (ContentCanvasC.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                ContentCanvasA.Visibility = Visibility.Visible;
+                ContentCanvasC.Visibility = Visibility.Visible;
             }
         }
 
