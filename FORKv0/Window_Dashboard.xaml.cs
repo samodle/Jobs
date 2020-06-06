@@ -35,7 +35,9 @@ namespace Windows_Desktop
     {
         public int Menuitemclicked_number = -1;
         public ONETReport ForkReport { get; set; }
+        public List<string> OccupationNames { get; set; }
         private bool initComplete = false;
+
 
         public void fork_onload(object sender, RoutedEventArgs e)
         {
@@ -48,6 +50,9 @@ namespace Windows_Desktop
 
             Thread onetThread = new Thread(setONETReport);
             onetThread.Start();
+            //  B1WebBrowser.Navigate("file:///C:/Users/Sam/Downloads/d3-force-directed-graph-master/d3-force-directed-graph-master/example/3-user-interaction.html");
+            B2WebBrowser.Navigate("https://developers.google.com/chart/interactive/docs/gallery/columnchart#examples");
+            B3WebBrowser.Navigate("http://projects.flowingdata.com/tut/interactive_network_demo/");
         }
 
         private void setONETReport()
@@ -57,14 +62,16 @@ namespace Windows_Desktop
             ForkReport.MasterSkillList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.SKILLS + ".txt");
             ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.ABILITIES + ".txt");
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + ".txt");
+            OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList();
             initComplete = true;
         }
 
         public void do_analyze(object sender, RoutedEventArgs e)
         {
-            HideAllDashboards();
-            ContentCanvasA.Visibility = Visibility.Visible;
             LaunchCanvas.Visibility = Visibility.Hidden;
+            while (!initComplete) { Thread.Sleep(500); }
+            CanvasA_init();
+            ToggleShowHide_CanvasA(sender, Publics.f);
         }
 
         public void ManageScreenResolution()     // To make it fit for use on any screen - maximize the program if screen resolution of device is less than a threshold, to make the UI legible
@@ -251,6 +258,142 @@ namespace Windows_Desktop
         #endregion
 
         #region Canvas A - Skill Chart
+        public void CanvasA_init()
+        {
+            CanvasA1PopulateComboBox();
+            CanvasA1_PopulateAutoCompleteList();
+
+            CanvasA1ListBox.ItemsSource = null;
+            CanvasA1ListBox.ItemsSource = OccupationNames;
+        }
+
+        public List<string> A1ListofSelectedOccupations = new List<string>();
+        private Analytics.Constants.AttributeType A1_selctedAttribute = Analytics.Constants.AttributeType.Skill;
+
+        private void CanvasA1PopulateComboBox()
+        {
+            CanvasA1ComboBox.ItemsSource = new List<string>(new string[] { Analytics.Constants.getStringForAttributeType(Analytics.Constants.AttributeType.Skill), Analytics.Constants.getStringForAttributeType(Analytics.Constants.AttributeType.Knowledge), Analytics.Constants.getStringForAttributeType(Analytics.Constants.AttributeType.Ability) });
+            CanvasA1ComboBox.SelectedItem = Analytics.Constants.getStringForAttributeType(Analytics.Constants.AttributeType.Skill);
+        }
+
+
+        public void CanvasA1ComboBoxSelected(object sender, RoutedEventArgs e)
+        {
+            A1_selctedAttribute = Analytics.Constants.GetAttributeTypeFromString(CanvasA1ComboBox.SelectedItem.ToString());
+            A1_RefreshChart();
+        }
+
+
+        private void CanvasA_ChartTrackBallBehavior_TrackInfoUpdated(object sender, TrackBallInfoEventArgs e)
+        {
+            var tmpString = "";
+            foreach (DataPointInfo info in e.Context.DataPointInfos)
+            {
+                // info.DisplayHeader = "Custom data point header";
+                tmpString += info.DataPoint.Label + Environment.NewLine;
+            }
+
+            e.Header = tmpString;
+        }
+
+        public void CanvasA1ListBoxSelected(object sender, RoutedEventArgs e)
+        {
+            //First clear the list
+            A1ListofSelectedOccupations.Clear();
+
+            //populate the list from listbox selecteditems
+            for (int i = 0; i < CanvasA1ListBox.SelectedItems.Count; i++)
+            {
+                A1ListofSelectedOccupations.Add(CanvasA1ListBox.SelectedItems[i].ToString());
+            }
+
+            //Generate charts
+            A1_RefreshChart();
+        }
+
+        private void A1_RefreshChart()
+        {
+            var blankDataTemplate = new DataTemplate("");
+            CanvasA1Chart.Series.Clear();
+            CanvasA1Chart.Palette = Trends_defaultChartColors();
+
+            //axis stuff
+            CanvasA1Chart.VerticalAxis = new LinearAxis();
+            var secondaryVAxis = new LinearAxis();
+            secondaryVAxis.HorizontalLocation = AxisHorizontalLocation.Right;
+
+            //find axis titles
+            string AxisTitle1 = "Importance";
+            string AxisTitle2 = "Level";
+
+            //find selected items & indices
+            var selectedOccupationName = new List<string>();
+            var selectedOccupationIndeces = new List<int>();
+
+            for (int i = 0; i < CanvasA1ListBox.SelectedItems.Count; i++)
+            {
+                selectedOccupationName.Add(CanvasA1ListBox.SelectedItems[i].ToString());
+                selectedOccupationIndeces.Add(OccupationNames.IndexOf(CanvasA1ListBox.SelectedItems[i].ToString()));
+            }
+
+            CanvasA1Chart.VerticalAxis.Title = AxisTitle1;
+            secondaryVAxis.Title = AxisTitle2;
+
+            //for each occupation...
+            for (int occupationInc = 0; occupationInc < selectedOccupationIndeces.Count; occupationInc++)
+            {
+                int occupationIndex = selectedOccupationIndeces[occupationInc];
+                var tmpAttributeList = ForkReport.MasterOccupationList[occupationIndex].getAttributesByType(A1_selctedAttribute);
+
+                //get series type right
+                CategoricalSeries newSeriesA = new BarSeries();
+                CategoricalSeries newSeriesB = new BarSeries();
+                //for each attribute
+                for (int attributeInc = 0; attributeInc < tmpAttributeList.Count; attributeInc++)
+                {
+                    string labelIntroStringA = selectedOccupationName[occupationInc] + " " + tmpAttributeList[attributeInc].Name + " " + Analytics.Constants.getStringForAttributeType(A1_selctedAttribute) + " Importance: ";
+                    double valueA = tmpAttributeList[attributeInc].Importance.Value;
+                    newSeriesA.DataPoints.Add(new CategoricalDataPoint { Value = valueA, Category = tmpAttributeList[attributeInc].Name, Label = labelIntroStringA + Math.Round(valueA, 1) });
+
+                    string labelIntroStringB = selectedOccupationName[occupationInc] + " " + tmpAttributeList[attributeInc].Name + " " + Analytics.Constants.getStringForAttributeType(A1_selctedAttribute) + " Level: ";
+                    double valueB = tmpAttributeList[attributeInc].Level.Value;
+                    newSeriesB.DataPoints.Add(new CategoricalDataPoint { Value = valueB, Category = tmpAttributeList[attributeInc].Name, Label = labelIntroStringB + Math.Round(valueB, 1) });
+                }
+                newSeriesB.VerticalAxis = secondaryVAxis;
+                //wrap it up
+                newSeriesA.TrackBallInfoTemplate = blankDataTemplate;
+                CanvasA1Chart.Series.Add(newSeriesA);
+                newSeriesB.TrackBallInfoTemplate = blankDataTemplate;
+                CanvasA1Chart.Series.Add(newSeriesB);
+            }
+            CanvasA1Chart.HorizontalAxis.LabelInterval = 1;
+            CanvasA1Chart.HorizontalAxis.LabelFitMode = Telerik.Charting.AxisLabelFitMode.Rotate;
+        }
+
+
+        public void CanvasA1_AutoCompleteBoxSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            List<int> TempselecteditemsinListBox = new List<int>();
+            if (CanvasA1_AutoCompleteBox.SelectedItem != null)
+            {
+                if (OccupationNames.IndexOf(CanvasA1_AutoCompleteBox.SelectedItem.ToString()) != -1)
+                {
+                    CanvasA1ListBox.SelectedIndex = OccupationNames.IndexOf(CanvasA1_AutoCompleteBox.SelectedItem.ToString());
+                }
+            }
+        }
+        private ObservableCollection<String> CanvasA1_OccupationList = new ObservableCollection<string>();
+        public void CanvasA1_PopulateAutoCompleteList()
+        {
+            CanvasA1_AutoCompleteBox.SearchText = "";
+            CanvasA1_OccupationList.Clear();
+
+            for (int j = 0; j < OccupationNames.Count; j++)
+            {
+                CanvasA1_OccupationList.Add(OccupationNames[j]);
+            }
+            CanvasA1_AutoCompleteBox.ItemsSource = OccupationNames;
+        }
 
         #endregion
 
@@ -868,7 +1011,7 @@ namespace Windows_Desktop
         #endregion
 
         #region Telerik
-     
+
         #region Telerik Chart Palettes
         private string Color_HexFromPaletteEntry(ChartPalette palette, int I)
         {
@@ -900,6 +1043,34 @@ namespace Windows_Desktop
         }
 
         public ChartPalette Trends_defaultChartColors()
+        {
+            var tmp = new ChartPalette();
+            addPaletteEntry(ref tmp, 50, 205, 240);
+            addPaletteEntry(ref tmp, 50, 205, 240);
+            addPaletteEntry(ref tmp, 254, 118, 58);
+            addPaletteEntry(ref tmp, 254, 118, 58);
+            addPaletteEntry(ref tmp, 153, 192, 73);
+            addPaletteEntry(ref tmp, 153, 192, 73);
+            addPaletteEntry(ref tmp, 1, 149, 159);
+            addPaletteEntry(ref tmp, 1, 149, 159);
+            addPaletteEntry(ref tmp, 115, 127, 65);
+            addPaletteEntry(ref tmp, 115, 127, 65);
+            addPaletteEntry(ref tmp, 119, 199, 198);
+            addPaletteEntry(ref tmp, 119, 199, 198);
+            addPaletteEntry(ref tmp, 189, 171, 210);
+            addPaletteEntry(ref tmp, 189, 171, 210);
+            addPaletteEntry(ref tmp, 76, 74, 75);
+            addPaletteEntry(ref tmp, 76, 74, 75);
+            addPaletteEntry(ref tmp, 255, 175, 2);
+            addPaletteEntry(ref tmp, 255, 175, 2);
+            addPaletteEntry(ref tmp, 150, 76, 143);
+            addPaletteEntry(ref tmp, 150, 76, 143);
+            addPaletteEntry(ref tmp, 18, 135, 170);
+            addPaletteEntry(ref tmp, 18, 135, 170);
+            return tmp;
+        }
+
+        public ChartPalette Trends_defaultChartColors_Legacy()
         {
             var tmp = new ChartPalette();
             addPaletteEntry(ref tmp, 50, 205, 240);
@@ -980,19 +1151,6 @@ namespace Windows_Desktop
             addPaletteEntry(ref tmp, 100, 100, 100);
             addPaletteEntry(ref tmp, 255, 124, 128);
             return tmp;
-        }
-
-        public ChartPalette RuntimeChart_getChartColors()
-        {
-            /*  var tmp = new ChartPalette();
-              addPaletteEntry(ref tmp, 0, 0, 0);
-              addPaletteEntry(ref tmp, 255, 124, 128);
-              addPaletteEntry(ref tmp, 124, 255, 128);
-              addPaletteEntry(ref tmp, 124, 100, 128);
-              addPaletteEntry(ref tmp, 124, 255, 255);
-              return tmp; */
-
-            return Trends_defaultChartColors();
         }
         public ChartPalette FunnelChart_getChartColors()
         {

@@ -54,6 +54,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.Toolkit.Wpf.UI.Controls.WebView.dll" size="138272">
+      <assemblyIdentity name="Microsoft.Toolkit.Wpf.UI.Controls.WebView" version="6.0.0.0" publicKeyToken="4AFF67A105548EE2" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Q/UKbpD1k52SUWH2ctrZT/ocV3x9Ob1cuSdNeu5gcRU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="700336">
       <assemblyIdentity name="Newtonsoft.Json" version="12.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -210,14 +222,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Windows_Desktop.exe" size="1739776">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Windows_Desktop.exe" size="1741824">
       <assemblyIdentity name="Windows_Desktop" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5+1ZI4n3lRkHIRztl93t/zbpO954jile+81TsTxmUjU=</dsig:DigestValue>
+        <dsig:DigestValue>KqIR734fGRBelGf8xkuMQfQmMC3zMjivoBWSeWTyTfQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -239,13 +251,13 @@
       <dsig:DigestValue>2hN7q92Oy+OQW3A8x2z7zcxruHKAWTcnUr0uWYnkI2o=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Windows_Desktop.exe.config" size="822">
+  <file name="Windows_Desktop.exe.config" size="231">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Pb8Yse/lq4fMy9nmMeeyy3CQChHkxSTTuor0a46NR2o=</dsig:DigestValue>
+      <dsig:DigestValue>Y4CkCBLUEFqIaEP/tFJ1cFpBLvrN3cRo8HAUKzOAr+A=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

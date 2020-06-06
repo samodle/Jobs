@@ -4,17 +4,17 @@
   <description asmv2:publisher="Windows_Desktop" asmv2:product="Windows_Desktop" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Windows_Desktop.exe.manifest" size="14347">
+    <dependentAssembly dependencyType="install" codebase="Windows_Desktop.exe.manifest" size="15082">
       <assemblyIdentity name="Windows_Desktop.exe" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>K+yNXEQMIfWve2+RrMZgMIYp/7V992VOuQijZUiZdEY=</dsig:DigestValue>
+        <dsig:DigestValue>y7PRIHWaGaMs27oLF3vikyAAGufaNXQFMGx4DdbEvXU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

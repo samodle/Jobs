@@ -202,13 +202,6 @@ C:\Users\Sam\Desktop\Fork\ForkWPF\FORKv0\obj\Debug\Windows_Desktop.csproj.CopyCo
 C:\Users\Sam\Desktop\Fork\ForkWPF\FORKv0\obj\Debug\Windows_Desktop.exe
 C:\Users\Sam\Desktop\Fork\ForkWPF\FORKv0\obj\Debug\Windows_Desktop.pdb
 C:\Users\Sam\Desktop\Fork\ForkWPF\FORKv0\obj\Debug\Windows_Desktop.csprojAssemblyReference.cache
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Window_Dashboard.g.cs
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\App.g.cs
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop_Content.g.cs
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop_MarkupCompile.cache
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop_MarkupCompile.lref
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.exe
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.pdb
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Images\lens.png
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Images\dragIconRoundBig.png
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Windows_Desktop.exe.config
@@ -216,6 +209,9 @@ C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Windows_Desktop.exe.manifes
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Windows_Desktop.application
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Windows_Desktop.exe
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Windows_Desktop.pdb
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\LumenWorks.Framework.IO.dll
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Microsoft.Toolkit.Wpf.UI.Controls.WebView.dll
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Microsoft.Toolkit.Wpf.UI.Controls.WebView.pdb
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Telerik.Windows.Controls.Chart.dll
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Telerik.Windows.Controls.DataVisualization.dll
@@ -235,6 +231,12 @@ C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\fr\Telerik.Windows.Controls
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\it\Telerik.Windows.Controls.resources.dll
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\nl\Telerik.Windows.Controls.resources.dll
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\tr\Telerik.Windows.Controls.resources.dll
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.csprojAssemblyReference.cache
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Window_Dashboard.g.cs
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\App.g.cs
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop_Content.g.cs
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop_MarkupCompile.cache
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop_MarkupCompile.lref
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Window_Dashboard.baml
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.g.resources
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.Properties.Resources.resources
@@ -244,7 +246,5 @@ C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.csproj.Core
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.exe.manifest
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.application
 C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.csproj.CopyComplete
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\LumenWorks.Framework.IO.dll
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\LumenWorks.Framework.IO.xml
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.csprojAssemblyReference.cache
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.exe
+C:\Users\Sam\Desktop\Fork\ForkWPFv2\FORKv0\obj\Debug\Windows_Desktop.pdb

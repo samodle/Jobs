@@ -1,13 +1,13 @@
-﻿<Window
+﻿<Window xmlns:Controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Windows_Desktop" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Windows_Desktop"
-      
         xmlns:s="clr-namespace:System.Collections;assembly=mscorlib"
         xmlns:p="clr-namespace:System;assembly=mscorlib"
-        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"        
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+        xmlns:Controls1="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
         x:Class="Windows_Desktop.dashboardwindow"
         mc:Ignorable="d"
         Loaded="fork_onload"      
@@ -63,14 +63,81 @@
         <Grid>
             <Canvas x:Name="DashboardContentCanvas" Margin="0,62,-4,0" Background="#FFF0F0F0" Visibility="Visible">
                 <!--A Canvas-->
-                <Canvas x:Name="ContentCanvasA" Visibility="Hidden"
+                <Canvas x:Name="ContentCanvasA" Visibility="Visible"
                         Height="597" Width="1239" Background="White">
 
- 
+                    <Canvas Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
+                        <Rectangle Fill="White" Height="512" Canvas.Top="1" Width="1219">
+                            <Rectangle.Effect>
+                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+
+                        <Canvas x:Name="AHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
+                            <Label  Content="Skill Breakdown By Occupation" Canvas.Top="7" Width="349" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="31"/>
+                            <Image Height="41" Width="51" Source="Images/LossCompass.png" Canvas.Top="4"/>
+                        </Canvas>
+
+                        <!-- Graph Area -->
+                        <Canvas x:Name="A1Canvas" Visibility="Visible" 
+                                Height="521" Canvas.Left="3" Width="1216"  >
+                            <Canvas x:Name="CanvasA1_ChartContainer" Height="391" Width="934" Canvas.Left="10" Canvas.Top="101">
+                                <telerik:RadCartesianChart x:Name="CanvasA1Chart" 
+                            		Height="391" Width="933" Canvas.Left="1">
+
+                                    <telerik:RadCartesianChart.TrackBallInfoStyle>
+                                        <Style TargetType="{x:Type telerik:TrackBallInfoControl}">
+
+                                            <Setter Property="HeaderTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding}"
+                                                        FontSize="11"
+                                                        Foreground="Black"/>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </telerik:RadCartesianChart.TrackBallInfoStyle>
+
+                                    <telerik:RadCartesianChart.Behaviors>
+                                        <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" PanMode="Horizontal"/>
+                                        <telerik:ChartTrackBallBehavior ShowTrackInfo="True"
+                                           ShowIntersectionPoints="True"
+                                           TrackInfoUpdated="CanvasA_ChartTrackBallBehavior_TrackInfoUpdated"/>
+                                    </telerik:RadCartesianChart.Behaviors>
+
+                                    <telerik:RadCartesianChart.HorizontalAxis>
+                                        <telerik:CategoricalAxis MajorTickStyle="{StaticResource TransparentTickStyle}" />
+                                    </telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:RadCartesianChart.VerticalAxis>
+                                        <telerik:LinearAxis/>
+                                    </telerik:RadCartesianChart.VerticalAxis>
+
+                                </telerik:RadCartesianChart>
+                                </Canvas>
+                            <Canvas Height="472" Width="268" Canvas.Left="944" Canvas.Top="10">
+                                 <ListBox x:Name="CanvasA1ListBox" Height="335" Canvas.Left="5" Canvas.Top="127" Width="258" Foreground="#FF575757" BorderBrush="#FFD1D1D1" FontSize="13.333" SelectionChanged="CanvasA1ListBoxSelected" SelectionMode="Multiple"/>
+
+                                <ComboBox x:Name="CanvasA1ComboBox" Canvas.Left="5" Canvas.Top="93" Width="258" Height="27" Background="#FFFBFBFB" BorderBrush="#FFD4D4D4" Foreground="#FF646464" SelectionChanged="CanvasA1ComboBoxSelected" FontSize="13.333" Padding="2" VerticalContentAlignment="Center"/>
+                                <Label Content="OR pick a profession from the list" Canvas.Top="73" Width="258" Foreground="#FF6C6C6C" FontSize="9.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2" Canvas.Left="5"/>
+                                <telerik:RadAutoCompleteBox WatermarkContent="Search a profession"
+											 x:Name="CanvasA1_AutoCompleteBox"
+											 TextSearchMode="Contains"
+											 AutoCompleteMode="Suggest"
+											 SelectionMode="Single"
+											 
+											  BorderBrush="#FF25A0DA" BorderThickness="1"
+											 
+                                             SelectionChanged="CanvasA1_AutoCompleteBoxSelectionChanged" Width="258" Canvas.Left="5" Canvas.Top="45"/>
+
+                            </Canvas>
+                        </Canvas>
+                    </Canvas>
                 </Canvas>
 
                 <!--B Canvas-->
-                <Canvas x:Name="ContentCanvasB" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasB" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
@@ -95,7 +162,7 @@
                         <!-- Skill -->
                         <Canvas x:Name="B1Canvas" Visibility="Visible" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-
+                            <Controls1:WebView x:Name="B1WebBrowser" Height="521"  Width="1216"  />
                           
 
                         </Canvas>
@@ -103,14 +170,14 @@
                         <!-- Ability -->
                         <Canvas x:Name="B2Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-
+                            <Controls1:WebView x:Name="B2WebBrowser" Height="521"  Width="1216"  />
 
 
                         </Canvas>
                         <!-- Combined -->
                         <Canvas x:Name="B3Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-
+                            <Controls1:WebView x:Name="B3WebBrowser" Height="521"  Width="1216"  />
 
 
                         </Canvas>

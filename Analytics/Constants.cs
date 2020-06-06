@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Windows.Media.Streaming.Adaptive;
 
 namespace Analytics
 {
@@ -34,6 +35,21 @@ namespace Analytics
                     return "Skill";
                 default:
                     return "Unknown";
+            }
+        }
+
+        public static AttributeType GetAttributeTypeFromString(string s)
+        {
+            switch (s)
+            {
+                case "Ability":
+                    return AttributeType.Ability;
+                case "Knowledge":
+                    return AttributeType.Knowledge;
+                case "Skill":
+                    return AttributeType.Skill;
+                default:
+                    return AttributeType.Skill;
             }
         }
     }

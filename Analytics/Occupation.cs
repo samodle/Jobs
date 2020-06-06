@@ -25,7 +25,22 @@ namespace Analytics
 
         public override string ToString()
         {
-            return "Occupation: " + Name + ", Skills:" + Skills.Count + ", Knowledge: " + Knowledge.Count + ", Abilities:" + Abilities.Count;
+            return Name + ", Skills:" + Skills.Count + ", Knowledge: " + Knowledge.Count + ", Abilities:" + Abilities.Count;
+        }
+
+        public List<JobAttribute> getAttributesByType(Constants.AttributeType type)
+        {
+            switch (type)
+            {
+                case Constants.AttributeType.Ability:
+                    return Abilities;
+                case Constants.AttributeType.Knowledge:
+                    return Knowledge;
+                case Constants.AttributeType.Skill:
+                    return Skills;
+                default:
+                    return new List<JobAttribute>();
+            }
         }
 
         /*   public bool Equals(Occupation other)
