@@ -42,6 +42,78 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EO.Base.dll" size="5684936">
+      <assemblyIdentity name="EO.Base" version="20.1.45.0" publicKeyToken="E92353A6BF73FFFC" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>uSnlhCMyJAOSyj2X1F0OUCZy8JW3bNK5y7enpbEBG/o=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EO.Web.dll" size="4963528">
+      <assemblyIdentity name="EO.Web" version="20.1.45.0" publicKeyToken="E92353A6BF73FFFC" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>l79s1TL8vMRt+BL3ebXlqBR+d16GGSCptS33s+m7yaQ=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EO.WebBrowser.dll" size="505544">
+      <assemblyIdentity name="EO.WebBrowser" version="20.1.45.0" publicKeyToken="E92353A6BF73FFFC" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>HluX7BdsLAKpHiLSBwfB/mz3jqFocLDoqFjfIndNB9M=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EO.WebBrowser.Wpf.dll" size="33480">
+      <assemblyIdentity name="EO.WebBrowser.Wpf" version="20.1.45.0" publicKeyToken="E92353A6BF73FFFC" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>Cc7mqU56Cs3CAELhfb6DU+brHQZMc8zn0OJTaZK0ZDw=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EO.WebEngine.dll" size="67896520">
+      <assemblyIdentity name="EO.WebEngine" version="20.1.45.0" publicKeyToken="E92353A6BF73FFFC" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>1S8AkqfoF3WOTXXjNvG/eTEe1ylzjePqSCpkfSSLGzo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EO.Wpf.dll" size="2601160">
+      <assemblyIdentity name="EO.Wpf" version="20.1.45.0" publicKeyToken="E92353A6BF73FFFC" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>nkTGNPqMGaX+CTHGwKKE+t2YOr5CBp2pEGZZ7u2e6E0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LumenWorks.Framework.IO.dll" size="37376">
       <assemblyIdentity name="LumenWorks.Framework.IO" version="3.8.0.0" publicKeyToken="5AD3EA2F85776344" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -222,14 +294,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Windows_Desktop.exe" size="1741824">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Windows_Desktop.exe" size="1753088">
       <assemblyIdentity name="Windows_Desktop" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>KqIR734fGRBelGf8xkuMQfQmMC3zMjivoBWSeWTyTfQ=</dsig:DigestValue>
+        <dsig:DigestValue>gUTLwoldJEauDtuhL/9gPzd4P8Cu09V7q0V7XXlzlOk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

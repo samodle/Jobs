@@ -1,14 +1,11 @@
-﻿<Window xmlns:Controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Windows_Desktop" 
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Windows_Desktop"
-        xmlns:s="clr-namespace:System.Collections;assembly=mscorlib"
-        xmlns:p="clr-namespace:System;assembly=mscorlib"
-        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
-        xmlns:Controls1="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
-        x:Class="Windows_Desktop.dashboardwindow"
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:eo="http://schemas.essentialobjects.com/wpf/"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    x:Class="Windows_Desktop.dashboardwindow"
         mc:Ignorable="d"
         Loaded="fork_onload"      
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -63,7 +60,7 @@
         <Grid>
             <Canvas x:Name="DashboardContentCanvas" Margin="0,62,-4,0" Background="#FFF0F0F0" Visibility="Visible">
                 <!--A Canvas-->
-                <Canvas x:Name="ContentCanvasA" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasA" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
                     <Canvas Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
@@ -137,7 +134,7 @@
                 </Canvas>
 
                 <!--B Canvas-->
-                <Canvas x:Name="ContentCanvasB" Visibility="Hidden"
+                <Canvas x:Name="ContentCanvasB" Visibility="Visible"
                         Height="597" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
@@ -162,22 +159,37 @@
                         <!-- Skill -->
                         <Canvas x:Name="B1Canvas" Visibility="Visible" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <Controls1:WebView x:Name="B1WebBrowser" Height="521"  Width="1216"  />
-                          
+                            <eo:WebControl Height="521" Width="1216">
+                                <eo:WebControl.WebView>
+                                    <eo:WebView x:Name="webView1" >
+                                    </eo:WebView>
+                                </eo:WebControl.WebView>
+                            </eo:WebControl>
+
 
                         </Canvas>
                         
                         <!-- Ability -->
                         <Canvas x:Name="B2Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <Controls1:WebView x:Name="B2WebBrowser" Height="521"  Width="1216"  />
+                            <eo:WebControl Height="521" Width="1216">
+                                <eo:WebControl.WebView>
+                                    <eo:WebView x:Name="webView2" >
+                                    </eo:WebView>
+                                </eo:WebControl.WebView>
+                            </eo:WebControl>
 
 
                         </Canvas>
                         <!-- Combined -->
                         <Canvas x:Name="B3Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <Controls1:WebView x:Name="B3WebBrowser" Height="521"  Width="1216"  />
+                            <eo:WebControl Height="521" Width="1216">
+                                <eo:WebControl.WebView>
+                                    <eo:WebView x:Name="webView3" >
+                                    </eo:WebView>
+                                </eo:WebControl.WebView>
+                            </eo:WebControl>
 
 
                         </Canvas>

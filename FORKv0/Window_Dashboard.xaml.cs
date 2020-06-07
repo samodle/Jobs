@@ -41,6 +41,11 @@ namespace Windows_Desktop
 
         public void fork_onload(object sender, RoutedEventArgs e)
         {
+            EO.WebEngine.BrowserOptions options = new EO.WebEngine.BrowserOptions();
+            options.EnableWebSecurity = false;
+            EO.WebEngine.EngineOptions.Default.SetDefaultBrowserOptions(options);
+
+
             InitializeComponent();
 
             LaunchCanvas.Visibility = Visibility.Visible;
@@ -50,9 +55,15 @@ namespace Windows_Desktop
 
             Thread onetThread = new Thread(setONETReport);
             onetThread.Start();
-            //  B1WebBrowser.Navigate("file:///C:/Users/Sam/Downloads/d3-force-directed-graph-master/d3-force-directed-graph-master/example/3-user-interaction.html");
-            B2WebBrowser.Navigate("https://developers.google.com/chart/interactive/docs/gallery/columnchart#examples");
-            B3WebBrowser.Navigate("http://projects.flowingdata.com/tut/interactive_network_demo/");
+
+
+
+            //B1WebBrowser.Navigate("file:///C:/Users/Sam/Downloads/d3-force-directed-graph-master/d3-force-directed-graph-master/example/3-user-interaction.html");
+
+           // string tmpHTMLstring = HTMLDev.NetworkHTML.getGraphHTML();
+            webView1.Url = "file:///C:/Users/Public/Public_fork/html/abc.html";
+            webView2.Url = "file:///C:/Users/Public/Public_fork/html/abc.html";
+
         }
 
         private void setONETReport()
@@ -64,6 +75,7 @@ namespace Windows_Desktop
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + ".txt");
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList();
             initComplete = true;
+            //HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, "abc");
         }
 
         public void do_analyze(object sender, RoutedEventArgs e)
@@ -88,6 +100,9 @@ namespace Windows_Desktop
         public void LaunchMenu(object sender, MouseButtonEventArgs e)
         {
             MenuCanvas.Visibility = Visibility.Visible;
+            B1Canvas.Visibility = Visibility.Hidden;
+            B2Canvas.Visibility = Visibility.Hidden;
+            B3Canvas.Visibility = Visibility.Hidden;
             AnimateMenuOpening();
             MenuSplashRectangle.Visibility = Visibility.Visible;
         }
@@ -106,6 +121,9 @@ namespace Windows_Desktop
             MenuSplashRectangle.Visibility = Visibility.Hidden;
             AnimateMenuClosing();
             System.Windows.Forms.Application.DoEvents();
+            B1Canvas.Visibility = Visibility.Visible;
+            B2Canvas.Visibility = Visibility.Visible;
+            B3Canvas.Visibility = Visibility.Visible;
             MenuCanvas.Visibility = Visibility.Hidden;
 
 
@@ -315,7 +333,7 @@ namespace Windows_Desktop
         {
             var blankDataTemplate = new DataTemplate("");
             CanvasA1Chart.Series.Clear();
-            CanvasA1Chart.Palette = Trends_defaultChartColors();
+            CanvasA1Chart.Palette = Trends_defaultChartColors_Legacy();
 
             //axis stuff
             CanvasA1Chart.VerticalAxis = new LinearAxis();
@@ -364,7 +382,7 @@ namespace Windows_Desktop
                 newSeriesA.TrackBallInfoTemplate = blankDataTemplate;
                 CanvasA1Chart.Series.Add(newSeriesA);
                 newSeriesB.TrackBallInfoTemplate = blankDataTemplate;
-                CanvasA1Chart.Series.Add(newSeriesB);
+             //   CanvasA1Chart.Series.Add(newSeriesB);
             }
             CanvasA1Chart.HorizontalAxis.LabelInterval = 1;
             CanvasA1Chart.HorizontalAxis.LabelFitMode = Telerik.Charting.AxisLabelFitMode.Rotate;

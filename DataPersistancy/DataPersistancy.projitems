@@ -17,7 +17,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)GeneralIO.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Import_CSV.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JSON_IO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ONETImportScripts.cs" />
   </ItemGroup>
