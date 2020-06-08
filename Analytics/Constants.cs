@@ -7,6 +7,17 @@ namespace Analytics
 {
     public static class Constants
     {
+
+        //Adjacency Constance
+        public const double MAX_DISTANCE = 1.0;
+        public const double MIN_DISTANCE = 0.0;
+        public const double INVALID_DISTANCE = -1.0;
+        public const double IMPORTANCE_MATCH_THRESHOLD = 0.5;
+        public const double LEVEL_MATCH_THRESHOLD = 0.5;
+        public const double LEVEL_OVER_IMPORTANCE_FACTOR = 2;
+        //level steps? (ie threshold at which level distance becomes greater)
+        //importance steps?
+
         public enum JobZone
         {
             One = 1,
@@ -20,7 +31,8 @@ namespace Analytics
         {
             Skill,
             Ability,
-            Knowledge
+            Knowledge,
+            Net
         }
 
         public static string getStringForAttributeType(AttributeType type)

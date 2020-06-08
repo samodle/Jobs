@@ -11,5 +11,6 @@ namespace Analytics
         public List<Attribute> MasterKnowledgeList = new List<Attribute>();
         public List<Attribute> MasterAbilityList = new List<Attribute>();
 
+
     }
 }

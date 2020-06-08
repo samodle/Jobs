@@ -28,7 +28,7 @@ namespace Analytics
         }
     }
 
-    public class JobAttribute
+    public class JobAttribute: IEquatable<JobAttribute>
     {
         public string Name { get; set; }
         public string ElementID { get; set; }
@@ -36,7 +36,7 @@ namespace Analytics
         public AttributeLevel Level { get; set; }
         public AttributeType Type { get; set; }
 
-        public JobAttribute(string name, string id, AttributeImportance importance, AttributeLevel level, AttributeType type)
+        public JobAttribute(string name, string id, AttributeImportance importance, AttributeLevel level, AttributeType type) 
         {
             this.Name = name;
             this.ElementID = id;
@@ -46,9 +46,45 @@ namespace Analytics
 
         }
 
+        public double getDistance()
+        {
+            if(Importance.NotRelevant || Level.RecommendSuppress)
+            {
+                return INVALID_DISTANCE;
+            }
+            else
+            {
+                return Level.Value * LEVEL_OVER_IMPORTANCE_FACTOR + Importance.Value;
+            }
+        }
+        public double calculateSimilarity(JobAttribute other)
+        {
+            if (!this.Equals(other)) { return INVALID_DISTANCE; }
+            else 
+            {
+                double iDist = Importance.calculateSimilarity(other.Importance);
+                double lDist = Level.calculateSimilarity(other.Level);
+
+                if (iDist == INVALID_DISTANCE || lDist == INVALID_DISTANCE)
+                {
+                    return INVALID_DISTANCE;
+                }
+                else
+                {
+                    return LEVEL_OVER_IMPORTANCE_FACTOR * lDist + iDist;
+                }
+            }
+        }
+
         public override string ToString()
         {
             return getStringForAttributeType(this.Type) + ": " + Name + ", Importance: " + Importance.Value + ", Level: " + Level.Value;
         }
+
+        public bool Equals(JobAttribute other)
+          {
+            return Name.Equals(other.Name) && Type == other.Type;
+          }
+
     }
 }
