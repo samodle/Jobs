@@ -29,9 +29,32 @@ namespace Analytics
             return Name + ", Skills:" + Skills.Count + ", Knowledge: " + Knowledge.Count + ", Abilities:" + Abilities.Count;
         }
 
+
+        public OccupationEdge getEdge(Occupation other)
+        {
+            List<Constants.AttributeType> typeList = new List<Constants.AttributeType>() { Constants.AttributeType.Ability, Constants.AttributeType.Knowledge, Constants.AttributeType.Skill };
+            
+            var distanceByAttributeList = new List<Tuple<Constants.AttributeType, double>>();
+            var detailByAttributeList = new List<Tuple<Constants.AttributeType, List<OccupationAttributeEdge>>>();
+
+            double netDist = 0;
+
+            foreach (Constants.AttributeType a in typeList)
+            {
+                var rawAttributeMatrix = getAttributeSimilarityMatrix(other, a);
+                double newDist = rawAttributeMatrix.Where(c => c.Distance > Constants.INVALID_DISTANCE).Sum(c => c.Distance);
+                netDist += newDist;
+                detailByAttributeList.Add(new Tuple<Constants.AttributeType, List<OccupationAttributeEdge>>(a, rawAttributeMatrix));
+                distanceByAttributeList.Add(new Tuple<Constants.AttributeType, double>(a, newDist));
+            }
+
+            distanceByAttributeList.Add(new Tuple<Constants.AttributeType, double>(Constants.AttributeType.Net, netDist));
+                    
+            return new OccupationEdge(this.Name, other.Name, detailByAttributeList, distanceByAttributeList);
+        }
+
         public List<Tuple<Constants.AttributeType, double>> calculateSimilarity(Occupation other, List<Constants.AttributeType> typeList)
         {
-            // List<Constants.AttributeType> aTypeList = new List<Constants.AttributeType>() { Constants.AttributeType.Ability, Constants.AttributeType.Knowledge, Constants.AttributeType.Skill };
             var retList = new List<Tuple<Constants.AttributeType, double>>();
             double netDist = 0;
 
@@ -48,9 +71,9 @@ namespace Analytics
         }
 
 
-        public List<OccupationAttributeSimilarityMatrixItem> getAttributeSimilarityMatrix(Occupation other, Constants.AttributeType type)
+        public List<OccupationAttributeEdge> getAttributeSimilarityMatrix(Occupation other, Constants.AttributeType type)
         {
-            var retList = new List<OccupationAttributeSimilarityMatrixItem>();
+            var retList = new List<OccupationAttributeEdge>();
             List<JobAttribute> listA = getAttributesByType(type);
             List<JobAttribute> listB = other.getAttributesByType(type);
 
@@ -64,17 +87,17 @@ namespace Analytics
                 {
                     JobAttribute b = listB.Single(s => s.Equals(a));
                     double dist = a.calculateSimilarity(b);
-                    retList.Add(new OccupationAttributeSimilarityMatrixItem(type, this.Name, other.Name, a.Name, dist));
+                    retList.Add(new OccupationAttributeEdge(type, this.Name, other.Name, a.Name, dist));
                 }
             }
             //add attributes shared by only one of the occupations
             foreach(JobAttribute a in inA_notB)
             {
-                retList.Add(new OccupationAttributeSimilarityMatrixItem(type, this.Name, "", a.Name, a.getDistance()));
+                retList.Add(new OccupationAttributeEdge(type, this.Name, "", a.Name, a.getDistance()));
             }
             foreach (JobAttribute b in inB_notA)
             {
-                retList.Add(new OccupationAttributeSimilarityMatrixItem(type, "", other.Name, b.Name, b.getDistance()));
+                retList.Add(new OccupationAttributeEdge(type, "", other.Name, b.Name, b.getDistance()));
             }
 
             return retList;

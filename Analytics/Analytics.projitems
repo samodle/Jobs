@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LevelImportance.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Occupation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OccupationAttributeSimilarityMatrix.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OccupationToOccupationEdge.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ONETReport.cs" />
   </ItemGroup>
 </Project>

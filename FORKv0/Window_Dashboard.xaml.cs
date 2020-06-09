@@ -74,8 +74,8 @@ namespace Windows_Desktop
             ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.ABILITIES + ".txt");
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + ".txt");
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList();
+            ForkReport.setOccupationEdges(50);
             initComplete = true;
-            //HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, "abc");
         }
 
         public void do_analyze(object sender, RoutedEventArgs e)

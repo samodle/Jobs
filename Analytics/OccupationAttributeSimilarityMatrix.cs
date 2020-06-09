@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Analytics
 {
-    public class OccupationAttributeSimilarityMatrixItem : IComparable<OccupationAttributeSimilarityMatrixItem>
+    public class OccupationAttributeEdge : IComparable<OccupationAttributeEdge>
     {
         public Constants.AttributeType Type;
         public string OccupationA;
@@ -13,7 +13,7 @@ namespace Analytics
         public double Distance;
         public bool isShared;
         
-        public OccupationAttributeSimilarityMatrixItem(Constants.AttributeType type, string occupationA, string occupationB, string attribute, double distance)
+        public OccupationAttributeEdge(Constants.AttributeType type, string occupationA, string occupationB, string attribute, double distance)
         {
             this.Type = type;
             this.OccupationA = occupationA;
@@ -31,7 +31,7 @@ namespace Analytics
             }
         }
 
-        public int CompareTo(OccupationAttributeSimilarityMatrixItem other)
+        public int CompareTo(OccupationAttributeEdge other)
         {
             return this.Distance.CompareTo(other.Distance);
         }
