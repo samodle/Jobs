@@ -14,6 +14,7 @@ namespace Analytics
         public AttributeType Type { get; set; }
         //public bool isHot { get; set; }
 
+            public Attribute() { }
         public Attribute(string name, string id, string occupationID, AttributeType type)
         {
             this.Name = name;
@@ -36,6 +37,7 @@ namespace Analytics
         public AttributeImportance Level { get; set; }
         public AttributeType Type { get; set; }
 
+        public JobAttribute() { }
         public JobAttribute(string name, string id, AttributeLevel importance, AttributeImportance level, AttributeType type) 
         {
             this.Name = name;
@@ -78,7 +80,7 @@ namespace Analytics
 
         public override string ToString()
         {
-            return getStringForAttributeType(this.Type) + ": " + Name + ", Importance: " + Importance.Value + ", Level: " + Level.Value;
+            return getStringForAttributeType(this.Type) + ": " + Name + ", Imp: " + Importance.Value + ", Lvl: " + Level.Value + ", NotRel: " + Importance.NotRelevant;
         }
 
         public bool Equals(JobAttribute other)

@@ -11,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -72,7 +73,16 @@ namespace Windows_Desktop
             ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.ABILITIES + ".txt");
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + ".txt");
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList();
-            ForkReport.setOccupationEdges(5);
+            int occNum = 10;
+            Analytics.Constants.AttributeType type = Analytics.Constants.AttributeType.Skill;
+            ForkReport.setOccupationEdges(occNum);
+            HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
+
+           // List<int> occNums = new List<int> { 5, 10, 15, 20 };
+          //  foreach()
+            
+            
+            
             initComplete = true;
         }
 

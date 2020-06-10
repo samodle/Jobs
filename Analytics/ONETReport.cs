@@ -16,12 +16,12 @@ namespace Analytics
         public void setOccupationEdges(int numOccupations)
         {
             int startIndex = 0;
-            int stopIndex = startIndex + numOccupations;
+            int stopIndex = Math.Min(startIndex + numOccupations, MasterOccupationList.Count);
 
 
             for(int i = startIndex; i < stopIndex - 1; i++)
             {
-                for(int j = i + 1; j < MasterOccupationList.Count; j++)
+                for(int j = i + 1; j < stopIndex; j++)
                 {
                     OccupationEdges.Add(MasterOccupationList[i].getEdge(MasterOccupationList[j]));
                 }

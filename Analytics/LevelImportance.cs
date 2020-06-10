@@ -16,6 +16,7 @@ namespace Analytics
         public DateTime Date { get; set; }
         public string Source { get; set; }
 
+        public AttributeImportance() { }
         public AttributeImportance(double value, double n, double stdError, double lowerCI, double upperCI, string suppress, DateTime date, string source)
         {
             this.Value = value;
@@ -53,6 +54,7 @@ namespace Analytics
     {
         public bool NotRelevant { get; set; }
 
+        public AttributeLevel() { }
         public AttributeLevel(double value, double n, double stdError, double lowerCI, double upperCI, string suppress, DateTime date, string source, string notRelevant) : base(value, n, stdError, lowerCI, upperCI, suppress, date, source)
         {
             this.NotRelevant = notRelevant == "N" ? false : true;

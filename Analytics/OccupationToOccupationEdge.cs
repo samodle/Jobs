@@ -20,6 +20,18 @@ namespace Analytics
             this.Distances = distances;
         }
 
+        public double getDistanceByAttribute(Constants.AttributeType type)
+        {
+            for(int i = 0; i < Distances.Count; i++)
+            {
+                if (Distances[i].Item1.Equals(type))
+                {
+                    return Distances[i].Item2;
+                }
+            }
+            return Constants.INVALID_DISTANCE;
+        }
+
         public override string ToString()
         {
             return OccupationAName + " - " + OccupationBName;

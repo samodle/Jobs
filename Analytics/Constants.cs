@@ -45,6 +45,8 @@ namespace Analytics
                     return "Knowledge";
                 case AttributeType.Skill:
                     return "Skill";
+                case AttributeType.Net:
+                    return "Net";
                 default:
                     return "Unknown";
             }

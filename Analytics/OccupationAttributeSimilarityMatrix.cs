@@ -35,5 +35,10 @@ namespace Analytics
         {
             return this.Distance.CompareTo(other.Distance);
         }
+
+        public override string ToString()
+        {
+            return OccupationA + " - " + OccupationB + ", " + Attribute + ": " + Distance;
+        }
     }
 }
