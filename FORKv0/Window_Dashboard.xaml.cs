@@ -25,6 +25,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Telerik.Charting;
 using Telerik.Windows.Controls.ChartView;
+using Telerik.Windows.Controls.Map;
 using Windows_Desktop.Properties;
 using static DataPersistancy.GeneralIO;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -37,6 +38,7 @@ namespace Windows_Desktop
         public int Menuitemclicked_number = -1;
         public ONETReport ForkReport { get; set; }
         public List<string> OccupationNames { get; set; }
+        public List<string> CanvasB1FileNames { get; set; }
         private bool initComplete = false;
 
 
@@ -58,31 +60,47 @@ namespace Windows_Desktop
               onetThread.Start();
 
             //ONETImportScripts.ONET_importOccupations();
-
-
-            webView1.Url = "file:///C:/Users/Public/Public_fork/html/abc.html";
-            webView2.Url = "file:///C:/Users/Public/Public_fork/html/abc.html";
-
         }
 
         private void setONETReport()
         {
+            //import data
             ForkReport = new ONETReport();
             ForkReport.MasterOccupationList = JSON_IO.Import_OccupationList(Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + ".txt");
             ForkReport.MasterSkillList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.SKILLS + ".txt");
             ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.ABILITIES + ".txt");
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + ".txt");
-            OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList();
-            int occNum = 10;
-            Analytics.Constants.AttributeType type = Analytics.Constants.AttributeType.Skill;
-            ForkReport.setOccupationEdges(occNum);
-            HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
 
-           // List<int> occNums = new List<int> { 5, 10, 15, 20 };
-          //  foreach()
-            
-            
-            
+            //set listbox components
+            OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList(); //sets CanvasA1 Listbox
+            string[] fileArray = Directory.GetFiles(@"C:\Users\Public\Public_fork\html\", "*.html");
+            CanvasB1FileNames = fileArray.ToList();
+            for(int i = 0; i < CanvasB1FileNames.Count; i++)
+            {
+                CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace(@"C:\Users\Public\Public_fork\html\", "");
+                CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace("_", " ");
+                CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace(".html", "");
+            }
+
+            //write html files as needed
+            if (true)
+            {
+                int occNum = 15;
+                Analytics.Constants.AttributeType type = Analytics.Constants.AttributeType.Net;
+                ForkReport.setOccupationEdges(occNum);
+                HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
+                type = Analytics.Constants.AttributeType.Skill;
+                HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
+                type = Analytics.Constants.AttributeType.Knowledge;
+                HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
+                type = Analytics.Constants.AttributeType.Ability;
+                HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
+            }
+            // List<int> occNums = new List<int> { 5, 10, 15, 20 };
+            //  foreach()
+
+
+
             initComplete = true;
         }
 
@@ -91,6 +109,7 @@ namespace Windows_Desktop
             LaunchCanvas.Visibility = Visibility.Hidden;
             while (!initComplete) { Thread.Sleep(500); }
             CanvasA_init();
+            CanvasB_init();
             ToggleShowHide_CanvasA(sender, Publics.f);
         }
 
@@ -424,6 +443,13 @@ namespace Windows_Desktop
         #endregion
 
         #region Canvas B - Network
+        private void CanvasB_init()
+        {
+            CanvasB1ListBox.ItemsSource = null;
+            CanvasB1ListBox.ItemsSource = CanvasB1FileNames;
+        }
+
+        #region B - Tab Navigation
         public void CanvasBHeader1Clicked(object sender, MouseButtonEventArgs e)
         {
             B1Canvas.Visibility = Visibility.Visible;
@@ -456,6 +482,19 @@ namespace Windows_Desktop
             CanvasBSelectionBar2.Visibility = Visibility.Hidden;
             AnimateZoomUIElement(0, 100, 0.2, WidthProperty, CanvasBSelectionBar3);
         }
+        #endregion
+
+
+        string B1ListBoxSelectedItem = "";
+        public void CanvasB1ListBoxSelected(object sender, RoutedEventArgs e)
+        {
+            B1ListBoxSelectedItem = CanvasB1ListBox.SelectedItem.ToString();
+
+            //set web view url
+            webView1.Url = "file:///C:/Users/Public/Public_fork/html/" + B1ListBoxSelectedItem.Replace(" ", "_") + ".html";
+        }
+
+
         #endregion
 
         #region Mouse Move/Leave/Down

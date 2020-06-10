@@ -159,12 +159,23 @@
                         <!-- Skill -->
                         <Canvas x:Name="B1Canvas" Visibility="Visible" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <eo:WebControl Height="521" Width="1216">
-                                <eo:WebControl.WebView>
-                                    <eo:WebView x:Name="webView1" >
-                                    </eo:WebView>
-                                </eo:WebControl.WebView>
-                            </eo:WebControl>
+
+                            <Canvas x:Name="CanvasB1_ChartContainer" Height="491" Width="934" Canvas.Left="10" Canvas.Top="10">
+                                <eo:WebControl Height="491" Width="934">
+                                    <eo:WebControl.WebView>
+                                        <eo:WebView x:Name="webView1" >
+                                        </eo:WebView>
+                                    </eo:WebControl.WebView>
+                                </eo:WebControl>
+                            </Canvas>
+                            <Canvas Height="472" Width="268" Canvas.Left="944" Canvas.Top="10">
+                                <ListBox x:Name="CanvasB1ListBox" Height="335" Canvas.Left="5" Canvas.Top="127" Width="258" Foreground="#FF575757" BorderBrush="#FFD1D1D1" FontSize="13.333" SelectionChanged="CanvasB1ListBoxSelected" SelectionMode="Single"/>
+                                 <Label Content="Pick a file from the list" Canvas.Top="109" Width="258" Foreground="#FF6C6C6C" FontSize="9.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2" Canvas.Left="5"/>
+
+
+                            </Canvas>
+
+                            
 
 
                         </Canvas>
@@ -172,24 +183,24 @@
                         <!-- Ability -->
                         <Canvas x:Name="B2Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <eo:WebControl Height="521" Width="1216">
+                           <!-- <eo:WebControl Height="521" Width="1216">
                                 <eo:WebControl.WebView>
                                     <eo:WebView x:Name="webView2" >
                                     </eo:WebView>
                                 </eo:WebControl.WebView>
-                            </eo:WebControl>
+                            </eo:WebControl> -->
 
 
                         </Canvas>
                         <!-- Combined -->
                         <Canvas x:Name="B3Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <eo:WebControl Height="521" Width="1216">
+                          <!--  <eo:WebControl Height="521" Width="1216">
                                 <eo:WebControl.WebView>
                                     <eo:WebView x:Name="webView3" >
                                     </eo:WebView>
                                 </eo:WebControl.WebView>
-                            </eo:WebControl>
+                            </eo:WebControl> -->
 
 
                         </Canvas>
