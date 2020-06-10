@@ -5,7 +5,7 @@ using static Analytics.Constants;
 
 namespace Analytics
 {
-    public class AttributeLevel
+    public class AttributeImportance
     {
         public double Value { get; set; }
         public double N { get; set; }
@@ -16,7 +16,7 @@ namespace Analytics
         public DateTime Date { get; set; }
         public string Source { get; set; }
 
-        public AttributeLevel(double value, double n, double stdError, double lowerCI, double upperCI, string suppress, DateTime date, string source)
+        public AttributeImportance(double value, double n, double stdError, double lowerCI, double upperCI, string suppress, DateTime date, string source)
         {
             this.Value = value;
             this.N = n;
@@ -28,7 +28,7 @@ namespace Analytics
             this.Source = source;
         }
 
-        public double calculateSimilarity(AttributeLevel other)
+        public double calculateSimilarity(AttributeImportance other)
         {
             if(RecommendSuppress || other.RecommendSuppress) { return INVALID_DISTANCE; }
             else
@@ -45,22 +45,22 @@ namespace Analytics
 
        public override string ToString()
         {
-            return "Value: " + Value + ", Standard Error:" + StandardError + ", Lower CI Bound:" + LowerCIBound + ", Upper CI Bound:" + UpperCIBound;
+            return "Value: " + Value + ", Std Err:" + StandardError + ", Lower CI:" + LowerCIBound + ", Upper CI:" + UpperCIBound;
         } 
     }
 
-    public class AttributeImportance : AttributeLevel
+    public class AttributeLevel : AttributeImportance
     {
         public bool NotRelevant { get; set; }
 
-        public AttributeImportance(double value, double n, double stdError, double lowerCI, double upperCI, string suppress, DateTime date, string source, string notRelevant) : base(value, n, stdError, lowerCI, upperCI, suppress, date, source)
+        public AttributeLevel(double value, double n, double stdError, double lowerCI, double upperCI, string suppress, DateTime date, string source, string notRelevant) : base(value, n, stdError, lowerCI, upperCI, suppress, date, source)
         {
             this.NotRelevant = notRelevant == "N" ? false : true;
         }
 
-        public double calculateSimilarity(AttributeImportance other)
+        public double calculateSimilarity(AttributeLevel other)
         {
-            if (NotRelevant || RecommendSuppress || other.RecommendSuppress || other.RecommendSuppress) { return INVALID_DISTANCE; }
+            if (NotRelevant || RecommendSuppress || other.RecommendSuppress || other.NotRelevant) { return INVALID_DISTANCE; }
             else
             {
                 double importanceDifference = Math.Abs(other.Value - Value);
@@ -72,5 +72,11 @@ namespace Analytics
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return "Value: " + Value + ", Not Relevant?: " + (NotRelevant? "Y" : "N") + ", Std Err: " + StandardError + ", Lower CI: " + LowerCIBound + ", Upper CI:" + UpperCIBound;
+        }
+
     }
 }

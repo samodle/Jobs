@@ -53,14 +53,12 @@ namespace Windows_Desktop
             MakeLaunchReady();
             ManageScreenResolution();
 
-            Thread onetThread = new Thread(setONETReport);
-            onetThread.Start();
+              Thread onetThread = new Thread(setONETReport);
+              onetThread.Start();
+
+            //ONETImportScripts.ONET_importOccupations();
 
 
-
-            //B1WebBrowser.Navigate("file:///C:/Users/Sam/Downloads/d3-force-directed-graph-master/d3-force-directed-graph-master/example/3-user-interaction.html");
-
-           // string tmpHTMLstring = HTMLDev.NetworkHTML.getGraphHTML();
             webView1.Url = "file:///C:/Users/Public/Public_fork/html/abc.html";
             webView2.Url = "file:///C:/Users/Public/Public_fork/html/abc.html";
 
@@ -74,7 +72,7 @@ namespace Windows_Desktop
             ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.ABILITIES + ".txt");
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + ".txt");
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList();
-            ForkReport.setOccupationEdges(50);
+            ForkReport.setOccupationEdges(5);
             initComplete = true;
         }
 

@@ -56,22 +56,22 @@ namespace DataPersistancy
                 csvTable.Load(csvReader);
             }
 
-            for (int i = 0; i < csvTable.Rows.Count; i+=2)
+            for (int j = 0; j < csvTable.Rows.Count; j+=2)
             {
-                int j = i + 1;
+                int i = j + 1;
                 const double blankIndicator = -1;
-                AttributeLevel tmpLevel;
-                AttributeImportance tmpImportance;
+                AttributeImportance tmpLevel;
+                AttributeLevel tmpImportance;
                // if (9660 <= i && i <= 9728)
-               if(csvTable.Rows[i][7] is System.DBNull)
+               if(csvTable.Rows[j][7] is System.DBNull)
                 {
-                    tmpImportance = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: "N");
-                    tmpLevel = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
+                    tmpImportance = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: "N");
+                    tmpLevel = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
                 }
                 else
                 {
-                    tmpImportance = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: Convert.ToDouble(csvTable.Rows[i][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[i][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[i][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[i][10].ToString()), suppress: csvTable.Rows[i][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: csvTable.Rows[i][12].ToString());             
-                    tmpLevel = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: Convert.ToDouble(csvTable.Rows[j][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[j][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[j][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[j][10].ToString()), suppress: csvTable.Rows[j][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
+                    tmpImportance = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: Convert.ToDouble(csvTable.Rows[i][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[i][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[i][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[i][10].ToString()), suppress: csvTable.Rows[i][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: csvTable.Rows[i][12].ToString());             
+                    tmpLevel = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: Convert.ToDouble(csvTable.Rows[j][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[j][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[j][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[j][10].ToString()), suppress: csvTable.Rows[j][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
                 }
 
                 string elementID = csvTable.Rows[i][2].ToString();
@@ -98,11 +98,11 @@ namespace DataPersistancy
             importJobZones();
             importAltOccNames();
 
-            JSON_IO.JSON_Export_OccupationList(MasterOccupationList, Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + "2");
+            JSON_IO.JSON_Export_OccupationList(MasterOccupationList, Windows_Desktop.Publics.FILENAMES.OCCUPATIONS);
 
-            JSON_IO.Export_AttributeList(MasterSkillList, Windows_Desktop.Publics.FILENAMES.SKILLS + "");
-            JSON_IO.Export_AttributeList(MasterKnowledgeList, Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + "");
-            JSON_IO.Export_AttributeList(MasterAbilityList, Windows_Desktop.Publics.FILENAMES.ABILITIES + "");
+            JSON_IO.Export_AttributeList(MasterSkillList, Windows_Desktop.Publics.FILENAMES.SKILLS);
+            JSON_IO.Export_AttributeList(MasterKnowledgeList, Windows_Desktop.Publics.FILENAMES.KNOWLEDGE);
+            JSON_IO.Export_AttributeList(MasterAbilityList, Windows_Desktop.Publics.FILENAMES.ABILITIES);
         }
         
         private static void importAltOccNames() 
@@ -156,22 +156,22 @@ namespace DataPersistancy
                 csvTable.Load(csvReader);
             }
 
-            for (int i = 0; i < csvTable.Rows.Count; i += 2)
+            for (int j = 0; j < csvTable.Rows.Count; j += 2)
             {
-                int j = i + 1;
+                int i = j + 1;
                 const double blankIndicator = -1;
-                AttributeLevel tmpLevel;
-                AttributeImportance tmpImportance;
+                AttributeImportance tmpLevel;
+                AttributeLevel tmpImportance;
 
-                if (csvTable.Rows[i][7] is System.DBNull)
+                if (csvTable.Rows[j][7] is System.DBNull)
                 {
-                    tmpImportance = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: "N");
-                    tmpLevel = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
+                    tmpImportance = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: "N");
+                    tmpLevel = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
                 }
                 else
                 {
-                    tmpImportance = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: Convert.ToDouble(csvTable.Rows[i][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[i][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[i][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[i][10].ToString()), suppress: csvTable.Rows[i][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: csvTable.Rows[i][12].ToString());
-                    tmpLevel = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: Convert.ToDouble(csvTable.Rows[j][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[j][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[j][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[j][10].ToString()), suppress: csvTable.Rows[j][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
+                    tmpImportance = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: Convert.ToDouble(csvTable.Rows[i][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[i][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[i][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[i][10].ToString()), suppress: csvTable.Rows[i][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: csvTable.Rows[i][12].ToString());
+                    tmpLevel = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: Convert.ToDouble(csvTable.Rows[j][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[j][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[j][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[j][10].ToString()), suppress: csvTable.Rows[j][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
                 }
 
                 string elementID = csvTable.Rows[i][2].ToString();
@@ -202,22 +202,22 @@ namespace DataPersistancy
                 csvTable.Load(csvReader);
             }
 
-            for (int i = 0; i < csvTable.Rows.Count; i += 2)
+            for (int j = 0; j < csvTable.Rows.Count; j += 2)
             {
-                int j = i + 1;
+                int i = j + 1;
                 const double blankIndicator = -1;
-                AttributeLevel tmpLevel;
-                AttributeImportance tmpImportance;
+                AttributeImportance tmpLevel;
+                AttributeLevel tmpImportance;
 
-                if (csvTable.Rows[i][7] is System.DBNull || csvTable.Rows[i][9] is System.DBNull || csvTable.Rows[j][9] is System.DBNull)
+                if (csvTable.Rows[j][7] is System.DBNull || csvTable.Rows[j][9] is System.DBNull || csvTable.Rows[i][9] is System.DBNull)
                 {
-                    tmpImportance = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: "N");
-                    tmpLevel = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
+                    tmpImportance = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: "N");
+                    tmpLevel = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: blankIndicator, stdError: blankIndicator, lowerCI: blankIndicator, upperCI: blankIndicator, suppress: "N", date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
                 }
                 else
                 {
-                    tmpImportance = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: Convert.ToDouble(csvTable.Rows[i][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[i][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[i][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[i][10].ToString()), suppress: csvTable.Rows[i][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: csvTable.Rows[i][12].ToString());
-                    tmpLevel = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: Convert.ToDouble(csvTable.Rows[j][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[j][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[j][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[j][10].ToString()), suppress: csvTable.Rows[j][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
+                    tmpImportance = new AttributeLevel(Convert.ToDouble(value: csvTable.Rows[i][6].ToString()), n: Convert.ToDouble(csvTable.Rows[i][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[i][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[i][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[i][10].ToString()), suppress: csvTable.Rows[i][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[i][13].ToString()), source: csvTable.Rows[i][14].ToString(), notRelevant: csvTable.Rows[i][12].ToString());
+                    tmpLevel = new AttributeImportance(Convert.ToDouble(value: csvTable.Rows[j][6].ToString()), n: Convert.ToDouble(csvTable.Rows[j][7].ToString()), stdError: Convert.ToDouble(csvTable.Rows[j][8].ToString()), lowerCI: Convert.ToDouble(csvTable.Rows[j][9].ToString()), upperCI: Convert.ToDouble(csvTable.Rows[j][10].ToString()), suppress: csvTable.Rows[j][11].ToString(), date: Convert.ToDateTime(csvTable.Rows[j][13].ToString()), source: csvTable.Rows[j][14].ToString());
                 }
 
                 string elementID = csvTable.Rows[i][2].ToString();

@@ -32,11 +32,11 @@ namespace Analytics
     {
         public string Name { get; set; }
         public string ElementID { get; set; }
-        public AttributeImportance Importance { get; set; }
-        public AttributeLevel Level { get; set; }
+        public AttributeLevel Importance { get; set; }
+        public AttributeImportance Level { get; set; }
         public AttributeType Type { get; set; }
 
-        public JobAttribute(string name, string id, AttributeImportance importance, AttributeLevel level, AttributeType type) 
+        public JobAttribute(string name, string id, AttributeLevel importance, AttributeImportance level, AttributeType type) 
         {
             this.Name = name;
             this.ElementID = id;
