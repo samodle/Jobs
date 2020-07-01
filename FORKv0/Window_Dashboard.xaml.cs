@@ -83,7 +83,7 @@ namespace Windows_Desktop
             }
 
             //write html files as needed
-            if (true)
+            if (false)
             {
                 int occNum = 15;
                 Analytics.Constants.AttributeType type = Analytics.Constants.AttributeType.Net;
