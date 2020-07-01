@@ -40,6 +40,7 @@ namespace Windows_Desktop
         public List<string> OccupationNames { get; set; }
         public List<string> CanvasB1FileNames { get; set; }
         private bool initComplete = false;
+        private bool firstInitComplete = false;
 
 
         public void fork_onload(object sender, RoutedEventArgs e)
@@ -59,6 +60,7 @@ namespace Windows_Desktop
               Thread onetThread = new Thread(setONETReport);
               onetThread.Start();
 
+            webViewE1.Url = "https://xd.adobe.com/view/491b586d-5e3a-498d-b35f-ad7c84d8df61-1c48/?fullscreen";
             //ONETImportScripts.ONET_importOccupations();
         }
 
@@ -107,10 +109,21 @@ namespace Windows_Desktop
         public void do_analyze(object sender, RoutedEventArgs e)
         {
             LaunchCanvas.Visibility = Visibility.Hidden;
-            while (!initComplete) { Thread.Sleep(500); }
-            CanvasA_init();
-            CanvasB_init();
-            ToggleShowHide_CanvasA(sender, Publics.f);
+            if (firstInitComplete)
+            {
+                ToggleShowHide_CanvasE(sender, Publics.f);
+            }
+            else
+            {   
+                while (!initComplete) { Thread.Sleep(500); }
+                CanvasA_init();
+                CanvasB_init();
+                webViewC1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_google_map.html";
+                webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree.html";
+            
+                ToggleShowHide_CanvasE(sender, Publics.f);
+                firstInitComplete = true;
+            }
         }
 
         public void ManageScreenResolution()     // To make it fit for use on any screen - maximize the program if screen resolution of device is less than a threshold, to make the UI legible
@@ -130,6 +143,9 @@ namespace Windows_Desktop
             B1Canvas.Visibility = Visibility.Hidden;
             B2Canvas.Visibility = Visibility.Hidden;
             B3Canvas.Visibility = Visibility.Hidden;
+            C1Canvas.Visibility = Visibility.Hidden;
+            D1Canvas.Visibility = Visibility.Hidden;
+            E1Canvas.Visibility = Visibility.Hidden;
             AnimateMenuOpening();
             MenuSplashRectangle.Visibility = Visibility.Visible;
         }
@@ -151,6 +167,9 @@ namespace Windows_Desktop
             B1Canvas.Visibility = Visibility.Visible;
             B2Canvas.Visibility = Visibility.Visible;
             B3Canvas.Visibility = Visibility.Visible;
+            C1Canvas.Visibility = Visibility.Visible;
+            D1Canvas.Visibility = Visibility.Visible;
+            E1Canvas.Visibility = Visibility.Visible;
             MenuCanvas.Visibility = Visibility.Hidden;
 
 
@@ -541,8 +560,9 @@ namespace Windows_Desktop
             if (ContentCanvasA.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                HeaderTitleLabel.Content = "Occupation Skills Data";
+                HeaderTitleLabel.Content = "Skill Explorer";
                 ContentCanvasA.Visibility = Visibility.Visible;
+                CanvasA1ListBox.SelectedIndex = 0;
             }
         }
 
@@ -551,7 +571,7 @@ namespace Windows_Desktop
             if (ContentCanvasB.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                HeaderTitleLabel.Content = "Adjacency Explorer";
+                HeaderTitleLabel.Content = "Career Adjacencies";
                 ContentCanvasB.Visibility = Visibility.Visible;
             }
         }
@@ -561,8 +581,35 @@ namespace Windows_Desktop
             if (ContentCanvasC.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
+                HeaderTitleLabel.Content = "Job Maps";
                 ContentCanvasC.Visibility = Visibility.Visible;
             }
+        }
+
+        public void ToggleShowHide_CanvasD(object sender, MouseButtonEventArgs e)
+        {
+            if (ContentCanvasD.Visibility != Visibility.Visible)
+            {
+                HideAllDashboards();
+                HeaderTitleLabel.Content = "Discover Career Paths";
+                ContentCanvasD.Visibility = Visibility.Visible;
+            }
+        }
+
+        public void ToggleShowHide_CanvasE(object sender, MouseButtonEventArgs e)
+        {
+            if (ContentCanvasE.Visibility != Visibility.Visible)
+            {
+                HideAllDashboards();
+                HeaderTitleLabel.Content = "Profile";
+                ContentCanvasE.Visibility = Visibility.Visible;
+            }
+        }
+
+        public void ToggleShowHide_Exit(object sender, MouseButtonEventArgs e)
+        {
+            HideAllDashboards();
+            LaunchCanvas.Visibility = Visibility.Visible;
         }
 
 
@@ -571,6 +618,8 @@ namespace Windows_Desktop
             ContentCanvasA.Visibility = Visibility.Hidden;
             ContentCanvasB.Visibility = Visibility.Hidden;
             ContentCanvasC.Visibility = Visibility.Hidden;
+            ContentCanvasD.Visibility = Visibility.Hidden;
+            ContentCanvasE.Visibility = Visibility.Hidden;
         }
         #endregion
 

@@ -598,6 +598,11 @@
     <Resource Include="Images\DownStep.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\bg03.jpg" />
+    <Resource Include="Images\forklogo_purple4.png" />
+    <Resource Include="Images\ForkWhiteSubLogo.png" />
+    <Resource Include="Images\btn_close.png" />
+    <Resource Include="Images\btn_sign_up_email.png" />
     <Content Include="Images\lens.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
