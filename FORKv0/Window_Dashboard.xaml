@@ -71,16 +71,16 @@
                         </Rectangle>
 
                         <Canvas x:Name="AHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
-                            <Label  Content="Skill Breakdown By Occupation" Canvas.Top="7" Width="349" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="31"/>
+                            <Label  x:Name="AHeaderTitle" Content="Skill Breakdown By Occupation" Canvas.Top="7" Width="349" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="31"/>
                             <Image Height="41" Width="51" Source="Images/LossCompass.png" Canvas.Top="4"/>
                         </Canvas>
 
                         <!-- Graph Area -->
                         <Canvas x:Name="A1Canvas" Visibility="Visible" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <Canvas x:Name="CanvasA1_ChartContainer" Height="391" Width="934" Canvas.Left="10" Canvas.Top="101">
+                            <Canvas x:Name="CanvasA1_ChartContainer" Height="491" Width="934" Canvas.Left="10" Canvas.Top="1">
                                 <telerik:RadCartesianChart x:Name="CanvasA1Chart" 
-                            		Height="391" Width="933" Canvas.Left="1">
+                            		Height="491" Width="933" Canvas.Left="1">
 
                                     <telerik:RadCartesianChart.TrackBallInfoStyle>
                                         <Style TargetType="{x:Type telerik:TrackBallInfoControl}">
@@ -146,9 +146,9 @@
 
 
                         <Canvas x:Name="BHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
-                            <Label x:Name="CanvasBHeaderLabel1" Content="Skill Graph" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader1Clicked" Canvas.Left="31"/>
-                            <Label x:Name="CanvasBHeaderLabel2" Content="Ability Graph" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="192" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader2Clicked"/>
-                            <Label x:Name="CanvasBHeaderLabel3" Content="Combined Graph" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="356" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader3Clicked"/>
+                            <Label x:Name="CanvasBHeaderLabel1" Content="Adjacencies" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader1Clicked" Canvas.Left="31"/>
+                            <Label x:Name="CanvasBHeaderLabel2" Content="Skills Only" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="192" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader2Clicked"/>
+                            <Label x:Name="CanvasBHeaderLabel3" Content="Other Criteria" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="356" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader3Clicked"/>
 
                             <Rectangle x:Name="CanvasBSelectionBar1"  Fill="#FF2FE7F9" Height="2" Canvas.Left="69" Canvas.Top="39" Width="95"/>
                             <Rectangle x:Name="CanvasBSelectionBar2"  Fill="#FF2FE7F9" Height="2" Canvas.Left="230" Canvas.Top="39" Width="95" Visibility="Hidden"/>
@@ -169,10 +169,8 @@
                                 </eo:WebControl>
                             </Canvas>
                             <Canvas Height="472" Width="268" Canvas.Left="944" Canvas.Top="10">
-                                <ListBox x:Name="CanvasB1ListBox" Height="335" Canvas.Left="5" Canvas.Top="127" Width="258" Foreground="#FF575757" BorderBrush="#FFD1D1D1" FontSize="13.333" SelectionChanged="CanvasB1ListBoxSelected" SelectionMode="Single"/>
-                                <Label Content="Pick a file from the list" Canvas.Top="109" Width="258" Foreground="#FF6C6C6C" FontSize="9.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2" Canvas.Left="5"/>
-
-
+                                <ListBox x:Name="CanvasB1ListBox" Height="435" Canvas.Left="5" Canvas.Top="27" Width="258" Foreground="#FF575757" BorderBrush="#FFD1D1D1" FontSize="13.333" SelectionChanged="CanvasB1ListBoxSelected" SelectionMode="Single"/>
+                                <Label Content="Pick a file from the list" Canvas.Top="10" Width="258" Foreground="#FF6C6C6C" FontSize="9.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2" Canvas.Left="5"/>
                             </Canvas>
 
 
@@ -294,7 +292,7 @@
                 </Canvas>
 
                 <!--E Canvas-->
-                <Canvas x:Name="ContentCanvasE" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasE" Visibility="Hidden"
                         Height="597" Width="1239" Background="#919191">
 
                     <Canvas x:Name="E1Canvas" Height="590" Width="1200" Canvas.Left="17" Canvas.Top="5">

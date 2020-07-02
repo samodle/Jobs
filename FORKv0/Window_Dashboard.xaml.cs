@@ -39,6 +39,11 @@ namespace Windows_Desktop
         public ONETReport ForkReport { get; set; }
         public List<string> OccupationNames { get; set; }
         public List<string> CanvasB1FileNames { get; set; }
+        public List<string> CanvasB1FileNames_Net { get; set; } = new List<string>();
+        public List<string> CanvasB1FileNames_Skill { get; set; } = new List<string>();
+        public List<string> CanvasB1FileNames_Other { get; set; } = new List<string>();
+
+
         private bool initComplete = false;
         private bool firstInitComplete = false;
 
@@ -343,7 +348,9 @@ namespace Windows_Desktop
 
         public void CanvasA1ComboBoxSelected(object sender, RoutedEventArgs e)
         {
-            A1_selctedAttribute = Analytics.Constants.GetAttributeTypeFromString(CanvasA1ComboBox.SelectedItem.ToString());
+            string selectedString = CanvasA1ComboBox.SelectedItem.ToString();
+            AHeaderTitle.Content = selectedString + " Breakdown By Occupation";
+            A1_selctedAttribute = Analytics.Constants.GetAttributeTypeFromString(selectedString);
             A1_RefreshChart();
         }
 
@@ -462,18 +469,62 @@ namespace Windows_Desktop
         #endregion
 
         #region Canvas B - Network
+        private B1_State B1_CurrentState = B1_State.Net;
+        private enum B1_State
+        {
+            Net,
+            Skill,
+            Other
+        }
+
+
         private void CanvasB_init()
         {
             CanvasB1ListBox.ItemsSource = null;
-            CanvasB1ListBox.ItemsSource = CanvasB1FileNames;
+
+            foreach(string s in CanvasB1FileNames)
+            {
+                if (s.Contains("Net"))
+                {
+                    CanvasB1FileNames_Net.Add(s);
+                }
+                else if (s.Contains("Skill"))
+                {
+                    CanvasB1FileNames_Skill.Add(s);
+                }
+                else if (s.Contains("Knowledge") || s.Contains("Ability"))
+                {
+                    CanvasB1FileNames_Other.Add(s);
+                }
+            }
+
+            CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Net;
         }
 
         #region B - Tab Navigation
+        private void B1_SetListboxSource()
+        {
+          //  CanvasB1ListBox.SelectedItem = null;
+            switch (B1_CurrentState) 
+            {
+                case B1_State.Net:
+                    CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Net;
+                    break;
+                case B1_State.Skill:
+                    CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Skill;
+                    break;
+                case B1_State.Other:
+                   CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Other;
+                    break;
+            }
+            CanvasB1ListBox.SelectedIndex = 0;
+        }
+
         public void CanvasBHeader1Clicked(object sender, MouseButtonEventArgs e)
         {
-            B1Canvas.Visibility = Visibility.Visible;
-            B2Canvas.Visibility = Visibility.Hidden;
-            B3Canvas.Visibility = Visibility.Hidden;
+            B1_CurrentState = B1_State.Net;
+            B1_SetListboxSource();
+
             CanvasBSelectionBar1.Visibility = Visibility.Visible;
             CanvasBSelectionBar2.Visibility = Visibility.Hidden;
             CanvasBSelectionBar3.Visibility = Visibility.Hidden;
@@ -482,9 +533,8 @@ namespace Windows_Desktop
         }
         public void CanvasBHeader2Clicked(object sender, MouseButtonEventArgs e)
         {
-            B2Canvas.Visibility = Visibility.Visible;
-            B1Canvas.Visibility = Visibility.Hidden;
-            B3Canvas.Visibility = Visibility.Hidden;
+            B1_CurrentState = B1_State.Skill;
+            B1_SetListboxSource();
             CanvasBSelectionBar2.Visibility = Visibility.Visible;
             CanvasBSelectionBar1.Visibility = Visibility.Hidden;
             CanvasBSelectionBar3.Visibility = Visibility.Hidden;
@@ -493,9 +543,8 @@ namespace Windows_Desktop
         }
         public void CanvasBHeader3Clicked(object sender, MouseButtonEventArgs e)
         {
-            B3Canvas.Visibility = Visibility.Visible;
-            B1Canvas.Visibility = Visibility.Hidden;
-            B2Canvas.Visibility = Visibility.Hidden;
+            B1_CurrentState = B1_State.Other;
+            B1_SetListboxSource();
             CanvasBSelectionBar3.Visibility = Visibility.Visible;
             CanvasBSelectionBar1.Visibility = Visibility.Hidden;
             CanvasBSelectionBar2.Visibility = Visibility.Hidden;
@@ -507,10 +556,12 @@ namespace Windows_Desktop
         string B1ListBoxSelectedItem = "";
         public void CanvasB1ListBoxSelected(object sender, RoutedEventArgs e)
         {
-            B1ListBoxSelectedItem = CanvasB1ListBox.SelectedItem.ToString();
-
-            //set web view url
-            webView1.Url = "file:///C:/Users/Public/Public_fork/html/" + B1ListBoxSelectedItem.Replace(" ", "_") + ".html";
+            if(CanvasB1ListBox.SelectedItem != null)
+            {
+                B1ListBoxSelectedItem = CanvasB1ListBox.SelectedItem.ToString();
+                //set web view url
+                webView1.Url = "file:///C:/Users/Public/Public_fork/html/" + B1ListBoxSelectedItem.Replace(" ", "_") + ".html";
+            }
         }
 
 
@@ -571,8 +622,9 @@ namespace Windows_Desktop
             if (ContentCanvasB.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                HeaderTitleLabel.Content = "Career Adjacencies";
+                HeaderTitleLabel.Content = "Next Steps";
                 ContentCanvasB.Visibility = Visibility.Visible;
+                CanvasB1ListBox.SelectedIndex = 0;
             }
         }
 
