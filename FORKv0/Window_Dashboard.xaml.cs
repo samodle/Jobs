@@ -123,9 +123,10 @@ namespace Windows_Desktop
                 while (!initComplete) { Thread.Sleep(500); }
                 CanvasA_init();
                 CanvasB_init();
-                webViewC1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_google_map.html";
+                CanvasC_init();
+              //  webViewC1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_google_map.html";
                 webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree.html";
-            
+               
                 ToggleShowHide_CanvasE(sender, Publics.f);
                 firstInitComplete = true;
             }
@@ -564,6 +565,27 @@ namespace Windows_Desktop
             }
         }
 
+
+        #endregion
+
+        #region Canvas C - Maps
+        public void CanvasC_init()
+        {
+            CanvasC1PopulateComboBox();
+            //webViewC1.Url = "http://localhost/index.html";
+        }
+        private void CanvasC1PopulateComboBox()
+        {
+            CanvasC1ComboBox.ItemsSource = new List<string>(new string[] { "Data Center Technician", "Customer Service Rep", "Low-Code Developer", "Virtual Server Admin", "IT Support Specialist" });
+            CanvasC1ComboBox.SelectedItem = "Data Center Technician";
+        }
+
+        public void CanvasC1ComboBoxSelected(object sender, RoutedEventArgs e)
+        {
+            var i = CanvasC1ComboBox.SelectedIndex;
+            string x = (i + 1).ToString();
+            webViewC1.Url = "http://localhost/index" + x + ".html";
+        }
 
         #endregion
 

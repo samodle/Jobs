@@ -226,25 +226,22 @@
                                 Height="521" Canvas.Left="3" Width="1216"  >
 
                             <Canvas x:Name="CanvasC1_ChartContainer" Height="491" Width="934" Canvas.Left="10" Canvas.Top="10">
-                                <eo:WebControl Height="491" Width="934">
+                                <eo:WebControl Height="491" Width="1189" >
                                     <eo:WebControl.WebView>
                                         <eo:WebView x:Name="webViewC1" >
                                         </eo:WebView>
                                     </eo:WebControl.WebView>
                                 </eo:WebControl>
                             </Canvas>
-                            <Canvas Height="472" Width="268" Canvas.Left="944" Canvas.Top="10">
-
-                            </Canvas>
-
-
-
-
                         </Canvas>
 
+                        <Canvas x:Name="CHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
+                            <Label  x:Name="CHeaderTitle" Content="Select An Occupation: " Canvas.Top="7" Width="349" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="31"/>
+                            <Image Height="41" Width="51" Source="Images/RateTrainer.png" Canvas.Top="4"/>
+                            <ComboBox x:Name="CanvasC1ComboBox" Canvas.Left="304" Canvas.Top="7" Width="402" Height="27" Background="#FFFBFBFB" BorderBrush="#FFD4D4D4" Foreground="#FF646464" SelectionChanged="CanvasC1ComboBoxSelected" FontSize="13.333" Padding="2" VerticalContentAlignment="Center"/>
+
+                        </Canvas>
                     </Canvas>
-
-
                 </Canvas>
 
 
