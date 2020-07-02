@@ -92,7 +92,7 @@ namespace Windows_Desktop
             //write html files as needed
             if (false)
             {
-                int occNum = 15;
+                int occNum = 5;
                 Analytics.Constants.AttributeType type = Analytics.Constants.AttributeType.Net;
                 ForkReport.setOccupationEdges(occNum);
                 HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));

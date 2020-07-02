@@ -208,7 +208,7 @@
                 </Canvas>
 
                 <!--C Canvas-->
-                <Canvas x:Name="ContentCanvasC" Visibility="Hidden"
+                <Canvas x:Name="ContentCanvasC" Visibility="Visible"
                         Height="597" Width="1239" Background="White">
 
 
