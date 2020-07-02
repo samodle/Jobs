@@ -208,7 +208,7 @@
                 </Canvas>
 
                 <!--C Canvas-->
-                <Canvas x:Name="ContentCanvasC" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasC" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
 
@@ -246,7 +246,7 @@
 
 
                 <!--D Canvas-->
-                <Canvas x:Name="ContentCanvasD" Visibility="Hidden"
+                <Canvas x:Name="ContentCanvasD" Visibility="Visible"
                         Height="597" Width="1239" Background="White">
 
 
@@ -256,7 +256,14 @@
                                 <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
                             </Rectangle.Effect>
                         </Rectangle>
+                        <Canvas x:Name="DHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
+                            <Label  x:Name="DHeaderTitle" Content="Select Occupation: " Canvas.Top="7" Width="268" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="31"/>
+                            <Image Height="41" Width="51" Source="Images/LossNetwork.png" Canvas.Top="4"/>
+                            <ComboBox x:Name="CanvasD1ComboBox" Canvas.Left="241" Canvas.Top="9" Width="328" Height="27" Background="#FFFBFBFB" BorderBrush="#FFD4D4D4" Foreground="#FF646464" SelectionChanged="CanvasD1ComboBoxSelected" FontSize="13.333" Padding="2" VerticalContentAlignment="Center"/>
+                            <ComboBox x:Name="CanvasD2ComboBox" Canvas.Left="727" Canvas.Top="10" Width="357" Height="27" Background="#FFFBFBFB" BorderBrush="#FFD4D4D4" Foreground="#FF646464" SelectionChanged="CanvasD2ComboBoxSelected" FontSize="13.333" Padding="2" VerticalContentAlignment="Center"/>
+                            <Label  x:Name="DHeaderTitle2" Content="Optimize For: " Canvas.Top="9" Width="349" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="487"/>
 
+                        </Canvas>
 
 
                         <!-- Skill -->

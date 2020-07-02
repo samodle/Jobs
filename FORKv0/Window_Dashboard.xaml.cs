@@ -124,8 +124,8 @@ namespace Windows_Desktop
                 CanvasA_init();
                 CanvasB_init();
                 CanvasC_init();
-              //  webViewC1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_google_map.html";
-                webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree.html";
+                CanvasD_init();
+              //  webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree.html";
                
                 ToggleShowHide_CanvasE(sender, Publics.f);
                 firstInitComplete = true;
@@ -585,6 +585,45 @@ namespace Windows_Desktop
             var i = CanvasC1ComboBox.SelectedIndex;
             string x = (i + 1).ToString();
             webViewC1.Url = "http://localhost/index" + x + ".html";
+        }
+
+        #endregion
+
+        #region Canvas D - Path
+        private int D1_i = 0;
+        private int D2_i = 0;
+
+        public void CanvasD_init()
+        {
+            CanvasD1PopulateComboBox();
+            CanvasD2PopulateComboBox();
+        }
+        private void CanvasD1PopulateComboBox()
+        {
+            CanvasD1ComboBox.ItemsSource = new List<string>(new string[] { "Data Center Technician", "Customer Service Rep", "Low-Code Developer", "Virtual Server Admin", "IT Support Specialist" });
+            CanvasD1ComboBox.SelectedItem = "Data Center Technician";
+        }
+
+        public void CanvasD1ComboBoxSelected(object sender, RoutedEventArgs e)
+        {
+            D1_i = CanvasD1ComboBox.SelectedIndex;
+            string x = (D1_i + 1).ToString();
+            string y = (D2_i + 1).ToString();
+            webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree" + x + y + ".html";
+        }
+
+        private void CanvasD2PopulateComboBox()
+        {
+            CanvasD2ComboBox.ItemsSource = new List<string>(new string[] { "Salary", "Job Stability", "Current Location" });
+            CanvasD2ComboBox.SelectedItem = "Salary";
+        }
+
+        public void CanvasD2ComboBoxSelected(object sender, RoutedEventArgs e)
+        {
+            D2_i = CanvasD2ComboBox.SelectedIndex;
+            string x = (D1_i + 1).ToString();
+            string y = (D2_i + 1).ToString();
+            webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree" + x + y + ".html";
         }
 
         #endregion
