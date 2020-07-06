@@ -600,8 +600,8 @@ namespace Windows_Desktop
         }
         private void CanvasD1PopulateComboBox()
         {
-            CanvasD1ComboBox.ItemsSource = new List<string>(new string[] { "Data Center Technician", "Customer Service Rep", "Low-Code Developer", "Virtual Server Admin", "IT Support Specialist" });
-            CanvasD1ComboBox.SelectedItem = "Data Center Technician";
+            CanvasD1ComboBox.ItemsSource = new List<string>(new string[] { "Factory Technician", "Retail Sales Associate" }); //, "Low-Code Developer", "Virtual Server Admin", "IT Support Specialist" });
+            CanvasD1ComboBox.SelectedItem = "Factory Technician";
         }
 
         public void CanvasD1ComboBoxSelected(object sender, RoutedEventArgs e)
