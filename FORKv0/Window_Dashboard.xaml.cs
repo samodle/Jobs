@@ -65,7 +65,7 @@ namespace Windows_Desktop
               Thread onetThread = new Thread(setONETReport);
               onetThread.Start();
 
-            webViewE1.Url = "https://xd.adobe.com/view/491b586d-5e3a-498d-b35f-ad7c84d8df61-1c48/?fullscreen";
+            webViewE1.Url = "https://xd.adobe.com/view/b1e4dfbb-d0a9-42d0-acb6-c462ec2b29dc-e4b7/?fullscreen";
             //ONETImportScripts.ONET_importOccupations();
         }
 
@@ -335,6 +335,8 @@ namespace Windows_Desktop
 
             CanvasA1ListBox.ItemsSource = null;
             CanvasA1ListBox.ItemsSource = OccupationNames;
+
+            CanvasA1ListBox.SelectedIndex = 0;
         }
 
         public List<string> A1ListofSelectedOccupations = new List<string>();
@@ -500,6 +502,8 @@ namespace Windows_Desktop
             }
 
             CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Net;
+
+            CanvasB1ListBox.SelectedIndex = 0;
         }
 
         #region B - Tab Navigation
@@ -674,7 +678,7 @@ namespace Windows_Desktop
                 HideAllDashboards();
                 HeaderTitleLabel.Content = "Skill Explorer";
                 ContentCanvasA.Visibility = Visibility.Visible;
-                CanvasA1ListBox.SelectedIndex = 0;
+              //  CanvasA1ListBox.SelectedIndex = 0;
             }
         }
 
@@ -685,7 +689,7 @@ namespace Windows_Desktop
                 HideAllDashboards();
                 HeaderTitleLabel.Content = "Next Steps";
                 ContentCanvasB.Visibility = Visibility.Visible;
-                CanvasB1ListBox.SelectedIndex = 0;
+               //CanvasB1ListBox.SelectedIndex = 0;
             }
         }
 
