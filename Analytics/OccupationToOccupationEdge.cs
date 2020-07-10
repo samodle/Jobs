@@ -36,5 +36,6 @@ namespace Analytics
         {
             return OccupationAName + " - " + OccupationBName;
         }
+
     }
 }

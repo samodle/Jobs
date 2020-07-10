@@ -620,6 +620,9 @@
     <PackageReference Include="Microsoft.Toolkit.Wpf.UI.Controls.WebView">
       <Version>6.0.1</Version>
     </PackageReference>
+    <PackageReference Include="MongoDB.Driver">
+      <Version>2.10.4</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>

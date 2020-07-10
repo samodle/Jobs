@@ -50,6 +50,7 @@ namespace Windows_Desktop
 
         public void fork_onload(object sender, RoutedEventArgs e)
         {
+            //configure the web viewer
             EO.WebEngine.BrowserOptions options = new EO.WebEngine.BrowserOptions();
             options.EnableWebSecurity = false;
             EO.WebEngine.EngineOptions.Default.SetDefaultBrowserOptions(options);
@@ -107,7 +108,7 @@ namespace Windows_Desktop
             //  foreach()
 
 
-
+            ForkReport.saveEdgesToDB();
             initComplete = true;
         }
 
@@ -786,10 +787,6 @@ namespace Windows_Desktop
             {
                 Canvas.SetZIndex(c, Zindex);
             }
-
-            //c.MouseDown += mousedownact;
-
-
         }
         public void GenerateCanvasUI(Canvas dep, string canvasname, double height, double width, double PosLeft, double PosTop, int Zindex = -1, SolidColorBrush canvascolor = null)
         {
