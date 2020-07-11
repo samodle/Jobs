@@ -95,7 +95,7 @@ namespace Windows_Desktop
             {
                 int occNum = 5;
                 Analytics.Constants.AttributeType type = Analytics.Constants.AttributeType.Net;
-                ForkReport.setOccupationEdges(occNum);
+                ForkReport.setOccupationEdges(occNum);  // DEPRECATED!!
                 HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
                 type = Analytics.Constants.AttributeType.Skill;
                 HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
@@ -104,11 +104,12 @@ namespace Windows_Desktop
                 type = Analytics.Constants.AttributeType.Ability;
                 HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
             }
-            // List<int> occNums = new List<int> { 5, 10, 15, 20 };
-            //  foreach()
+
+            //mongo CRUD operations
+            //ForkReport.saveEdgesToDB(); //calculates simple edges and saves them to mongodb
+            ForkReport.findTopAdjacencies();
 
 
-            ForkReport.saveEdgesToDB();
             initComplete = true;
         }
 
@@ -1755,7 +1756,7 @@ namespace Windows_Desktop
         public static SolidColorBrush mybrushnormalbargreencolor = new SolidColorBrush(Color.FromRgb(50, 205, 240));        // default color of charts
         public static SolidColorBrush mybrushhighlightedbargreencolor = new SolidColorBrush(Color.FromRgb(80, 215, 250));   // on mouse over color of charts 
 
-        public static SolidColorBrush mybrushLossLabelDefaultColors = new SolidColorBrush(Color.FromRgb(89, 89, 89));   // Loss label default gray colors
+        public static SolidColorBrush mybrushLossLabelDefaultColors = new SolidColorBrush(Color.FromRgb(89, 89, 89));   // default gray colors
 
         public static SolidColorBrush mybrushNOTSelectedCriteria = new SolidColorBrush(Color.FromRgb(230, 230, 230));
 
