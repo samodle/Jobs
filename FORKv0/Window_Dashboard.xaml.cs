@@ -107,7 +107,7 @@ namespace Windows_Desktop
 
             //mongo CRUD operations
             //ForkReport.saveEdgesToDB(); //calculates simple edges and saves them to mongodb
-            ForkReport.findTopAdjacencies();
+            // ForkReport.findTopAdjacencies();
 
 
             initComplete = true;
