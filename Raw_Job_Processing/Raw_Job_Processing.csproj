@@ -6,8 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LumenWorks.Framework.IO" Version="3.8.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
+
+  <Import Project="..\Analytics\Analytics.projitems" Label="Shared" />
+
+  <Import Project="..\Helper\Helper.projitems" Label="Shared" />
+
+  <Import Project="..\DataPersistancy\DataPersistancy.projitems" Label="Shared" />
+
+  <Import Project="..\HTMLDev\HTMLDev.projitems" Label="Shared" />
 
 </Project>

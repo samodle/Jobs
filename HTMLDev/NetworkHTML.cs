@@ -16,7 +16,7 @@ namespace HTMLDev
         {
             string a = "";
             //Random random = new Random();
-            string fileName = Windows_Desktop.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
+            string fileName = Helper.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
 
             double maxDist = 0;
             foreach (OccupationEdge edge in forkReport.OccupationEdges)
@@ -268,7 +268,7 @@ namespace HTMLDev
         {
             string a = "";
             Random random = new Random();
-            string fileName = Windows_Desktop.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
+            string fileName = Helper.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
 
 
             FileStream fcreate = File.Open(fileName, FileMode.Create);
@@ -344,7 +344,7 @@ namespace HTMLDev
             {
                 string a = "";
                 Random random = new Random();
-                string fileName = Windows_Desktop.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
+                string fileName = Helper.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
 
                 FileStream fcreate = File.Open(fileName, FileMode.Create);
                 using (StreamWriter writer = new StreamWriter(fcreate))

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EO.WebBrowser.DOM;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -17,8 +16,6 @@ namespace Analytics
         public List<Attribute> MasterAbilityList = new List<Attribute>();
 
         public List<OccupationEdge> OccupationEdges = new List<OccupationEdge>();
-
-        
 
         #region Graph Building
         public void saveEdgesToDB()
@@ -36,7 +33,6 @@ namespace Analytics
                    var newEdge = MasterOccupationList[i].getEdge(MasterOccupationList[j]);
                    EmpInfoArray.Add(newEdge.getSimpleEdge().ToBsonDocument());
                 }
-
                 try
                 {
                     collection.InsertMany(EmpInfoArray);
@@ -45,9 +41,6 @@ namespace Analytics
                 {
                     int ie = 0;
                 }
-
-
-
             }
         }
 

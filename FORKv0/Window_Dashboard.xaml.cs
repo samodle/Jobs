@@ -1,5 +1,6 @@
 ﻿using Analytics;
 using DataPersistancy;
+using Helper;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,8 @@ namespace Windows_Desktop
 {
     public partial class dashboardwindow : Window
     {
+        public static System.Windows.Input.MouseButtonEventArgs f { get; set; }
+        public static EventArgs g { get; set; }
         public int Menuitemclicked_number = -1;
         public ONETReport ForkReport { get; set; }
         public List<string> OccupationNames { get; set; }
@@ -74,10 +77,10 @@ namespace Windows_Desktop
         {
             //import data
             ForkReport = new ONETReport();
-            ForkReport.MasterOccupationList = JSON_IO.Import_OccupationList(Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + ".txt");
-            ForkReport.MasterSkillList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.SKILLS + ".txt");
-            ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.ABILITIES + ".txt");
-            ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Windows_Desktop.Publics.FILENAMES.KNOWLEDGE + ".txt");
+            ForkReport.MasterOccupationList = JSON_IO.Import_OccupationList(Helper.Publics.FILENAMES.OCCUPATIONS + ".txt");
+            ForkReport.MasterSkillList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.SKILLS + ".txt");
+            ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.ABILITIES + ".txt");
+            ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.KNOWLEDGE + ".txt");
 
             //set listbox components
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList(); //sets CanvasA1 Listbox
@@ -118,7 +121,7 @@ namespace Windows_Desktop
             LaunchCanvas.Visibility = Visibility.Hidden;
             if (firstInitComplete)
             {
-                ToggleShowHide_CanvasE(sender, Publics.f);
+                ToggleShowHide_CanvasE(sender, f);
             }
             else
             {   
@@ -129,7 +132,7 @@ namespace Windows_Desktop
                 CanvasD_init();
               //  webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree.html";
                
-                ToggleShowHide_CanvasE(sender, Publics.f);
+                ToggleShowHide_CanvasE(sender, f);
                 firstInitComplete = true;
             }
         }
@@ -261,7 +264,7 @@ namespace Windows_Desktop
 
             }
             Menuitemclicked_number = menuitem;
-            CloseMenu(MenuCanvas, Publics.f);
+            CloseMenu(MenuCanvas, f);
         }
 
         public void restore_allmenuitems_color()

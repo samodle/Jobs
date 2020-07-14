@@ -1,4 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿//using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +16,9 @@ namespace Analytics
         public List<JobAttribute> Knowledge { get; set; } = new List<JobAttribute>();
         public List<JobAttribute> Abilities { get; set; } = new List<JobAttribute>();
         public Constants.JobZone Zone { get; set; }
+
+
+
 
         public Occupation() { }
         public Occupation(string name, string socCode, string descriptions)

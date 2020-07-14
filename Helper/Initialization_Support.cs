@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Windows_Desktop
+namespace Helper
 {
     class Initialization_Support
     {
@@ -23,9 +23,6 @@ namespace Windows_Desktop
 
     static class Publics
     {
-        public static System.Windows.Input.MouseButtonEventArgs f { get; set; }
-        public static EventArgs g { get; set; }
-
         public static class FILEPATHS
         {
             public const string PATH_FORK = "C:\\Users\\Public\\Public_fork\\";

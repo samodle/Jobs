@@ -146,7 +146,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Initialization_Support.cs" />
     <Compile Include="Window_Dashboard.xaml.cs">
       <DependentUpon>Window_Dashboard.xaml</DependentUpon>
     </Compile>
@@ -630,6 +629,7 @@
   <Import Project="..\Analytics\Analytics.projitems" Label="Shared" />
   <Import Project="..\DataPersistancy\DataPersistancy.projitems" Label="Shared" />
   <Import Project="..\HTMLDev\HTMLDev.projitems" Label="Shared" />
+  <Import Project="..\Helper\Helper.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 using System.IO;
 using Analytics;
-using System.Windows.Media.TextFormatting;
+//using System.Windows.Media.TextFormatting;
 using Attribute = Analytics.Attribute;
 using System.Drawing.Text;
 
@@ -34,14 +34,14 @@ namespace DataPersistancy
                 MasterOccupationList.Add(new Occupation (name: csvTable.Rows[i][1].ToString(), socCode: csvTable.Rows[i][0].ToString(), descriptions: csvTable.Rows[i][2].ToString() ));
             }
 
-            JSON_IO.JSON_Export_OccupationList(MasterOccupationList, Windows_Desktop.Publics.FILENAMES.OCCUPATIONS);
+            JSON_IO.JSON_Export_OccupationList(MasterOccupationList, Helper.Publics.FILENAMES.OCCUPATIONS);
         }
 
 
         //create skills, add them to the occupations
         public static void ONET_importOccupations()
         {
-            MasterOccupationList = JSON_IO.Import_OccupationList(Windows_Desktop.Publics.FILENAMES.OCCUPATIONS + ".txt");
+            MasterOccupationList = JSON_IO.Import_OccupationList(Helper.Publics.FILENAMES.OCCUPATIONS + ".txt");
             foreach (Occupation o in MasterOccupationList)
             {
                 o.Skills = new List<JobAttribute>();
@@ -98,11 +98,11 @@ namespace DataPersistancy
             importJobZones();
             importAltOccNames();
 
-            JSON_IO.JSON_Export_OccupationList(MasterOccupationList, Windows_Desktop.Publics.FILENAMES.OCCUPATIONS);
+            JSON_IO.JSON_Export_OccupationList(MasterOccupationList, Helper.Publics.FILENAMES.OCCUPATIONS);
 
-            JSON_IO.Export_AttributeList(MasterSkillList, Windows_Desktop.Publics.FILENAMES.SKILLS);
-            JSON_IO.Export_AttributeList(MasterKnowledgeList, Windows_Desktop.Publics.FILENAMES.KNOWLEDGE);
-            JSON_IO.Export_AttributeList(MasterAbilityList, Windows_Desktop.Publics.FILENAMES.ABILITIES);
+            JSON_IO.Export_AttributeList(MasterSkillList, Helper.Publics.FILENAMES.SKILLS);
+            JSON_IO.Export_AttributeList(MasterKnowledgeList, Helper.Publics.FILENAMES.KNOWLEDGE);
+            JSON_IO.Export_AttributeList(MasterAbilityList, Helper.Publics.FILENAMES.ABILITIES);
         }
         
         private static void importAltOccNames() 

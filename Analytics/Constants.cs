@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Windows.Media.Streaming.Adaptive;
+//using Windows.Media.Streaming.Adaptive;
 
 namespace Analytics
 {
