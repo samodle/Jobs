@@ -20,6 +20,22 @@ namespace Analytics
             this.Distances = distances;
         }
 
+        public string getOtherName(string name)
+        {
+            if (name.Equals(OccupationAName))
+            {
+                return OccupationBName;
+            }
+            else if (name.Equals(OccupationBName))
+            {
+                return OccupationAName;
+            }
+            else
+            {
+                return "n/a";
+            }
+        }
+
 
         public double getDistance(Constants.AttributeType type = Constants.AttributeType.Net)
         {

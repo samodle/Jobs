@@ -17,6 +17,8 @@ namespace Analytics
         public List<JobAttribute> Abilities { get; set; } = new List<JobAttribute>();
         public Constants.JobZone Zone { get; set; }
 
+        public List<string> TenMostAdjacent { get; set; } = new List<string>(); 
+
 
 
 
