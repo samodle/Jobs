@@ -29,10 +29,14 @@ namespace Analytics
 
         public enum AttributeType
         {
-            Skill,
-            Ability,
-            Knowledge,
-            Net
+            Skill = 0,
+            Ability = 1,
+            Knowledge = 2,
+            Net = 3,
+            Word2VecWIKI = 4,
+            Word2VecFORK = 5,
+            TFIDF = 6,
+            Word2VecGOOGNEWS = 7
         }
 
         public static string getStringForAttributeType(AttributeType type)
