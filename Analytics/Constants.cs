@@ -18,6 +18,12 @@ namespace Analytics
         //level steps? (ie threshold at which level distance becomes greater)
         //importance steps?
 
+        public enum WageSnapshotType
+        {
+            Hourly = 0,
+            Annual = 1
+        }
+
         public enum JobZone
         {
             One = 1,

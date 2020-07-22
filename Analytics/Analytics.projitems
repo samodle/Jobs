@@ -25,5 +25,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)OccupationAttributeSimilarityMatrix.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OccupationToOccupationEdge.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ONETReport.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WageData.cs" />
   </ItemGroup>
 </Project>
