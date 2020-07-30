@@ -13,8 +13,6 @@ namespace Raw_Job_Processing
 {
     class Program
     {
-
-
         static void Main(string[] args)
         {
             Console.WriteLine("Connecting To Database...");
@@ -302,7 +300,7 @@ namespace Raw_Job_Processing
                 elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds,
                 ts.Milliseconds / 10);
-                Console.WriteLine(complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in " + elapsedTime);
+                Console.WriteLine(Math.Round(complete_counter * 100.0 / unique_companies.Count, 1).ToString() + "%, " + complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in " + elapsedTime);
             }
         }
     }

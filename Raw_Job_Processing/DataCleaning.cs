@@ -31,11 +31,11 @@ namespace Raw_Job_Processing
         public string search_term { get; set; }
         public string source { get; set; }
         public string description { get; set; }
-        public string date_found { get; set; }
-        public string post_date { get; set; }
+        public DateTime date_found { get; set; }
+        public DateTime post_date { get; set; }
 
         public List<string> search_terms { get; set; } = new List<string>();
-        public List<string> dates_found { get; set; } = new List<string>();
+        public List<DateTime> dates_found { get; set; } = new List<DateTime>();
 
 
         public bool Equals(RawJobDescription other)
