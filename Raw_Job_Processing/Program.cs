@@ -19,9 +19,9 @@ namespace Raw_Job_Processing
         {
             Console.WriteLine("Connecting To Database...");
 
-            //removeDupes();
+            removeDupes();
 
-            PopulateAllProfessionNearestNeighbors(20);
+            //PopulateAllProfessionNearestNeighbors(20);
 
 
 
@@ -41,10 +41,11 @@ namespace Raw_Job_Processing
             var ForkReport = new ONETReport();
             ForkReport.MasterOccupationList = JSON_IO.Import_OccupationList(Helper.Publics.FILENAMES.OCCUPATIONS + ".txt");
 
+            Console.WriteLine("Iterating Through Occupations...");
 
             foreach (Occupation o in ForkReport.MasterOccupationList)
             {
-
+                Console.WriteLine("                                ..." + o.Name);
                 var occupationFilterA = Builders<BsonDocument>.Filter.Eq("OccupationAName", o.Name);
                 var targetAdjacenciesA = edge_collection.Find(occupationFilterA).ToList();
 
@@ -80,18 +81,6 @@ namespace Raw_Job_Processing
                 destination_collection.InsertOne(newNeighborList.ToBsonDocument());
 
             }
-
-
-
-            //save to DB
-
-
-            var EmpInfoArray = new List<BsonDocument>();
-            foreach (Occupation j in ForkReport.MasterOccupationList)
-            {
-                EmpInfoArray.Add(j.ToBsonDocument());
-            }
-            destination_collection.InsertMany(EmpInfoArray);
         }
 
         //ETL the profession info, add top adjacencies to profession node (this part is bad and needs to go)
@@ -220,41 +209,101 @@ namespace Raw_Job_Processing
 
 
         //Job Description Data: Removes Duplicates and Cleans
-        private static void removeDupes()
+        private static async void removeDupes()
         {
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+
             MongoClient dbClient = new MongoClient("mongodb://forkAdmin:ForkAdmin123@localhost:27017");
             IMongoDatabase database = dbClient.GetDatabase("jobs");
             var raw_collection = database.GetCollection<BsonDocument>("job_descriptions");
-            var clean_collection = database.GetCollection<BsonDocument>("jobs_cleaned");
+            //var clean_collection = database.GetCollection<BsonDocument>("jobs_cleaned");
 
-            var rawData = raw_collection.Find(_=> true).ToList();
+            //var filter = new BsonDocument();
+            var unique_companies = raw_collection.Distinct<string>("company", FilterDefinition<BsonDocument>.Empty).ToList();
 
-            List<RawJobDescription> rawJobs = new List<RawJobDescription>();
+          //  var unique_companies = unique_cursors.ToList();
 
-            foreach (var a in rawData)
+            int complete_counter = 0;
+
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = watch.Elapsed;
+
+            // Format and display the TimeSpan value.
+
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            ts.Hours, ts.Minutes, ts.Seconds,
+            ts.Milliseconds / 10);
+            Console.WriteLine($"Setup Complete: " + elapsedTime);
+
+            foreach (string company in unique_companies)
             {
-                var b = BsonSerializer.Deserialize<RawJobDescription>(a);       
-                rawJobs.Add(DataCleaning.CleanJobDescription(b));
+                var jdsToDelete = new List<ObjectId>();
+                var jdsToUpdate = new List<ObjectId>();
+
+                var filter2 = Builders<BsonDocument>.Filter.Eq("company", company);
+                var rawData = raw_collection.Find(filter2).ToList();
+
+                if (rawData.Count > 1)
+                {
+                    List<RawJobDescription> rawJobs = new List<RawJobDescription>();
+
+                    foreach (var a in rawData)
+                    {
+                        var b = BsonSerializer.Deserialize<RawJobDescription>(a);
+                        rawJobs.Add(DataCleaning.CleanJobDescription(b));
+                    }
+
+                    //for each job description, check if there are any duplicates
+                    for (int i = 0; i < rawJobs.Count - 1; i++)
+                    {
+                        for (int j = i + 1; j < rawJobs.Count; j++)
+                        {
+                            if (rawJobs[i].Equals(rawJobs[j]))
+                            {
+                                // delete the first one, save the second
+                                jdsToDelete.Add(rawJobs[i].ID);
+                                jdsToUpdate.Add(rawJobs[j].ID);
+
+                                // get any other data we need
+                                rawJobs[j].search_terms = rawJobs[j].search_terms.Union(rawJobs[i].search_terms).ToList();
+                                rawJobs[j].dates_found = rawJobs[j].dates_found.Union(rawJobs[i].dates_found).ToList();
+
+                                break; //break out of this loop
+                            }
+                        }
+                    }
+
+                    jdsToUpdate = jdsToUpdate.Distinct().ToList();
+                    jdsToUpdate = jdsToUpdate.Except(jdsToDelete).ToList();
+
+                    //make updates
+                    foreach (var jb in jdsToUpdate)
+                    {
+                        var job = rawJobs.Single(s => s.ID == jb);
+
+                        var filterx = Builders<BsonDocument>.Filter.Eq("_id", job.ID);
+                        var update = Builders<BsonDocument>.Update.Set("search_terms", job.search_terms)
+                                    .Set("dates_found", job.dates_found);
+                        var updateResult = raw_collection.UpdateOne(filterx, update);
+                    }
+
+                    //make deletions
+                    var filter3 = Builders<BsonDocument>.Filter.In("_id", jdsToDelete);
+                    await raw_collection.DeleteManyAsync(filter3);
+                }
+
+                //update the console
+                complete_counter++;
+                // Get the elapsed time as a TimeSpan value.
+                ts = watch.Elapsed;
+
+                // Format and display the TimeSpan value.
+                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+                Console.WriteLine(complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in " + elapsedTime);
             }
-
-            var cleanedJobs = rawJobs.Distinct().ToList();
-
-            var EmpInfoArray = new List<BsonDocument>();
-
-            foreach(RawJobDescription j in cleanedJobs)
-            {
-                EmpInfoArray.Add(j.ToBsonDocument());
-            }
-
-            try
-            {
-                clean_collection.InsertMany(EmpInfoArray);
-            }
-            catch (Exception e)
-            {
-                int ie = 0;
-            }
-
         }
     }
 }

@@ -39,8 +39,15 @@ namespace Analytics
 
         public double getDistance(Constants.AttributeType type = Constants.AttributeType.Net)
         {
-            var targetTuple = Distances.First(a => a.Item1 == type);
-            return targetTuple.Item2;
+            try
+            {
+                var targetTuple = Distances.First(a => a.Item1 == type);
+                return targetTuple.Item2;
+            }
+            catch(System.InvalidOperationException e)
+            {
+                return Constants.INVALID_DISTANCE;
+            }
         }
 
         public override string ToString()

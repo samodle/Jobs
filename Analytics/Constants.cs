@@ -11,7 +11,7 @@ namespace Analytics
         //Adjacency Constance
         public const double MAX_DISTANCE = 1.0;
         public const double MIN_DISTANCE = 0.0;
-        public const double INVALID_DISTANCE = -1.0;
+        public const double INVALID_DISTANCE = 10000.0;
         public const double IMPORTANCE_MATCH_THRESHOLD = 0.5;
         public const double LEVEL_MATCH_THRESHOLD = 0.5;
         public const double LEVEL_OVER_IMPORTANCE_FACTOR = 2;
