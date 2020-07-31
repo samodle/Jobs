@@ -223,6 +223,7 @@ namespace Raw_Job_Processing
           //  var unique_companies = unique_cursors.ToList();
 
             int complete_counter = 0;
+            int delete_counter = 0;
 
             // Get the elapsed time as a TimeSpan value.
             TimeSpan ts = watch.Elapsed;
@@ -236,8 +237,8 @@ namespace Raw_Job_Processing
 
             foreach (string company in unique_companies)
             {
-                var jdsToDelete = new List<ObjectId>();
-                var jdsToUpdate = new List<ObjectId>();
+              var jdsToDelete = new List<ObjectId>();
+              var jdsToUpdate = new List<ObjectId>();
 
                 var filter2 = Builders<BsonDocument>.Filter.Eq("company", company);
                 var rawData = raw_collection.Find(filter2).ToList();
@@ -259,6 +260,19 @@ namespace Raw_Job_Processing
                         {
                             if (rawJobs[i].Equals(rawJobs[j]))
                             {
+                                // if i is newer, delete j so swap the items
+                                if(rawJobs[i].date_found != null && rawJobs[j].date_found != null)
+                                {
+                                    if(DateTime.Compare(rawJobs[i].date_found, rawJobs[j].date_found) > 0)
+                                    {
+                                        Console.WriteLine("Swap!");
+                                        //swap the two JDs
+                                        var tmp = rawJobs[i];
+                                        rawJobs[i] = rawJobs[j];
+                                        rawJobs[j] = tmp;
+                                    }
+                                }
+
                                 // delete the first one, save the second
                                 jdsToDelete.Add(rawJobs[i].ID);
                                 jdsToUpdate.Add(rawJobs[j].ID);
@@ -272,23 +286,44 @@ namespace Raw_Job_Processing
                         }
                     }
 
-                    jdsToUpdate = jdsToUpdate.Distinct().ToList();
-                    jdsToUpdate = jdsToUpdate.Except(jdsToDelete).ToList();
-
-                    //make updates
-                    foreach (var jb in jdsToUpdate)
+                    if (jdsToDelete.Count > 0)
                     {
-                        var job = rawJobs.Single(s => s.ID == jb);
+                        delete_counter += jdsToDelete.Count;
 
-                        var filterx = Builders<BsonDocument>.Filter.Eq("_id", job.ID);
-                        var update = Builders<BsonDocument>.Update.Set("search_terms", job.search_terms)
-                                    .Set("dates_found", job.dates_found);
-                        var updateResult = raw_collection.UpdateOne(filterx, update);
+                        jdsToUpdate = jdsToUpdate.Distinct().ToList();
+                        jdsToUpdate = jdsToUpdate.Except(jdsToDelete).ToList();
+
+                        //for debugging, let's get visibility to what we're about to delete/update
+                        /*
+                            var tmpUpdateList = new List<RawJobDescription>();
+                            var tmpDeleteList = new List<RawJobDescription>();
+
+                            foreach(var jbb in jdsToUpdate)
+                            {
+                                tmpUpdateList.Add(rawJobs.Single(o => o.ID == jbb));
+                            }
+
+                            foreach (var jbb in jdsToDelete)
+                            {
+                                tmpDeleteList.Add(rawJobs.Single(o => o.ID == jbb));
+                            }
+                            */
+
+                        //make updates
+                        foreach (var jb in jdsToUpdate)
+                        {
+                            var job = rawJobs.Single(s => s.ID == jb);
+
+                            var filterx = Builders<BsonDocument>.Filter.Eq("_id", job.ID);
+                            var update = Builders<BsonDocument>.Update.Set("search_terms", job.search_terms)
+                                        .Set("dates_found", job.dates_found);
+                            var updateResult = raw_collection.UpdateOne(filterx, update);
+                        }
+
+                        //make deletions
+                        var filter3 = Builders<BsonDocument>.Filter.In("_id", jdsToDelete);
+                        raw_collection.DeleteMany(filter3);
                     }
-
-                    //make deletions
-                    var filter3 = Builders<BsonDocument>.Filter.In("_id", jdsToDelete);
-                    await raw_collection.DeleteManyAsync(filter3);
                 }
 
                 //update the console
@@ -300,7 +335,7 @@ namespace Raw_Job_Processing
                 elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds,
                 ts.Milliseconds / 10);
-                Console.WriteLine(Math.Round(complete_counter * 100.0 / unique_companies.Count, 1).ToString() + "%, " + complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in " + elapsedTime);
+                Console.WriteLine(Math.Round(complete_counter * 100.0 / unique_companies.Count, 1).ToString() + "%, " + delete_counter.ToString() + " Deleted, " + complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in " + elapsedTime);
             }
         }
     }

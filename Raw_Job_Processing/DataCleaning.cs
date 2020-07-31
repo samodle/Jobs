@@ -32,7 +32,7 @@ namespace Raw_Job_Processing
         public string source { get; set; }
         public string description { get; set; }
         public DateTime date_found { get; set; }
-        public DateTime post_date { get; set; }
+        public string post_date { get; set; }
 
         public List<string> search_terms { get; set; } = new List<string>();
         public List<DateTime> dates_found { get; set; } = new List<DateTime>();
@@ -58,7 +58,7 @@ namespace Raw_Job_Processing
 
         public override string ToString()
         {
-            return company + ", Title:" + JobTitle + ", Location: " + location + ", Source:" + source;
+            return company + ", Title: " + JobTitle + ", Location: " + location + ", Source: " + source;
         }
 
     }
@@ -81,8 +81,9 @@ namespace Raw_Job_Processing
                 rawJob.search_terms.Add(rawJob.search_term);
             }
 
-            if (rawJob.dates_found.Count == 0)
+            if (rawJob.dates_found.Count == 0 && rawJob.date_found != null) // && rawJob.date_found.Length > 2)
             {
+                //  rawJob.dates_found.Add(DateTime.Parse(rawJob.date_found));
                 rawJob.dates_found.Add(rawJob.date_found);
             }
 
