@@ -9,6 +9,7 @@ namespace DataPersistancy
 {
     public static class JSON_IO
     {
+ 
         public static void JSON_Export_OccupationList(List<Occupation> exportObject, string FileName, string FileType = ".txt")
         {
             string jsonData = JsonConvert.SerializeObject(exportObject);

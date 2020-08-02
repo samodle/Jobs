@@ -8,6 +8,18 @@ namespace Analytics
     public static class Constants
     {
 
+        public static class MongoStrings
+        {
+            public const string JOB_DB = "jobs";
+            public const string JOB_COLLECTION = "job_descriptions";
+
+            public const string GRAPH_DB = "graphs";
+
+            public const string CONNECTION = "mongodb://forkAdmin:ForkAdmin123@localhost:27017";
+
+            public const int CHUNK_SIZE = 40000;
+        }
+
         //Adjacency Constance
         public const double MAX_DISTANCE = 1.0;
         public const double MIN_DISTANCE = 0.0;

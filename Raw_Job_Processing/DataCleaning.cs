@@ -1,6 +1,7 @@
 ﻿using Analytics;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -16,24 +17,34 @@ namespace Raw_Job_Processing
 
     //Job Description Straight From The Database
     [BsonIgnoreExtraElements]
+    [JsonObject(MemberSerialization.OptIn)]
     public class RawJobDescription : IEquatable<RawJobDescription>
     {
+        [JsonProperty]
         public string JobTitle { get; set; }
         [BsonId]
+        [JsonProperty]
         public ObjectId ID { get; set; }
         public string url { get; set; }
         public int CompanyID { get; set; }
+        [JsonProperty]
         public string company { get; set; }
+        [JsonProperty]
         public string location { get; set; }
         public string? rating { get; set; }
         public string? salary { get; set; }
         public string? commitment { get; set; }
+        [JsonProperty]
         public string search_term { get; set; }
+        [JsonProperty]
         public string source { get; set; }
+        [JsonProperty]
         public string description { get; set; }
+        [JsonProperty]
+        public string description_cleaned { get; set; }
         public DateTime date_found { get; set; }
         public string post_date { get; set; }
-
+        [JsonProperty]
         public List<string> search_terms { get; set; } = new List<string>();
         public List<DateTime> dates_found { get; set; } = new List<DateTime>();
 

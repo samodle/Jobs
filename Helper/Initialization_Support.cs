@@ -28,6 +28,7 @@ namespace Helper
             public const string PATH_FORK = "C:\\Users\\Public\\Public_fork\\";
             public const string PATH_FORK_JSON = PATH_FORK + "Common\\";
             public const string PATH_FORK_HTML = PATH_FORK + "html\\";
+            public const string PATH_BIG_EXPORT = "H:\\Fork\\Fork_JD_Export_08022020\\";
         }
         public static class FILENAMES
         {

@@ -17,11 +17,11 @@ namespace Raw_Job_Processing
         {
             Console.WriteLine("Connecting To Database...");
 
-            removeDupes();
+            //removeDupes();
 
             //PopulateAllProfessionNearestNeighbors(20);
 
-
+            MongoExport.ExportEachDocument();
 
             Console.WriteLine("Shutting Down...");
         }
@@ -30,8 +30,8 @@ namespace Raw_Job_Processing
         //
         private static void PopulateAllProfessionNearestNeighbors(int n)
         {
-            MongoClient dbClient = new MongoClient("mongodb://forkAdmin:ForkAdmin123@localhost:27017");
-            IMongoDatabase database = dbClient.GetDatabase("graphs");
+            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
+            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.GRAPH_DB);
 
             var edge_collection = database.GetCollection<BsonDocument>("edges_professions");
             var destination_collection = database.GetCollection<BsonDocument>("nearest_neighbors_profession");
@@ -90,8 +90,8 @@ namespace Raw_Job_Processing
             ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.ABILITIES + ".txt");
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.KNOWLEDGE + ".txt");
 
-            MongoClient dbClient = new MongoClient("mongodb://forkAdmin:ForkAdmin123@localhost:27017");
-            IMongoDatabase database = dbClient.GetDatabase("graphs");
+            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
+            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.GRAPH_DB);
 
             var profession_collection = database.GetCollection<BsonDocument>("node_profession");
 
@@ -158,8 +158,8 @@ namespace Raw_Job_Processing
             ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.ABILITIES + ".txt");
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.KNOWLEDGE + ".txt");
 
-            MongoClient dbClient = new MongoClient("mongodb://forkAdmin:ForkAdmin123@localhost:27017");
-            IMongoDatabase database = dbClient.GetDatabase("graphs");
+            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
+            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.GRAPH_DB);
             var skill_collection = database.GetCollection<BsonDocument>("node_skill");
             var ability_collection = database.GetCollection<BsonDocument>("node_ability");
            // var profession_collection = database.GetCollection<BsonDocument>("node_profession");
@@ -194,7 +194,7 @@ namespace Raw_Job_Processing
             }
             ability_collection.InsertMany(EmpInfoArray);
 
-            EmpInfoArray = new List<BsonDocument>();
+            //EmpInfoArray = new List<BsonDocument>();
 
             /*foreach (Occupation j in ForkReport.MasterOccupationList)
             {
@@ -212,15 +212,11 @@ namespace Raw_Job_Processing
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            MongoClient dbClient = new MongoClient("mongodb://forkAdmin:ForkAdmin123@localhost:27017");
-            IMongoDatabase database = dbClient.GetDatabase("jobs");
-            var raw_collection = database.GetCollection<BsonDocument>("job_descriptions");
-            //var clean_collection = database.GetCollection<BsonDocument>("jobs_cleaned");
+            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
+            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
+            var raw_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_COLLECTION);
 
-            //var filter = new BsonDocument();
             var unique_companies = raw_collection.Distinct<string>("company", FilterDefinition<BsonDocument>.Empty).ToList();
-
-          //  var unique_companies = unique_cursors.ToList();
 
             int complete_counter = 0;
             int delete_counter = 0;
@@ -229,7 +225,6 @@ namespace Raw_Job_Processing
             TimeSpan ts = watch.Elapsed;
 
             // Format and display the TimeSpan value.
-
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
             ts.Hours, ts.Minutes, ts.Seconds,
             ts.Milliseconds / 10);
@@ -328,6 +323,7 @@ namespace Raw_Job_Processing
 
                 //update the console
                 complete_counter++;
+
                 // Get the elapsed time as a TimeSpan value.
                 ts = watch.Elapsed;
 
