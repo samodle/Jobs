@@ -17,7 +17,7 @@ namespace Analytics
 
             public const string CONNECTION = "mongodb://forkAdmin:ForkAdmin123@localhost:27017";
 
-            public const int CHUNK_SIZE = 40000;
+            public const int CHUNK_SIZE = 20000;
         }
 
         //Adjacency Constance

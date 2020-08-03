@@ -5,7 +5,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using static Analytics.Constants;
 
 namespace Raw_Job_Processing
@@ -22,7 +24,7 @@ namespace Raw_Job_Processing
             return raw_collection.Find(FilterDefinition<BsonDocument>.Empty).Skip(indexA).Limit(indexB - indexA).ToList();
         }
 
-        public static async void JSON_Export_JD(BsonDocument bDoc, string FileName, string FileType = ".json")
+        public static void JSON_Export_JD(BsonDocument bDoc, string FileName, string FileType = ".json")
         {
             var exportObject = BsonSerializer.Deserialize<RawJobDescription>(bDoc);
             string jsonData = JsonConvert.SerializeObject(exportObject);
@@ -79,6 +81,16 @@ namespace Raw_Job_Processing
 
                 var tmp_i = 0;
 
+                //do we want to start in the middle?
+                var chunks_to_skip = 8;
+
+                if(chunks_to_skip > 0 && chunks_to_skip < db_chunks.Count)
+                {
+                    tmp_i = (chunks_to_skip * MongoStrings.CHUNK_SIZE) + 1;
+                    chunk_counter = chunks_to_skip;
+                    db_chunks = db_chunks.Skip(chunks_to_skip).ToList();
+                }
+
                 foreach (var chunk in db_chunks)
                 {
                     // get the chunk
@@ -86,14 +98,25 @@ namespace Raw_Job_Processing
 
                     if (bsonDocs.Count > 0)
                     {
-                        
 
-                        // write each doc as a json file
-                        foreach (var b in bsonDocs)
+                        if (false)
                         {
-                            JSON_Export_JD(b, "fork_jobs_" + tmp_i.ToString());
-                            tmp_i++;
+                            Parallel.For(0, bsonDocs.Count, i =>
+                            {
+                                tmp_i++;
+                                JSON_Export_JD(bsonDocs[i], "fork_jobs_" + (chunk.Item1 + i).ToString());
+                       
+                            });
                         }
+                        else
+                        {
+                            foreach (var b in bsonDocs)
+                            {
+                                JSON_Export_JD(b, "fork_jobs_" + tmp_i.ToString());
+                                tmp_i++;
+                            }
+                        }
+
 
                     }
                     else
