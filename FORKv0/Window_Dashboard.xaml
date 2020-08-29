@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:eo="http://schemas.essentialobjects.com/wpf/"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     x:Class="Windows_Desktop.dashboardwindow"
         mc:Ignorable="d"
@@ -47,6 +46,31 @@
                 <Setter Property="HorizontalAlignment" Value="Center"/>
                 <Setter Property="TextAlignment" Value="Center"/>
                 <Setter Property="FontSize" Value="10" />
+            </Style>
+
+            <Style x:Key="NetworkBallStyle" TargetType="Ellipse">
+                <Setter Property="Fill" Value="AliceBlue" />
+                <Setter Property="Stroke" Value="#4682b4" />
+                <Setter Property="StrokeThickness" Value="4" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Width" Value="40" />
+            </Style>
+
+            <Style TargetType="FrameworkElement" x:Key="VisibleAnimation">
+                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="Opacity" Value="1"/>
+                <Style.Triggers>
+                    <Trigger Property="Visibility" Value="Visible">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0" Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
             <DataTemplate x:Key="LabelEmpty">
@@ -161,12 +185,7 @@
                                 Height="521" Canvas.Left="3" Width="1216"  >
 
                             <Canvas x:Name="CanvasB1_ChartContainer" Height="491" Width="934" Canvas.Left="10" Canvas.Top="10">
-                                <eo:WebControl Height="491" Width="934">
-                                    <eo:WebControl.WebView>
-                                        <eo:WebView x:Name="webView1" >
-                                        </eo:WebView>
-                                    </eo:WebControl.WebView>
-                                </eo:WebControl>
+
                             </Canvas>
                             <Canvas Height="472" Width="268" Canvas.Left="944" Canvas.Top="10">
                                 <ListBox x:Name="CanvasB1ListBox" Height="435" Canvas.Left="5" Canvas.Top="27" Width="258" Foreground="#FF575757" BorderBrush="#FFD1D1D1" FontSize="13.333" SelectionChanged="CanvasB1ListBoxSelected" SelectionMode="Single"/>
@@ -181,24 +200,12 @@
                         <!-- Ability -->
                         <Canvas x:Name="B2Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <!-- <eo:WebControl Height="521" Width="1216">
-                                <eo:WebControl.WebView>
-                                    <eo:WebView x:Name="webView2" >
-                                    </eo:WebView>
-                                </eo:WebControl.WebView>
-                            </eo:WebControl> -->
 
 
                         </Canvas>
                         <!-- Combined -->
                         <Canvas x:Name="B3Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <!--  <eo:WebControl Height="521" Width="1216">
-                                <eo:WebControl.WebView>
-                                    <eo:WebView x:Name="webView3" >
-                                    </eo:WebView>
-                                </eo:WebControl.WebView>
-                            </eo:WebControl> -->
 
 
                         </Canvas>
@@ -226,12 +233,7 @@
                                 Height="521" Canvas.Left="3" Width="1216"  >
 
                             <Canvas x:Name="CanvasC1_ChartContainer" Height="491" Width="934" Canvas.Left="10" Canvas.Top="10">
-                                <eo:WebControl Height="491" Width="1189" >
-                                    <eo:WebControl.WebView>
-                                        <eo:WebView x:Name="webViewC1" >
-                                        </eo:WebView>
-                                    </eo:WebControl.WebView>
-                                </eo:WebControl>
+
                             </Canvas>
                         </Canvas>
 
@@ -254,6 +256,9 @@
                         <Rectangle Fill="White" Height="512" Canvas.Top="1" Width="1219">
                             <Rectangle.Effect>
                                 <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+
+
+
                             </Rectangle.Effect>
                         </Rectangle>
                         <Canvas x:Name="DHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
@@ -265,33 +270,85 @@
 
                         </Canvas>
 
-
-                        <!-- Skill -->
-                        <Canvas x:Name="D1Canvas" Visibility="Visible" 
-                                Height="521" Canvas.Left="3" Width="1216"  >
-
-                            <Canvas x:Name="CanvasD1_ChartContainer" Height="491" Width="934" Canvas.Left="10" Canvas.Top="10">
-                                <eo:WebControl Height="491" Width="934">
-                                    <eo:WebControl.WebView>
-                                        <eo:WebView x:Name="webViewD1" >
-                                        </eo:WebView>
-                                    </eo:WebControl.WebView>
-                                </eo:WebControl>
-                            </Canvas>
-                            <Canvas Height="472" Width="268" Canvas.Left="944" Canvas.Top="10">
-
-                            </Canvas>
-
-
-
-
+                        <Canvas x:Name="Ball_1A_Canvas" Style="{StaticResource VisibleAnimation}">
+                            <Ellipse x:Name="Ball_1A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="220" Canvas.Top="213" MouseDown="Ball_1A_MouseDown" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" />
+                            <Label x:Name="Label_1A" Canvas.Left="89" Canvas.Top="213">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="Label_1A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
+                                    <Label x:Name="Label_1A_Salary"  Content="[$21.5k - $31.0k]"/>
+                                </StackPanel>
+                            </Label>
                         </Canvas>
 
+                        <Canvas x:Name="Ball_2A_Canvas" Style="{StaticResource VisibleAnimation}">
+                            <Image Height="243" Width="207" Source="Images/networkA.png" Canvas.Top="109" Canvas.Left="231"/>
+
+                            <Ellipse x:Name="Ball_2A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="408" Canvas.Top="108" />
+                            <Label x:Name="Label_2A" Canvas.Left="287" Canvas.Top="70">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="Label_2A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
+                                    <Label x:Name="Label_2A_Salary"    Content="[$21.5k - $31.0k]"/>
+                                </StackPanel>
+                            </Label>
+                        </Canvas>
+
+                        <Canvas x:Name="Ball_2B_Canvas" Style="{StaticResource VisibleAnimation}">
+                            <Ellipse x:Name="Ball_2B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="408" Canvas.Top="321" />
+                            <Label x:Name="Label_2B" Canvas.Left="286" Canvas.Top="331">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="Label_2B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
+                                    <Label x:Name="Label_2B_Salary"    Content="[$21.5k - $31.0k]"/>
+                                </StackPanel>
+                            </Label>
+                        </Canvas>
+
+                        <Canvas x:Name="Ball_3A_Canvas" Style="{StaticResource VisibleAnimation}">
+                            <Image Height="113" Width="207" Source="Images/networkB.png" Canvas.Top="71" Canvas.Left="423"/>
+
+                            <Ellipse x:Name="Ball_3A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="604" Canvas.Top="72" />
+                            <Label x:Name="Label_3A" Canvas.Left="492" Canvas.Top="30">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="Label_3A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
+                                    <Label x:Name="Label_3A_Salary"    Content="[$21.5k - $31.0k]"/>
+                                </StackPanel>
+                            </Label>
+                        </Canvas>
+
+                        <Canvas x:Name="Ball_3B_Canvas" Style="{StaticResource VisibleAnimation}">
+                            <Ellipse x:Name="Ball_3B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="603" Canvas.Top="145" />
+                            <Label x:Name="Label_3B" Canvas.Left="484" Canvas.Top="158">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="Label_3B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
+                                    <Label  x:Name="Label_3B_Salary"   Content="[$21.5k - $31.0k]"/>
+                                </StackPanel>
+                            </Label>
+                        </Canvas>
+
+                        <Canvas x:Name="Ball_3C_Canvas" Style="{StaticResource VisibleAnimation}">
+                            <Image Height="113" Width="207" Source="Images/networkB.png" Canvas.Top="284" Canvas.Left="422"/>
+
+                            <Ellipse x:Name="Ball_3C" Style="{StaticResource NetworkBallStyle}" Canvas.Left="601" Canvas.Top="284" />
+                            <Label x:Name="Label_3C" Canvas.Left="489" Canvas.Top="242">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="Label_3C_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
+                                    <Label x:Name="Label_3C_Salary"   Content="[$21.5k - $31.0k]"/>
+                                </StackPanel>
+                            </Label>
+                        </Canvas>
+
+                        <Canvas x:Name="Ball_3D_Canvas" Style="{StaticResource VisibleAnimation}">
+                            <Ellipse x:Name="Ball_3D" Style="{StaticResource NetworkBallStyle}" Canvas.Left="605" Canvas.Top="360" />
+                            <Label x:Name="Label_3D" Canvas.Left="497" Canvas.Top="384">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="Label_3D_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
+                                    <Label  x:Name="Label_3D_Salary"   Content="[$21.5k - $31.0k]"/>
+                                </StackPanel>
+                            </Label>
+                        </Canvas>
+
+
+
                     </Canvas>
-
-
-
-
 
                 </Canvas>
 
@@ -300,12 +357,7 @@
                         Height="597" Width="1239" Background="#919191">
 
                     <Canvas x:Name="E1Canvas" Height="590" Width="1200" Canvas.Left="17" Canvas.Top="5">
-                        <eo:WebControl Height="590" Width="1200">
-                            <eo:WebControl.WebView>
-                                <eo:WebView x:Name="webViewE1" >
-                                </eo:WebView>
-                            </eo:WebControl.WebView>
-                        </eo:WebControl>
+
                     </Canvas>
 
                 </Canvas>
@@ -382,8 +434,7 @@
                 <Viewbox Height="659" Width="1248" Stretch="UniformToFill" Canvas.Left="-5">
 
                     <Canvas x:Name="maincanvas" HorizontalAlignment="Left" Height="574" Margin="0,92,0,0" VerticalAlignment="Top" Width="1194" Background="#334856" ForceCursor="True" >
-                        <!--  <Image Visibility="Visible" HorizontalAlignment="Center" Height="588" VerticalAlignment="Top" Width="1124" Source="Images/bg03.jpg" Canvas.Left="90" Canvas.Top="-78"/>
--->
+                        <!--  <Image Visibility="Visible" HorizontalAlignment="Center" Height="588" VerticalAlignment="Top" Width="1124" Source="Images/bg03.jpg" Canvas.Left="90" Canvas.Top="-78"/>-->
 
                         <Image Visibility="Visible" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="268" Source="Images/btn_close.png" Canvas.Left="479" Canvas.Top="387"  MouseDown="do_analyze" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
                         <Image Visibility="Visible" HorizontalAlignment="Center" Height="186" VerticalAlignment="Top" Width="443" Source="Images/btn_sign_up_email.png" Canvas.Left="390" Canvas.Top="277"  MouseDown="do_analyze" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>

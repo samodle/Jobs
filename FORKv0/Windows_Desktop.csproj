@@ -350,6 +350,12 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\networkA.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\networkB.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\forklogo_purple.png" />
     <Resource Include="Images\UpStep.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -610,9 +616,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EO.WebBrowser">
-      <Version>20.1.45</Version>
-    </PackageReference>
     <PackageReference Include="LumenWorks.Framework.IO">
       <Version>3.8.0</Version>
     </PackageReference>

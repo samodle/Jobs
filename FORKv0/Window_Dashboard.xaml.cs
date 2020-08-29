@@ -53,12 +53,6 @@ namespace Windows_Desktop
 
         public void fork_onload(object sender, RoutedEventArgs e)
         {
-            //configure the web viewer
-            EO.WebEngine.BrowserOptions options = new EO.WebEngine.BrowserOptions();
-            options.EnableWebSecurity = false;
-            EO.WebEngine.EngineOptions.Default.SetDefaultBrowserOptions(options);
-
-
             InitializeComponent();
 
             LaunchCanvas.Visibility = Visibility.Visible;
@@ -69,7 +63,7 @@ namespace Windows_Desktop
               Thread onetThread = new Thread(setONETReport);
               onetThread.Start();
 
-            webViewE1.Url = "https://xd.adobe.com/view/b1e4dfbb-d0a9-42d0-acb6-c462ec2b29dc-e4b7/?fullscreen";
+            //webViewE1.Url = "https://xd.adobe.com/view/b1e4dfbb-d0a9-42d0-acb6-c462ec2b29dc-e4b7/?fullscreen";
             //ONETImportScripts.ONET_importOccupations();
         }
 
@@ -155,7 +149,7 @@ namespace Windows_Desktop
             B2Canvas.Visibility = Visibility.Hidden;
             B3Canvas.Visibility = Visibility.Hidden;
             C1Canvas.Visibility = Visibility.Hidden;
-            D1Canvas.Visibility = Visibility.Hidden;
+            //D1Canvas.Visibility = Visibility.Hidden;
             E1Canvas.Visibility = Visibility.Hidden;
             AnimateMenuOpening();
             MenuSplashRectangle.Visibility = Visibility.Visible;
@@ -179,7 +173,7 @@ namespace Windows_Desktop
             B2Canvas.Visibility = Visibility.Visible;
             B3Canvas.Visibility = Visibility.Visible;
             C1Canvas.Visibility = Visibility.Visible;
-            D1Canvas.Visibility = Visibility.Visible;
+            //D1Canvas.Visibility = Visibility.Visible;
             E1Canvas.Visibility = Visibility.Visible;
             MenuCanvas.Visibility = Visibility.Hidden;
 
@@ -570,7 +564,7 @@ namespace Windows_Desktop
             {
                 B1ListBoxSelectedItem = CanvasB1ListBox.SelectedItem.ToString();
                 //set web view url
-                webView1.Url = "file:///C:/Users/Public/Public_fork/html/" + B1ListBoxSelectedItem.Replace(" ", "_") + ".html";
+                //webView1.Url = "file:///C:/Users/Public/Public_fork/html/" + B1ListBoxSelectedItem.Replace(" ", "_") + ".html";
             }
         }
 
@@ -593,7 +587,7 @@ namespace Windows_Desktop
         {
             var i = CanvasC1ComboBox.SelectedIndex;
             string x = (i + 1).ToString();
-            webViewC1.Url = "http://localhost/index" + x + ".html";
+            //webViewC1.Url = "http://localhost/index" + x + ".html";
         }
 
         #endregion
@@ -618,7 +612,7 @@ namespace Windows_Desktop
             D1_i = CanvasD1ComboBox.SelectedIndex;
             string x = (D1_i + 1).ToString();
             string y = (D2_i + 1).ToString();
-            webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree" + x + y + ".html";
+            //webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree" + x + y + ".html";
         }
 
         private void CanvasD2PopulateComboBox()
@@ -632,7 +626,35 @@ namespace Windows_Desktop
             D2_i = CanvasD2ComboBox.SelectedIndex;
             string x = (D1_i + 1).ToString();
             string y = (D2_i + 1).ToString();
-            webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree" + x + y + ".html";
+            //webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree" + x + y + ".html";
+        }
+
+
+        private void Ball_1A_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(Ball_2A_Canvas.Visibility == Visibility.Visible)
+            {
+                Ball_2A_Canvas.Visibility = Visibility.Hidden;
+                Ball_2B_Canvas.Visibility = Visibility.Hidden;
+                Ball_3A_Canvas.Visibility = Visibility.Hidden;
+                Ball_3B_Canvas.Visibility = Visibility.Hidden;
+                Ball_3C_Canvas.Visibility = Visibility.Hidden;
+                Ball_3D_Canvas.Visibility = Visibility.Hidden;
+
+
+                Ball_1A.Fill = BrushColors.ball_full;
+            }
+            else
+            {
+                Ball_2A_Canvas.Visibility = Visibility.Visible;
+                Ball_2B_Canvas.Visibility = Visibility.Visible;
+                Ball_3A_Canvas.Visibility = Visibility.Visible;
+                Ball_3B_Canvas.Visibility = Visibility.Visible;
+                Ball_3C_Canvas.Visibility = Visibility.Visible;
+                Ball_3D_Canvas.Visibility = Visibility.Visible;
+
+                Ball_1A.Fill = BrushColors.aliceblue;
+            }
         }
 
         #endregion
@@ -1730,10 +1752,15 @@ namespace Windows_Desktop
 
 
         #endregion
+
+
     }
 
     static class BrushColors
     {
+        public static SolidColorBrush aliceblue = new SolidColorBrush(Color.FromRgb(240, 248, 255));
+        public static SolidColorBrush ball_full = new SolidColorBrush(Color.FromRgb(176, 196, 222));
+
         public static SolidColorBrush bubblecolorGreen = new SolidColorBrush(Color.FromRgb(153, 255, 51));
         public static SolidColorBrush bubblecolorYellow = new SolidColorBrush(Color.FromRgb(255, 255, 102));
         public static SolidColorBrush bubblecolorOrange = new SolidColorBrush(Color.FromRgb(255, 178, 102));
