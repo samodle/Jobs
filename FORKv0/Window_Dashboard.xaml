@@ -528,18 +528,15 @@
                 <Separator x:Name="MenuSeperator"  Height="11" Margin="0" Canvas.Top="593" Width="305" Background="#FFF0F0F0"/>
 
             </Canvas>
-            <Canvas x:Name="LaunchCanvas" Visibility="Hidden"
-                    Margin="0,0,-4,0" Background="#334856" 
+            <Canvas x:Name="LaunchCanvas" Visibility="Visible"
+                    Margin="0,0,-4,0" Background="#002060" 
                     >
                 <Viewbox Height="659" Width="1248" Stretch="UniformToFill" Canvas.Left="-5">
 
-                    <Canvas x:Name="maincanvas" HorizontalAlignment="Left" Height="574" Margin="0,92,0,0" VerticalAlignment="Top" Width="1194" Background="#334856" ForceCursor="True" >
-                        <!--  <Image Visibility="Visible" HorizontalAlignment="Center" Height="588" VerticalAlignment="Top" Width="1124" Source="Images/bg03.jpg" Canvas.Left="90" Canvas.Top="-78"/>-->
+                    <Canvas x:Name="maincanvas" HorizontalAlignment="Left" Height="574" Margin="0,92,0,0" VerticalAlignment="Top" Width="1194" Background="#002060" ForceCursor="True" >
 
-                        <Image Visibility="Visible" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="268" Source="Images/btn_close.png" Canvas.Left="479" Canvas.Top="387"  MouseDown="do_analyze" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Image Visibility="Visible" HorizontalAlignment="Center" Height="186" VerticalAlignment="Top" Width="443" Source="Images/btn_sign_up_email.png" Canvas.Left="390" Canvas.Top="277"  MouseDown="do_analyze" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-
-                        <Rectangle Fill="White" Height="5" Canvas.Top="268" Width="747" Canvas.Left="240" RenderTransformOrigin="0.5,0.5">
+                        <!-- Fill="#B0B0B0" for that grey we liked -->
+                        <Rectangle Fill="#002060" Height="54" Canvas.Top="131" Width="1193" Canvas.Left="1" RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleY="-1"/>
@@ -550,8 +547,61 @@
                             </Rectangle.RenderTransform>
                         </Rectangle>
 
+
+                        <telerik:RadAutoCompleteBox WatermarkContent="      Jane Doe."
+											 x:Name="Landing_Name_AutoCompleteBox"
+											 TextSearchMode="Contains"
+											 AutoCompleteMode="SuggestAppend"
+											 SelectionMode="Single"
+                                                    Background="White"
+											 FontSize="28"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    FontWeight="DemiBold"
+											  BorderBrush="Black" BorderThickness="1"
+											 Opacity="1"
+                                             SelectionChanged="Landing_Name_AutoCompleteBoxSelectionChanged" Width="218" Canvas.Left="196" Canvas.Top="131" Height="54"/>
+
+                        <telerik:RadAutoCompleteBox WatermarkContent="        Technician"
+											 x:Name="Landing_Role_AutoCompleteBox"
+											 TextSearchMode="Contains"
+											 AutoCompleteMode="SuggestAppend"
+											 SelectionMode="Single"
+											 FontSize="28"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    FontWeight="DemiBold"
+											  BorderBrush="#FF25A0DA" BorderThickness="0"
+											 
+                                             SelectionChanged="Landing_Role_AutoCompleteBoxSelectionChanged" Width="256" Canvas.Left="527" Canvas.Top="131" Height="54"/>
+
+                        <telerik:RadAutoCompleteBox WatermarkContent="    Jefferson City, MO."
+											 x:Name="Landing_Location_AutoCompleteBox"
+											 TextSearchMode="Contains"
+											 AutoCompleteMode="SuggestAppend"
+											 SelectionMode="Single"
+											 FontSize="28"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    FontWeight="DemiBold"
+											  BorderBrush="#FF25A0DA" BorderThickness="0"
+											 
+                                             SelectionChanged="Landing_Location_AutoCompleteBoxSelectionChanged" Width="311" Canvas.Left="845" Canvas.Top="131" Height="54"/>
+
+
                         <!--   <Label x:Name="fork_analyzeLabel"  Content="ANALYZE" Height="35" Canvas.Left="512" Canvas.Top="315" Width="196" FontFamily="Microsoft Sans Serif" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Background="#FF32CDF0" MouseDown="do_analyze" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/> -->
-                        <Image x:Name="image4" Visibility="Visible" HorizontalAlignment="Center" Height="185" VerticalAlignment="Top" Width="370" Source="Images/ForkWhiteSubLogo.png" Canvas.Left="421" Canvas.Top="46"/>
+                        <Image x:Name="image4" Visibility="Hidden" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="95" Source="Images/ForkWhiteSubLogo.png" Canvas.Left="588" Canvas.Top="419"/>
+                        <Label Content="My name is " Canvas.Left="22" Canvas.Top="135" FontSize="28" FontWeight="DemiBold" Foreground="White"/>
+                        <Label Content="Hello," FontWeight="ExtraBold" Canvas.Left="505" Height="115" Width="266" Foreground="White" FontSize="72"/>
+                        <Label Content="I am a " Canvas.Left="427" Canvas.Top="135" FontSize="28" FontWeight="DemiBold"  Foreground="White"/>
+                        <Label Content="in " Canvas.Left="799" Canvas.Top="134" FontSize="28" FontWeight="DemiBold"  Foreground="White"/>
+              
+                        <Image  Visibility="Visible" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="62" Source="Images\noun_help_2392630.png" Canvas.Left="1131" Canvas.Top="-80" Opacity=".6"/>
+                        <Image  Visibility="Visible"  Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="62" Source="Images\noun_Settings_2650515.png" Canvas.Left="22" Canvas.Top="-80" Opacity=".6"/>
+
+                     
+
+                        <Image x:Name="GoButton" Visibility="Visible" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="249" Source="Images\button_lets-get-started.png" Canvas.Left="491" Canvas.Top="302" RenderTransformOrigin="0.543,0.568" Opacity=".3" MouseDown="do_analyze" MouseLeave="Generalmouseleave" MouseMove="Generalmousemove"/>
                     </Canvas>
 
 

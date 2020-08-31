@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.ServiceModel.Channels;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,6 +51,10 @@ namespace Windows_Desktop
         private bool initComplete = false;
         private bool firstInitComplete = false;
 
+        public string USER_NAME { get; set; } = "";
+        public string ROLE_NAME { get; set; } = "";
+        public string LOCATION_NAME { get; set; } = "";
+
 
         public void fork_onload(object sender, RoutedEventArgs e)
         {
@@ -57,15 +62,19 @@ namespace Windows_Desktop
 
             LaunchCanvas.Visibility = Visibility.Visible;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
+            Landing_Name_AutoCompleteBox.ItemsSource = demoNameList;
+            Landing_Role_AutoCompleteBox.ItemsSource = demoRoleList;
+            Landing_Location_AutoCompleteBox.ItemsSource = demoLocationList;
 
             MakeLaunchReady();
             ManageScreenResolution();
 
-              Thread onetThread = new Thread(setONETReport);
-              onetThread.Start();
+            Thread onetThread = new Thread(setONETReport);
+            onetThread.Start();
 
             //webViewE1.Url = "https://xd.adobe.com/view/b1e4dfbb-d0a9-42d0-acb6-c462ec2b29dc-e4b7/?fullscreen";
             //ONETImportScripts.ONET_importOccupations();
+
         }
 
         private void setONETReport()
@@ -79,13 +88,17 @@ namespace Windows_Desktop
 
             //set listbox components
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList(); //sets CanvasA1 Listbox
-            string[] fileArray = Directory.GetFiles(@"C:\Users\Public\Public_fork\html\", "*.html");
-            CanvasB1FileNames = fileArray.ToList();
-            for(int i = 0; i < CanvasB1FileNames.Count; i++)
+
+            if (false) //we dont need this -SRO 8/31/2020
             {
-                CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace(@"C:\Users\Public\Public_fork\html\", "");
-                CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace("_", " ");
-                CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace(".html", "");
+                string[] fileArray = Directory.GetFiles(@"C:\Users\Public\Public_fork\html\", "*.html");
+                CanvasB1FileNames = fileArray.ToList();
+                for (int i = 0; i < CanvasB1FileNames.Count; i++)
+                {
+                    CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace(@"C:\Users\Public\Public_fork\html\", "");
+                    CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace("_", " ");
+                    CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace(".html", "");
+                }
             }
 
             //write html files as needed
@@ -113,22 +126,86 @@ namespace Windows_Desktop
 
         public void do_analyze(object sender, RoutedEventArgs e)
         {
-            LaunchCanvas.Visibility = Visibility.Hidden;
-            if (firstInitComplete)
+
+            if (loadingInfoComplete)
             {
-                ToggleShowHide_CanvasE(sender, f);
+                LaunchCanvas.Visibility = Visibility.Hidden;
+                if (firstInitComplete)
+                {
+                    ToggleShowHide_CanvasE(sender, f);
+                }
+                else
+                {
+                    while (!initComplete) { Thread.Sleep(500); }
+                    CanvasA_init();
+                    CanvasB_init();
+                    CanvasC_init();
+                    CanvasD_init();
+                    //  webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree.html";
+
+                    ToggleShowHide_CanvasE(sender, f);
+                    firstInitComplete = true;
+                }
+
             }
             else
-            {   
-                while (!initComplete) { Thread.Sleep(500); }
-                CanvasA_init();
-                CanvasB_init();
-                CanvasC_init();
-                CanvasD_init();
-              //  webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree.html";
-               
-                ToggleShowHide_CanvasE(sender, f);
-                firstInitComplete = true;
+            {
+                MessageBox.Show("Please fill out your Name, Role, and Location and try again.");
+            }
+
+
+        }
+
+
+        public bool loadingInfoComplete = false;
+        //public ObservableCollection<String> Landing_Name_List = new ObservableCollection<string>();
+        public List<string> demoNameList = new List<string>(){ "Lisa Parmiter", "Nick Dalton", "Alan Jope", "Patty Hull", "Sam Odle", "Nataliya Wright", "Nick Psyhogeos" };
+        public List<string> demoRoleList = new List<string>() { "Technician", "Material Handler", "Shift Leader", "Mechanic", "Line Operator" };
+        public List<string> demoLocationList = new List<string>() { "Sikeston, MO", "Jonesboro, AR", "Independence, MO", "Amityville, NY", "Jefferson City, MO", "Covington, TN", "Hammond, IN" };
+        private void Landing_Name_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Landing_Name_AutoCompleteBox.SelectedItem != null)
+            {
+                    USER_NAME = Landing_Name_AutoCompleteBox.SelectedItem.ToString();
+            }
+
+            CheckLoadInfoComplete();
+        }
+
+        private void Landing_Role_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Landing_Role_AutoCompleteBox.SelectedItem != null)
+            {
+                ROLE_NAME = Landing_Role_AutoCompleteBox.SelectedItem.ToString();
+            }
+
+            CheckLoadInfoComplete();
+        }
+
+        private void Landing_Location_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Landing_Location_AutoCompleteBox.SelectedItem != null)
+            {
+                LOCATION_NAME = Landing_Location_AutoCompleteBox.SelectedItem.ToString();
+            }
+
+            CheckLoadInfoComplete();
+        }
+
+        private void CheckLoadInfoComplete()
+        {
+            if(USER_NAME.Length > 1 && ROLE_NAME.Length > 1 && LOCATION_NAME.Length > 1)
+            {
+                loadingInfoComplete = true;
+                GoButton.Cursor = Cursors.Hand;
+                GoButton.Opacity = 1;
+            }
+            else if(loadingInfoComplete)
+            {
+                loadingInfoComplete = false;
+                GoButton.Cursor = Cursors.Arrow;
+                GoButton.Opacity = 0.5;
+
             }
         }
 
@@ -502,27 +579,30 @@ namespace Windows_Desktop
 
         private void CanvasB_init()
         {
-            CanvasB1ListBox.ItemsSource = null;
+            //CanvasB1ListBox.ItemsSource = null;
 
-            foreach(string s in CanvasB1FileNames)
+            if (false)
             {
-                if (s.Contains("Net"))
+                foreach (string s in CanvasB1FileNames)
                 {
-                    CanvasB1FileNames_Net.Add(s);
+                    if (s.Contains("Net"))
+                    {
+                        CanvasB1FileNames_Net.Add(s);
+                    }
+                    else if (s.Contains("Skill"))
+                    {
+                        CanvasB1FileNames_Skill.Add(s);
+                    }
+                    else if (s.Contains("Knowledge") || s.Contains("Ability"))
+                    {
+                        CanvasB1FileNames_Other.Add(s);
+                    }
                 }
-                else if (s.Contains("Skill"))
-                {
-                    CanvasB1FileNames_Skill.Add(s);
-                }
-                else if (s.Contains("Knowledge") || s.Contains("Ability"))
-                {
-                    CanvasB1FileNames_Other.Add(s);
-                }
+
+                CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Net;
+
+                CanvasB1ListBox.SelectedIndex = 0;
             }
-
-            CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Net;
-
-            CanvasB1ListBox.SelectedIndex = 0;
         }
 
         #region B - Tab Navigation
@@ -680,7 +760,7 @@ namespace Windows_Desktop
         #endregion
 
         #region Mouse Move/Leave/Down
-        private void Generalmousemove(object sender, EventArgs e)
+        public void Generalmousemove(object sender, EventArgs e)
         {
             if (sender.GetType().ToString().EndsWith("Image"))
             {
@@ -695,7 +775,7 @@ namespace Windows_Desktop
 
         }
 
-        private void Generalmouseleave(object sender, EventArgs e)
+        public void Generalmouseleave(object sender, EventArgs e)
         {
             if (sender.GetType().ToString().EndsWith("Image"))
             {
@@ -1790,6 +1870,11 @@ namespace Windows_Desktop
             BallSummaryCanvas_A.Visibility = Visibility.Visible;
             BallSummaryCanvas_B.Visibility = Visibility.Hidden;
         }
+
+        private void CanvasA1_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
     static class BrushColors
@@ -1822,7 +1907,7 @@ namespace Windows_Desktop
         public static SolidColorBrush mybrushnormalbargreencolor = new SolidColorBrush(Color.FromRgb(50, 205, 240));        // default color of charts
         public static SolidColorBrush mybrushhighlightedbargreencolor = new SolidColorBrush(Color.FromRgb(80, 215, 250));   // on mouse over color of charts 
 
-        public static SolidColorBrush mybrushLossLabelDefaultColors = new SolidColorBrush(Color.FromRgb(89, 89, 89));   // default gray colors
+        //public static SolidColorBrush mybrushLossLabelDefaultColors = new SolidColorBrush(Color.FromRgb(89, 89, 89));   // default gray colors
 
         public static SolidColorBrush mybrushNOTSelectedCriteria = new SolidColorBrush(Color.FromRgb(230, 230, 230));
 
@@ -1833,8 +1918,8 @@ namespace Windows_Desktop
         public static SolidColorBrush mybrushBLACK = new SolidColorBrush(Color.FromRgb(0, 0, 0));
         public static SolidColorBrush mybrushLIGHTGRAY = new SolidColorBrush(Color.FromRgb(200, 200, 200));
 
-        public static SolidColorBrush mybrushCRYSTALLBALLselected = new SolidColorBrush(Color.FromRgb(0, 170, 212));
-        public static SolidColorBrush mybrushCRYSTALLBALL_NOT_selected = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+        //public static SolidColorBrush mybrushCRYSTALLBALLselected = new SolidColorBrush(Color.FromRgb(0, 170, 212));
+       // public static SolidColorBrush mybrushCRYSTALLBALL_NOT_selected = new SolidColorBrush(Color.FromRgb(240, 240, 240));
 
         public static SolidColorBrush mybrushFunnelBlue = new SolidColorBrush(Color.FromRgb(33, 191, 207));
         public static SolidColorBrush mybrushFunnelGray = new SolidColorBrush(Color.FromRgb(190, 190, 190));

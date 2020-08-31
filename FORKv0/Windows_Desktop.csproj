@@ -350,6 +350,8 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\noun_Settings_2650515.png" />
+    <Resource Include="Images\noun_help_2392630.png" />
     <Resource Include="Images\networkA.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -608,6 +610,7 @@
     <Resource Include="Images\ForkWhiteSubLogo.png" />
     <Resource Include="Images\btn_close.png" />
     <Resource Include="Images\btn_sign_up_email.png" />
+    <Resource Include="Images\button_lets-get-started.png" />
     <Content Include="Images\lens.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
