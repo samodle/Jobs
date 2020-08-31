@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Windows_Desktop</RootNamespace>
     <AssemblyName>Windows_Desktop</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -622,14 +622,14 @@
     <PackageReference Include="LumenWorks.Framework.IO">
       <Version>3.8.0</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Wpf.UI.Controls.WebView">
-      <Version>6.0.1</Version>
-    </PackageReference>
     <PackageReference Include="MongoDB.Driver">
-      <Version>2.10.4</Version>
+      <Version>2.11.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="ThinkGeo.UI.Wpf">
+      <Version>12.2.19</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\Analytics\Analytics.projitems" Label="Shared" />

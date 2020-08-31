@@ -7,13 +7,13 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Windows_Desktop")]
+[assembly: AssemblyTitle("YourStory")]
 [assembly: AssemblyDescription("A platform for scaling up in the digital economy")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Fork, Inc")]
 [assembly: AssemblyProduct("Windows_Desktop")]
-[assembly: AssemblyCopyright("Copyright © 2020")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © 2020 Fork, Inc")]
+[assembly: AssemblyTrademark("Fork Inc")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

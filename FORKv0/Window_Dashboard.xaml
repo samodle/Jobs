@@ -160,7 +160,7 @@
                 </Canvas>
 
                 <!--B Canvas-->
-                <Canvas x:Name="ContentCanvasB" Visibility="Hidden"
+                <Canvas x:Name="ContentCanvasB" Visibility="Visible"
                         Height="597" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
@@ -250,7 +250,7 @@
 
 
                 <!--D Canvas-->
-                <Canvas x:Name="ContentCanvasD" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasD" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
 
@@ -528,7 +528,7 @@
                 <Separator x:Name="MenuSeperator"  Height="11" Margin="0" Canvas.Top="593" Width="305" Background="#FFF0F0F0"/>
 
             </Canvas>
-            <Canvas x:Name="LaunchCanvas" Visibility="Visible"
+            <Canvas x:Name="LaunchCanvas" Visibility="Hidden"
                     Margin="0,0,-4,0" Background="#002060" 
                     >
                 <Viewbox Height="659" Width="1248" Stretch="UniformToFill" Canvas.Left="-5">
