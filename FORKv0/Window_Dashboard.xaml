@@ -54,6 +54,7 @@
                 <Setter Property="StrokeThickness" Value="4" />
                 <Setter Property="Height" Value="40" />
                 <Setter Property="Width" Value="40" />
+                <Setter Property="Cursor" Value="Hand" />
             </Style>
 
             <Style TargetType="FrameworkElement" x:Key="VisibleAnimation">
@@ -70,6 +71,7 @@
                             </BeginStoryboard>
                         </Trigger.EnterActions>
                     </Trigger>
+
                 </Style.Triggers>
             </Style>
 
@@ -270,8 +272,106 @@
 
                         </Canvas>
 
+                        <Canvas x:Name="BallSummaryCanvas" Visibility="Visible">
+                            <Rectangle Fill="AliceBlue" Stroke="Black" StrokeThickness=".2" Height="446" Canvas.Top="35" Width="461" Canvas.Left="722">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+
+                            <Canvas x:Name="BallSummaryCanvas_A" Visibility="Hidden">
+
+
+                                <Label x:Name="Label_BallSummary" Canvas.Left="763" Canvas.Top="53" HorizontalContentAlignment="Center">
+                                    <StackPanel Orientation="Vertical">
+                                        <Label FontWeight="Bold" FontSize="15" Content="Sales Associate" HorizontalContentAlignment="Center"/>
+                                        <Label    Content="Average Salary in [Selected Location]: $35k - 45k" HorizontalContentAlignment="Center"/>
+                                        <Label    Content="Overview:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
+                                        <Label    HorizontalContentAlignment="Center">
+                                            <Label.Content>
+                                                <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned." Width="376"/>
+                                            </Label.Content>
+                                        </Label>
+
+                                        <Label    Content="Mandatory Qualifications:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
+                                        <Label    HorizontalContentAlignment="Center">
+                                            <Label.Content>
+                                                <AccessText TextWrapping="Wrap" Text="- Qualification #1 " Width="376"/>
+                                            </Label.Content>
+                                        </Label>
+                                        <Label    HorizontalContentAlignment="Left" Content="- Qualification #2"/>
+
+                                        <Label    Content="Key Skills + Trainings:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
+                                        <Label    HorizontalContentAlignment="Center">
+                                            <Label.Content>
+                                                <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned." Width="376"/>
+                                            </Label.Content>
+                                        </Label>
+
+                                    </StackPanel>
+                                </Label>
+
+                                <Label    Content="Favorite" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="ForestGreen" FontWeight="DemiBold" Canvas.Left="763" Canvas.Top="427" Width="84" >
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Label.Effect>
+                                </Label>
+                                <Label    Content="Delete" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="DarkSalmon" FontWeight="DemiBold" Canvas.Left="873" Canvas.Top="427" Width="84">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Label.Effect>
+                                </Label>
+
+                                <Label    Content="See Jobs &gt;" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="Gray" FontWeight="DemiBold" Canvas.Left="1075" Canvas.Top="427" Width="84" MouseDown="SeeJobsLabel_MouseDown">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Label.Effect>
+                                </Label>
+                            </Canvas>
+
+                            <Canvas x:Name="BallSummaryCanvas_B" Visibility="Visible">
+                                <Label x:Name="Label_BallSummary_B" Canvas.Left="763" Canvas.Top="53" HorizontalContentAlignment="Center">
+                                    <StackPanel Orientation="Vertical" Width="379">
+                                        <Label FontWeight="Bold" FontSize="15" Content="Sales Associate" HorizontalContentAlignment="Center"/>
+
+
+                                    </StackPanel>
+                                </Label>
+                                <Label    Content="XX Jobs Hiring Now:" HorizontalContentAlignment="Left" FontWeight="DemiBold" Canvas.Left="744" Canvas.Top="93"/>
+                                <telerik:RadGridView x:Name="rawlossdata_listview" AutoGenerateColumns="False" Height="280" Canvas.Left="744" Canvas.Top="124" Width="422" ItemsSource="{Binding ActiveDataCollection}" ShowGroupPanel="False" telerik:StyleManager.Theme="">
+
+                                    <telerik:RadGridView.Columns>
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding job_title}" 
+						Header="Opportunity"
+						Width="225"/>
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding company}" 
+						Header="Company"
+						Width="125"/>
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding payinfo}" 
+						Header="Pay"
+						Width="40"/>
+
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+
+
+
+                                <Label    Content="Job Map:" HorizontalContentAlignment="Left" FontWeight="DemiBold" Canvas.Left="990" Canvas.Top="427"/>
+
+                                <Label    Content="&lt; Back" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="Gray" FontWeight="DemiBold" Canvas.Left="756" Canvas.Top="427" Width="84" MouseDown="HideJobsLabel_MouseDown">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Label.Effect>
+                                </Label>
+                            </Canvas>
+
+
+
+                        </Canvas>
+
                         <Canvas x:Name="Ball_1A_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Ellipse x:Name="Ball_1A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="220" Canvas.Top="213" MouseDown="Ball_1A_MouseDown" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" />
+                            <Ellipse x:Name="Ball_1A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="220" Canvas.Top="213" MouseDown="Ball_1A_MouseDown"/>
                             <Label x:Name="Label_1A" Canvas.Left="89" Canvas.Top="213">
                                 <StackPanel Orientation="Vertical">
                                     <Label x:Name="Label_1A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
@@ -283,7 +383,7 @@
                         <Canvas x:Name="Ball_2A_Canvas" Style="{StaticResource VisibleAnimation}">
                             <Image Height="243" Width="207" Source="Images/networkA.png" Canvas.Top="109" Canvas.Left="231"/>
 
-                            <Ellipse x:Name="Ball_2A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="408" Canvas.Top="108" />
+                            <Ellipse x:Name="Ball_2A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="408" Canvas.Top="108" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
                             <Label x:Name="Label_2A" Canvas.Left="287" Canvas.Top="70">
                                 <StackPanel Orientation="Vertical">
                                     <Label x:Name="Label_2A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
@@ -293,7 +393,7 @@
                         </Canvas>
 
                         <Canvas x:Name="Ball_2B_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Ellipse x:Name="Ball_2B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="408" Canvas.Top="321" />
+                            <Ellipse x:Name="Ball_2B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="408" Canvas.Top="321" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"  />
                             <Label x:Name="Label_2B" Canvas.Left="286" Canvas.Top="331">
                                 <StackPanel Orientation="Vertical">
                                     <Label x:Name="Label_2B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
@@ -305,7 +405,7 @@
                         <Canvas x:Name="Ball_3A_Canvas" Style="{StaticResource VisibleAnimation}">
                             <Image Height="113" Width="207" Source="Images/networkB.png" Canvas.Top="71" Canvas.Left="423"/>
 
-                            <Ellipse x:Name="Ball_3A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="604" Canvas.Top="72" />
+                            <Ellipse x:Name="Ball_3A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="604" Canvas.Top="72" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave"  MouseDown="Ball_Generic_MouseDown" />
                             <Label x:Name="Label_3A" Canvas.Left="492" Canvas.Top="30">
                                 <StackPanel Orientation="Vertical">
                                     <Label x:Name="Label_3A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
@@ -315,7 +415,7 @@
                         </Canvas>
 
                         <Canvas x:Name="Ball_3B_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Ellipse x:Name="Ball_3B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="603" Canvas.Top="145" />
+                            <Ellipse x:Name="Ball_3B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="603" Canvas.Top="145" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave"  MouseDown="Ball_Generic_MouseDown" />
                             <Label x:Name="Label_3B" Canvas.Left="484" Canvas.Top="158">
                                 <StackPanel Orientation="Vertical">
                                     <Label x:Name="Label_3B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
@@ -327,7 +427,7 @@
                         <Canvas x:Name="Ball_3C_Canvas" Style="{StaticResource VisibleAnimation}">
                             <Image Height="113" Width="207" Source="Images/networkB.png" Canvas.Top="284" Canvas.Left="422"/>
 
-                            <Ellipse x:Name="Ball_3C" Style="{StaticResource NetworkBallStyle}" Canvas.Left="601" Canvas.Top="284" />
+                            <Ellipse x:Name="Ball_3C" Style="{StaticResource NetworkBallStyle}" Canvas.Left="601" Canvas.Top="284" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
                             <Label x:Name="Label_3C" Canvas.Left="489" Canvas.Top="242">
                                 <StackPanel Orientation="Vertical">
                                     <Label x:Name="Label_3C_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
@@ -337,7 +437,7 @@
                         </Canvas>
 
                         <Canvas x:Name="Ball_3D_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Ellipse x:Name="Ball_3D" Style="{StaticResource NetworkBallStyle}" Canvas.Left="605" Canvas.Top="360" />
+                            <Ellipse x:Name="Ball_3D" Style="{StaticResource NetworkBallStyle}" Canvas.Left="605" Canvas.Top="360"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
                             <Label x:Name="Label_3D" Canvas.Left="497" Canvas.Top="384">
                                 <StackPanel Orientation="Vertical">
                                     <Label x:Name="Label_3D_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>

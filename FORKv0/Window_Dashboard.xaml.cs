@@ -56,6 +56,7 @@ namespace Windows_Desktop
             InitializeComponent();
 
             LaunchCanvas.Visibility = Visibility.Visible;
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
 
             MakeLaunchReady();
             ManageScreenResolution();
@@ -179,6 +180,25 @@ namespace Windows_Desktop
 
 
         }
+        public void Ballmousemove(object sender, MouseEventArgs e)
+        {
+            if (sender.GetType().ToString().IndexOf("Ellipse") > -1)
+            {
+                Ellipse tempsender = (Ellipse)sender;
+                tempsender.Opacity = 0.8;
+            }
+        }
+
+        public void Ballmouseleave(object sender, MouseEventArgs e)
+        {
+            if (sender.GetType().ToString().IndexOf("Ellipse") > -1)
+            {
+                Ellipse tempsender = (Ellipse)sender;
+                tempsender.Opacity = 1.0;
+            }
+        }
+
+
         public void Menuitemmousemove(object sender, MouseEventArgs e)
         {
             int menuitem = -1;
@@ -1751,9 +1771,25 @@ namespace Windows_Desktop
 
 
 
+
         #endregion
 
+        private void Ball_Generic_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas.Visibility = Visibility.Visible;
+        }
 
+        private void SeeJobsLabel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas_A.Visibility = Visibility.Hidden;
+            BallSummaryCanvas_B.Visibility = Visibility.Visible;
+        }
+
+        private void HideJobsLabel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas_A.Visibility = Visibility.Visible;
+            BallSummaryCanvas_B.Visibility = Visibility.Hidden;
+        }
     }
 
     static class BrushColors
