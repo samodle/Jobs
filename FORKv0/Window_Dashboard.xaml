@@ -85,7 +85,7 @@
     <Viewbox x:Name="MainViewBox" Stretch="Fill">
         <Grid>
             <Canvas x:Name="DashboardContentCanvas" Margin="0,62,-4,0" Background="#FFF0F0F0" Visibility="Visible">
-                <!--A Canvas-->
+                <!--A Canvas - Skill Viewer -->
                 <Canvas x:Name="ContentCanvasA" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
@@ -159,9 +159,9 @@
                     </Canvas>
                 </Canvas>
 
-                <!--B Canvas-->
+                <!--B Canvas - Jobs -->
                 <Canvas x:Name="ContentCanvasB" Visibility="Visible"
-                        Height="597" Width="1239" Background="White">
+                        Height="557" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
                         <Rectangle Fill="White" Height="512" Canvas.Top="1" Width="1219">
@@ -170,53 +170,209 @@
                             </Rectangle.Effect>
                         </Rectangle>
 
-
                         <Canvas x:Name="BHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
-                            <Label x:Name="CanvasBHeaderLabel1" Content="Adjacencies" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader1Clicked" Canvas.Left="31"/>
-                            <Label x:Name="CanvasBHeaderLabel2" Content="Skills Only" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="192" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader2Clicked"/>
-                            <Label x:Name="CanvasBHeaderLabel3" Content="Other Criteria" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="356" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader3Clicked"/>
-
+                            <Label x:Name="CanvasBHeaderLabel1" Content="The Job List" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader1Clicked" Canvas.Left="31"/>
+                            <Label x:Name="CanvasBHeaderLabel2" Content="The Job Map" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="192" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader2Clicked"/>
+                            <!-- <Label x:Name="CanvasBHeaderLabel3" Content="See Both" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="356" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader3Clicked"/>
+-->
                             <Rectangle x:Name="CanvasBSelectionBar1"  Fill="#FF2FE7F9" Height="2" Canvas.Left="69" Canvas.Top="39" Width="95"/>
                             <Rectangle x:Name="CanvasBSelectionBar2"  Fill="#FF2FE7F9" Height="2" Canvas.Left="230" Canvas.Top="39" Width="95" Visibility="Hidden"/>
                             <Rectangle x:Name="CanvasBSelectionBar3"  Fill="#FF2FE7F9" Height="2" Canvas.Left="393" Canvas.Top="39" Width="100" Visibility="Hidden"/>
-                            <Image Height="41" Width="51" Source="Images/LossNetwork.png" Canvas.Top="4"/>
+                            <Image Height="41" Width="51" Source="Images/Trends.png" Canvas.Top="4"/>
                         </Canvas>
 
-                        <!-- Skill -->
+                        <!-- Canvas B1 - Job List -->
                         <Canvas x:Name="B1Canvas" Visibility="Visible" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
 
-                            <Canvas x:Name="CanvasB1_ChartContainer" Height="491" Width="934" Canvas.Left="10" Canvas.Top="10">
+                            <telerik:RadAutoCompleteBox WatermarkContent="Solar Panel Install Technician"
+											 x:Name="B1_AutoCompleteBox"
+											 TextSearchMode="Contains"
+											 AutoCompleteMode="SuggestAppend"
+											 SelectionMode="Single"
+                                                    Background="White"
+											 FontSize="18"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    FontWeight="DemiBold"
+											  BorderBrush="Black" BorderThickness="1"
+											 Opacity="1"
+                                              Width="606" Canvas.Left="25" Canvas.Top="10" Height="41"/>
+
+
+                            <telerik:RadGridView x:Name="radGridView" GroupRenderMode="Flat" IsFilteringAllowed="True"
+							 CanUserFreezeColumns="False"
+							 RowIndicatorVisibility="Collapsed"
+							 IsReadOnly="True"
+							 ItemsSource="{Binding B1SelectedJobs}"
+							 AutoGenerateColumns="False" Height="418" Width="606" Canvas.Top="56" Canvas.Left="25" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
+                                <telerik:RadGridView.Columns>
+                                    <telerik:GridViewDataColumn Header="Job Title" Width="250"
+											DataMemberBinding="{Binding CustomerID}" />
+                                    <telerik:GridViewDataColumn Header="Company" Width="250"
+											DataMemberBinding="{Binding CompanyName}" />
+                                    <telerik:GridViewDataColumn Header="Salary" Width="150"
+											DataMemberBinding="{Binding ContactName}" />
+
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+
+                            <Rectangle Fill="#FFF3F3F3" Stroke="Black" StrokeThickness="0" Height="464" Canvas.Top="10" Width="530" Canvas.Left="653">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+
+                            <Canvas x:Name="SummaryCanvas_B1" Visibility="Visible">
+
+
+                                <Label x:Name="Label_JobSummary" Canvas.Left="665" Canvas.Top="16" HorizontalContentAlignment="Center" Width="512" Height="387">
+                                    <StackPanel Orientation="Vertical">
+                                        <Label FontWeight="Bold" FontSize="15" Content="Sales Associate" HorizontalContentAlignment="Center"/>
+                                        <Label    Content="Average Salary in [Selected Location]: $35k - 45k" HorizontalContentAlignment="Center"/>
+                                        <Label    Content="Overview:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
+                                        <Label    HorizontalContentAlignment="Center">
+                                            <Label.Content>
+                                                <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned." Width="376"/>
+                                            </Label.Content>
+                                        </Label>
+
+                                        <Label    Content="Mandatory Qualifications:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
+                                        <Label    HorizontalContentAlignment="Center">
+                                            <Label.Content>
+                                                <AccessText TextWrapping="Wrap" Text="- Qualification #1 " Width="376"/>
+                                            </Label.Content>
+                                        </Label>
+                                        <Label    HorizontalContentAlignment="Left" Content="- Qualification #2"/>
+
+                                        <Label    Content="Key Skills + Trainings:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
+                                        <Label    HorizontalContentAlignment="Center">
+                                            <Label.Content>
+                                                <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned." Width="376"/>
+                                            </Label.Content>
+                                        </Label>
+
+                                    </StackPanel>
+                                </Label>
+
+                                <Label    Content="Favorite" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="ForestGreen" FontWeight="DemiBold" Canvas.Left="763" Canvas.Top="427" Width="84" >
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Label.Effect>
+                                </Label>
+                                <Label    Content="Delete" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="DarkSalmon" FontWeight="DemiBold" Canvas.Left="873" Canvas.Top="427" Width="84">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Label.Effect>
+                                </Label>
+
+                                <Label    Content="See Map &gt;" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="Gray" FontWeight="DemiBold" Canvas.Left="1075" Canvas.Top="427" Width="84" MouseDown="SeeMapsLabel_MouseDown">
+                                    <Label.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Label.Effect>
+                                </Label>
+                            </Canvas>
+
+
+                            <Canvas x:Name="SummaryCanvas_B2" Visibility="Hidden">
+
+
+                                <telerik:RadMap x:Name="map" Center="30, 75" 
+                        
+                        UseSpringAnimations="True"
+                        SpringAnimationsMode="Zooming"
+                        MinZoomLevel="2"
+                        ZoomLevel="2" 
+                                                Width="512" Height="387"
+                         Canvas.Left="660" Canvas.Top="49">
+                                    <telerik:RadMap.Provider>
+                                        <telerik:BingRestMapProvider x:Name="bingProvider" Mode="Aerial" />
+                                    </telerik:RadMap.Provider>
+
+                                    <telerik:VisualizationLayer x:Name="flightsLayer" UseBitmapCache="True">
+                                        <telerik:VisualizationLayer.ShapeFill>
+                                            <telerik:MapShapeFill Stroke="{telerik:Windows8Resource ResourceKey=AccentBrush}" StrokeThickness="3" StrokeDashArray="2 1"/>
+                                        </telerik:VisualizationLayer.ShapeFill>
+                                    </telerik:VisualizationLayer>
+
+
+                                </telerik:RadMap>
+
 
                             </Canvas>
-                            <Canvas Height="472" Width="268" Canvas.Left="944" Canvas.Top="10">
-                                <ListBox x:Name="CanvasB1ListBox" Height="435" Canvas.Left="5" Canvas.Top="27" Width="258" Foreground="#FF575757" BorderBrush="#FFD1D1D1" FontSize="13.333" SelectionChanged="CanvasB1ListBoxSelected" SelectionMode="Single"/>
-                                <Label Content="Pick a file from the list" Canvas.Top="10" Width="258" Foreground="#FF6C6C6C" FontSize="9.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2" Canvas.Left="5"/>
-                            </Canvas>
-
-
-
 
                         </Canvas>
 
-                        <!-- Ability -->
+                        <!-- Canvas B2 - Job Map -->
                         <Canvas x:Name="B2Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
+                            <telerik:RadAutoCompleteBox WatermarkContent="Solar Panel Install Technician"
+											 x:Name="B2_AutoCompleteBox"
+											 TextSearchMode="Contains"
+											 AutoCompleteMode="SuggestAppend"
+											 SelectionMode="Single"
+                                                    Background="White"
+											 FontSize="18"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    FontWeight="DemiBold"
+											  BorderBrush="Black" BorderThickness="1"
+											 Opacity="1"
+                                              Width="254" Canvas.Left="25" Canvas.Top="10" Height="41"/>
+
+
+                            <telerik:RadGridView x:Name="radGridView2" GroupRenderMode="Flat" IsFilteringAllowed="True"
+							 CanUserFreezeColumns="False"
+							 RowIndicatorVisibility="Collapsed"
+							 IsReadOnly="True"
+							 ItemsSource="{Binding B1SelectedJobs}"
+							 AutoGenerateColumns="False" Height="418" Width="254" Canvas.Top="56" Canvas.Left="25" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
+                                <telerik:RadGridView.Columns>
+                                    <telerik:GridViewDataColumn Header="Job Title" Width="250"
+											DataMemberBinding="{Binding CustomerID}" />
+                                    <telerik:GridViewDataColumn Header="Company" Width="250"
+											DataMemberBinding="{Binding CompanyName}" />
+                                    <telerik:GridViewDataColumn Header="Salary" Width="150"
+											DataMemberBinding="{Binding ContactName}" />
+
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+
+                            <Rectangle Fill="#FFF3F3F3" Stroke="Black" StrokeThickness="0" Height="464" Canvas.Top="10" Width="864" Canvas.Left="319">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+
+                            <telerik:RadMap x:Name="map2" Center="30, 75" 
+                        
+                        UseSpringAnimations="True"
+                        SpringAnimationsMode="Zooming"
+                        MinZoomLevel="2"
+                        ZoomLevel="4" 
+                                                Width="840" Height="443"
+                         Canvas.Left="332" Canvas.Top="20">
+
+                            </telerik:RadMap>
+
 
 
                         </Canvas>
-                        <!-- Combined -->
+                        <!-- Canvas B3 - Both -->
                         <Canvas x:Name="B3Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
 
 
                         </Canvas>
+
                     </Canvas>
 
 
                 </Canvas>
 
-                <!--C Canvas-->
+                <!--C Canvas - -->
                 <Canvas x:Name="ContentCanvasC" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
@@ -248,10 +404,9 @@
                     </Canvas>
                 </Canvas>
 
-
-                <!--D Canvas-->
+                <!--D Canvas - Pathfinder-->
                 <Canvas x:Name="ContentCanvasD" Visibility="Hidden"
-                        Height="597" Width="1239" Background="White">
+                        Height="557" Width="1239" Background="White">
 
 
                     <Canvas x:Name="MainDChartCanvas"  Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
@@ -330,7 +485,7 @@
                                 </Label>
                             </Canvas>
 
-                            <Canvas x:Name="BallSummaryCanvas_B" Visibility="Visible">
+                            <Canvas x:Name="BallSummaryCanvas_B" Visibility="Hidden">
                                 <Label x:Name="Label_BallSummary_B" Canvas.Left="763" Canvas.Top="53" HorizontalContentAlignment="Center">
                                     <StackPanel Orientation="Vertical" Width="379">
                                         <Label FontWeight="Bold" FontSize="15" Content="Sales Associate" HorizontalContentAlignment="Center"/>
@@ -452,7 +607,7 @@
 
                 </Canvas>
 
-                <!--E Canvas-->
+                <!--E Canvas - -->
                 <Canvas x:Name="ContentCanvasE" Visibility="Hidden"
                         Height="597" Width="1239" Background="#919191">
 
@@ -462,13 +617,11 @@
 
                 </Canvas>
 
-
-
             </Canvas>
 
             <Canvas x:Name="MainSeparatorCanvas"  HorizontalAlignment="Left" Height="3" Margin="-3,60,-4,0" VerticalAlignment="Top" Width="1250" Background="#FFF0F0F0" Grid.ColumnSpan="2"/>
             <Canvas x:Name="Header" Margin="0,0,0,616" Background="White" Grid.ColumnSpan="2">
-                <Label x:Name="HeaderTitleLabel" Content="--- --- --- ---" Canvas.Left="85" Canvas.Top="10" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2" FontFamily="Microsoft Sans Serif" FontSize="18.667" Foreground="#FF666666" Cursor="Hand"/>
+                <Label x:Name="HeaderTitleLabel" Content="--- --- --- ---" FontWeight="DemiBold" Canvas.Left="85" Canvas.Top="10" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2" FontFamily="Microsoft Sans Serif" FontSize="18.667" Foreground="#FF666666" Cursor="Hand"/>
                 <Image x:Name="MenuLaunchIcon" Height="13" Canvas.Left="15" Canvas.Top="24" Width="24" Source="Images/MenuiconMain.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
                 <Canvas x:Name="HeaderKPIcanvas"  Height="43" Canvas.Left="514" Canvas.Top="8" Width="547"/>
             </Canvas>
@@ -492,7 +645,7 @@
 
                     <Canvas x:Name="Menu2"  Height="44" Canvas.Top="50" Width="305"  MouseDown="ToggleShowHide_CanvasB" Visibility="Visible" >
                         <Image x:Name="Menu2Image" Height="34" Width="42" Source="Images/Trends.png" Cursor="Hand"  Canvas.Left="10" Canvas.Top="3" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked"/>
-                        <Label x:Name="Menu2Label" Content="Next Steps" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
+                        <Label x:Name="Menu2Label" Content="Jobs" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
                     </Canvas>
 
                     <Canvas x:Name="Menu3"  Height="44" Canvas.Top="100" Width="305"  MouseDown="ToggleShowHide_CanvasD"  Visibility="Visible" >
@@ -501,11 +654,11 @@
                     </Canvas>
                     <Canvas x:Name="Menu4"  Height="44" Canvas.Top="150" Width="305"  MouseDown="ToggleShowHide_CanvasC" Visibility="Visible"  >
                         <Image x:Name="Menu4Image" Height="36" Width="54" Source="Images/RateTrainer.png" Cursor="Hand" Canvas.Top="4" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Canvas.Left="5"/>
-                        <Label x:Name="Menu4Label" Content="Job Map" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
+                        <Label x:Name="Menu4Label" Content="Training" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
                     </Canvas>
                     <Canvas x:Name="Menu5"  Height="44" Canvas.Top="200" Width="305"  MouseDown="ToggleShowHide_CanvasA" Visibility="Visible"  >
                         <Image x:Name="Menu5Image" Height="36" Width="54" Source="Images/LossCompass.png" Cursor="Hand" Canvas.Top="4" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Canvas.Left="5"/>
-                        <Label x:Name="Menu5Label" Content="Skill Explorer" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
+                        <Label x:Name="Menu5Label" Content="My Plan" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
                     </Canvas>
                     <Canvas x:Name="Menu6"  Height="44" Canvas.Top="250" Width="305"  MouseDown="ToggleShowHide_CanvasC" Visibility="Hidden"  >
                         <Image x:Name="Menu6Image" Height="36" Width="54" Source="Images/LossNetwork.png" Cursor="Hand" Canvas.Top="4" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Canvas.Left="5"/>
@@ -513,16 +666,16 @@
                     </Canvas>
                     <Canvas x:Name="Menu7"  Height="44" Canvas.Top="300" Width="305"  MouseDown="ToggleShowHide_CanvasC" Visibility="Hidden"  >
                         <Image x:Name="Menu7Image" Height="36" Width="54" Source="Images/LiveLine2.png" Cursor="Hand" Canvas.Top="4" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Canvas.Left="5"/>
-                        <Label x:Name="Menu7Label" Content="Live Dashboard" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
+                        <Label x:Name="Menu7Label" Content="Analytics" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
                     </Canvas>
 
-                    <Canvas x:Name="Menu8"  Height="44" Canvas.Top="350" Width="305"  MouseDown="ToggleShowHide_CanvasC" Visibility="Hidden"  >
-                        <Image x:Name="Menu8Image" Height="36" Width="54" Source="Images/RateTrainer.png" Cursor="Hand" Canvas.Top="4" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Canvas.Left="5"/>
-                        <Label x:Name="Menu8Label" Content="Cost Advisor" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
+                    <Canvas x:Name="Menu8"  Height="44" Canvas.Top="350" Width="305"  MouseDown="ToggleShowHide_CanvasA" Visibility="Visible"  >
+                        <Image x:Name="Menu8Image" Height="36" Width="54" Source="Images/LiveLine2.png" Cursor="Hand" Canvas.Top="4" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Canvas.Left="5"/>
+                        <Label x:Name="Menu8Label" Content="Analytics" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
                     </Canvas>
                     <Canvas x:Name="Menu9"  Height="44" Canvas.Top="400" Width="305"  MouseDown="ToggleShowHide_Exit" Visibility="Visible"  >
                         <Image x:Name="Menu9Image" Visibility="Hidden" Height="36" Width="54" Source="Images/MindTheGap_Notext.png" Cursor="Hand" Canvas.Top="4" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Canvas.Left="5"/>
-                        <Label x:Name="Menu9Label" Content="Exit" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
+                        <Label x:Name="Menu9Label" Content="Main Menu" Canvas.Left="59" Height="44" Width="246" Foreground="#FF666666" FontSize="18.667" FontFamily="Segoe UI Light" VerticalContentAlignment="Center" MouseMove="Menuitemmousemove" MouseLeave="Menuitemmouseleave" MouseDown="Menuitemclicked" Cursor="Hand"/>
                     </Canvas>
                 </Canvas>
                 <Separator x:Name="MenuSeperator"  Height="11" Margin="0" Canvas.Top="593" Width="305" Background="#FFF0F0F0"/>
@@ -595,11 +748,11 @@
                         <Label Content="Hello," FontWeight="ExtraBold" Canvas.Left="505" Height="115" Width="266" Foreground="White" FontSize="72"/>
                         <Label Content="I am a " Canvas.Left="427" Canvas.Top="135" FontSize="28" FontWeight="DemiBold"  Foreground="White"/>
                         <Label Content="in " Canvas.Left="799" Canvas.Top="134" FontSize="28" FontWeight="DemiBold"  Foreground="White"/>
-              
+
                         <Image  Visibility="Visible" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="62" Source="Images\noun_help_2392630.png" Canvas.Left="1131" Canvas.Top="-80" Opacity=".6"/>
                         <Image  Visibility="Visible"  Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="62" Source="Images\noun_Settings_2650515.png" Canvas.Left="22" Canvas.Top="-80" Opacity=".6"/>
 
-                     
+
 
                         <Image x:Name="GoButton" Visibility="Visible" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="249" Source="Images\button_lets-get-started.png" Canvas.Left="491" Canvas.Top="302" RenderTransformOrigin="0.543,0.568" Opacity=".3" MouseDown="do_analyze" MouseLeave="Generalmouseleave" MouseMove="Generalmousemove"/>
                     </Canvas>

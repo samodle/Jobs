@@ -55,13 +55,24 @@ namespace Windows_Desktop
         public string ROLE_NAME { get; set; } = "";
         public string LOCATION_NAME { get; set; } = "";
 
-
+        //public dashboardwindow() : base()
+       // {
+            //*****This is used to tell the application how to load DLLs
+         //   AppDomain currentDomain = AppDomain.CurrentDomain;
+         //   currentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+       // }
         public void fork_onload(object sender, RoutedEventArgs e)
         {
+            //AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             InitializeComponent();
+
+            this.map.Provider = new BingRestMapProvider(MapMode.Aerial, true, "AmQ9IqDYiv94HvDCciqyfMQDqf46Zc9E7rZ-4I77D-BF1KRTdYSQS5JgWCJfNL4y");
+            this.map2.Provider = new BingRestMapProvider(MapMode.Aerial, true, "AmQ9IqDYiv94HvDCciqyfMQDqf46Zc9E7rZ-4I77D-BF1KRTdYSQS5JgWCJfNL4y");
 
             LaunchCanvas.Visibility = Visibility.Visible;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
+            B2Canvas.Visibility = Visibility.Hidden;
+            B1Canvas.Visibility = Visibility.Visible;
             Landing_Name_AutoCompleteBox.ItemsSource = demoNameList;
             Landing_Role_AutoCompleteBox.ItemsSource = demoRoleList;
             Landing_Location_AutoCompleteBox.ItemsSource = demoLocationList;
@@ -71,9 +82,6 @@ namespace Windows_Desktop
 
             Thread onetThread = new Thread(setONETReport);
             onetThread.Start();
-
-            //webViewE1.Url = "https://xd.adobe.com/view/b1e4dfbb-d0a9-42d0-acb6-c462ec2b29dc-e4b7/?fullscreen";
-            //ONETImportScripts.ONET_importOccupations();
 
         }
 
@@ -88,18 +96,6 @@ namespace Windows_Desktop
 
             //set listbox components
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList(); //sets CanvasA1 Listbox
-
-            if (false) //we dont need this -SRO 8/31/2020
-            {
-                string[] fileArray = Directory.GetFiles(@"C:\Users\Public\Public_fork\html\", "*.html");
-                CanvasB1FileNames = fileArray.ToList();
-                for (int i = 0; i < CanvasB1FileNames.Count; i++)
-                {
-                    CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace(@"C:\Users\Public\Public_fork\html\", "");
-                    CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace("_", " ");
-                    CanvasB1FileNames[i] = CanvasB1FileNames[i].Replace(".html", "");
-                }
-            }
 
             //write html files as needed
             if (false)
@@ -126,9 +122,9 @@ namespace Windows_Desktop
 
         public void do_analyze(object sender, RoutedEventArgs e)
         {
-
             if (loadingInfoComplete)
             {
+                HeaderTitleLabel.Content = USER_NAME + ".  " + ROLE_NAME + ".  " + LOCATION_NAME;
                 LaunchCanvas.Visibility = Visibility.Hidden;
                 if (firstInitComplete)
                 {
@@ -146,14 +142,11 @@ namespace Windows_Desktop
                     ToggleShowHide_CanvasE(sender, f);
                     firstInitComplete = true;
                 }
-
             }
             else
             {
                 MessageBox.Show("Please fill out your Name, Role, and Location and try again.");
             }
-
-
         }
 
 
@@ -223,12 +216,12 @@ namespace Windows_Desktop
         public void LaunchMenu(object sender, MouseButtonEventArgs e)
         {
             MenuCanvas.Visibility = Visibility.Visible;
-            B1Canvas.Visibility = Visibility.Hidden;
-            B2Canvas.Visibility = Visibility.Hidden;
-            B3Canvas.Visibility = Visibility.Hidden;
-            C1Canvas.Visibility = Visibility.Hidden;
+            //B1Canvas.Visibility = Visibility.Hidden;
+            //B2Canvas.Visibility = Visibility.Hidden;
+            //B3Canvas.Visibility = Visibility.Hidden;
+            //C1Canvas.Visibility = Visibility.Hidden;
             //D1Canvas.Visibility = Visibility.Hidden;
-            E1Canvas.Visibility = Visibility.Hidden;
+            //E1Canvas.Visibility = Visibility.Hidden;
             AnimateMenuOpening();
             MenuSplashRectangle.Visibility = Visibility.Visible;
         }
@@ -247,12 +240,12 @@ namespace Windows_Desktop
             MenuSplashRectangle.Visibility = Visibility.Hidden;
             AnimateMenuClosing();
             System.Windows.Forms.Application.DoEvents();
-            B1Canvas.Visibility = Visibility.Visible;
-            B2Canvas.Visibility = Visibility.Visible;
-            B3Canvas.Visibility = Visibility.Visible;
-            C1Canvas.Visibility = Visibility.Visible;
+            //B1Canvas.Visibility = Visibility.Visible;
+            //B2Canvas.Visibility = Visibility.Visible;
+            //B3Canvas.Visibility = Visibility.Visible;
+            //C1Canvas.Visibility = Visibility.Visible;
             //D1Canvas.Visibility = Visibility.Visible;
-            E1Canvas.Visibility = Visibility.Visible;
+            //E1Canvas.Visibility = Visibility.Visible;
             MenuCanvas.Visibility = Visibility.Hidden;
 
 
@@ -580,93 +573,56 @@ namespace Windows_Desktop
         private void CanvasB_init()
         {
             //CanvasB1ListBox.ItemsSource = null;
-
-            if (false)
-            {
-                foreach (string s in CanvasB1FileNames)
-                {
-                    if (s.Contains("Net"))
-                    {
-                        CanvasB1FileNames_Net.Add(s);
-                    }
-                    else if (s.Contains("Skill"))
-                    {
-                        CanvasB1FileNames_Skill.Add(s);
-                    }
-                    else if (s.Contains("Knowledge") || s.Contains("Ability"))
-                    {
-                        CanvasB1FileNames_Other.Add(s);
-                    }
-                }
-
-                CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Net;
-
-                CanvasB1ListBox.SelectedIndex = 0;
-            }
+           // B1Canvas.Visibility = Visibility.Visible;
+           // B2Canvas.Visibility = Visibility.Hidden;
+           // B3Canvas.Visibility = Visibility.Hidden;
+           
         }
 
         #region B - Tab Navigation
-        private void B1_SetListboxSource()
-        {
-          //  CanvasB1ListBox.SelectedItem = null;
-            switch (B1_CurrentState) 
-            {
-                case B1_State.Net:
-                    CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Net;
-                    break;
-                case B1_State.Skill:
-                    CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Skill;
-                    break;
-                case B1_State.Other:
-                   CanvasB1ListBox.ItemsSource = CanvasB1FileNames_Other;
-                    break;
-            }
-            CanvasB1ListBox.SelectedIndex = 0;
-        }
 
         public void CanvasBHeader1Clicked(object sender, MouseButtonEventArgs e)
         {
-            B1_CurrentState = B1_State.Net;
-            B1_SetListboxSource();
+           // B1_CurrentState = B1_State.Net;
+           // B1_SetListboxSource();
 
             CanvasBSelectionBar1.Visibility = Visibility.Visible;
             CanvasBSelectionBar2.Visibility = Visibility.Hidden;
             CanvasBSelectionBar3.Visibility = Visibility.Hidden;
             AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasBSelectionBar1);
 
+            B1Canvas.Visibility = Visibility.Visible;
+            B2Canvas.Visibility = Visibility.Hidden;
+            B3Canvas.Visibility = Visibility.Hidden;
+
         }
         public void CanvasBHeader2Clicked(object sender, MouseButtonEventArgs e)
         {
-            B1_CurrentState = B1_State.Skill;
-            B1_SetListboxSource();
+         //   B1_CurrentState = B1_State.Skill;
+          //  B1_SetListboxSource();
             CanvasBSelectionBar2.Visibility = Visibility.Visible;
             CanvasBSelectionBar1.Visibility = Visibility.Hidden;
             CanvasBSelectionBar3.Visibility = Visibility.Hidden;
             AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasBSelectionBar2);
 
+            B1Canvas.Visibility = Visibility.Hidden;
+            B2Canvas.Visibility = Visibility.Visible;
+            B3Canvas.Visibility = Visibility.Hidden;
         }
         public void CanvasBHeader3Clicked(object sender, MouseButtonEventArgs e)
         {
-            B1_CurrentState = B1_State.Other;
-            B1_SetListboxSource();
+          //  B1_CurrentState = B1_State.Other;
+          //  B1_SetListboxSource();
             CanvasBSelectionBar3.Visibility = Visibility.Visible;
             CanvasBSelectionBar1.Visibility = Visibility.Hidden;
             CanvasBSelectionBar2.Visibility = Visibility.Hidden;
             AnimateZoomUIElement(0, 100, 0.2, WidthProperty, CanvasBSelectionBar3);
+
+            B1Canvas.Visibility = Visibility.Hidden;
+            B2Canvas.Visibility = Visibility.Hidden;
+            B3Canvas.Visibility = Visibility.Visible;
         }
         #endregion
-
-
-        string B1ListBoxSelectedItem = "";
-        public void CanvasB1ListBoxSelected(object sender, RoutedEventArgs e)
-        {
-            if(CanvasB1ListBox.SelectedItem != null)
-            {
-                B1ListBoxSelectedItem = CanvasB1ListBox.SelectedItem.ToString();
-                //set web view url
-                //webView1.Url = "file:///C:/Users/Public/Public_fork/html/" + B1ListBoxSelectedItem.Replace(" ", "_") + ".html";
-            }
-        }
 
 
         #endregion
@@ -803,7 +759,7 @@ namespace Windows_Desktop
             if (ContentCanvasA.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                HeaderTitleLabel.Content = "Skill Explorer";
+              //  HeaderTitleLabel.Content = "Skill Explorer";
                 ContentCanvasA.Visibility = Visibility.Visible;
               //  CanvasA1ListBox.SelectedIndex = 0;
             }
@@ -814,7 +770,7 @@ namespace Windows_Desktop
             if (ContentCanvasB.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                HeaderTitleLabel.Content = "Next Steps";
+             //   HeaderTitleLabel.Content = "Next Steps";
                 ContentCanvasB.Visibility = Visibility.Visible;
                //CanvasB1ListBox.SelectedIndex = 0;
             }
@@ -825,7 +781,7 @@ namespace Windows_Desktop
             if (ContentCanvasC.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                HeaderTitleLabel.Content = "Job Maps";
+              //  HeaderTitleLabel.Content = "Job Maps";
                 ContentCanvasC.Visibility = Visibility.Visible;
             }
         }
@@ -835,7 +791,7 @@ namespace Windows_Desktop
             if (ContentCanvasD.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                HeaderTitleLabel.Content = "Discover Career Paths";
+              //  HeaderTitleLabel.Content = "Discover Career Paths";
                 ContentCanvasD.Visibility = Visibility.Visible;
             }
         }
@@ -845,7 +801,7 @@ namespace Windows_Desktop
             if (ContentCanvasE.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-                HeaderTitleLabel.Content = "Profile";
+              //  HeaderTitleLabel.Content = "Profile";
                 ContentCanvasE.Visibility = Visibility.Visible;
             }
         }
@@ -1874,6 +1830,12 @@ namespace Windows_Desktop
         private void CanvasA1_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void SeeMapsLabel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SummaryCanvas_B1.Visibility = Visibility.Hidden;
+            SummaryCanvas_B2.Visibility = Visibility.Visible;
         }
     }
 

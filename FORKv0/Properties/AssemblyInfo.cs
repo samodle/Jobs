@@ -11,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyDescription("A platform for scaling up in the digital economy")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Fork, Inc")]
-[assembly: AssemblyProduct("Windows_Desktop")]
+[assembly: AssemblyProduct("YourStory by Fork")]
 [assembly: AssemblyCopyright("Copyright © 2020 Fork, Inc")]
 [assembly: AssemblyTrademark("Fork Inc")]
 [assembly: AssemblyCulture("")]

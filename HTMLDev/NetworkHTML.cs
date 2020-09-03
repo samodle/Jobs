@@ -14,7 +14,7 @@ namespace HTMLDev
 
         public static void writeGraphHTML(ONETReport forkReport, int numberOfOccupations, Constants.AttributeType type, string FileName, string FileType = ".html")
         {
-            string a = "";
+            //string a = "";
             //Random random = new Random();
             string fileName = Helper.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
 
