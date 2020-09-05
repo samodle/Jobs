@@ -583,12 +583,15 @@ namespace Windows_Desktop
 
         public void CanvasBHeader1Clicked(object sender, MouseButtonEventArgs e)
         {
-           // B1_CurrentState = B1_State.Net;
-           // B1_SetListboxSource();
+            // B1_CurrentState = B1_State.Net;
+            // B1_SetListboxSource();
+
+            CanvasBHeaderLabel1.FontWeight = FontWeights.DemiBold;
+            CanvasBHeaderLabel2.FontWeight = FontWeights.Regular;
 
             CanvasBSelectionBar1.Visibility = Visibility.Visible;
             CanvasBSelectionBar2.Visibility = Visibility.Hidden;
-            CanvasBSelectionBar3.Visibility = Visibility.Hidden;
+            ///CanvasBSelectionBar3.Visibility = Visibility.Hidden;
             AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasBSelectionBar1);
 
             B1Canvas.Visibility = Visibility.Visible;
@@ -598,30 +601,22 @@ namespace Windows_Desktop
         }
         public void CanvasBHeader2Clicked(object sender, MouseButtonEventArgs e)
         {
-         //   B1_CurrentState = B1_State.Skill;
-          //  B1_SetListboxSource();
+
+            CanvasBHeaderLabel2.FontWeight = FontWeights.DemiBold;
+            CanvasBHeaderLabel1.FontWeight = FontWeights.Regular;
+
+            //   B1_CurrentState = B1_State.Skill;
+            //  B1_SetListboxSource();
             CanvasBSelectionBar2.Visibility = Visibility.Visible;
             CanvasBSelectionBar1.Visibility = Visibility.Hidden;
-            CanvasBSelectionBar3.Visibility = Visibility.Hidden;
+            //CanvasBSelectionBar3.Visibility = Visibility.Hidden;
             AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasBSelectionBar2);
 
             B1Canvas.Visibility = Visibility.Hidden;
             B2Canvas.Visibility = Visibility.Visible;
             B3Canvas.Visibility = Visibility.Hidden;
         }
-        public void CanvasBHeader3Clicked(object sender, MouseButtonEventArgs e)
-        {
-          //  B1_CurrentState = B1_State.Other;
-          //  B1_SetListboxSource();
-            CanvasBSelectionBar3.Visibility = Visibility.Visible;
-            CanvasBSelectionBar1.Visibility = Visibility.Hidden;
-            CanvasBSelectionBar2.Visibility = Visibility.Hidden;
-            AnimateZoomUIElement(0, 100, 0.2, WidthProperty, CanvasBSelectionBar3);
 
-            B1Canvas.Visibility = Visibility.Hidden;
-            B2Canvas.Visibility = Visibility.Hidden;
-            B3Canvas.Visibility = Visibility.Visible;
-        }
         #endregion
 
 
