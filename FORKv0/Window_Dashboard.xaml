@@ -373,7 +373,7 @@
 
                 </Canvas>
 
-                <!--C Canvas - -->
+                <!--C Canvas - Training -->
                 <Canvas x:Name="ContentCanvasC" Visibility="Hidden"
                         Height="597" Width="1239" Background="White">
 
@@ -609,7 +609,7 @@
                 </Canvas>
 
                 <!--E Canvas - Profile-->
-                <Canvas x:Name="ContentCanvasE" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasE" Visibility="Hidden"
                         Height="554" Width="1247" Background="LightGray">
 
                     <Canvas x:Name="E1Canvas" Height="590" Width="1200" Canvas.Left="17" Canvas.Top="5">
@@ -625,7 +625,6 @@
                         </Rectangle>
 
 
-                        <Label Content="Personal Info" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
                         <Label Content="Personal Info" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
                         <Label Content="Name" Foreground="Black" FontWeight="DemiBold" Canvas.Left="71" Canvas.Top="69" FontSize="12" Typography.Capitals="AllSmallCaps"/>
                         <Label Content="Samuel Ryan Odle" Foreground="Black" FontWeight="DemiBold" Canvas.Left="145" Canvas.Top="59" FontSize="22"/>
@@ -769,8 +768,76 @@
                         Height="554" Width="1247" Background="LightGray">
 
                     <Canvas x:Name="F1Canvas" Height="590" Width="1200" Canvas.Left="17" Canvas.Top="5">
+                        <!--Jobs-->
+                        <Rectangle Fill="White" Height="257" Canvas.Left="10" Canvas.Top="10" Width="587">
+                            <Rectangle.Effect>
+                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+
+                        <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="10" Width="167">
+                        </Rectangle>
 
 
+                        <Label Content="Jobs" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
+
+                        <telerik:RadGridView x:Name="F_JobGridView" GroupRenderMode="Flat" IsFilteringAllowed="True"
+							 CanUserFreezeColumns="False"
+							 RowIndicatorVisibility="Collapsed"
+							 IsReadOnly="True"
+							 ItemsSource="{Binding B1SelectedJobs}"
+							 AutoGenerateColumns="False" Height="206" Width="567" Canvas.Top="51" Canvas.Left="19" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
+                            <telerik:RadGridView.Columns>
+                                <telerik:GridViewDataColumn Header="Title" Width="300"
+											DataMemberBinding="{Binding CustomerID}" />
+                                <telerik:GridViewDataColumn Header="Company" Width="250"
+											DataMemberBinding="{Binding CompanyName}" />
+
+
+                            </telerik:RadGridView.Columns>
+                        </telerik:RadGridView>
+                        <!--Training-->
+                        <Rectangle Fill="White" Height="256" Canvas.Left="10" Canvas.Top="282" Width="587">
+                            <Rectangle.Effect>
+                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="282" Width="167">
+                            <Rectangle.Effect>
+                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <Label Content="Classes" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="277"/>
+
+
+                        <telerik:RadGridView x:Name="F_ClassGridView" GroupRenderMode="Flat" IsFilteringAllowed="True"
+							 CanUserFreezeColumns="False"
+							 RowIndicatorVisibility="Collapsed"
+							 IsReadOnly="True"
+							 ItemsSource="{Binding B1SelectedJobs}"
+							 AutoGenerateColumns="False" Height="206" Width="567" Canvas.Top="322" Canvas.Left="19" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
+                            <telerik:RadGridView.Columns>
+                                <telerik:GridViewDataColumn Header="Title" Width="300"
+											DataMemberBinding="{Binding CustomerID}" />
+                                <telerik:GridViewDataColumn Header="Provider" Width="250"
+											DataMemberBinding="{Binding CompanyName}" />
+
+
+                            </telerik:RadGridView.Columns>
+                        </telerik:RadGridView>
+
+                        <!--Summary-->
+                        <Rectangle Fill="White" Height="528" Canvas.Left="618" Canvas.Top="10" Width="572">
+                            <Rectangle.Effect>
+                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="618" Canvas.Top="10" Width="167">
+                            <Rectangle.Effect>
+                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+                        <Label Content="Summary" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="629" Canvas.Top="5"/>
                     </Canvas>
 
                 </Canvas>
