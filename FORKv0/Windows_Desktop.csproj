@@ -350,6 +350,15 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\noun_Star_honey_empty.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_Star_honey_full.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_Delete_rasberry.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\noun_Location_black.png" />
     <Resource Include="Images\noun_Money_purple.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

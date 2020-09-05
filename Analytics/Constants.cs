@@ -30,6 +30,8 @@ namespace Analytics
         //level steps? (ie threshold at which level distance becomes greater)
         //importance steps?
 
+        public const string BING_MAPS_API_KEY = "AmQ9IqDYiv94HvDCciqyfMQDqf46Zc9E7rZ-4I77D-BF1KRTdYSQS5JgWCJfNL4y";
+
         public enum WageSnapshotType
         {
             Hourly = 0,

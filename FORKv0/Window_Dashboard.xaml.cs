@@ -55,19 +55,14 @@ namespace Windows_Desktop
         public string ROLE_NAME { get; set; } = "";
         public string LOCATION_NAME { get; set; } = "";
 
-        //public dashboardwindow() : base()
-       // {
-            //*****This is used to tell the application how to load DLLs
-         //   AppDomain currentDomain = AppDomain.CurrentDomain;
-         //   currentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-       // }
+
         public void fork_onload(object sender, RoutedEventArgs e)
         {
-            //AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             InitializeComponent();
 
-            this.map.Provider = new BingRestMapProvider(MapMode.Aerial, true, "AmQ9IqDYiv94HvDCciqyfMQDqf46Zc9E7rZ-4I77D-BF1KRTdYSQS5JgWCJfNL4y");
-            this.map2.Provider = new BingRestMapProvider(MapMode.Aerial, true, "AmQ9IqDYiv94HvDCciqyfMQDqf46Zc9E7rZ-4I77D-BF1KRTdYSQS5JgWCJfNL4y");
+            this.map.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
+            this.map2.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
+            this.miniJobMap.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
 
             LaunchCanvas.Visibility = Visibility.Visible;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
@@ -151,7 +146,6 @@ namespace Windows_Desktop
 
 
         public bool loadingInfoComplete = false;
-        //public ObservableCollection<String> Landing_Name_List = new ObservableCollection<string>();
         public List<string> demoNameList = new List<string>(){ "Lisa Parmiter", "Nick Dalton", "Alan Jope", "Patty Hull", "Sam Odle", "Nataliya Wright", "Nick Psyhogeos" };
         public List<string> demoRoleList = new List<string>() { "Technician", "Material Handler", "Shift Leader", "Mechanic", "Line Operator" };
         public List<string> demoLocationList = new List<string>() { "Sikeston, MO", "Jonesboro, AR", "Independence, MO", "Amityville, NY", "Jefferson City, MO", "Covington, TN", "Hammond, IN" };
@@ -216,12 +210,6 @@ namespace Windows_Desktop
         public void LaunchMenu(object sender, MouseButtonEventArgs e)
         {
             MenuCanvas.Visibility = Visibility.Visible;
-            //B1Canvas.Visibility = Visibility.Hidden;
-            //B2Canvas.Visibility = Visibility.Hidden;
-            //B3Canvas.Visibility = Visibility.Hidden;
-            //C1Canvas.Visibility = Visibility.Hidden;
-            //D1Canvas.Visibility = Visibility.Hidden;
-            //E1Canvas.Visibility = Visibility.Hidden;
             AnimateMenuOpening();
             MenuSplashRectangle.Visibility = Visibility.Visible;
         }
@@ -240,12 +228,6 @@ namespace Windows_Desktop
             MenuSplashRectangle.Visibility = Visibility.Hidden;
             AnimateMenuClosing();
             System.Windows.Forms.Application.DoEvents();
-            //B1Canvas.Visibility = Visibility.Visible;
-            //B2Canvas.Visibility = Visibility.Visible;
-            //B3Canvas.Visibility = Visibility.Visible;
-            //C1Canvas.Visibility = Visibility.Visible;
-            //D1Canvas.Visibility = Visibility.Visible;
-            //E1Canvas.Visibility = Visibility.Visible;
             MenuCanvas.Visibility = Visibility.Hidden;
 
 
@@ -1843,10 +1825,53 @@ namespace Windows_Desktop
             SummaryCanvas_B1.Visibility = Visibility.Hidden;
             SummaryCanvas_B2.Visibility = Visibility.Visible;
         }
+
+        private void B1_Location_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (B1_Location_Unselected.Visibility == Visibility.Visible)
+            {
+                B1_Location_Unselected.Visibility = Visibility.Hidden;
+                B1_Location_Selected.Visibility = Visibility.Visible;
+
+                miniJobMap.Visibility = Visibility.Visible;
+                B_JobLongDescription.Visibility = Visibility.Hidden;
+
+                B_LocationButton.Background = BrushColors.fork_blue;
+            } else
+            {
+                B1_Location_Unselected.Visibility = Visibility.Visible;
+                B1_Location_Selected.Visibility = Visibility.Hidden;
+
+                miniJobMap.Visibility = Visibility.Hidden;
+                B_JobLongDescription.Visibility = Visibility.Visible;
+
+                B_LocationButton.Background = BrushColors.mybrushlanguagewhite;
+            }
+
+
+        }
+
+
+        private void B_Favorite_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (B_Favorite_Unselected.Visibility == Visibility.Hidden)
+            {
+                B_Favorite_Unselected.Visibility = Visibility.Visible;
+                B_Favorite_Selected.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                B_Favorite_Unselected.Visibility = Visibility.Hidden;
+                B_Favorite_Selected.Visibility = Visibility.Visible;
+            }
+           
+        }
     }
 
     static class BrushColors
     {
+        public static SolidColorBrush fork_blue = new SolidColorBrush(Color.FromRgb(0,32,96));
+
         public static SolidColorBrush aliceblue = new SolidColorBrush(Color.FromRgb(240, 248, 255));
         public static SolidColorBrush ball_full = new SolidColorBrush(Color.FromRgb(176, 196, 222));
 

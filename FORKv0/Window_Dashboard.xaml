@@ -165,11 +165,7 @@
                         Height="557" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="493" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="#FFF3F3F3" >
-                        <Rectangle Fill="White" Height="464" Canvas.Top="10" Width="638" Canvas.Left="10">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
+
 
                         <Canvas x:Name="BHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
                             <Label x:Name="CanvasBHeaderLabel1" FontWeight="DemiBold" Content="The Job List" Canvas.Top="7" Width="172" Foreground="Black" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader1Clicked" Canvas.Left="31"/>
@@ -184,14 +180,19 @@
 
                         <!-- Canvas B1 - Job List -->
 
-                        <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="10" Width="167">
-                        </Rectangle>
-
-
-                        <Label Content="Jobs" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
 
                         <Canvas x:Name="B1Canvas" Visibility="Visible" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
+                            <Rectangle Fill="White" Height="464" Canvas.Top="10" Width="638" Canvas.Left="10" Visibility="Visible">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="10" Width="167">
+                            </Rectangle>
+
+
+                            <Label Content="Jobs" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
 
                             <telerik:RadAutoCompleteBox WatermarkContent="  Search for a Role"
 											 x:Name="B1_AutoCompleteBox"
@@ -231,6 +232,18 @@
                                 </Rectangle.Effect>
                             </Rectangle>
 
+                            <Image Height="53" Width="80" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="45" Canvas.Left="653"/>
+                            <Label Content="55k - 65k" FontSize="22" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="704" Canvas.Top="51" Width="128"/>
+
+                            <Rectangle   Fill="LightGray" Opacity=".4" Height="38" Canvas.Left="846" Canvas.Top="51" Width="1" RenderTransformOrigin="0.5,0.5"></Rectangle>
+                            <Label  Foreground="Black" FontWeight="DemiBold" Canvas.Left="856" Canvas.Top="41" FontSize="14" Width="340">
+                                <Label.Content>
+                                    <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts." Width="330"/>
+                                </Label.Content>
+
+                            </Label>
+
+
                             <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" Height="282" Canvas.Top="133" Width="552" Canvas.Left="654">
                                 <Rectangle.Effect>
                                     <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
@@ -257,14 +270,43 @@
 
                                 <Label Content="Sales Associate" FontSize="18" FontWeight="ExtraBold" Foreground="White" HorizontalContentAlignment="Center" Canvas.Left="654" Canvas.Top="8" Width="553"/>
 
-                                <Label HorizontalContentAlignment="Center" Canvas.Left="677" Canvas.Top="140" Width="519" Height="260" >
-                                    <Label.Content>
-                                        <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned." Width="509" Height="207"/>
-                                    </Label.Content>
-                                </Label>
 
-                                <Image Height="19" Width="33" Source="Images/noun_link_black.png" Stretch="Uniform" Canvas.Top="107" Canvas.Left="781"/>
-                                <Label Content="View Website" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="654" Canvas.Top="97" Width="128"/>
+                                <TextBox x:Name="B_JobLongDescription"
+                                     Width="531" Height="267"
+                                     HorizontalScrollBarVisibility="Hidden"
+                                     VerticalScrollBarVisibility="Visible"
+                                     Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned. Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned. Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned. Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned. Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned."
+                                     TextWrapping="Wrap" Canvas.Left="665" Canvas.Top="143" >
+                                </TextBox>
+
+                                <telerik:RadMap x:Name="miniJobMap" Visibility="Hidden" Center="30, 75" 
+                        
+                        UseSpringAnimations="True"
+                        SpringAnimationsMode="Zooming"
+                        MinZoomLevel="2"
+                        ZoomLevel="2" 
+                                               Width="531" Height="267"
+                         Canvas.Left="665" Canvas.Top="143">
+                                    <telerik:RadMap.Provider>
+                                        <telerik:BingRestMapProvider x:Name="bingProvider" Mode="Aerial" />
+                                    </telerik:RadMap.Provider>
+
+                                    <telerik:VisualizationLayer x:Name="flightsLayer" UseBitmapCache="True">
+                                        <telerik:VisualizationLayer.ShapeFill>
+                                            <telerik:MapShapeFill Stroke="{telerik:Windows8Resource ResourceKey=AccentBrush}" StrokeThickness="3" StrokeDashArray="2 1"/>
+                                        </telerik:VisualizationLayer.ShapeFill>
+                                    </telerik:VisualizationLayer>
+
+
+                                </telerik:RadMap>
+
+
+
+
+
+
+                                <Image Height="14" Width="22" Source="Images/noun_link_black.png" Stretch="Uniform" Canvas.Top="108" Canvas.Left="784"/>
+                                <Label Content="Visit Job Posting" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="665" Canvas.Top="99" Width="128"/>
 
                                 <Image Height="19" Width="33" Source="Images/noun_location_black.png" Stretch="Uniform" Canvas.Top="107" Canvas.Left="860"/>
 
@@ -274,37 +316,36 @@
 
 
 
-                                <Label    Content="Favorite" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="ForestGreen" FontWeight="DemiBold" Canvas.Left="654" Canvas.Top="428" Width="84" Height="46" >
-                                    <Label.Effect>
-                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                                    </Label.Effect>
-                                </Label>
-                                <Label    Content="Delete" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="DarkSalmon" FontWeight="DemiBold" Canvas.Left="755" Canvas.Top="428" Width="84" Height="46">
+                                <Label    Cursor="Hand"  HorizontalContentAlignment="Center" Background="White"  Canvas.Left="654" Canvas.Top="428" Width="84" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="B_Favorite_Toggle_MouseDown">
                                     <Label.Effect>
                                         <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
                                     </Label.Effect>
                                 </Label>
 
-                                <Label    Content="What" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="DarkSalmon" FontWeight="DemiBold" Canvas.Left="860" Canvas.Top="428" Width="84" Height="46">
+                                <Image x:Name="B_Favorite_Unselected" Height="64" Width="202" Source="Images/noun_Star_honey_empty.png" Stretch="Uniform" Canvas.Top="418" Canvas.Left="594" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="B_Favorite_Toggle_MouseDown"/>
+                                <Image x:Name="B_Favorite_Selected" Height="64" Width="202" Source="Images/noun_Star_honey_full.png" Stretch="Uniform" Canvas.Top="418" Canvas.Left="594" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden" MouseDown="B_Favorite_Toggle_MouseDown"/>
+
+                                <Label    Cursor="Hand"  HorizontalContentAlignment="Center" Background="White"  Canvas.Left="755" Canvas.Top="428" Width="84" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave">
                                     <Label.Effect>
                                         <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
                                     </Label.Effect>
                                 </Label>
 
-                                <Label    Content="" Cursor="Hand" BorderBrush="Black" BorderThickness="0" HorizontalContentAlignment="Center" Background="White" FontWeight="DemiBold" Canvas.Left="966" Canvas.Top="428" Width="137" Height="46">
+                                <Label    Content="" Cursor="Hand" BorderBrush="Black" BorderThickness="0" HorizontalContentAlignment="Center" Background="White" FontWeight="DemiBold" Canvas.Left="860" Canvas.Top="428" Width="243" Height="46">
                                     <Label.Effect>
                                         <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
                                     </Label.Effect>
                                 </Label>
 
-                                <Label    Content="See Map &gt;" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="Gray" FontWeight="DemiBold" Canvas.Left="1123" Canvas.Top="428" Width="84" MouseDown="SeeMapsLabel_MouseDown" Height="46">
+                                <Label x:Name="B_LocationButton" Cursor="Hand" HorizontalContentAlignment="Center" Background="White" FontWeight="DemiBold" Canvas.Left="1123" Canvas.Top="428" Width="84" MouseDown="B1_Location_Toggle_MouseDown" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave">
                                     <Label.Effect>
                                         <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
                                     </Label.Effect>
                                 </Label>
+                                <Image x:Name="B1_Location_Unselected" Height="46" Width="76" Source="Images/noun_Location_blue.png" Stretch="Uniform" Canvas.Top="428" Canvas.Left="1128" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="B1_Location_Toggle_MouseDown"/>
+                                <Image x:Name="B1_Location_Selected" Visibility="Hidden" Height="46" Width="76" Source="Images/noun_Location_white.png" Stretch="Uniform" Canvas.Top="428" Canvas.Left="1128" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="B1_Location_Toggle_MouseDown"/>
 
-
-
+                                <Image Height="46" Width="76" Source="Images/noun_Delete_rasberry.png" Stretch="Uniform" Canvas.Top="429" Canvas.Left="758" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
                             </Canvas>
 
@@ -320,17 +361,7 @@
                         ZoomLevel="2" 
                                                 Width="512" Height="387"
                          Canvas.Left="660" Canvas.Top="49">
-                                    <telerik:RadMap.Provider>
-                                        <telerik:BingRestMapProvider x:Name="bingProvider" Mode="Aerial" />
-                                    </telerik:RadMap.Provider>
-
-                                    <telerik:VisualizationLayer x:Name="flightsLayer" UseBitmapCache="True">
-                                        <telerik:VisualizationLayer.ShapeFill>
-                                            <telerik:MapShapeFill Stroke="{telerik:Windows8Resource ResourceKey=AccentBrush}" StrokeThickness="3" StrokeDashArray="2 1"/>
-                                        </telerik:VisualizationLayer.ShapeFill>
-                                    </telerik:VisualizationLayer>
-
-
+                                  
                                 </telerik:RadMap>
 
 
@@ -341,19 +372,32 @@
                         <!-- Canvas B2 - Job Map -->
                         <Canvas x:Name="B2Canvas" Visibility="Hidden" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
-                            <telerik:RadAutoCompleteBox WatermarkContent="Solar Panel Install Technician"
+
+                            <Rectangle Fill="White" Height="464" Canvas.Top="10" Width="287" Canvas.Left="10" Visibility="Visible">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="10" Width="167">
+                            </Rectangle>
+
+
+                            <Label Content="Professions" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
+
+
+                            <telerik:RadAutoCompleteBox WatermarkContent="  Search For A Profession"
 											 x:Name="B2_AutoCompleteBox"
 											 TextSearchMode="Contains"
 											 AutoCompleteMode="SuggestAppend"
 											 SelectionMode="Single"
                                                     Background="White"
-											 FontSize="18"
+											 FontSize="15"
                                                     HorizontalContentAlignment="Center"
                                                     VerticalContentAlignment="Center"
                                                     FontWeight="DemiBold"
 											  BorderBrush="Black" BorderThickness="1"
 											 Opacity="1"
-                                              Width="254" Canvas.Left="25" Canvas.Top="10" Height="41"/>
+                                              Width="254" Canvas.Left="25" Canvas.Top="56" Height="42"/>
 
 
                             <telerik:RadGridView x:Name="radGridView2" GroupRenderMode="Flat" IsFilteringAllowed="True"
@@ -361,23 +405,33 @@
 							 RowIndicatorVisibility="Collapsed"
 							 IsReadOnly="True"
 							 ItemsSource="{Binding B1SelectedJobs}"
-							 AutoGenerateColumns="False" Height="418" Width="254" Canvas.Top="56" Canvas.Left="25" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
+							 AutoGenerateColumns="False" Height="362" Width="254" Canvas.Top="112" Canvas.Left="25" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
                                 <telerik:RadGridView.Columns>
-                                    <telerik:GridViewDataColumn Header="Job Title" Width="250"
+                                    <telerik:GridViewDataColumn Header="Name" Width="254"
 											DataMemberBinding="{Binding CustomerID}" />
-                                    <telerik:GridViewDataColumn Header="Company" Width="250"
-											DataMemberBinding="{Binding CompanyName}" />
-                                    <telerik:GridViewDataColumn Header="Salary" Width="150"
-											DataMemberBinding="{Binding ContactName}" />
+
 
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
 
-                            <Rectangle Fill="#FFF3F3F3" Stroke="Black" StrokeThickness="0" Height="464" Canvas.Top="10" Width="864" Canvas.Left="319">
+
+
+
+
+                            <!-- Map Goes Here -->
+                            <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" Height="464" Canvas.Top="10" Width="887" Canvas.Left="319">
                                 <Rectangle.Effect>
                                     <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
                                 </Rectangle.Effect>
                             </Rectangle>
+
+                            <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="319" Canvas.Top="10" Width="167">
+                            </Rectangle>
+
+
+                            <Label Content="Job Map" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="332" Canvas.Top="5"/>
+
+
 
 
                             <telerik:RadMap x:Name="map2" Center="30, 75" 
@@ -385,9 +439,9 @@
                         UseSpringAnimations="True"
                         SpringAnimationsMode="Zooming"
                         MinZoomLevel="2"
-                        ZoomLevel="4" 
-                                                Width="840" Height="443"
-                         Canvas.Left="332" Canvas.Top="20">
+                        ZoomLevel="5" 
+                                                Width="861" Height="407"
+                         Canvas.Left="332" Canvas.Top="56">
 
                             </telerik:RadMap>
 
