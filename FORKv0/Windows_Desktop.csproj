@@ -350,8 +350,15 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\noun_Settings_2650515.png" />
-    <Resource Include="Images\noun_help_2392630.png" />
+    <Resource Include="Images\noun_add button_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_Settings_2650515.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_help_2392630.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\networkA.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -627,9 +634,6 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="ThinkGeo.UI.Wpf">
-      <Version>12.2.19</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\Analytics\Analytics.projitems" Label="Shared" />

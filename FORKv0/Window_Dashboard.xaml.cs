@@ -806,6 +806,16 @@ namespace Windows_Desktop
             }
         }
 
+        public void ToggleShowHide_CanvasF(object sender, MouseButtonEventArgs e)
+        {
+            if (ContentCanvasF.Visibility != Visibility.Visible)
+            {
+                HideAllDashboards();
+                ContentCanvasF.Visibility = Visibility.Visible;
+            }
+        }
+
+
         public void ToggleShowHide_Exit(object sender, MouseButtonEventArgs e)
         {
             HideAllDashboards();
@@ -820,6 +830,7 @@ namespace Windows_Desktop
             ContentCanvasC.Visibility = Visibility.Hidden;
             ContentCanvasD.Visibility = Visibility.Hidden;
             ContentCanvasE.Visibility = Visibility.Hidden;
+            ContentCanvasF.Visibility = Visibility.Hidden;
         }
         #endregion
 
@@ -1869,8 +1880,6 @@ namespace Windows_Desktop
         public static SolidColorBrush mybrushnormalbargreencolor = new SolidColorBrush(Color.FromRgb(50, 205, 240));        // default color of charts
         public static SolidColorBrush mybrushhighlightedbargreencolor = new SolidColorBrush(Color.FromRgb(80, 215, 250));   // on mouse over color of charts 
 
-        //public static SolidColorBrush mybrushLossLabelDefaultColors = new SolidColorBrush(Color.FromRgb(89, 89, 89));   // default gray colors
-
         public static SolidColorBrush mybrushNOTSelectedCriteria = new SolidColorBrush(Color.FromRgb(230, 230, 230));
 
 
@@ -1879,9 +1888,6 @@ namespace Windows_Desktop
         public static SolidColorBrush mybrushLIGHTBLUEGREEN = new SolidColorBrush(Color.FromRgb(6, 197, 180));
         public static SolidColorBrush mybrushBLACK = new SolidColorBrush(Color.FromRgb(0, 0, 0));
         public static SolidColorBrush mybrushLIGHTGRAY = new SolidColorBrush(Color.FromRgb(200, 200, 200));
-
-        //public static SolidColorBrush mybrushCRYSTALLBALLselected = new SolidColorBrush(Color.FromRgb(0, 170, 212));
-       // public static SolidColorBrush mybrushCRYSTALLBALL_NOT_selected = new SolidColorBrush(Color.FromRgb(240, 240, 240));
 
         public static SolidColorBrush mybrushFunnelBlue = new SolidColorBrush(Color.FromRgb(33, 191, 207));
         public static SolidColorBrush mybrushFunnelGray = new SolidColorBrush(Color.FromRgb(190, 190, 190));
