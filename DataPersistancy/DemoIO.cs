@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace DataPersistancy
@@ -12,6 +13,11 @@ namespace DataPersistancy
     {
 
         public static List<CPM_Node> nodes { get; set; } = new List<CPM_Node>();
+        public static CPM_Node getNode(int id)
+        {
+            return nodes.First(n => n.ID == id);
+        }
+
 
         public static void Demo_ImportGraph()
         {

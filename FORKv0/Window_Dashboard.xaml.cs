@@ -29,6 +29,7 @@ using Telerik.Charting;
 using Telerik.Windows.Controls.ChartView;
 using Telerik.Windows.Controls.Map;
 using Windows_Desktop.Properties;
+using static Analytics.Constants;
 using static DataPersistancy.GeneralIO;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -46,6 +47,8 @@ namespace Windows_Desktop
         public List<string> CanvasB1FileNames_Net { get; set; } = new List<string>();
         public List<string> CanvasB1FileNames_Skill { get; set; } = new List<string>();
         public List<string> CanvasB1FileNames_Other { get; set; } = new List<string>();
+
+        public ActiveLocations SelectedLocation { get; set; }
 
 
         private bool initComplete = false;
@@ -104,6 +107,16 @@ namespace Windows_Desktop
             {
                 HeaderTitleLabel.Content = USER_NAME + ".  " + ROLE_NAME + ".  " + LOCATION_NAME;
                 LaunchCanvas.Visibility = Visibility.Hidden;
+
+                if (LOCATION_NAME.Contains("AR"))
+                {
+                    SelectedLocation = ActiveLocations.AR;
+                }
+                else
+                {
+                    SelectedLocation = ActiveLocations.TN;
+                }
+
                 if (firstInitComplete)
                 {
                     ToggleShowHide_CanvasD(sender, f);
@@ -126,13 +139,9 @@ namespace Windows_Desktop
             }
         }
 
-
-
-
-
         public bool loadingInfoComplete = false;
         public List<string> demoNameList = new List<string>(){ "Lisa Parmiter", "Nick Dalton", "Alan Jope", "Patty Hull", "Sam Odle", "Nataliya Wright", "Nick Psyhogeos" };
-        public List<string> demoRoleList = new List<string>() { "Hand Packer", "Machine Operator" };
+        public List<string> demoRoleList = new List<string>() { "Hand Packer", "Factory Technician" };
         public List<string> demoLocationList = new List<string>() { "Jonesboro, AR",  "Covington, TN"};
         private void Landing_Name_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -694,7 +703,10 @@ namespace Windows_Desktop
 
         #region Canvas D - Career Pathfinder
 
-
+        private CPM_Graph D_Graph;
+        private CPM_Node D_ActiveNode;
+        private string D_LinkOne;
+        private string D_LinkTwo;
 
         private void CanvasD_init()
         {
@@ -703,19 +715,197 @@ namespace Windows_Desktop
             D_ListCanvas.Visibility = Visibility.Hidden;
             D_MapCanvas.Visibility = Visibility.Hidden;
 
-            D_PopulateGraph(ROLE_NAME);
+            D_Graph = new CPM_Graph(DemoIO.nodes.First(n => n.Name == ROLE_NAME), SelectedLocation);
+
+            D_UpdateUIFromGraph();
         }
 
-        private void D_PopulateGraph(string startingRoleName)
-        {
-            CPM_Node
 
+
+        private void D_UpdateSideCardFromSelection(CPM_Node n)
+        {
+            D_CardHeader.Content = n.Name;
+            D_CardSalary.Content = n.Salary;
+
+            if (n.Growth > 0)
+            {
+                D_CardGrowth.Content = Math.Round(n.Growth, 1) + "% Growth";
+                D_GrowthUp.Visibility = Visibility.Visible;
+                D_GrowthDown.Visibility = Visibility.Hidden;
+                D_GrowthSide.Visibility = Visibility.Hidden;
+            }
+            else if (n.Growth < 0)
+            {
+                D_CardGrowth.Content = Math.Round(n.Growth, 1) + "% Decline";
+                D_GrowthUp.Visibility = Visibility.Hidden;
+                D_GrowthDown.Visibility = Visibility.Visible;
+                D_GrowthSide.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                D_CardGrowth.Content = "Stable Outlook";
+                D_GrowthUp.Visibility = Visibility.Hidden;
+                D_GrowthDown.Visibility = Visibility.Hidden;
+                D_GrowthSide.Visibility = Visibility.Visible;
+            }
+
+            D_CardHighlight.Text = n.Summary;
+
+            if(n.Actions.Count > 0)
+            {
+                D_OppA_Image.Visibility = Visibility.Visible;
+                D_OppA_Text.Visibility = Visibility.Visible;
+                D_OppA_ImageB.Visibility = Visibility.Visible;
+
+                D_OppA_Text.Text = n.Actions[0].Item1;
+                D_LinkOne = n.Actions[0].Item2;
+
+                if(n.Actions.Count > 1)
+                {
+                    D_OppB_Image.Visibility = Visibility.Visible;
+                    D_OppB_Text.Visibility = Visibility.Visible;
+                    D_OppB_ImageB.Visibility = Visibility.Visible;
+
+                    D_OppB_Text.Text = n.Actions[1].Item1;
+                    D_LinkTwo = n.Actions[1].Item2;
+                }
+                else
+                {
+                    D_OppB_Image.Visibility = Visibility.Hidden;
+                    D_OppB_Text.Visibility = Visibility.Hidden;
+                    D_OppB_ImageB.Visibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                D_OppA_Image.Visibility = Visibility.Hidden;
+                D_OppA_Text.Visibility = Visibility.Hidden;
+                D_OppB_Image.Visibility = Visibility.Hidden;
+                D_OppB_Text.Visibility = Visibility.Hidden;
+                D_OppA_ImageB.Visibility = Visibility.Hidden;
+                D_OppB_ImageB.Visibility = Visibility.Hidden;
+            }
+
+
+            if(n.Strengths.Count > 0)
+            {
+                D_StrengthA_Image.Visibility = Visibility.Visible;
+                D_StrengthA_Text.Visibility = Visibility.Visible;
+
+                D_StrengthA_Text.Text = n.Strengths[0];
+
+                if(n.Strengths.Count > 1)
+                {
+                    D_StrengthB_Image.Visibility = Visibility.Visible;
+                    D_StrengthB_Text.Visibility = Visibility.Visible;
+
+                    D_StrengthB_Text.Text = n.Strengths[1];
+                }
+            }
+            else
+            {
+                D_StrengthA_Image.Visibility = Visibility.Hidden;
+                D_StrengthA_Text.Visibility = Visibility.Hidden;
+                D_StrengthB_Image.Visibility = Visibility.Hidden;
+                D_StrengthB_Text.Visibility = Visibility.Hidden;
+            }
+
+        }
+
+        private void D_UpdateUIFromGraph()
+        {
+            Label_1A_Role.Content = TruncateLongString(D_Graph.OneA.Name);
+            Label_1A_Pay.Content = "  " + D_Graph.OneA.Salary;
+
+            Label_2A_Role.Content = TruncateLongString(D_Graph.TwoA.Name);
+            Label_2A_Pay.Content = "  " + D_Graph.TwoA.Salary;
+
+            Label_2B_Role.Content = TruncateLongString(D_Graph.TwoB.Name);
+            Label_2B_Pay.Content = "  " + D_Graph.TwoB.Salary;
+
+            Label_3A_Role.Content = TruncateLongString(D_Graph.ThreeA.Name);
+            Label_3A_Pay.Content = "  " + D_Graph.ThreeA.Salary;
+
+            Label_3B_Role.Content = TruncateLongString(D_Graph.ThreeB.Name);
+            Label_3B_Pay.Content = "  " + D_Graph.ThreeB.Salary;
+
+            Label_3C_Role.Content = TruncateLongString(D_Graph.ThreeC.Name);
+            Label_3C_Pay.Content = "  " + D_Graph.ThreeC.Salary;
+
+            Label_3D_Role.Content = TruncateLongString(D_Graph.ThreeD.Name);
+            Label_3D_Pay.Content = "  " + D_Graph.ThreeD.Salary;
+        }
+
+        public string TruncateLongString(string str, int maxLength = 25)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+            return str.Substring(0, Math.Min(str.Length, maxLength));
+        }
+
+
+        private void D_DeleteActiveNode(object sender, MouseButtonEventArgs e)
+        {
+            D_Graph.Delete_Node(D_ActiveNode);
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
+            D_UpdateUIFromGraph();
+            D_SetAllBallColors();
         }
 
 
         private void Ball_Generic_MouseDown(object sender, MouseButtonEventArgs e)
         {
             BallSummaryCanvas.Visibility = Visibility.Visible;
+
+            if (sender.GetType().ToString().IndexOf("Ellipse") > -1)
+            {
+                Ellipse tempsender = (Ellipse)sender;
+                D_SetAllBallColors();
+                tempsender.Fill = BrushColors.fork_blue;
+
+                if (tempsender.Name.Contains("2A"))
+                {
+                    D_UpdateSideCardFromSelection(D_Graph.TwoA);
+                    D_ActiveNode = D_Graph.TwoA;
+                } 
+                else if (tempsender.Name.Contains("2B"))
+                {
+                    D_UpdateSideCardFromSelection(D_Graph.TwoB);
+                    D_ActiveNode = D_Graph.TwoB;
+                }
+                else if (tempsender.Name.Contains("3A"))
+                {
+                    D_UpdateSideCardFromSelection(D_Graph.ThreeA);
+                    D_ActiveNode = D_Graph.ThreeA;
+                }
+                else if (tempsender.Name.Contains("3B"))
+                {
+                    D_UpdateSideCardFromSelection(D_Graph.ThreeB);
+                    D_ActiveNode = D_Graph.ThreeB;
+                }
+                else if (tempsender.Name.Contains("3C"))
+                {
+                    D_UpdateSideCardFromSelection(D_Graph.ThreeC);
+                    D_ActiveNode = D_Graph.ThreeC;
+                }
+                else if (tempsender.Name.Contains("3D"))
+                {
+                    D_UpdateSideCardFromSelection(D_Graph.ThreeD);
+                    D_ActiveNode = D_Graph.ThreeD;
+                }
+
+            }
+
+        }
+
+        private void D_SetAllBallColors()
+        {
+            Ball_2A.Fill = BrushColors.aliceblue;
+            Ball_2B.Fill = BrushColors.aliceblue;
+            Ball_3A.Fill = BrushColors.aliceblue;
+            Ball_3B.Fill = BrushColors.aliceblue;
+            Ball_3C.Fill = BrushColors.aliceblue;
+            Ball_3D.Fill = BrushColors.aliceblue;
         }
 
         private void Ball_1A_MouseDown(object sender, MouseButtonEventArgs e)
@@ -809,6 +999,17 @@ namespace Windows_Desktop
                 D_Favorite_Selected.Visibility = Visibility.Visible;
             }
 
+        }
+
+
+        private void D_OppA_ImageB_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start(D_LinkOne);
+        }
+
+        private void D_OppB_ImageB_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start(D_LinkTwo);
         }
 
         #endregion

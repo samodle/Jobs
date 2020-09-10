@@ -8,6 +8,12 @@ namespace Analytics
     public static class Constants
     {
 
+        public enum ActiveLocations
+        {
+            TN,
+            AR
+        }
+
         public static class MongoStrings
         {
             public const string JOB_DB = "jobs";

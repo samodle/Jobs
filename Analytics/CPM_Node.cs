@@ -1,6 +1,8 @@
-﻿using System;
+﻿using DataPersistancy;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using static Analytics.Constants;
 
 namespace Analytics
 {
@@ -14,6 +16,8 @@ namespace Analytics
             this.Growth = Growth;
             this.Strengths = Strengths;
             this.NextSteps = NextSteps;
+
+            
         }
 
         public int ID { get; set; }
@@ -27,6 +31,82 @@ namespace Analytics
         public double Salary_TN { get; set; }
         public double Salary_R { get; set; }
         public double Salary_X { get; set; }
+
+        public string Salary { get; set; }
+
+        public void JuiceSalary(ActiveLocations l)
+        {
+            double pay = getSalary(l);
+
+            double lowRange = pay - GetRandomNumber(0, 2);
+            double highRange = pay + GetRandomNumber(0, 7);
+
+            Salary = "$" + Math.Round(lowRange, 1) + " - " + Math.Round(highRange, 1) + "k";
+        }
+
+        private double GetRandomNumber(double minimum, double maximum)
+        {
+            Random random = new Random();
+            return random.NextDouble() * (maximum - minimum) + minimum;
+        }
+
+        public bool isRemote()
+        {
+            return Salary_R > 0;
+        }
+        public bool isRelocate()
+        {
+            return Salary_X > 0;
+        }
+
+        public double getSalary(ActiveLocations l) {
+
+            switch (l){
+                case ActiveLocations.AR:
+                    if(Salary_AR < 0) 
+                    { 
+                        if(Salary_R > 0) { return Salary_R; } 
+                        if(Salary_X > 0) { return Salary_X; }
+                    }
+                    return Salary_AR;
+                case ActiveLocations.TN:
+                    if (Salary_TN < 0)
+                    {
+                        if (Salary_R > 0) { return Salary_R; }
+                        if (Salary_X > 0) { return Salary_X; }
+                    }
+                    return Salary_TN;
+                default:
+                    return -999;
+            }
+        }
+
+        public CPM_Node NextNode(int offset, ActiveLocations loc)
+        {
+            if(NextSteps.Count == 1) { return DemoIO.getNode(NextSteps[0]); }
+            else if(NextSteps.Count == 2) { return DemoIO.getNode(NextSteps[offset]); }
+            else
+            {
+                bool toggle = offset==0? true : false;
+                for(int i = 0; i < NextSteps.Count; i++)
+                {
+                    if (DemoIO.getNode(NextSteps[i]).getSalary(loc) > 0)
+                    {
+                        if (toggle)
+                        {
+                            return (DemoIO.getNode(NextSteps[i]));
+                        }
+                        else
+                        {
+                            toggle = true;
+                        }
+                    }
+                }
+            }
+
+            //this shouldn't happen
+            return DemoIO.getNode(NextSteps[0]);
+        }
 
         public List<int> NextSteps { get; set; } = new List<int>();
 
