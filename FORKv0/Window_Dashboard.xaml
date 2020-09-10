@@ -50,7 +50,7 @@
 
             <Style x:Key="NetworkBallStyle" TargetType="Ellipse">
                 <Setter Property="Fill" Value="AliceBlue" />
-                <Setter Property="Stroke" Value="#4682b4" />
+                <Setter Property="Stroke" Value="#002060" />
                 <Setter Property="StrokeThickness" Value="4" />
                 <Setter Property="Height" Value="40" />
                 <Setter Property="Width" Value="40" />
@@ -161,15 +161,14 @@
                 </Canvas>
 
                 <!--B Canvas - Jobs -->
-                <Canvas x:Name="ContentCanvasB" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasB" Visibility="Hidden"
                         Height="557" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="493" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="#FFF3F3F3" >
 
-
                         <Canvas x:Name="BHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
-                            <Label x:Name="CanvasBHeaderLabel1" FontWeight="DemiBold" Content="The Job List" Canvas.Top="7" Width="172" Foreground="Black" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader1Clicked" Canvas.Left="31"/>
-                            <Label x:Name="CanvasBHeaderLabel2" Content="The Job Map" Canvas.Top="7" Width="172" Foreground="Black" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="192" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader2Clicked"/>
+                            <Label x:Name="CanvasBHeaderLabel1" FontWeight="DemiBold" Content="Job List" Canvas.Top="7" Width="172" Foreground="Black" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader1Clicked" Canvas.Left="31"/>
+                            <Label x:Name="CanvasBHeaderLabel2" Content="Job Map" Canvas.Top="7" Width="172" Foreground="Black" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="192" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader2Clicked"/>
                             <!-- <Label x:Name="CanvasBHeaderLabel3" Content="See Both" Canvas.Top="7" Width="172" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Canvas.Left="356" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasBHeader3Clicked"/>
 -->
                             <Rectangle x:Name="CanvasBSelectionBar1"  Fill="#806EB1" Height="2" Canvas.Left="69" Canvas.Top="39" Width="95"/>
@@ -361,7 +360,7 @@
                         ZoomLevel="2" 
                                                 Width="512" Height="387"
                          Canvas.Left="660" Canvas.Top="49">
-                                  
+
                                 </telerik:RadMap>
 
 
@@ -466,127 +465,314 @@
 
 
                     <Canvas x:Name="MainCChartCanvas"  Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
-                        <Rectangle Fill="White" Height="512" Canvas.Top="1" Width="1219">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
 
 
 
-                        <!-- Skill -->
-                        <Canvas x:Name="C1Canvas" Visibility="Visible" 
+
+                            <Canvas x:Name="CHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
+                                <Label x:Name="CanvasCHeaderLabel1" FontWeight="DemiBold" Content="Training List" Canvas.Top="7" Width="172" Foreground="Black" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="CanvasCHeader1Clicked" Canvas.Left="31"/>
+                              
+                                <Rectangle x:Name="CanvasCSelectionBar1"  Fill="#806EB1" Height="2" Canvas.Left="69" Canvas.Top="39" Width="95"/>
+                            <Rectangle x:Name="CanvasCSelectionBar2"  Fill="#806EB1" Height="2" Canvas.Left="230" Canvas.Top="39" Width="95" Visibility="Hidden"/>
+                            <Image Height="41" Width="51" Source="Images/Trends.png" Canvas.Top="4"/>
+                            </Canvas>
+
+                            <!-- Canvas C1 - List -->
+
+
+                            <Canvas x:Name="C1Canvas" Visibility="Visible" 
                                 Height="521" Canvas.Left="3" Width="1216"  >
+                                <Rectangle Fill="White" Height="464" Canvas.Top="10" Width="638" Canvas.Left="10" Visibility="Visible">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="10" Width="167">
+                                </Rectangle>
 
-                            <Canvas x:Name="CanvasC1_ChartContainer" Height="491" Width="934" Canvas.Left="10" Canvas.Top="10">
 
+                                <Label Content="Trainings" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
+
+                                <telerik:RadAutoCompleteBox WatermarkContent="  Search for Trainings"
+											 x:Name="C1_AutoCompleteBox"
+											 TextSearchMode="Contains"
+											 AutoCompleteMode="SuggestAppend"
+											 SelectionMode="Single"
+                                                    Background="White"
+											 FontSize="14"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"
+                                                    FontWeight="DemiBold"
+											  BorderBrush="Black" BorderThickness="1"
+											 Opacity="1"
+                                              Width="603" Canvas.Left="25" Canvas.Top="50" Height="40"/>
+
+
+                                <telerik:RadGridView x:Name="C_radGridView" GroupRenderMode="Flat" IsFilteringAllowed="True"
+							 CanUserFreezeColumns="False"
+							 RowIndicatorVisibility="Collapsed"
+							 IsReadOnly="True"
+							 ItemsSource="{Binding B1SelectedJobs}"
+							 AutoGenerateColumns="False" Height="340" Width="603" Canvas.Top="104" Canvas.Left="25" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
+                                    <telerik:RadGridView.Columns>
+                                        <telerik:GridViewDataColumn Header="Training Title" Width="250"
+											DataMemberBinding="{Binding CustomerID}" />
+                                        <telerik:GridViewDataColumn Header="Provider" Width="250"
+											DataMemberBinding="{Binding CompanyName}" />
+                                        <telerik:GridViewDataColumn Header="Cost" Width="100"
+											DataMemberBinding="{Binding ContactName}" />
+
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+
+                                <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" Height="88" Canvas.Top="10" Width="552" Canvas.Left="654">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+
+                                <Image Height="53" Width="80" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="45" Canvas.Left="653"/>
+                                <Label Content="55k - 65k" FontSize="22" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="704" Canvas.Top="51" Width="128"/>
+
+                                <Rectangle   Fill="LightGray" Opacity=".4" Height="38" Canvas.Left="846" Canvas.Top="51" Width="1" RenderTransformOrigin="0.5,0.5"></Rectangle>
+                                <Label  Foreground="Black" FontWeight="DemiBold" Canvas.Left="856" Canvas.Top="41" FontSize="14" Width="340">
+                                    <Label.Content>
+                                        <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts." Width="330"/>
+                                    </Label.Content>
+
+                                </Label>
+
+
+                                <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" Height="282" Canvas.Top="133" Width="552" Canvas.Left="654">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+
+                                <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" Height="25" Canvas.Top="103" Width="178" Canvas.Left="654">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+
+                                <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" Height="25" Canvas.Top="103" Width="368" Canvas.Left="838">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+
+
+                                <Canvas x:Name="SummaryCanvas_C1" Visibility="Visible">
+
+                                    <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="653" Canvas.Top="10" Width="554">
+                                    </Rectangle>
+
+                                    <Label Content="[Training Name]" FontSize="18" FontWeight="ExtraBold" Foreground="White" HorizontalContentAlignment="Center" Canvas.Left="654" Canvas.Top="8" Width="553"/>
+
+
+                                    <TextBox x:Name="C_JobLongDescription"
+                                     Width="531" Height="267"
+                                     HorizontalScrollBarVisibility="Hidden"
+                                     VerticalScrollBarVisibility="Visible"
+                                     Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned. Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned. Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned. Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned. Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned."
+                                     TextWrapping="Wrap" Canvas.Left="665" Canvas.Top="143" >
+                                    </TextBox>
+
+                                <telerik:RadMap x:Name="C_miniJobMap" Visibility="Hidden" Center="30, 75" 
+                        
+                                        UseSpringAnimations="True"
+                                        SpringAnimationsMode="Zooming"
+                                        MinZoomLevel="2"
+                                        ZoomLevel="2" 
+                                                               Width="531" Height="267"
+                                         Canvas.Left="665" Canvas.Top="143">    
+                                </telerik:RadMap>
+
+
+
+
+
+
+                                    <Image Height="14" Width="22" Source="Images/noun_link_black.png" Stretch="Uniform" Canvas.Top="108" Canvas.Left="784"/>
+                                    <Label Content="Visit Website" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="665" Canvas.Top="99" Width="128"/>
+
+                                    <Image Height="19" Width="33" Source="Images/noun_location_black.png" Stretch="Uniform" Canvas.Top="107" Canvas.Left="860"/>
+
+                                    <Label Content="Available Online" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="878" Canvas.Top="100" Width="255"/>
+
+
+
+
+
+                                    <Label    Cursor="Hand"  HorizontalContentAlignment="Center" Background="White"  Canvas.Left="654" Canvas.Top="428" Width="84" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="C_Favorite_Toggle_MouseDown">
+                                        <Label.Effect>
+                                            <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                        </Label.Effect>
+                                    </Label>
+
+                                    <Image x:Name="C_Favorite_Unselected" Height="64" Width="202" Source="Images/noun_Star_honey_empty.png" Stretch="Uniform" Canvas.Top="418" Canvas.Left="594" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="B_Favorite_Toggle_MouseDown"/>
+                                    <Image x:Name="C_Favorite_Selected" Height="64" Width="202" Source="Images/noun_Star_honey_full.png" Stretch="Uniform" Canvas.Top="418" Canvas.Left="594" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden" MouseDown="C_Favorite_Toggle_MouseDown"/>
+
+                                    <Label    Cursor="Hand"  HorizontalContentAlignment="Center" Background="White"  Canvas.Left="755" Canvas.Top="428" Width="84" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave">
+                                        <Label.Effect>
+                                            <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                        </Label.Effect>
+                                    </Label>
+
+                                    <Label    Content="" Cursor="Hand" BorderBrush="Black" BorderThickness="0" HorizontalContentAlignment="Center" Background="White" FontWeight="DemiBold" Canvas.Left="860" Canvas.Top="428" Width="243" Height="46">
+                                        <Label.Effect>
+                                            <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                        </Label.Effect>
+                                    </Label>
+
+                                    <Label x:Name="C_LocationButton" Cursor="Hand" HorizontalContentAlignment="Center" Background="White" FontWeight="DemiBold" Canvas.Left="1123" Canvas.Top="428" Width="84" MouseDown="B1_Location_Toggle_MouseDown" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave">
+                                        <Label.Effect>
+                                            <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                        </Label.Effect>
+                                    </Label>
+                                    <Image x:Name="C1_Location_Unselected" Height="46" Width="76" Source="Images/noun_Location_blue.png" Stretch="Uniform" Canvas.Top="428" Canvas.Left="1128" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="C1_Location_Toggle_MouseDown"/>
+                                    <Image x:Name="C1_Location_Selected" Visibility="Hidden" Height="46" Width="76" Source="Images/noun_Location_white.png" Stretch="Uniform" Canvas.Top="428" Canvas.Left="1128" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="C1_Location_Toggle_MouseDown"/>
+
+                                    <Image Height="46" Width="76" Source="Images/noun_Delete_rasberry.png" Stretch="Uniform" Canvas.Top="429" Canvas.Left="758" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+                                </Canvas>
+
+
+                            <Canvas x:Name="SummaryCanvas_C2" Visibility="Hidden">
+
+
+                                <telerik:RadMap x:Name="C_map" Center="30, 75" 
+                        
+                        UseSpringAnimations="True"
+                        SpringAnimationsMode="Zooming"
+                        MinZoomLevel="2"
+                        ZoomLevel="2" 
+                                                Width="512" Height="387"
+                         Canvas.Left="660" Canvas.Top="49">
+
+                                </telerik:RadMap>
                             </Canvas>
                         </Canvas>
 
-                        <Canvas x:Name="CHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
-                            <Label  x:Name="CHeaderTitle" Content="Select An Occupation: " Canvas.Top="7" Width="349" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="31"/>
-                            <Image Height="41" Width="51" Source="Images/RateTrainer.png" Canvas.Top="4"/>
-                            <ComboBox x:Name="CanvasC1ComboBox" Canvas.Left="304" Canvas.Top="7" Width="402" Height="27" Background="#FFFBFBFB" BorderBrush="#FFD4D4D4" Foreground="#FF646464" SelectionChanged="CanvasC1ComboBoxSelected" FontSize="13.333" Padding="2" VerticalContentAlignment="Center"/>
+                            
 
-                        </Canvas>
+
+
+
+
                     </Canvas>
                 </Canvas>
 
                 <!--D Canvas - Pathfinder-->
-                <Canvas x:Name="ContentCanvasD" Visibility="Hidden"
-                        Height="557" Width="1239" Background="White">
+                <Canvas x:Name="ContentCanvasD" Visibility="Visible"
+                        Height="557" Width="1239" Background="#FFF3F3F3">
 
 
-                    <Canvas x:Name="MainDChartCanvas"  Height="513" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="White" >
-                        <Rectangle Fill="White" Height="512" Canvas.Top="1" Width="1219">
+                    <Canvas x:Name="MainDChartCanvas"  Height="493" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="#FFF3F3F3" >
+                        <Rectangle Fill="White" Height="530" Width="674" Canvas.Top="-45">
                             <Rectangle.Effect>
                                 <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-
-
-
                             </Rectangle.Effect>
                         </Rectangle>
-                        <Canvas x:Name="DHeaderCanvas"  Height="51" Width="1219"  Canvas.Top="-55" Background="#FFF3F3F3" >
-                            <Label  x:Name="DHeaderTitle" Content="Select Occupation: " Canvas.Top="7" Width="268" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="31"/>
-                            <Image Height="41" Width="51" Source="Images/LossNetwork.png" Canvas.Top="4"/>
-                            <ComboBox x:Name="CanvasD1ComboBox" Canvas.Left="241" Canvas.Top="9" Width="328" Height="27" Background="#FFFBFBFB" BorderBrush="#FFD4D4D4" Foreground="#FF646464" SelectionChanged="CanvasD1ComboBoxSelected" FontSize="13.333" Padding="2" VerticalContentAlignment="Center"/>
-                            <ComboBox x:Name="CanvasD2ComboBox" Canvas.Left="727" Canvas.Top="10" Width="357" Height="27" Background="#FFFBFBFB" BorderBrush="#FFD4D4D4" Foreground="#FF646464" SelectionChanged="CanvasD2ComboBoxSelected" FontSize="13.333" Padding="2" VerticalContentAlignment="Center"/>
-                            <Label  x:Name="DHeaderTitle2" Content="Optimize For: " Canvas.Top="9" Width="349" Foreground="#FF6C6C6C" FontSize="17.333" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="2"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Canvas.Left="487"/>
 
-                        </Canvas>
+                        <!-- Pathway Explorer -->
+                        <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Top="-45" Width="211"/>
+                        <Label Content="Pathway Explorer" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="13" Canvas.Top="-50"/>
 
                         <Canvas x:Name="BallSummaryCanvas" Visibility="Visible">
-                            <Rectangle Fill="AliceBlue" Stroke="Black" StrokeThickness=".2" Height="446" Canvas.Top="35" Width="461" Canvas.Left="722">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                                </Rectangle.Effect>
-                            </Rectangle>
 
 
-                            <Canvas x:Name="BallSummaryCanvas_A" Visibility="Hidden">
 
-
-                                <Label x:Name="Label_BallSummary" Canvas.Left="763" Canvas.Top="53" HorizontalContentAlignment="Center">
-                                    <StackPanel Orientation="Vertical">
-                                        <Label FontWeight="Bold" FontSize="15" Content="Sales Associate" HorizontalContentAlignment="Center"/>
-                                        <Label    Content="Average Salary in [Selected Location]: $35k - 45k" HorizontalContentAlignment="Center"/>
-                                        <Label    Content="Overview:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
-                                        <Label    HorizontalContentAlignment="Center">
-                                            <Label.Content>
-                                                <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned." Width="376"/>
-                                            </Label.Content>
-                                        </Label>
-
-                                        <Label    Content="Mandatory Qualifications:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
-                                        <Label    HorizontalContentAlignment="Center">
-                                            <Label.Content>
-                                                <AccessText TextWrapping="Wrap" Text="- Qualification #1 " Width="376"/>
-                                            </Label.Content>
-                                        </Label>
-                                        <Label    HorizontalContentAlignment="Left" Content="- Qualification #2"/>
-
-                                        <Label    Content="Key Skills + Trainings:" HorizontalContentAlignment="Left" FontWeight="DemiBold"/>
-                                        <Label    HorizontalContentAlignment="Center">
-                                            <Label.Content>
-                                                <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts. Can be assigned to Photovoltaic (PV) Crews, PV support crews, PV Installer, QAQC or any other general duties assigned." Width="376"/>
-                                            </Label.Content>
-                                        </Label>
-
-                                    </StackPanel>
-                                </Label>
-
-                                <Label    Content="Favorite" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="ForestGreen" FontWeight="DemiBold" Canvas.Left="763" Canvas.Top="427" Width="84" >
-                                    <Label.Effect>
+                            <Canvas x:Name="D_StrengthCanvas" Visibility="Visible">
+                                <!-- My Strengths -->
+                                <Rectangle Fill="White"  Height="297" Canvas.Top="126" Width="249" Canvas.Left="702">
+                                    <Rectangle.Effect>
                                         <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                                    </Label.Effect>
-                                </Label>
-                                <Label    Content="Delete" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="DarkSalmon" FontWeight="DemiBold" Canvas.Left="873" Canvas.Top="427" Width="84">
-                                    <Label.Effect>
-                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                                    </Label.Effect>
-                                </Label>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Top="126" Width="149" Canvas.Left="702"/>
+                                <Label Content="My Strengths" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="711" Canvas.Top="121"/>
 
-                                <Label    Content="See Jobs &gt;" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="Gray" FontWeight="DemiBold" Canvas.Left="1075" Canvas.Top="427" Width="84" MouseDown="SeeJobsLabel_MouseDown">
-                                    <Label.Effect>
+                                <Image Height="32" Width="55" Source="Images/noun_Plus_green.png" Stretch="Uniform" Canvas.Top="177" Canvas.Left="711"/>
+                                <Label Content="Leadership" FontSize="16" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Left" Canvas.Left="763" Canvas.Top="177" Width="188"/>
+
+                                <Rectangle   Fill="LightGray" Opacity=".4" Height="1" Canvas.Left="763" Canvas.Top="227" Width="134" RenderTransformOrigin="0.5,0.5"></Rectangle>
+
+
+                                <Image Height="32" Width="55" Source="Images/noun_Plus_green.png" Stretch="Uniform" Canvas.Top="247" Canvas.Left="711"/>
+                                <Label Content="Leadership" FontSize="16" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Left" Canvas.Left="763" Canvas.Top="247" Width="188"/>
+
+                                <Rectangle   Fill="LightGray" Opacity=".4" Height="1" Canvas.Left="763" Canvas.Top="299" Width="134" RenderTransformOrigin="0.5,0.5"></Rectangle>
+
+                                <Image Height="32" Width="55" Source="Images/noun_Plus_green.png" Stretch="Uniform" Canvas.Top="319" Canvas.Left="711"/>
+                                <Label Content="Mechanical Aptitude" FontSize="16" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Left" Canvas.Left="763" Canvas.Top="319" Width="188"/>
+
+
+                                <!-- Opportunities -->
+                                <Rectangle Fill="White"  Height="297" Canvas.Top="126" Width="244" Canvas.Left="970">
+                                    <Rectangle.Effect>
                                         <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                                    </Label.Effect>
-                                </Label>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Top="126" Width="149" Canvas.Left="970"/>
+                                <Label Content="Opportunities" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="976" Canvas.Top="121"/>
+
+                                <Image Height="32" Width="55" Source="Images/noun_Target_purple.png" Stretch="Uniform" Canvas.Top="177" Canvas.Left="976"/>
+                                <Label Content="Leadership" FontSize="16" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Left" Canvas.Left="1028" Canvas.Top="177" Width="188"/>
+
+                                <Rectangle   Fill="LightGray" Opacity=".4" Height="1" Canvas.Left="1028" Canvas.Top="227" Width="134" RenderTransformOrigin="0.5,0.5"></Rectangle>
+
+
+                                <Image Height="32" Width="55" Source="Images/noun_Target_purple.png" Stretch="Uniform" Canvas.Top="247" Canvas.Left="976"/>
+                                <Label Content="Leadership" FontSize="16" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Left" Canvas.Left="1028" Canvas.Top="247" Width="188"/>
+
+                                <Rectangle   Fill="LightGray" Opacity=".4" Height="1" Canvas.Left="1028" Canvas.Top="299" Width="134" RenderTransformOrigin="0.5,0.5"></Rectangle>
+
+                                <Image Height="32" Width="55" Source="Images/noun_Target_purple.png" Stretch="Uniform" Canvas.Top="319" Canvas.Left="976"/>
+                                <Label Content="Mechanical Aptitude" FontSize="16" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Left" Canvas.Left="1028" Canvas.Top="319" Width="188"/>
+
+
+
+
                             </Canvas>
 
-                            <Canvas x:Name="BallSummaryCanvas_B" Visibility="Hidden">
-                                <Label x:Name="Label_BallSummary_B" Canvas.Left="763" Canvas.Top="53" HorizontalContentAlignment="Center">
-                                    <StackPanel Orientation="Vertical" Width="379">
-                                        <Label FontWeight="Bold" FontSize="15" Content="Sales Associate" HorizontalContentAlignment="Center"/>
+                            <Canvas x:Name="D_MapCanvas" Visibility="Hidden">
+                                <Rectangle Fill="White"  Height="297" Canvas.Top="126" Width="512" Canvas.Left="702">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Top="126" Width="149" Canvas.Left="702"/>
+                                <Label Content="Job Map" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="711" Canvas.Top="121"/>
+
+                                <telerik:RadMap x:Name="D_miniJobMap" Visibility="Visible" Center="30, 75" 
+                        
+                        UseSpringAnimations="True"
+                        SpringAnimationsMode="Zooming"
+                        MinZoomLevel="2"
+                        ZoomLevel="2" 
+                                               Width="477" Height="238"
+                         Canvas.Left="723" Canvas.Top="172">
 
 
-                                    </StackPanel>
-                                </Label>
-                                <Label    Content="XX Jobs Hiring Now:" HorizontalContentAlignment="Left" FontWeight="DemiBold" Canvas.Left="744" Canvas.Top="93"/>
-                                <telerik:RadGridView x:Name="rawlossdata_listview" AutoGenerateColumns="False" Height="280" Canvas.Left="744" Canvas.Top="124" Width="422" ItemsSource="{Binding ActiveDataCollection}" ShowGroupPanel="False" telerik:StyleManager.Theme="">
+
+                                </telerik:RadMap>
+
+                            </Canvas>
+
+                            <Canvas x:Name="D_ListCanvas"  Visibility="Hidden">
+                                <Rectangle Fill="White"  Height="297" Canvas.Top="126" Width="512" Canvas.Left="702">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Top="126" Width="149" Canvas.Left="702"/>
+                                <Label Content="Job List" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="711" Canvas.Top="121"/>
+                                <telerik:RadGridView x:Name="rawlossdata_listview" AutoGenerateColumns="False" Height="242" Canvas.Left="722" Canvas.Top="170" Width="473" ItemsSource="{Binding ActiveDataCollection}" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
 
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding job_title}" 
-						Header="Opportunity"
+						Header="Name"
 						Width="225"/>
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding company}" 
 						Header="Company"
@@ -598,96 +784,158 @@
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
 
-
-
-                                <Label    Content="Job Map:" HorizontalContentAlignment="Left" FontWeight="DemiBold" Canvas.Left="990" Canvas.Top="427"/>
-
-                                <Label    Content="&lt; Back" Cursor="Hand" BorderBrush="Black" BorderThickness=".4" HorizontalContentAlignment="Center" Background="Gray" FontWeight="DemiBold" Canvas.Left="756" Canvas.Top="427" Width="84" MouseDown="HideJobsLabel_MouseDown">
-                                    <Label.Effect>
-                                        <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                                    </Label.Effect>
-                                </Label>
                             </Canvas>
 
 
+                            <!-- Profession Summary -->
+                            <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" Height="128" Canvas.Top="-17" Width="512" Canvas.Left="702">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
 
-                        </Canvas>
+                            <Image Height="53" Width="80" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="-12" Canvas.Left="704"/>
+                            <Label Content="55k - 65k" FontSize="22" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="750" Canvas.Top="-5" Width="128"/>
 
-                        <Canvas x:Name="Ball_1A_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Ellipse x:Name="Ball_1A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="220" Canvas.Top="213" MouseDown="Ball_1A_MouseDown"/>
-                            <Label x:Name="Label_1A" Canvas.Left="89" Canvas.Top="213">
-                                <StackPanel Orientation="Vertical">
-                                    <Label x:Name="Label_1A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
-                                    <Label x:Name="Label_1A_Salary"  Content="[$21.5k - $31.0k]"/>
-                                </StackPanel>
+                            <Image Height="53" Width="80" Source="Images/noun_up_rasberry.png" Stretch="Uniform" Canvas.Top="-12" Canvas.Left="871" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="180"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <Label Content="Fewer Jobs Every Year" FontSize="22" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="907" Canvas.Top="-5" Width="272"/>
+
+
+                            <Rectangle   Fill="LightGray" Opacity=".4" Height="236" Canvas.Left="949" Canvas.Top="-74" Width="1" RenderTransformOrigin="0.5,0.5">
+                                <Rectangle.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="-90"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                            <Label  Foreground="Black" FontWeight="DemiBold" Canvas.Left="730" Canvas.Top="46" FontSize="14" Width="475">
+                                <Label.Content>
+                                    <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts." Width="457" Height="52"/>
+                                </Label.Content>
+
                             </Label>
-                        </Canvas>
 
-                        <Canvas x:Name="Ball_2A_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Image Height="243" Width="207" Source="Images/networkA.png" Canvas.Top="109" Canvas.Left="231"/>
+                            <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="702" Canvas.Top="-46" Width="512">
+                            </Rectangle>
 
-                            <Ellipse x:Name="Ball_2A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="408" Canvas.Top="108" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
-                            <Label x:Name="Label_2A" Canvas.Left="287" Canvas.Top="70">
-                                <StackPanel Orientation="Vertical">
-                                    <Label x:Name="Label_2A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
-                                    <Label x:Name="Label_2A_Salary"    Content="[$21.5k - $31.0k]"/>
-                                </StackPanel>
+                            <Label Content="Electrical/Instrumentation Tech" FontSize="18" FontWeight="ExtraBold" Foreground="White" HorizontalContentAlignment="Center" Canvas.Left="663" Canvas.Top="-50" Width="552"/>
+
+
+                            <!-- Bottom Row Buttons -->
+                            <Label    Cursor="Hand"  HorizontalContentAlignment="Center" Background="White"  Canvas.Left="702" Canvas.Top="439" Width="62" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="D_Favorite_Toggle_MouseDown">
+                                <Label.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Label.Effect>
                             </Label>
-                        </Canvas>
 
-                        <Canvas x:Name="Ball_2B_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Ellipse x:Name="Ball_2B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="408" Canvas.Top="321" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"  />
-                            <Label x:Name="Label_2B" Canvas.Left="286" Canvas.Top="331">
-                                <StackPanel Orientation="Vertical">
-                                    <Label x:Name="Label_2B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
-                                    <Label x:Name="Label_2B_Salary"    Content="[$21.5k - $31.0k]"/>
-                                </StackPanel>
+                            <Image x:Name="D_Favorite_Unselected" Height="62" Width="112" Source="Images/noun_Star_honey_empty.png" Stretch="Uniform" Canvas.Top="431" Canvas.Left="676" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="D_Favorite_Toggle_MouseDown"/>
+                            <Image x:Name="D_Favorite_Selected" Height="62" Width="112" Source="Images/noun_Star_honey_full.png" Stretch="Uniform" Canvas.Top="431" Canvas.Left="676" RenderTransformOrigin="0.246,0.517" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden" MouseDown="D_Favorite_Toggle_MouseDown"/>
+
+                            <Label    Cursor="Hand"  HorizontalContentAlignment="Center" Background="White"  Canvas.Left="777" Canvas.Top="439" Width="62" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave">
+                                <Label.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Label.Effect>
                             </Label>
-                        </Canvas>
 
-                        <Canvas x:Name="Ball_3A_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Image Height="113" Width="207" Source="Images/networkB.png" Canvas.Top="71" Canvas.Left="423"/>
-
-                            <Ellipse x:Name="Ball_3A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="604" Canvas.Top="72" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave"  MouseDown="Ball_Generic_MouseDown" />
-                            <Label x:Name="Label_3A" Canvas.Left="492" Canvas.Top="30">
-                                <StackPanel Orientation="Vertical">
-                                    <Label x:Name="Label_3A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
-                                    <Label x:Name="Label_3A_Salary"    Content="[$21.5k - $31.0k]"/>
-                                </StackPanel>
+                            <Label    Content="" Cursor="Hand" BorderBrush="Black" BorderThickness="0" HorizontalContentAlignment="Center" Background="White" FontWeight="DemiBold" Canvas.Left="929" Canvas.Top="439" Width="157" Height="46">
+                                <Label.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Label.Effect>
                             </Label>
-                        </Canvas>
 
-                        <Canvas x:Name="Ball_3B_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Ellipse x:Name="Ball_3B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="603" Canvas.Top="145" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave"  MouseDown="Ball_Generic_MouseDown" />
-                            <Label x:Name="Label_3B" Canvas.Left="484" Canvas.Top="158">
-                                <StackPanel Orientation="Vertical">
-                                    <Label x:Name="Label_3B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
-                                    <Label  x:Name="Label_3B_Salary"   Content="[$21.5k - $31.0k]"/>
-                                </StackPanel>
+                            <Image Height="46" Width="76" Source="Images/noun_Delete_rasberry.png" Stretch="Uniform" Canvas.Top="439" Canvas.Left="772" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+
+                            <!-- Confused Button -->
+                            <Label    Cursor="Hand"  HorizontalContentAlignment="Center" Background="White"  Canvas.Left="853" Canvas.Top="439" Width="62" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="B_Favorite_Toggle_MouseDown">
+                                <Label.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Label.Effect>
                             </Label>
-                        </Canvas>
+                            <Image Height="54" Width="68" Source="Images/noun_Confused_blue.png" Stretch="Uniform" Canvas.Top="435" Canvas.Left="850" RenderTransformOrigin="0.246,0.517"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Canvas x:Name="Ball_3C_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Image Height="113" Width="207" Source="Images/networkB.png" Canvas.Top="284" Canvas.Left="422"/>
 
-                            <Ellipse x:Name="Ball_3C" Style="{StaticResource NetworkBallStyle}" Canvas.Left="601" Canvas.Top="284" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
-                            <Label x:Name="Label_3C" Canvas.Left="489" Canvas.Top="242">
-                                <StackPanel Orientation="Vertical">
-                                    <Label x:Name="Label_3C_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
-                                    <Label x:Name="Label_3C_Salary"   Content="[$21.5k - $31.0k]"/>
-                                </StackPanel>
+                            <!-- Location Button -->
+                            <Label x:Name="D_LocationButton" Cursor="Hand" HorizontalContentAlignment="Center" Background="White" FontWeight="DemiBold" Canvas.Left="1162" Canvas.Top="439" Width="53" MouseDown="D_Location_Toggle_MouseDown" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave">
+                                <Label.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Label.Effect>
                             </Label>
-                        </Canvas>
+                            <Image x:Name="D_Location_Unselected" Height="46" Width="76" Source="Images/noun_Location_blue.png" Stretch="Uniform" Canvas.Top="439" Canvas.Left="1151" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="D_Location_Toggle_MouseDown"/>
+                            <Image x:Name="D_Location_Selected" Visibility="Hidden" Height="46" Width="76" Source="Images/noun_Location_white.png" Stretch="Uniform" Canvas.Top="439" Canvas.Left="1151" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="D_Location_Toggle_MouseDown"/>
 
-                        <Canvas x:Name="Ball_3D_Canvas" Style="{StaticResource VisibleAnimation}">
-                            <Ellipse x:Name="Ball_3D" Style="{StaticResource NetworkBallStyle}" Canvas.Left="605" Canvas.Top="360"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
-                            <Label x:Name="Label_3D" Canvas.Left="497" Canvas.Top="384">
-                                <StackPanel Orientation="Vertical">
-                                    <Label x:Name="Label_3D_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate"/>
-                                    <Label  x:Name="Label_3D_Salary"   Content="[$21.5k - $31.0k]"/>
-                                </StackPanel>
+
+                            <!-- List Button -->
+                            <Label x:Name="D_ListButton" Cursor="Hand" HorizontalContentAlignment="Center" Background="White" FontWeight="DemiBold" Canvas.Left="1098" Canvas.Top="439" Width="53" MouseDown="D_List_Toggle_MouseDown" Height="46" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave">
+                                <Label.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Label.Effect>
                             </Label>
+                            <Image x:Name="D_List_Unselected" Height="46" Width="76" Source="Images/noun_List_blue.png" Stretch="Uniform" Canvas.Top="439" Canvas.Left="1086" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="D_List_Toggle_MouseDown"/>
+                            <Image x:Name="D_List_Selected" Visibility="Hidden" Height="46" Width="76" Source="Images/noun_List_white.png" Canvas.Top="439" Canvas.Left="1086" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" MouseDown="D_List_Toggle_MouseDown"/>
+
+
+
                         </Canvas>
+                        <Image Height="299" Width="210" Stretch="Fill" Source="Images/networkA.png" Canvas.Top="60" Canvas.Left="117"/>
+                        <Image Height="163" Width="207" Stretch="Fill"  Source="Images/networkB.png" Canvas.Left="332"/>
+                        <Image Height="163" Width="207" Stretch="Fill"  Source="Images/networkB.png" Canvas.Top="261" Canvas.Left="344"/>
+
+
+                        <Ellipse x:Name="Ball_1A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="92" Canvas.Top="193" MouseDown="Ball_1A_MouseDown"/>
+
+                        <Label x:Name="Label_1A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="54" Canvas.Top="233"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="259" Canvas.Left="62"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Label x:Name="Label_1A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="72" Canvas.Top="255" Width="106"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
+
+                        <Ellipse x:Name="Ball_2A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="305" Canvas.Top="64" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
+                        <Label x:Name="Label_2A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="269" Canvas.Top="104"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="127" Canvas.Left="269"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Label x:Name="Label_2A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="279" Canvas.Top="123" Width="106"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
+
+                        <Ellipse x:Name="Ball_2B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="305" Canvas.Top="324" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"  />
+                        <Label x:Name="Label_2B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="269" Canvas.Top="359"/>
+                        <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="379" Canvas.Left="269"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Label x:Name="Label_2B_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="279" Canvas.Top="374" Width="106"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
+
+                        <Ellipse x:Name="Ball_3A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="525" Canvas.Top="9" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave"  MouseDown="Ball_Generic_MouseDown" />
+                        <Label x:Name="Label_3A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="488" Canvas.Top="42"/>
+                        <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="64" Canvas.Left="500"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" RenderTransformOrigin="1.658,0.611"/>
+                        <Label x:Name="Label_3A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="507" Canvas.Top="60" Width="106"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
+
+                        <Ellipse x:Name="Ball_3B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="525" Canvas.Top="116" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave"  MouseDown="Ball_Generic_MouseDown" />
+                        <Label x:Name="Label_3B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="488" Canvas.Top="156"/>
+                        <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="177" Canvas.Left="500"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Label x:Name="Label_3B_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="507" Canvas.Top="173" Width="106"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
+
+                        <Ellipse x:Name="Ball_3C" Style="{StaticResource NetworkBallStyle}" Canvas.Left="530" Canvas.Top="272" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
+                        <Label x:Name="Label_3C_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="488" Canvas.Top="312"/>
+                        <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="335" Canvas.Left="500"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Label x:Name="Label_3C_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="507" Canvas.Top="330" Width="106"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
+
+                        <Ellipse x:Name="Ball_3D" Style="{StaticResource NetworkBallStyle}" Canvas.Left="536" Canvas.Top="381"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
+                        <Label x:Name="Label_3D_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="488" Canvas.Top="421"/>
+                        <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="447" Canvas.Left="500"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" RenderTransformOrigin="1.453,4.24"/>
+                        <Label x:Name="Label_3D_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="507" Canvas.Top="443" Width="106"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
 
 
 

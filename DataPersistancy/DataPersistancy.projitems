@@ -16,6 +16,7 @@
     <Import_RootNamespace>DataPersistancy</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DemoIO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GeneralIO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JSON_IO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ONETImportScripts.cs" />

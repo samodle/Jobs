@@ -350,6 +350,20 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\noun_Plus_green.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_Target_purple.png" />
+    <Resource Include="Images\noun_confused_blue.png" />
+    <Resource Include="Images\noun_List_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_List_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_up_rasberry.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\noun_Star_honey_empty.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

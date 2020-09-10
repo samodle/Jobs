@@ -63,6 +63,7 @@ namespace Windows_Desktop
             this.map.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
             this.map2.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
             this.miniJobMap.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
+            this.D_miniJobMap.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
 
             LaunchCanvas.Visibility = Visibility.Visible;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
@@ -89,28 +90,10 @@ namespace Windows_Desktop
             ForkReport.MasterAbilityList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.ABILITIES + ".txt");
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.KNOWLEDGE + ".txt");
 
+            DemoIO.Demo_ImportGraph();
+
             //set listbox components
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList(); //sets CanvasA1 Listbox
-
-            //write html files as needed
-            if (false)
-            {
-                int occNum = 5;
-                Analytics.Constants.AttributeType type = Analytics.Constants.AttributeType.Net;
-                ForkReport.setOccupationEdges(occNum);  // DEPRECATED!!
-                HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
-                type = Analytics.Constants.AttributeType.Skill;
-                HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
-                type = Analytics.Constants.AttributeType.Knowledge;
-                HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
-                type = Analytics.Constants.AttributeType.Ability;
-                HTMLDev.NetworkHTML.writeGraphHTML(ForkReport, occNum, type, occNum + "_Occupation_Adjacencies_By_" + Analytics.Constants.getStringForAttributeType(type));
-            }
-
-            //mongo CRUD operations
-            //ForkReport.saveEdgesToDB(); //calculates simple edges and saves them to mongodb
-            // ForkReport.findTopAdjacencies();
-
 
             initComplete = true;
         }
@@ -123,7 +106,7 @@ namespace Windows_Desktop
                 LaunchCanvas.Visibility = Visibility.Hidden;
                 if (firstInitComplete)
                 {
-                    ToggleShowHide_CanvasE(sender, f);
+                    ToggleShowHide_CanvasD(sender, f);
                 }
                 else
                 {
@@ -132,9 +115,8 @@ namespace Windows_Desktop
                     CanvasB_init();
                     CanvasC_init();
                     CanvasD_init();
-                    //  webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree.html";
 
-                    ToggleShowHide_CanvasE(sender, f);
+                    ToggleShowHide_CanvasD(sender, f);
                     firstInitComplete = true;
                 }
             }
@@ -145,10 +127,13 @@ namespace Windows_Desktop
         }
 
 
+
+
+
         public bool loadingInfoComplete = false;
         public List<string> demoNameList = new List<string>(){ "Lisa Parmiter", "Nick Dalton", "Alan Jope", "Patty Hull", "Sam Odle", "Nataliya Wright", "Nick Psyhogeos" };
-        public List<string> demoRoleList = new List<string>() { "Technician", "Material Handler", "Shift Leader", "Mechanic", "Line Operator" };
-        public List<string> demoLocationList = new List<string>() { "Sikeston, MO", "Jonesboro, AR", "Independence, MO", "Amityville, NY", "Jefferson City, MO", "Covington, TN", "Hammond, IN" };
+        public List<string> demoRoleList = new List<string>() { "Hand Packer", "Machine Operator" };
+        public List<string> demoLocationList = new List<string>() { "Jonesboro, AR",  "Covington, TN"};
         private void Landing_Name_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Landing_Name_AutoCompleteBox.SelectedItem != null)
@@ -542,14 +527,8 @@ namespace Windows_Desktop
 
         #endregion
 
-        #region Canvas B - Network
-        private B1_State B1_CurrentState = B1_State.Net;
-        private enum B1_State
-        {
-            Net,
-            Skill,
-            Other
-        }
+        #region Canvas B - Jobs
+
 
 
         private void CanvasB_init()
@@ -602,92 +581,234 @@ namespace Windows_Desktop
         #endregion
 
 
+        private void B1_Location_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (B1_Location_Unselected.Visibility == Visibility.Visible)
+            {
+                B1_Location_Unselected.Visibility = Visibility.Hidden;
+                B1_Location_Selected.Visibility = Visibility.Visible;
+
+                miniJobMap.Visibility = Visibility.Visible;
+                B_JobLongDescription.Visibility = Visibility.Hidden;
+
+                B_LocationButton.Background = BrushColors.fork_blue;
+            }
+            else
+            {
+                B1_Location_Unselected.Visibility = Visibility.Visible;
+                B1_Location_Selected.Visibility = Visibility.Hidden;
+
+                miniJobMap.Visibility = Visibility.Hidden;
+                B_JobLongDescription.Visibility = Visibility.Visible;
+
+                B_LocationButton.Background = BrushColors.mybrushlanguagewhite;
+            }
+
+
+        }
+
+
+        private void B_Favorite_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (B_Favorite_Unselected.Visibility == Visibility.Hidden)
+            {
+                B_Favorite_Unselected.Visibility = Visibility.Visible;
+                B_Favorite_Selected.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                B_Favorite_Unselected.Visibility = Visibility.Hidden;
+                B_Favorite_Selected.Visibility = Visibility.Visible;
+            }
+
+        }
+
         #endregion
 
-        #region Canvas C - Maps
+        #region Canvas C - Training
         public void CanvasC_init()
         {
-            CanvasC1PopulateComboBox();
-            //webViewC1.Url = "http://localhost/index.html";
-        }
-        private void CanvasC1PopulateComboBox()
-        {
-            CanvasC1ComboBox.ItemsSource = new List<string>(new string[] { "Data Center Technician", "Customer Service Rep", "Low-Code Developer", "Virtual Server Admin", "IT Support Specialist" });
-            CanvasC1ComboBox.SelectedItem = "Data Center Technician";
+
         }
 
-        public void CanvasC1ComboBoxSelected(object sender, RoutedEventArgs e)
+
+
+        public void CanvasCHeader1Clicked(object sender, MouseButtonEventArgs e)
         {
-            var i = CanvasC1ComboBox.SelectedIndex;
-            string x = (i + 1).ToString();
-            //webViewC1.Url = "http://localhost/index" + x + ".html";
+
+            CanvasCHeaderLabel1.FontWeight = FontWeights.DemiBold;
+           // CanvasCHeaderLabel2.FontWeight = FontWeights.Regular;
+
+            CanvasCSelectionBar1.Visibility = Visibility.Visible;
+            CanvasCSelectionBar2.Visibility = Visibility.Hidden;
+            ///CanvasBSelectionBar3.Visibility = Visibility.Hidden;
+            AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasCSelectionBar1);
+
+            C1Canvas.Visibility = Visibility.Visible;
         }
+
+        private void C1_Location_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (C1_Location_Unselected.Visibility == Visibility.Visible)
+            {
+                C1_Location_Unselected.Visibility = Visibility.Hidden;
+                C1_Location_Selected.Visibility = Visibility.Visible;
+
+                C_miniJobMap.Visibility = Visibility.Visible;
+                C_JobLongDescription.Visibility = Visibility.Hidden;
+
+                C_LocationButton.Background = BrushColors.fork_blue;
+            }
+            else
+            {
+                C1_Location_Unselected.Visibility = Visibility.Visible;
+                C1_Location_Selected.Visibility = Visibility.Hidden;
+
+                C_miniJobMap.Visibility = Visibility.Hidden;
+                C_JobLongDescription.Visibility = Visibility.Visible;
+
+                C_LocationButton.Background = BrushColors.mybrushlanguagewhite;
+            }
+
+
+        }
+
+
+        private void C_Favorite_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (C_Favorite_Unselected.Visibility == Visibility.Hidden)
+            {
+                C_Favorite_Unselected.Visibility = Visibility.Visible;
+                C_Favorite_Selected.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                C_Favorite_Unselected.Visibility = Visibility.Hidden;
+                C_Favorite_Selected.Visibility = Visibility.Visible;
+            }
+
+        }
+
 
         #endregion
 
-        #region Canvas D - Path
-        private int D1_i = 0;
-        private int D2_i = 0;
+        #region Canvas D - Career Pathfinder
 
-        public void CanvasD_init()
-        {
-            CanvasD1PopulateComboBox();
-            CanvasD2PopulateComboBox();
-        }
-        private void CanvasD1PopulateComboBox()
-        {
-            CanvasD1ComboBox.ItemsSource = new List<string>(new string[] { "Factory Technician", "Retail Sales Associate" }); //, "Low-Code Developer", "Virtual Server Admin", "IT Support Specialist" });
-            CanvasD1ComboBox.SelectedItem = "Factory Technician";
-        }
 
-        public void CanvasD1ComboBoxSelected(object sender, RoutedEventArgs e)
+
+        private void CanvasD_init()
         {
-            D1_i = CanvasD1ComboBox.SelectedIndex;
-            string x = (D1_i + 1).ToString();
-            string y = (D2_i + 1).ToString();
-            //webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree" + x + y + ".html";
+
+            D_StrengthCanvas.Visibility = Visibility.Visible;
+            D_ListCanvas.Visibility = Visibility.Hidden;
+            D_MapCanvas.Visibility = Visibility.Hidden;
+
+            D_PopulateGraph(ROLE_NAME);
         }
 
-        private void CanvasD2PopulateComboBox()
+        private void D_PopulateGraph(string startingRoleName)
         {
-            CanvasD2ComboBox.ItemsSource = new List<string>(new string[] { "Salary", "Job Stability", "Current Location" });
-            CanvasD2ComboBox.SelectedItem = "Salary";
+            CPM_Node
+
         }
 
-        public void CanvasD2ComboBoxSelected(object sender, RoutedEventArgs e)
-        {
-            D2_i = CanvasD2ComboBox.SelectedIndex;
-            string x = (D1_i + 1).ToString();
-            string y = (D2_i + 1).ToString();
-            //webViewD1.Url = "file:///C:/Users/Public/Public_fork/html/" + "html_d3_tree" + x + y + ".html";
-        }
 
+        private void Ball_Generic_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas.Visibility = Visibility.Visible;
+        }
 
         private void Ball_1A_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(Ball_2A_Canvas.Visibility == Visibility.Visible)
+            if(Ball_1A.Fill == BrushColors.ball_full)
             {
-                Ball_2A_Canvas.Visibility = Visibility.Hidden;
-                Ball_2B_Canvas.Visibility = Visibility.Hidden;
-                Ball_3A_Canvas.Visibility = Visibility.Hidden;
-                Ball_3B_Canvas.Visibility = Visibility.Hidden;
-                Ball_3C_Canvas.Visibility = Visibility.Hidden;
-                Ball_3D_Canvas.Visibility = Visibility.Hidden;
-
-
                 Ball_1A.Fill = BrushColors.ball_full;
             }
             else
             {
-                Ball_2A_Canvas.Visibility = Visibility.Visible;
-                Ball_2B_Canvas.Visibility = Visibility.Visible;
-                Ball_3A_Canvas.Visibility = Visibility.Visible;
-                Ball_3B_Canvas.Visibility = Visibility.Visible;
-                Ball_3C_Canvas.Visibility = Visibility.Visible;
-                Ball_3D_Canvas.Visibility = Visibility.Visible;
-
                 Ball_1A.Fill = BrushColors.aliceblue;
             }
+        }
+
+
+        private void D_Location_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (D_Location_Unselected.Visibility == Visibility.Visible)
+            {
+                D_Location_Unselected.Visibility = Visibility.Hidden;
+                D_Location_Selected.Visibility = Visibility.Visible;
+
+                D_List_Unselected.Visibility = Visibility.Visible;
+                D_List_Selected.Visibility = Visibility.Hidden;
+                D_ListButton.Background = BrushColors.mybrushlanguagewhite;
+
+                D_StrengthCanvas.Visibility = Visibility.Hidden;
+                D_ListCanvas.Visibility = Visibility.Hidden;
+                D_MapCanvas.Visibility = Visibility.Visible;
+
+                D_LocationButton.Background = BrushColors.fork_blue;
+            }
+            else
+            {
+                D_Location_Unselected.Visibility = Visibility.Visible;
+                D_Location_Selected.Visibility = Visibility.Hidden;
+
+                D_StrengthCanvas.Visibility = Visibility.Visible;
+                D_ListCanvas.Visibility = Visibility.Hidden;
+                D_MapCanvas.Visibility = Visibility.Hidden;
+
+                D_LocationButton.Background = BrushColors.mybrushlanguagewhite;
+            }
+
+
+        }
+
+        private void D_List_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (D_List_Unselected.Visibility == Visibility.Visible)
+            {
+                D_List_Unselected.Visibility = Visibility.Hidden;
+                D_List_Selected.Visibility = Visibility.Visible;
+
+                D_Location_Unselected.Visibility = Visibility.Visible;
+                D_Location_Selected.Visibility = Visibility.Hidden;
+                D_LocationButton.Background = BrushColors.mybrushlanguagewhite;
+
+                D_StrengthCanvas.Visibility = Visibility.Hidden;
+                D_ListCanvas.Visibility = Visibility.Visible;
+                D_MapCanvas.Visibility = Visibility.Hidden;
+
+                D_ListButton.Background = BrushColors.fork_blue;
+            }
+            else
+            {
+                D_List_Unselected.Visibility = Visibility.Visible;
+                D_List_Selected.Visibility = Visibility.Hidden;
+
+                D_StrengthCanvas.Visibility = Visibility.Visible;
+                D_ListCanvas.Visibility = Visibility.Hidden;
+                D_MapCanvas.Visibility = Visibility.Hidden;
+
+                D_ListButton.Background = BrushColors.mybrushlanguagewhite;
+            }
+
+
+        }
+
+
+        private void D_Favorite_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (D_Favorite_Unselected.Visibility == Visibility.Hidden)
+            {
+                D_Favorite_Unselected.Visibility = Visibility.Visible;
+                D_Favorite_Selected.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                D_Favorite_Unselected.Visibility = Visibility.Hidden;
+                D_Favorite_Selected.Visibility = Visibility.Visible;
+            }
+
         }
 
         #endregion
@@ -1798,74 +1919,13 @@ namespace Windows_Desktop
 
         #endregion
 
-        private void Ball_Generic_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            BallSummaryCanvas.Visibility = Visibility.Visible;
-        }
-
-        private void SeeJobsLabel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            BallSummaryCanvas_A.Visibility = Visibility.Hidden;
-            BallSummaryCanvas_B.Visibility = Visibility.Visible;
-        }
-
-        private void HideJobsLabel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            BallSummaryCanvas_A.Visibility = Visibility.Visible;
-            BallSummaryCanvas_B.Visibility = Visibility.Hidden;
-        }
 
         private void CanvasA1_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
-        private void SeeMapsLabel_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SummaryCanvas_B1.Visibility = Visibility.Hidden;
-            SummaryCanvas_B2.Visibility = Visibility.Visible;
-        }
 
-        private void B1_Location_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (B1_Location_Unselected.Visibility == Visibility.Visible)
-            {
-                B1_Location_Unselected.Visibility = Visibility.Hidden;
-                B1_Location_Selected.Visibility = Visibility.Visible;
-
-                miniJobMap.Visibility = Visibility.Visible;
-                B_JobLongDescription.Visibility = Visibility.Hidden;
-
-                B_LocationButton.Background = BrushColors.fork_blue;
-            } else
-            {
-                B1_Location_Unselected.Visibility = Visibility.Visible;
-                B1_Location_Selected.Visibility = Visibility.Hidden;
-
-                miniJobMap.Visibility = Visibility.Hidden;
-                B_JobLongDescription.Visibility = Visibility.Visible;
-
-                B_LocationButton.Background = BrushColors.mybrushlanguagewhite;
-            }
-
-
-        }
-
-
-        private void B_Favorite_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (B_Favorite_Unselected.Visibility == Visibility.Hidden)
-            {
-                B_Favorite_Unselected.Visibility = Visibility.Visible;
-                B_Favorite_Selected.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                B_Favorite_Unselected.Visibility = Visibility.Hidden;
-                B_Favorite_Selected.Visibility = Visibility.Visible;
-            }
-           
-        }
     }
 
     static class BrushColors
