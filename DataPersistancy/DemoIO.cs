@@ -13,6 +13,9 @@ namespace DataPersistancy
     {
 
         public static List<CPM_Node> nodes { get; set; } = new List<CPM_Node>();
+
+        public static List<JD> jobs { get; set; } = new List<JD>();
+
         public static CPM_Node getNode(int id)
         {
             return nodes.First(n => n.ID == id);
@@ -76,9 +79,11 @@ namespace DataPersistancy
 
         }
 
+
+        private static Random random = new Random();
         private static double GetRandomNumber(double minimum, double maximum)
         {
-            Random random = new Random();
+           //a Random random = new Random();
             return random.NextDouble() * (maximum - minimum) + minimum;
         }
 
@@ -128,7 +133,39 @@ case 27:
                     return new List<int> { 6, 7};
             }
         }
-    }
+
+
+
+
+
+
+        public static void Demo_ImportJobs()
+        {
+
+            //nodes first
+            var csvTable = new DataTable();
+            using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(@"C:\Users\Public\Public_fork\demo_jobs.csv")), true))
+            {
+                csvTable.Load(csvReader);
+            }
+
+            for (int i = 0; i < csvTable.Rows.Count; i++)
+            {
+                var tmpNode = new JD(JobTitle: csvTable.Rows[i][0].ToString(), url: csvTable.Rows[i][4].ToString(), company: csvTable.Rows[i][1].ToString(), location: csvTable.Rows[i][2].ToString(), salary: csvTable.Rows[i][3].ToString(), search_term: csvTable.Rows[i][5].ToString(), description:  csvTable.Rows[i][6].ToString());
+
+                tmpNode.isAR = tmpNode.location.Contains("AR");
+                tmpNode.isTN = tmpNode.location.Contains("TN");
+
+                jobs.Add(tmpNode);
+
+            }
+
+        }
+
+
+
+
+            }
 
 
 

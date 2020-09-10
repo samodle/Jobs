@@ -44,7 +44,7 @@ namespace Analytics
             Salary = "$" + Math.Round(lowRange, 1) + " - " + Math.Round(highRange, 1) + "k";
         }
 
-        private double GetRandomNumber(double minimum, double maximum)
+        private static double GetRandomNumber(double minimum, double maximum)
         {
             Random random = new Random();
             return random.NextDouble() * (maximum - minimum) + minimum;
@@ -109,6 +109,33 @@ namespace Analytics
         }
 
         public List<int> NextSteps { get; set; } = new List<int>();
+
+        public System.Collections.ObjectModel.ObservableCollection<JD> getJobs(ActiveLocations l)
+        {
+            var tmpList = new System.Collections.ObjectModel.ObservableCollection<JD>();
+
+            foreach(JD j in DemoIO.jobs)
+            {
+                if (j.search_term.Contains(Name.Replace("/", " ")))
+                {
+                    if(isRelocate() || isRemote()) // we want everything
+                    {
+                        tmpList.Add(j);
+                    }
+                    else if(j.isAR && l == ActiveLocations.AR && Salary_AR > 0)
+                    {
+                        tmpList.Add(j);
+                    }
+                    else if (j.isTN && l == ActiveLocations.TN && Salary_TN > 0)
+                    {
+                        tmpList.Add(j);
+                    }
+                }
+            }
+
+
+            return tmpList;
+        }
 
 
         public override string ToString()

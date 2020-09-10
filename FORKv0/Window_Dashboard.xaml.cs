@@ -58,6 +58,8 @@ namespace Windows_Desktop
         public string ROLE_NAME { get; set; } = "";
         public string LOCATION_NAME { get; set; } = "";
 
+        public ObservableCollection<JD> D_ActiveDataCollection { get; set; } = new ObservableCollection<JD>();
+
 
         public void fork_onload(object sender, RoutedEventArgs e)
         {
@@ -94,6 +96,7 @@ namespace Windows_Desktop
             ForkReport.MasterKnowledgeList = JSON_IO.Import_AttributeList(Helper.Publics.FILENAMES.KNOWLEDGE + ".txt");
 
             DemoIO.Demo_ImportGraph();
+            DemoIO.Demo_ImportJobs();
 
             //set listbox components
             OccupationNames = ForkReport.MasterOccupationList.Select(c => c.Name).ToList(); //sets CanvasA1 Listbox
@@ -403,6 +406,14 @@ namespace Windows_Desktop
 
             CanvasA1ListBox.SelectedIndex = 0;
         }
+
+
+        private void CanvasA1_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+
 
         public List<string> A1ListofSelectedOccupations = new List<string>();
         private Analytics.Constants.AttributeType A1_selctedAttribute = Analytics.Constants.AttributeType.Skill;
@@ -717,6 +728,29 @@ namespace Windows_Desktop
 
             D_Graph = new CPM_Graph(DemoIO.nodes.First(n => n.Name == ROLE_NAME), SelectedLocation);
 
+            if(SelectedLocation == ActiveLocations.AR)
+            {
+                var tmpLoc = new Telerik.Windows.Controls.Map.Location(35.829307, -90.679045);
+
+                D_miniJobMap.Center = tmpLoc;
+
+            //    D_miniJobMap.Center.Description = "Jonesboro, AR";
+              //  D_MapLocation.Latitude = 35.829307;
+             //   D_MapLocation.Longitude = -90.679045;
+            }
+            else
+            {
+
+                var tmpLoc = new Telerik.Windows.Controls.Map.Location(35.561129, -89.647381);
+
+                D_miniJobMap.Center = tmpLoc;
+
+                //Covington TN
+                // D_MapLocation.Description = "Covington, TN";
+                // D_MapLocation.Latitude = 35.561129;
+                //  D_MapLocation.Longitude = -89.647381;
+            }
+
             D_UpdateUIFromGraph();
         }
 
@@ -809,6 +843,12 @@ namespace Windows_Desktop
                 D_StrengthB_Image.Visibility = Visibility.Hidden;
                 D_StrengthB_Text.Visibility = Visibility.Hidden;
             }
+
+
+            //now update the job list
+            D_ActiveDataCollection.Clear();
+            var nnn = n.getJobs(SelectedLocation);
+            foreach (JD nn in nnn) { D_ActiveDataCollection.Add(nn); }
 
         }
 
@@ -2119,12 +2159,6 @@ namespace Windows_Desktop
 
 
         #endregion
-
-
-        private void CanvasA1_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
 
     }

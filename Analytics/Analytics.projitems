@@ -18,7 +18,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Attribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CPM_Edge.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CPM_Graph.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CPM_Node.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JobDescription.cs" />

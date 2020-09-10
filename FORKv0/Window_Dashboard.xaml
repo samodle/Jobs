@@ -683,7 +683,7 @@
 
 
 
-                            <Canvas x:Name="D_StrengthCanvas" Visibility="Visible">
+                            <Canvas x:Name="D_StrengthCanvas" Visibility="Hidden">
                                 <!-- My Strengths -->
                                 <Rectangle Fill="White"  Height="297" Canvas.Top="126" Width="249" Canvas.Left="702">
                                     <Rectangle.Effect>
@@ -757,7 +757,7 @@
 
                             </Canvas>
 
-                            <Canvas x:Name="D_MapCanvas" Visibility="Hidden">
+                            <Canvas x:Name="D_MapCanvas" Visibility="Visible">
                                 <Rectangle Fill="White"  Height="297" Canvas.Top="126" Width="512" Canvas.Left="702">
                                     <Rectangle.Effect>
                                         <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
@@ -766,15 +766,17 @@
                                 <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Top="126" Width="149" Canvas.Left="702"/>
                                 <Label Content="Job Map" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="711" Canvas.Top="121"/>
 
-                                <telerik:RadMap x:Name="D_miniJobMap" Visibility="Visible" Center="30, 75" 
+                                <telerik:RadMap x:Name="D_miniJobMap" Visibility="Visible"  
                         
                         UseSpringAnimations="True"
                         SpringAnimationsMode="Zooming"
                         MinZoomLevel="2"
-                        ZoomLevel="2" 
+                        ZoomLevel="5" 
                                                Width="477" Height="238"
                          Canvas.Left="723" Canvas.Top="172">
-
+                                    <telerik:RadMap.Center>
+                                        <telerik:Location Description="Covington, TN"  Latitude="42.697872" Longitude="23.321583" />
+                                    </telerik:RadMap.Center>
 
 
                                 </telerik:RadMap>
@@ -789,18 +791,18 @@
                                 </Rectangle>
                                 <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Top="126" Width="149" Canvas.Left="702"/>
                                 <Label Content="Job List" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="711" Canvas.Top="121"/>
-                                <telerik:RadGridView x:Name="rawlossdata_listview" AutoGenerateColumns="False" Height="242" Canvas.Left="722" Canvas.Top="170" Width="473" ItemsSource="{Binding ActiveDataCollection}" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
+                                <telerik:RadGridView x:Name="D_JobList" AutoGenerateColumns="False" Height="242" Canvas.Left="722" Canvas.Top="170" Width="473" ItemsSource="{Binding D_ActiveDataCollection}" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
 
                                     <telerik:RadGridView.Columns>
-                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding job_title}" 
-						Header="Name"
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding JobTitle}" 
+						Header="Title"
 						Width="225"/>
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding company}" 
 						Header="Company"
 						Width="125"/>
-                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding payinfo}" 
-						Header="Pay"
-						Width="40"/>
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding location}" 
+						Header="Location"
+						Width="95"/>
 
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
