@@ -27,7 +27,7 @@ namespace DataPersistancy
 
             //nodes first
             var csvTable = new DataTable();
-            using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(@"C:\Users\Public\Public_fork\demo_nodes.csv")), true))
+            using (var csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(@"C:\Users\Public\Public_fork\demo_nodes2.csv")), true))
             {
                 csvTable.Load(csvReader);
             }

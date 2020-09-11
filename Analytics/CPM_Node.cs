@@ -131,6 +131,34 @@ namespace Analytics
                         tmpList.Add(j);
                     }
                 }
+                else if (ID == 0)
+                {
+                    if (j.search_term.Contains("Packer"))
+                    {
+                        if (j.isAR && l == ActiveLocations.AR && Salary_AR > 0)
+                        {
+                            tmpList.Add(j);
+                        }
+                        else if (j.isTN && l == ActiveLocations.TN && Salary_TN > 0)
+                        {
+                            tmpList.Add(j);
+                        }
+                    }
+                }
+                else if (ID == 1)
+                {
+                    if (j.search_term.Contains("Factory"))
+                    {
+                        if (j.isAR && l == ActiveLocations.AR && Salary_AR > 0)
+                        {
+                            tmpList.Add(j);
+                        }
+                        else if (j.isTN && l == ActiveLocations.TN && Salary_TN > 0)
+                        {
+                            tmpList.Add(j);
+                        }
+                    }
+                }
             }
 
 

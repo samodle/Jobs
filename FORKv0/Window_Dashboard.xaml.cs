@@ -299,7 +299,7 @@ namespace Windows_Desktop
         }
 
         public bool loadingInfoComplete = false;
-        public List<string> demoRoleList = new List<string>() { "Hand Packer", "Factory Technician" };
+        public List<string> demoRoleList = new List<string>() { "Handpacker", "Machine Operator" };
         public List<string> demoLocationList = new List<string>() { "Jonesboro, AR",  "Covington, TN"};
 
 
