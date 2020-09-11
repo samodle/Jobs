@@ -81,7 +81,7 @@ namespace DataPersistancy
 
 
         private static Random random = new Random();
-        private static double GetRandomNumber(double minimum, double maximum)
+        public static double GetRandomNumber(double minimum, double maximum)
         {
            //a Random random = new Random();
             return random.NextDouble() * (maximum - minimum) + minimum;

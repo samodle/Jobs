@@ -8,44 +8,12 @@
         mc:Ignorable="d"
         Loaded="fork_onload"      
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Fork + Unilever"  Height="706" Width="1250" ResizeMode="CanResizeWithGrip" MinHeight="451" MinWidth="800"       
+        Title="Fork - Beta v0.12.1"  Height="706" Width="1250" ResizeMode="CanResizeWithGrip" MinHeight="451" MinWidth="800"       
         WindowStartupLocation="CenterScreen"   >
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="TransparentTickStyle" TargetType="FrameworkElement">
                 <Setter Property="Visibility" Value="Collapsed" />
-            </Style>
-
-            <Style x:Key="CustomPin" TargetType="Path">
-                <Setter Property="Fill" Value="#FFA3A3A3" />
-                <Setter Property="Width" Value="5" />
-                <Setter Property="Height" Value="10" />
-                <Setter Property="Stretch" Value="Fill" />
-                <Setter Property="telerik:RadialScale.RotationMode" Value="SurroundOut" />
-                <Setter Property="telerik:ScaleObject.Offset" Value="0.01*" />
-                <Setter Property="telerik:ScaleObject.Location" Value="Outside" />
-                <Setter Property="Canvas.ZIndex" Value="501" />
-            </Style>
-
-            <Style x:Key="CustomPinLabel" TargetType="TextBlock">
-                <Setter Property="Width" Value="70" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="telerik:ScaleObject.Location" Value="Outside" />
-                <Setter Property="telerik:ScaleObject.Offset" Value="0.18*" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="10" />
-            </Style>
-            <Style x:Key="CustomPinLabel2" TargetType="TextBlock">
-                <Setter Property="Width" Value="70" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="telerik:ScaleObject.Location" Value="Outside" />
-                <Setter Property="telerik:ScaleObject.Offset" Value="0.1*" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="10" />
             </Style>
 
             <Style x:Key="NetworkBallStyle" TargetType="Ellipse">
@@ -78,6 +46,91 @@
             <DataTemplate x:Key="LabelEmpty">
                 <Grid />
             </DataTemplate>
+
+            <DataTemplate x:Key="myToolTipTemplate">
+                <Border Background="#7F000000"   
+					HorizontalAlignment="Center" 
+					VerticalAlignment="Top" Padding="5">
+                    <!--  <StackPanel>
+                        <TextBlock Text="{Binding Title}" Foreground="White"/>
+                        <TextBlock Text="{Binding Description}" Foreground="White"/>
+                    </StackPanel> -->
+                </Border>
+            </DataTemplate>
+
+            <Style x:Key="CustomPushpin" TargetType="telerik:Pushpin">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="telerik:Pushpin">
+                            <Border>
+                                <telerik:MapLayer.HotSpot>
+                                    <telerik:HotSpot X="0.5" Y="1.0" ElementName="Pin" />
+                                </telerik:MapLayer.HotSpot>
+                                <Canvas x:Name="Pin" Height="32" Width="20">
+                                    <Path Fill="Yellow" 
+							  Height="32.005" 
+							  StrokeStartLineCap="Flat" 
+							  Stretch="Fill" 
+							  StrokeEndLineCap="Flat" 
+							  Stroke="Black" 
+							  StrokeThickness="1" 
+							  StrokeMiterLimit="10" 
+							  StrokeLineJoin="Miter" 
+							  Width="20.01" 
+							  Data="M1054.5088,458.105L1065.5188,458.105C1067.7278,458.105,1069.5188,459.896,1069.5188,462.105L1069.5188,473.084C1069.5188,475.293,1067.7278,477.084,1065.5188,477.084C1065.5188,477.084,1062.6868,476.831,1062.2128,479.103C1061.6608,481.751,1060.2208,489.11,1060.2208,489.11L1059.3548,489.11C1059.3548,489.11,1058.0138,482.546,1057.2888,479.106C1056.8538,477.041,1054.5088,477.084,1054.5088,477.084C1052.2998,477.084,1050.5088,475.293,1050.5088,473.084L1050.5088,462.105C1050.5088,459.896,1052.2998,458.105,1054.5088,458.105z" />
+                                    <Path Canvas.Top="2.989" Canvas.Left="3.188" 
+							  Data="M1066.6162,472.8125C1066.6212,473.9125,1065.7252,474.8125,1064.6252,474.8125L1055.2502,474.8125C1054.1502,474.8125,1053.2462,473.9125,1053.2412,472.8125L1053.1962,462.5935C1053.1912,461.4935,1054.0872,460.5935,1055.1872,460.5935L1064.5622,460.5935C1065.6622,460.5935,1066.5662,461.4935,1066.5712,462.5935z" 
+							  Fill="Black" 
+							  Height="14.219" 
+							  Stretch="Fill" 
+							  Width="13.42"/>
+                                </Canvas>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <DataTemplate x:Key="ClusteredItemTemplate">
+                <telerik:Pushpin telerik:MapLayer.Location="{Binding Path=Location}" Style="{StaticResource CustomPushpin}"
+                             telerik:RadToolTipService.ToolTipContent="{Binding}"
+                             telerik:RadToolTipService.Placement="Mouse"
+                             telerik:RadToolTipService.ToolTipContentTemplate="{StaticResource myToolTipTemplate}"/>
+            </DataTemplate>
+
+            <Style x:Key="clusterTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+
+            <DataTemplate x:Key="ClusterTemplate">
+                <Grid x:Name="ParentRoot" 
+				  Width="Auto" Height="50"
+				  telerik:MapLayer.Location="{Binding Path=Center}"
+				  telerik:MapLayer.HotSpot="0.5,1"
+                  MouseLeftButtonDown="ClusterMouseClick">
+                    <Path Width="{Binding Width,ElementName=ParentRoot}" 
+					  Height="{Binding Height,ElementName=ParentRoot}" 
+					  Data="M978.6509,491.334L958.6109,491.334L954.4549,500.874L949.9999,491.334L930.6259,491.334C928.4169,491.334,926.6259,489.543,926.6259,487.334L926.6259,433.272C926.6259,431.063,928.4169,429.272,930.6259,429.272L978.6509,429.272C980.8599,429.272,982.6509,431.063,982.6509,433.272L982.6509,487.334C982.6509,489.543,980.8599,491.334,978.6509,491.334z" 
+					  StrokeStartLineCap="Flat" 
+					  Stretch="Fill" 
+					  StrokeEndLineCap="Flat" 
+					  Stroke="White" 
+					  StrokeThickness="1" 
+					  StrokeMiterLimit="10" 
+					  StrokeLineJoin="Miter" 
+					  Fill="#7F000000"/>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="{Binding Path=Count}" Style="{StaticResource clusterTextBlockStyle}"/>
+                        <TextBlock Text="available jobs" Style="{StaticResource clusterTextBlockStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+
 
         </ResourceDictionary>
     </Window.Resources>
@@ -161,7 +214,7 @@
                 </Canvas>
 
                 <!--B Canvas - Jobs -->
-                <Canvas x:Name="ContentCanvasB" Visibility="Hidden"
+                <Canvas x:Name="ContentCanvasB" Visibility="Visible"
                         Height="557" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="493" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="#FFF3F3F3" >
@@ -208,19 +261,20 @@
                                               Width="603" Canvas.Left="25" Canvas.Top="50" Height="40"/>
 
 
-                            <telerik:RadGridView x:Name="radGridView" GroupRenderMode="Flat" IsFilteringAllowed="True"
+                            <telerik:RadGridView x:Name="B_radGridView" GroupRenderMode="Flat" IsFilteringAllowed="True"
 							 CanUserFreezeColumns="False"
 							 RowIndicatorVisibility="Collapsed"
 							 IsReadOnly="True"
-							 ItemsSource="{Binding B1SelectedJobs}"
+							 ItemsSource="{Binding B_ActiveDataCollection}"
+                                                 SelectionChanged="B_radGridView_SelectionChanged"
 							 AutoGenerateColumns="False" Height="340" Width="603" Canvas.Top="104" Canvas.Left="25" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
                                 <telerik:RadGridView.Columns>
                                     <telerik:GridViewDataColumn Header="Job Title" Width="250"
-											DataMemberBinding="{Binding CustomerID}" />
+											DataMemberBinding="{Binding JobTitle}" />
                                     <telerik:GridViewDataColumn Header="Company" Width="250"
-											DataMemberBinding="{Binding CompanyName}" />
-                                    <telerik:GridViewDataColumn Header="Salary" Width="100"
-											DataMemberBinding="{Binding ContactName}" />
+											DataMemberBinding="{Binding company}" />
+                                    <telerik:GridViewDataColumn Header="Location" Width="100"
+											DataMemberBinding="{Binding location}" />
 
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
@@ -232,12 +286,12 @@
                             </Rectangle>
 
                             <Image Height="53" Width="80" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="45" Canvas.Left="653"/>
-                            <Label Content="55k - 65k" FontSize="22" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="704" Canvas.Top="51" Width="128"/>
+                            <Label x:Name="B1_Salary"   Content="55k - 65k" FontSize="22" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="713" Canvas.Top="50" Width="193"/>
 
-                            <Rectangle   Fill="LightGray" Opacity=".4" Height="38" Canvas.Left="846" Canvas.Top="51" Width="1" RenderTransformOrigin="0.5,0.5"></Rectangle>
-                            <Label  Foreground="Black" FontWeight="DemiBold" Canvas.Left="856" Canvas.Top="41" FontSize="14" Width="340">
+                            <Rectangle   Fill="LightGray" Opacity=".4" Height="38" Canvas.Left="948" Canvas.Top="52" Width="0" RenderTransformOrigin="0.5,0.5"></Rectangle>
+                            <Label  Foreground="Black" FontWeight="DemiBold" Canvas.Left="964" Canvas.Top="45" FontSize="14" Width="242">
                                 <Label.Content>
-                                    <AccessText TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts." Width="330"/>
+                                    <AccessText  x:Name="B1_Company"   TextWrapping="Wrap" Text="Responsible for the preparation, handling, and supplying of materials to be used by other crafts." Width="235"/>
                                 </Label.Content>
 
                             </Label>
@@ -267,10 +321,10 @@
                                 <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="653" Canvas.Top="10" Width="554">
                                 </Rectangle>
 
-                                <Label Content="Sales Associate" FontSize="18" FontWeight="ExtraBold" Foreground="White" HorizontalContentAlignment="Center" Canvas.Left="654" Canvas.Top="8" Width="553"/>
+                                <Label x:Name="B1_Header"  Content="Sales Associate" FontSize="18" FontWeight="ExtraBold" Foreground="White" HorizontalContentAlignment="Center" Canvas.Left="654" Canvas.Top="8" Width="553"/>
 
 
-                                <TextBox x:Name="B_JobLongDescription"
+                                <TextBox x:Name="B1_Description"
                                      Width="531" Height="267"
                                      HorizontalScrollBarVisibility="Hidden"
                                      VerticalScrollBarVisibility="Visible"
@@ -278,7 +332,7 @@
                                      TextWrapping="Wrap" Canvas.Left="665" Canvas.Top="143" >
                                 </TextBox>
 
-                                <telerik:RadMap x:Name="miniJobMap" Visibility="Hidden" Center="30, 75" 
+                                <telerik:RadMap x:Name="BminiJobMap" Visibility="Hidden"
                         
                         UseSpringAnimations="True"
                         SpringAnimationsMode="Zooming"
@@ -286,15 +340,16 @@
                         ZoomLevel="2" 
                                                Width="531" Height="267"
                          Canvas.Left="665" Canvas.Top="143">
-                                    <telerik:RadMap.Provider>
-                                        <telerik:BingRestMapProvider x:Name="bingProvider" Mode="Aerial" />
-                                    </telerik:RadMap.Provider>
-
-                                    <telerik:VisualizationLayer x:Name="flightsLayer" UseBitmapCache="True">
-                                        <telerik:VisualizationLayer.ShapeFill>
-                                            <telerik:MapShapeFill Stroke="{telerik:Windows8Resource ResourceKey=AccentBrush}" StrokeThickness="3" StrokeDashArray="2 1"/>
-                                        </telerik:VisualizationLayer.ShapeFill>
+                                    <telerik:RadMap.Center>
+                                        <telerik:Location Description="Covington, TN"  Latitude="42.697872" Longitude="23.321583" />
+                                    </telerik:RadMap.Center>
+                                    <telerik:VisualizationLayer x:Name="BvisualizationLayer"
+										ClusteringEnabled="True"
+										ClusterItemTemplate="{StaticResource ClusterTemplate}"
+										ItemTemplate="{StaticResource ClusteredItemTemplate}"
+										GenerateClustersOnZoom="True">
                                     </telerik:VisualizationLayer>
+                                    <telerik:VisualizationLayer Name="BvisLayer2" />
 
 
                                 </telerik:RadMap>
@@ -304,12 +359,12 @@
 
 
 
-                                <Image Height="14" Width="22" Source="Images/noun_link_black.png" Stretch="Uniform" Canvas.Top="108" Canvas.Left="784"/>
-                                <Label Content="Visit Job Posting" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="665" Canvas.Top="99" Width="128"/>
+                                <Image MouseDown="B1_Link_MouseDown" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Cursor="Hand"  Height="14" Width="22" Source="Images/noun_link_black.png" Stretch="Uniform" Canvas.Top="108" Canvas.Left="784"/>
+                                <Label MouseDown="B1_Link_MouseDown" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Cursor="Hand" Content="Visit Job Posting" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="665" Canvas.Top="99" Width="128"/>
 
                                 <Image Height="19" Width="33" Source="Images/noun_location_black.png" Stretch="Uniform" Canvas.Top="107" Canvas.Left="860"/>
 
-                                <Label Content="4200 Griffith Road, Greensboro, NC" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="878" Canvas.Top="100" Width="255"/>
+                                <Label  x:Name="B1_Location"   Content="4200 Griffith Road, Greensboro, NC" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="878" Canvas.Top="100" Width="255"/>
 
 
 
@@ -352,7 +407,7 @@
                             <Canvas x:Name="SummaryCanvas_B2" Visibility="Hidden">
 
 
-                                <telerik:RadMap x:Name="map" Center="30, 75" 
+                                <telerik:RadMap x:Name="B_Map" Center="30, 75" 
                         
                         UseSpringAnimations="True"
                         SpringAnimationsMode="Zooming"
@@ -443,17 +498,7 @@
                          Canvas.Left="332" Canvas.Top="56">
 
                             </telerik:RadMap>
-
-
-
                         </Canvas>
-                        <!-- Canvas B3 - Both -->
-                        <Canvas x:Name="B3Canvas" Visibility="Hidden" 
-                                Height="521" Canvas.Left="3" Width="1216"  >
-
-
-                        </Canvas>
-
                     </Canvas>
 
 
@@ -664,7 +709,7 @@
                 </Canvas>
 
                 <!--D Canvas - Pathfinder-->
-                <Canvas x:Name="ContentCanvasD" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasD" Visibility="Hidden"
                         Height="557" Width="1239" Background="#FFF3F3F3">
 
 
@@ -770,14 +815,20 @@
                         
                         UseSpringAnimations="True"
                         SpringAnimationsMode="Zooming"
-                        MinZoomLevel="2"
-                        ZoomLevel="5" 
+                        MinZoomLevel="3"
+                        ZoomLevel="6" 
                                                Width="477" Height="238"
                          Canvas.Left="723" Canvas.Top="172">
                                     <telerik:RadMap.Center>
                                         <telerik:Location Description="Covington, TN"  Latitude="42.697872" Longitude="23.321583" />
                                     </telerik:RadMap.Center>
-
+                                    <telerik:VisualizationLayer x:Name="visualizationLayer"
+										ClusteringEnabled="True"
+										ClusterItemTemplate="{StaticResource ClusterTemplate}"
+										ItemTemplate="{StaticResource ClusteredItemTemplate}"
+										GenerateClustersOnZoom="True">
+                                    </telerik:VisualizationLayer>
+                                    <telerik:VisualizationLayer Name="visLayer2" />
 
                                 </telerik:RadMap>
 
@@ -941,6 +992,8 @@
 
 
                         <Ellipse x:Name="Ball_1A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="92" Canvas.Top="193" MouseDown="Ball_1A_MouseDown"/>
+                        <!--  <Image x:Name="Ball_1A_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="200" Canvas.Left="95"/>
+                        <Image x:Name="Ball_1A_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform" Canvas.Top="200" Canvas.Left="95"/> -->
 
                         <Label x:Name="Label_1A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="54" Canvas.Top="233"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="259" Canvas.Left="62"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
@@ -948,24 +1001,46 @@
 
 
                         <Ellipse x:Name="Ball_2A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="305" Canvas.Top="64" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
+                        <Image x:Name="Ball_2A_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_2A_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_2A_Relocate_Unselected" Visibility="Visible" Height="28" Width="35" Source="Images/noun_Plane_blue.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_2A_Relocate_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Plane_white.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
+
                         <Label x:Name="Label_2A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="269" Canvas.Top="104"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="127" Canvas.Left="269"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_2A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="279" Canvas.Top="123" Width="126"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
 
 
                         <Ellipse x:Name="Ball_2B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="305" Canvas.Top="324" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"  />
+                        <Image x:Name="Ball_2B_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="331" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_2B_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform" Canvas.Top="331" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_2B_Relocate_Unselected" Visibility="Visible" Height="28" Width="35" Source="Images/noun_Plane_blue.png" Stretch="Uniform" Canvas.Top="331" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_2B_Relocate_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Plane_white.png" Stretch="Uniform" Canvas.Top="331" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
                         <Label x:Name="Label_2B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="269" Canvas.Top="359"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="379" Canvas.Left="269"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_2B_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="279" Canvas.Top="374" Width="126"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
 
 
                         <Ellipse x:Name="Ball_3A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="525" Canvas.Top="9" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave"  MouseDown="Ball_Generic_MouseDown" />
+                        <Image x:Name="Ball_3A_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="15" Canvas.Left="528" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3A_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform" Canvas.Top="15" Canvas.Left="528" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3A_Relocate_Unselected" Visibility="Visible" Height="28" Width="35" Source="Images/noun_Plane_blue.png" Stretch="Uniform" Canvas.Top="15" Canvas.Left="528" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3A_Relocate_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Plane_white.png" Stretch="Uniform" Canvas.Top="15" Canvas.Left="528" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
+
                         <Label x:Name="Label_3A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="488" Canvas.Top="42"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="64" Canvas.Left="500"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" RenderTransformOrigin="1.658,0.611"/>
                         <Label x:Name="Label_3A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="507" Canvas.Top="60" Width="123"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
 
 
                         <Ellipse x:Name="Ball_3B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="525" Canvas.Top="116" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave"  MouseDown="Ball_Generic_MouseDown" />
+                        <Image x:Name="Ball_3B_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="123" Canvas.Left="528" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3B_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform" Canvas.Top="123" Canvas.Left="528" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3B_Relocate_Unselected" Visibility="Visible" Height="28" Width="35" Source="Images/noun_Plane_blue.png" Stretch="Uniform" Canvas.Top="123" Canvas.Left="528" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3B_Relocate_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Plane_white.png" Stretch="Uniform" Canvas.Top="123" Canvas.Left="528" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+
                         <Label x:Name="Label_3B_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="488" Canvas.Top="156"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="177" Canvas.Left="500"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_3B_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="507" Canvas.Top="173" Width="139"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
@@ -975,9 +1050,17 @@
                         <Label x:Name="Label_3C_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="488" Canvas.Top="312"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="335" Canvas.Left="500"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_3C_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="507" Canvas.Top="330" Width="123"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3C_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform"  Canvas.Top="278" Canvas.Left="533" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3C_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform"  Canvas.Top="278" Canvas.Left="533" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3C_Relocate_Unselected" Visibility="Visible" Height="28" Width="35" Source="Images/noun_Plane_blue.png" Stretch="Uniform" Canvas.Top="278" Canvas.Left="533" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3C_Relocate_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Plane_white.png" Stretch="Uniform"  Canvas.Top="278" Canvas.Left="533" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
 
 
                         <Ellipse x:Name="Ball_3D" Style="{StaticResource NetworkBallStyle}" Canvas.Left="536" Canvas.Top="381"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
+                        <Image x:Name="Ball_3D_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="388" Canvas.Left="539" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3D_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform"  Canvas.Top="388" Canvas.Left="539" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3D_Relocate_Unselected" Visibility="Visible" Height="28" Width="35" Source="Images/noun_Plane_blue.png" Stretch="Uniform" Canvas.Top="388" Canvas.Left="539" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
+                        <Image x:Name="Ball_3D_Relocate_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Plane_white.png" Stretch="Uniform"  Canvas.Top="388" Canvas.Left="539" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_3D_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="488" Canvas.Top="421"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="447" Canvas.Left="500"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" RenderTransformOrigin="1.453,4.24"/>
                         <Label x:Name="Label_3D_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="507" Canvas.Top="443" Width="123"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
@@ -1308,22 +1391,7 @@
                             </Rectangle.RenderTransform>
                         </Rectangle>
 
-
-                        <telerik:RadAutoCompleteBox WatermarkContent="      Jane Doe."
-											 x:Name="Landing_Name_AutoCompleteBox"
-											 TextSearchMode="Contains"
-											 AutoCompleteMode="SuggestAppend"
-											 SelectionMode="Single"
-                                                    Background="White"
-											 FontSize="28"
-                                                    HorizontalContentAlignment="Center"
-                                                    VerticalContentAlignment="Center"
-                                                    FontWeight="DemiBold"
-											  BorderBrush="Black" BorderThickness="1"
-											 Opacity="1"
-                                             SelectionChanged="Landing_Name_AutoCompleteBoxSelectionChanged" Width="218" Canvas.Left="196" Canvas.Top="131" Height="54"/>
-
-                        <telerik:RadAutoCompleteBox WatermarkContent="        Technician"
+                        <telerik:RadAutoCompleteBox WatermarkContent="    Technician"
 											 x:Name="Landing_Role_AutoCompleteBox"
 											 TextSearchMode="Contains"
 											 AutoCompleteMode="SuggestAppend"
@@ -1334,7 +1402,7 @@
                                                     FontWeight="DemiBold"
 											  BorderBrush="#FF25A0DA" BorderThickness="0"
 											 
-                                             SelectionChanged="Landing_Role_AutoCompleteBoxSelectionChanged" Width="256" Canvas.Left="527" Canvas.Top="131" Height="54"/>
+                                             SelectionChanged="Landing_Role_AutoCompleteBoxSelectionChanged" Width="256" Canvas.Left="359" Canvas.Top="153" Height="54"/>
 
                         <telerik:RadAutoCompleteBox WatermarkContent="    Jefferson City, MO."
 											 x:Name="Landing_Location_AutoCompleteBox"
@@ -1347,15 +1415,14 @@
                                                     FontWeight="DemiBold"
 											  BorderBrush="#FF25A0DA" BorderThickness="0"
 											 
-                                             SelectionChanged="Landing_Location_AutoCompleteBoxSelectionChanged" Width="311" Canvas.Left="845" Canvas.Top="131" Height="54"/>
+                                             SelectionChanged="Landing_Location_AutoCompleteBoxSelectionChanged" Width="311" Canvas.Left="696" Canvas.Top="153" Height="54"/>
 
 
                         <!--   <Label x:Name="fork_analyzeLabel"  Content="ANALYZE" Height="35" Canvas.Left="512" Canvas.Top="315" Width="196" FontFamily="Microsoft Sans Serif" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Background="#FF32CDF0" MouseDown="do_analyze" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/> -->
                         <Image x:Name="image4" Visibility="Hidden" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="95" Source="Images/ForkWhiteSubLogo.png" Canvas.Left="588" Canvas.Top="419"/>
-                        <Label Content="My name is " Canvas.Left="22" Canvas.Top="135" FontSize="28" FontWeight="DemiBold" Foreground="White"/>
                         <Label Content="Hello," FontWeight="ExtraBold" Canvas.Left="505" Height="115" Width="266" Foreground="White" FontSize="72"/>
-                        <Label Content="I am a " Canvas.Left="427" Canvas.Top="135" FontSize="28" FontWeight="DemiBold"  Foreground="White"/>
-                        <Label Content="in " Canvas.Left="799" Canvas.Top="134" FontSize="28" FontWeight="DemiBold"  Foreground="White"/>
+                        <Label Content="I am a " Canvas.Left="233" Canvas.Top="155" FontSize="32" FontWeight="DemiBold"  Foreground="White"/>
+                        <Label Content="in " Canvas.Left="637" Canvas.Top="152" FontSize="32" FontWeight="DemiBold"  Foreground="White"/>
 
                         <Image  Visibility="Visible" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="62" Source="Images\noun_help_2392630.png" Canvas.Left="1131" Canvas.Top="-80" Opacity=".6"/>
                         <Image  Visibility="Visible"  Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="62" Source="Images\noun_Settings_2650515.png" Canvas.Left="22" Canvas.Top="-80" Opacity=".6"/>

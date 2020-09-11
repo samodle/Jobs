@@ -38,6 +38,7 @@ namespace Windows_Desktop
 {
     public partial class dashboardwindow : Window
     {
+        #region Variables
         public static System.Windows.Input.MouseButtonEventArgs f { get; set; }
         public static EventArgs g { get; set; }
         public int Menuitemclicked_number = -1;
@@ -54,9 +55,15 @@ namespace Windows_Desktop
         private bool initComplete = false;
         private bool firstInitComplete = false;
 
-        public string USER_NAME { get; set; } = "";
         public string ROLE_NAME { get; set; } = "";
         public string LOCATION_NAME { get; set; } = "";
+
+        private const double AR_Latitude = 35.829307;
+        private const double AR_Longitude = -90.679045;
+        private const double Lat_Range = 0.3;
+        private const double TN_Latitude = 35.561129;
+        private const double TN_Longitude = -89.647381;
+        #endregion
 
         public ObservableCollection<JD> D_ActiveDataCollection { get; set; } = new ObservableCollection<JD>();
 
@@ -65,16 +72,20 @@ namespace Windows_Desktop
         {
             InitializeComponent();
 
-            this.map.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
+            BingRestMapProvider provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
+            provider.IsTileCachingEnabled = true;
+
+            this.B_Map.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
             this.map2.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
-            this.miniJobMap.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
-            this.D_miniJobMap.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
+            this.BminiJobMap.Provider = provider;
+            this.D_miniJobMap.Provider = provider;
+ 
+
 
             LaunchCanvas.Visibility = Visibility.Visible;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
             B2Canvas.Visibility = Visibility.Hidden;
             B1Canvas.Visibility = Visibility.Visible;
-            Landing_Name_AutoCompleteBox.ItemsSource = demoNameList;
             Landing_Role_AutoCompleteBox.ItemsSource = demoRoleList;
             Landing_Location_AutoCompleteBox.ItemsSource = demoLocationList;
 
@@ -85,6 +96,142 @@ namespace Windows_Desktop
             onetThread.Start();
 
         }
+
+        private void ClusterMouseClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            FrameworkElement element = sender as FrameworkElement;
+            if (element != null)
+            {
+                ClusterData cluster = element.DataContext as ClusterData;
+                if (cluster != null)
+                {
+                    LocationRect bestViewRect = this.visualizationLayer.GetBestView(cluster.Children);
+                    this.D_miniJobMap.SetView(bestViewRect);
+                }
+            }
+            e.Handled = true;
+        }
+
+  
+
+
+        private void InitSample_TN()
+        {
+            // Hard-coded museums due to the stoppage of BING SOAP search service in June 2017.
+            ObservableCollection<MyMapItem> itemCollection = new ObservableCollection<MyMapItem>();
+            this.visualizationLayer.ItemsSource = itemCollection;
+
+            for (int i = 0; i < 20; i++)
+            {
+                itemCollection.Add(new MyMapItem("", DemoIO.GetRandomNumber(AR_Latitude - Lat_Range, AR_Latitude + Lat_Range), DemoIO.GetRandomNumber(TN_Longitude - Lat_Range, TN_Longitude + Lat_Range)));
+            }
+
+            LocationRect bestView = new LocationRect(42.0263662934303, -87.8852525353432, 41.3206609161065, 31.6414216160774);
+            this.D_miniJobMap.SetView(bestView);
+            this.D_miniJobMap.ZoomLevel = 10;
+
+            RectangleData boundingArea = new RectangleData()
+            {
+                Width = 0.50568625330924988,
+                Height = 0.28475001454353333,
+                Location = new Location(TN_Latitude, TN_Longitude)
+            };
+            boundingArea.ShapeFill = new MapShapeFill()
+            {
+                Stroke = new SolidColorBrush(Colors.White),
+                StrokeThickness = 2
+            };
+            this.visLayer2.Items.Add(boundingArea);
+        }
+
+        private void InitSample_AR()
+        {
+            // Hard-coded museums due to the stoppage of BING SOAP search service in June 2017.
+            ObservableCollection<MyMapItem> itemCollection = new ObservableCollection<MyMapItem>();
+            this.visualizationLayer.ItemsSource = itemCollection;
+
+            for(int i =0; i < 20; i++)
+            {
+                itemCollection.Add(new MyMapItem("", DemoIO.GetRandomNumber(AR_Latitude - Lat_Range, AR_Latitude + Lat_Range), DemoIO.GetRandomNumber(AR_Longitude - Lat_Range, AR_Longitude + Lat_Range)));
+            }
+
+            LocationRect bestView = new LocationRect(42.0263662934303, -87.8852525353432, 41.3206609161065, 31.6414216160774);
+            this.D_miniJobMap.SetView(bestView);
+            this.D_miniJobMap.ZoomLevel = 10;
+
+            RectangleData boundingArea = new RectangleData()
+            {
+                Width = 0.50568625330924988,
+                Height = 0.28475001454353333,
+                Location = new Location(AR_Latitude, AR_Longitude)
+            };
+            boundingArea.ShapeFill = new MapShapeFill()
+            {
+                Stroke = new SolidColorBrush(Colors.White),
+                StrokeThickness = 2
+            };
+            this.visLayer2.Items.Add(boundingArea);
+        }
+
+        private void BInitSample_TN()
+        {
+            // Hard-coded museums due to the stoppage of BING SOAP search service in June 2017.
+            ObservableCollection<MyMapItem> itemCollection = new ObservableCollection<MyMapItem>();
+            this.BvisualizationLayer.ItemsSource = itemCollection;
+
+            for (int i = 0; i < 20; i++)
+            {
+                itemCollection.Add(new MyMapItem("", DemoIO.GetRandomNumber(AR_Latitude - Lat_Range, AR_Latitude + Lat_Range), DemoIO.GetRandomNumber(TN_Longitude - Lat_Range, TN_Longitude + Lat_Range)));
+            }
+
+            LocationRect bestView = new LocationRect(42.0263662934303, -87.8852525353432, 41.3206609161065, 31.6414216160774);
+            this.BminiJobMap.SetView(bestView);
+            this.BminiJobMap.ZoomLevel = 10;
+
+            RectangleData boundingArea = new RectangleData()
+            {
+                Width = 0.50568625330924988,
+                Height = 0.28475001454353333,
+                Location = new Location(TN_Latitude, TN_Longitude)
+            };
+            boundingArea.ShapeFill = new MapShapeFill()
+            {
+                Stroke = new SolidColorBrush(Colors.White),
+                StrokeThickness = 2
+            };
+            this.BvisLayer2.Items.Add(boundingArea);
+        }
+
+        private void BInitSample_AR()
+        {
+            // Hard-coded museums due to the stoppage of BING SOAP search service in June 2017.
+            ObservableCollection<MyMapItem> itemCollection = new ObservableCollection<MyMapItem>();
+            this.BvisualizationLayer.ItemsSource = itemCollection;
+
+            for (int i = 0; i < 20; i++)
+            {
+                itemCollection.Add(new MyMapItem("", DemoIO.GetRandomNumber(AR_Latitude - Lat_Range, AR_Latitude + Lat_Range), DemoIO.GetRandomNumber(AR_Longitude - Lat_Range, AR_Longitude + Lat_Range)));
+            }
+
+            LocationRect bestView = new LocationRect(42.0263662934303, -87.8852525353432, 41.3206609161065, 31.6414216160774);
+            this.BminiJobMap.SetView(bestView);
+            this.BminiJobMap.ZoomLevel = 10;
+
+            RectangleData boundingArea = new RectangleData()
+            {
+                Width = 0.50568625330924988,
+                Height = 0.28475001454353333,
+                Location = new Location(AR_Latitude, AR_Longitude)
+            };
+            boundingArea.ShapeFill = new MapShapeFill()
+            {
+                Stroke = new SolidColorBrush(Colors.White),
+                StrokeThickness = 2
+            };
+            this.BvisLayer2.Items.Add(boundingArea);
+        }
+
+
 
         private void setONETReport()
         {
@@ -108,20 +255,29 @@ namespace Windows_Desktop
         {
             if (loadingInfoComplete)
             {
-                HeaderTitleLabel.Content = USER_NAME + ".  " + ROLE_NAME + ".  " + LOCATION_NAME;
+                HeaderTitleLabel.Content =  ROLE_NAME + ".  " + LOCATION_NAME + ".  ";
                 LaunchCanvas.Visibility = Visibility.Hidden;
 
                 if (LOCATION_NAME.Contains("AR"))
                 {
                     SelectedLocation = ActiveLocations.AR;
+                    this.InitSample_AR();
+                    this.BInitSample_AR();
                 }
                 else
                 {
                     SelectedLocation = ActiveLocations.TN;
+                    this.InitSample_TN();
+                    this.BInitSample_TN();
                 }
 
                 if (firstInitComplete)
                 {
+                    CanvasA_init();
+                    CanvasB_init();
+                    CanvasC_init();
+                    CanvasD_init();
+
                     ToggleShowHide_CanvasD(sender, f);
                 }
                 else
@@ -143,18 +299,9 @@ namespace Windows_Desktop
         }
 
         public bool loadingInfoComplete = false;
-        public List<string> demoNameList = new List<string>(){ "Lisa Parmiter", "Nick Dalton", "Alan Jope", "Patty Hull", "Sam Odle", "Nataliya Wright", "Nick Psyhogeos" };
         public List<string> demoRoleList = new List<string>() { "Hand Packer", "Factory Technician" };
         public List<string> demoLocationList = new List<string>() { "Jonesboro, AR",  "Covington, TN"};
-        private void Landing_Name_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (Landing_Name_AutoCompleteBox.SelectedItem != null)
-            {
-                    USER_NAME = Landing_Name_AutoCompleteBox.SelectedItem.ToString();
-            }
 
-            CheckLoadInfoComplete();
-        }
 
         private void Landing_Role_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -178,7 +325,7 @@ namespace Windows_Desktop
 
         private void CheckLoadInfoComplete()
         {
-            if(USER_NAME.Length > 1 && ROLE_NAME.Length > 1 && LOCATION_NAME.Length > 1)
+            if( ROLE_NAME.Length > 1 && LOCATION_NAME.Length > 1)
             {
                 loadingInfoComplete = true;
                 GoButton.Cursor = Cursors.Hand;
@@ -408,10 +555,6 @@ namespace Windows_Desktop
         }
 
 
-        private void CanvasA1_AutoCompleteBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
 
 
@@ -543,21 +686,26 @@ namespace Windows_Desktop
                 CanvasA1_OccupationList.Add(OccupationNames[j]);
             }
             CanvasA1_AutoCompleteBox.ItemsSource = OccupationNames;
+            B1_AutoCompleteBox.ItemsSource = OccupationNames;
         }
 
         #endregion
 
         #region Canvas B - Jobs
 
-
+        public ObservableCollection<JD> B_ActiveDataCollection { get; set; } = new ObservableCollection<JD>();
 
         private void CanvasB_init()
         {
             //CanvasB1ListBox.ItemsSource = null;
-           // B1Canvas.Visibility = Visibility.Visible;
-           // B2Canvas.Visibility = Visibility.Hidden;
-           // B3Canvas.Visibility = Visibility.Hidden;
-           
+            // B1Canvas.Visibility = Visibility.Visible;
+            // B2Canvas.Visibility = Visibility.Hidden;
+
+            B_ActiveDataCollection.Clear();
+            foreach (JD j in DemoIO.jobs)
+            {
+                B_ActiveDataCollection.Add(j);
+            }
         }
 
         #region B - Tab Navigation
@@ -572,12 +720,10 @@ namespace Windows_Desktop
 
             CanvasBSelectionBar1.Visibility = Visibility.Visible;
             CanvasBSelectionBar2.Visibility = Visibility.Hidden;
-            ///CanvasBSelectionBar3.Visibility = Visibility.Hidden;
             AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasBSelectionBar1);
 
             B1Canvas.Visibility = Visibility.Visible;
             B2Canvas.Visibility = Visibility.Hidden;
-            B3Canvas.Visibility = Visibility.Hidden;
 
         }
         public void CanvasBHeader2Clicked(object sender, MouseButtonEventArgs e)
@@ -586,16 +732,12 @@ namespace Windows_Desktop
             CanvasBHeaderLabel2.FontWeight = FontWeights.DemiBold;
             CanvasBHeaderLabel1.FontWeight = FontWeights.Regular;
 
-            //   B1_CurrentState = B1_State.Skill;
-            //  B1_SetListboxSource();
             CanvasBSelectionBar2.Visibility = Visibility.Visible;
             CanvasBSelectionBar1.Visibility = Visibility.Hidden;
-            //CanvasBSelectionBar3.Visibility = Visibility.Hidden;
             AnimateZoomUIElement(0, 95, 0.2, WidthProperty, CanvasBSelectionBar2);
 
             B1Canvas.Visibility = Visibility.Hidden;
             B2Canvas.Visibility = Visibility.Visible;
-            B3Canvas.Visibility = Visibility.Hidden;
         }
 
         #endregion
@@ -608,8 +750,8 @@ namespace Windows_Desktop
                 B1_Location_Unselected.Visibility = Visibility.Hidden;
                 B1_Location_Selected.Visibility = Visibility.Visible;
 
-                miniJobMap.Visibility = Visibility.Visible;
-                B_JobLongDescription.Visibility = Visibility.Hidden;
+                BminiJobMap.Visibility = Visibility.Visible;
+                B1_Description.Visibility = Visibility.Hidden;
 
                 B_LocationButton.Background = BrushColors.fork_blue;
             }
@@ -618,8 +760,8 @@ namespace Windows_Desktop
                 B1_Location_Unselected.Visibility = Visibility.Visible;
                 B1_Location_Selected.Visibility = Visibility.Hidden;
 
-                miniJobMap.Visibility = Visibility.Hidden;
-                B_JobLongDescription.Visibility = Visibility.Visible;
+                BminiJobMap.Visibility = Visibility.Hidden;
+                B1_Description.Visibility = Visibility.Visible;
 
                 B_LocationButton.Background = BrushColors.mybrushlanguagewhite;
             }
@@ -643,6 +785,25 @@ namespace Windows_Desktop
 
         }
 
+        private string B1_link = "";
+        private void B1_Link_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start(B1_link);
+        }
+        private void B_radGridView_SelectionChanged(object sender, Telerik.Windows.Controls.SelectionChangeEventArgs e)
+        {
+            if (e.AddedItems.Count > 0) //if there are items
+            {
+                JD j = (JD)e.AddedItems[0];
+
+                B1_Header.Content = j.JobTitle;
+                B1_Company.Text = j.company;
+                B1_Salary.Content = j.salary== "FALSE"? "" : j.salary;
+                B1_Description.Text = j.description;
+                B1_Location.Content = j.location;
+                B1_link = j.url;
+            }
+        }
         #endregion
 
         #region Canvas C - Training
@@ -725,30 +886,22 @@ namespace Windows_Desktop
             D_StrengthCanvas.Visibility = Visibility.Visible;
             D_ListCanvas.Visibility = Visibility.Hidden;
             D_MapCanvas.Visibility = Visibility.Hidden;
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
 
             D_Graph = new CPM_Graph(DemoIO.nodes.First(n => n.Name == ROLE_NAME), SelectedLocation);
 
             if(SelectedLocation == ActiveLocations.AR)
             {
-                var tmpLoc = new Telerik.Windows.Controls.Map.Location(35.829307, -90.679045);
+                var tmpLoc = new Telerik.Windows.Controls.Map.Location(AR_Latitude, AR_Longitude);
 
                 D_miniJobMap.Center = tmpLoc;
-
-            //    D_miniJobMap.Center.Description = "Jonesboro, AR";
-              //  D_MapLocation.Latitude = 35.829307;
-             //   D_MapLocation.Longitude = -90.679045;
             }
             else
             {
 
-                var tmpLoc = new Telerik.Windows.Controls.Map.Location(35.561129, -89.647381);
+                var tmpLoc = new Telerik.Windows.Controls.Map.Location(TN_Latitude, TN_Longitude);
 
                 D_miniJobMap.Center = tmpLoc;
-
-                //Covington TN
-                // D_MapLocation.Description = "Covington, TN";
-                // D_MapLocation.Latitude = 35.561129;
-                //  D_MapLocation.Longitude = -89.647381;
             }
 
             D_UpdateUIFromGraph();
@@ -852,28 +1005,116 @@ namespace Windows_Desktop
 
         }
 
+        private void D_HideAllBallImages()
+        {
+            Ball_2A_Remote_Unselected.Visibility = Visibility.Hidden;
+            Ball_2A_Remote_Selected.Visibility = Visibility.Hidden;
+            Ball_2A_Relocate_Unselected.Visibility = Visibility.Hidden;
+            Ball_2A_Relocate_Selected.Visibility = Visibility.Hidden;
+
+            Ball_2B_Remote_Unselected.Visibility = Visibility.Hidden;
+            Ball_2B_Remote_Selected.Visibility = Visibility.Hidden;
+            Ball_2B_Relocate_Unselected.Visibility = Visibility.Hidden;
+            Ball_2B_Relocate_Selected.Visibility = Visibility.Hidden;
+
+            Ball_3A_Remote_Unselected.Visibility = Visibility.Hidden;
+            Ball_3A_Remote_Selected.Visibility = Visibility.Hidden;
+            Ball_3A_Relocate_Unselected.Visibility = Visibility.Hidden;
+            Ball_3A_Relocate_Selected.Visibility = Visibility.Hidden;
+
+            Ball_3B_Remote_Unselected.Visibility = Visibility.Hidden;
+            Ball_3B_Remote_Selected.Visibility = Visibility.Hidden;
+            Ball_3B_Relocate_Unselected.Visibility = Visibility.Hidden;
+            Ball_3B_Relocate_Selected.Visibility = Visibility.Hidden;
+
+            Ball_3C_Remote_Unselected.Visibility = Visibility.Hidden;
+            Ball_3C_Remote_Selected.Visibility = Visibility.Hidden;
+            Ball_3C_Relocate_Unselected.Visibility = Visibility.Hidden;
+            Ball_3C_Relocate_Selected.Visibility = Visibility.Hidden;
+
+            Ball_3D_Remote_Unselected.Visibility = Visibility.Hidden;
+            Ball_3D_Remote_Selected.Visibility = Visibility.Hidden;
+            Ball_3D_Relocate_Unselected.Visibility = Visibility.Hidden;
+            Ball_3D_Relocate_Selected.Visibility = Visibility.Hidden;
+        }
+
         private void D_UpdateUIFromGraph()
         {
+            D_HideAllBallImages();
+
             Label_1A_Role.Content = TruncateLongString(D_Graph.OneA.Name);
             Label_1A_Pay.Content = "  " + D_Graph.OneA.Salary;
 
             Label_2A_Role.Content = TruncateLongString(D_Graph.TwoA.Name);
             Label_2A_Pay.Content = "  " + D_Graph.TwoA.Salary;
+            if (D_Graph.TwoA.isRemote())
+            {
+                Ball_2A_Remote_Unselected.Visibility = Visibility.Visible;
+            }
+            else if (D_Graph.TwoA.isRelocate())
+            {
+                Ball_2A_Relocate_Unselected.Visibility = Visibility.Visible;
+            }
 
             Label_2B_Role.Content = TruncateLongString(D_Graph.TwoB.Name);
             Label_2B_Pay.Content = "  " + D_Graph.TwoB.Salary;
+            if (D_Graph.TwoB.isRemote())
+            {
+                Ball_2B_Remote_Unselected.Visibility = Visibility.Visible;
+            }
+            else if (D_Graph.TwoB.isRelocate())
+            {
+                Ball_2B_Relocate_Unselected.Visibility = Visibility.Visible;
+            }
+
 
             Label_3A_Role.Content = TruncateLongString(D_Graph.ThreeA.Name);
             Label_3A_Pay.Content = "  " + D_Graph.ThreeA.Salary;
+            if (D_Graph.ThreeA.isRemote())
+            {
+                Ball_3A_Remote_Unselected.Visibility = Visibility.Visible;
+            }
+            else if (D_Graph.ThreeA.isRelocate())
+            {
+                Ball_3A_Relocate_Unselected.Visibility = Visibility.Visible;
+            }
+
 
             Label_3B_Role.Content = TruncateLongString(D_Graph.ThreeB.Name);
             Label_3B_Pay.Content = "  " + D_Graph.ThreeB.Salary;
+            if (D_Graph.ThreeB.isRemote())
+            {
+                Ball_3B_Remote_Unselected.Visibility = Visibility.Visible;
+            }
+            else if (D_Graph.ThreeB.isRelocate())
+            {
+                Ball_3B_Relocate_Unselected.Visibility = Visibility.Visible;
+            }
+
 
             Label_3C_Role.Content = TruncateLongString(D_Graph.ThreeC.Name);
             Label_3C_Pay.Content = "  " + D_Graph.ThreeC.Salary;
+            if (D_Graph.ThreeC.isRemote())
+            {
+                Ball_3C_Remote_Unselected.Visibility = Visibility.Visible;
+            }
+            else if (D_Graph.ThreeC.isRelocate())
+            {
+                Ball_3C_Relocate_Unselected.Visibility = Visibility.Visible;
+            }
+
 
             Label_3D_Role.Content = TruncateLongString(D_Graph.ThreeD.Name);
             Label_3D_Pay.Content = "  " + D_Graph.ThreeD.Salary;
+            if (D_Graph.ThreeD.isRemote())
+            {
+                Ball_3D_Remote_Unselected.Visibility = Visibility.Visible;
+            }
+            else if (D_Graph.ThreeD.isRelocate())
+            {
+                Ball_3D_Relocate_Unselected.Visibility = Visibility.Visible;
+            }
+
         }
 
         public string TruncateLongString(string str, int maxLength = 25)
@@ -895,6 +1136,9 @@ namespace Windows_Desktop
 
         private void Ball_Generic_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            // D_HideAllBallImages();
+            D_UpdateUIFromGraph();
+
             BallSummaryCanvas.Visibility = Visibility.Visible;
 
             if (sender.GetType().ToString().IndexOf("Ellipse") > -1)
@@ -907,31 +1151,80 @@ namespace Windows_Desktop
                 {
                     D_UpdateSideCardFromSelection(D_Graph.TwoA);
                     D_ActiveNode = D_Graph.TwoA;
+                    if (D_Graph.TwoA.isRemote())
+                    {
+                        Ball_2A_Remote_Selected.Visibility = Visibility.Visible;
+                    }
+                    else if (D_Graph.TwoA.isRelocate())
+                    {
+                        Ball_2A_Relocate_Selected.Visibility = Visibility.Visible;
+                    }
                 } 
                 else if (tempsender.Name.Contains("2B"))
                 {
                     D_UpdateSideCardFromSelection(D_Graph.TwoB);
                     D_ActiveNode = D_Graph.TwoB;
+                    if (D_Graph.TwoB.isRemote())
+                    {
+                        Ball_2B_Remote_Selected.Visibility = Visibility.Visible;
+                    }
+                    else if (D_Graph.TwoB.isRelocate())
+                    {
+                        Ball_2B_Relocate_Selected.Visibility = Visibility.Visible;
+                    }
                 }
                 else if (tempsender.Name.Contains("3A"))
                 {
                     D_UpdateSideCardFromSelection(D_Graph.ThreeA);
                     D_ActiveNode = D_Graph.ThreeA;
+                    if (D_Graph.ThreeA.isRemote())
+                    {
+                        Ball_3A_Remote_Selected.Visibility = Visibility.Visible;
+                    }
+                    else if (D_Graph.ThreeA.isRelocate())
+                    {
+                        Ball_3A_Relocate_Selected.Visibility = Visibility.Visible;
+                    }
                 }
                 else if (tempsender.Name.Contains("3B"))
                 {
                     D_UpdateSideCardFromSelection(D_Graph.ThreeB);
                     D_ActiveNode = D_Graph.ThreeB;
+                    if (D_Graph.ThreeB.isRemote())
+                    {
+                        Ball_3B_Remote_Selected.Visibility = Visibility.Visible;
+                    }
+                    else if (D_Graph.ThreeB.isRelocate())
+                    {
+                        Ball_3B_Relocate_Selected.Visibility = Visibility.Visible;
+                    }
+
                 }
                 else if (tempsender.Name.Contains("3C"))
                 {
                     D_UpdateSideCardFromSelection(D_Graph.ThreeC);
                     D_ActiveNode = D_Graph.ThreeC;
+                    if (D_Graph.ThreeC.isRemote())
+                    {
+                        Ball_3C_Remote_Selected.Visibility = Visibility.Visible;
+                    }
+                    else if (D_Graph.ThreeC.isRelocate())
+                    {
+                        Ball_3C_Relocate_Selected.Visibility = Visibility.Visible;
+                    }
                 }
                 else if (tempsender.Name.Contains("3D"))
                 {
                     D_UpdateSideCardFromSelection(D_Graph.ThreeD);
                     D_ActiveNode = D_Graph.ThreeD;
+                    if (D_Graph.ThreeD.isRemote())
+                    {
+                        Ball_3D_Remote_Selected.Visibility = Visibility.Visible;
+                    }
+                    else if (D_Graph.ThreeD.isRelocate())
+                    {
+                        Ball_3D_Relocate_Selected.Visibility = Visibility.Visible;
+                    }
                 }
 
             }
@@ -2158,9 +2451,10 @@ namespace Windows_Desktop
 
 
 
+
         #endregion
 
-
+ 
     }
 
     static class BrushColors
