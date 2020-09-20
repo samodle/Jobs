@@ -13,17 +13,24 @@ namespace Raw_Job_Processing
 {
     class Program
     {
+
+
+        enum RunModes { removeDuplicates, documentExport, populateProfessionNNs}
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Connecting To Database...");
+            var currentMode = RunModes.removeDuplicates;
+
+            Console.WriteLine("Launching Job Database Admin Tool. Mode: {0}", Enum.GetName(typeof(RunModes), currentMode));
 
             //removeDupes();
 
             //PopulateAllProfessionNearestNeighbors(20);
 
-            MongoExport.ExportEachDocument();
+            //MongoExport.ExportEachDocument();
 
-            Console.WriteLine("Shutting Down...");
+            Console.WriteLine(" - - - - - -");
+            Console.WriteLine("Execution Complete");
         }
 
 
