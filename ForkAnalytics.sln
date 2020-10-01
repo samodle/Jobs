@@ -9,8 +9,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Data_ETL_IO", "DataPersista
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows_Desktop", "FORKv0\Windows_Desktop.csproj", "{105711AD-6819-4B82-8250-59D73A4CE9FC}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "HTML", "HTMLDev\HTML.shproj", "{49598DCE-DDD7-4CDB-9031-FF1E013BE3A6}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raw_Job_Processing", "Raw_Job_Processing\Raw_Job_Processing.csproj", "{B96CBF47-FF45-44C6-A14D-0F1CDBACD239}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Helper", "Helper\Helper.shproj", "{44173835-3802-44BD-A9A1-7D6AEB067443}"
@@ -21,14 +19,11 @@ Global
 		Analytics\Analytics.projitems*{105711ad-6819-4b82-8250-59d73a4ce9fc}*SharedItemsImports = 4
 		DataPersistancy\DataPersistancy.projitems*{105711ad-6819-4b82-8250-59d73a4ce9fc}*SharedItemsImports = 4
 		Helper\Helper.projitems*{105711ad-6819-4b82-8250-59d73a4ce9fc}*SharedItemsImports = 4
-		HTMLDev\HTMLDev.projitems*{105711ad-6819-4b82-8250-59d73a4ce9fc}*SharedItemsImports = 4
 		DataPersistancy\DataPersistancy.projitems*{29c3feb4-950c-488b-bc8d-b1568ee0413b}*SharedItemsImports = 13
 		Helper\Helper.projitems*{44173835-3802-44bd-a9a1-7d6aeb067443}*SharedItemsImports = 13
-		HTMLDev\HTMLDev.projitems*{49598dce-ddd7-4cdb-9031-ff1e013be3a6}*SharedItemsImports = 13
 		Analytics\Analytics.projitems*{b96cbf47-ff45-44c6-a14d-0f1cdbacd239}*SharedItemsImports = 5
 		DataPersistancy\DataPersistancy.projitems*{b96cbf47-ff45-44c6-a14d-0f1cdbacd239}*SharedItemsImports = 5
 		Helper\Helper.projitems*{b96cbf47-ff45-44c6-a14d-0f1cdbacd239}*SharedItemsImports = 5
-		HTMLDev\HTMLDev.projitems*{b96cbf47-ff45-44c6-a14d-0f1cdbacd239}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU

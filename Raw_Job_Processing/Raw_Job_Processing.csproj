@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <StartupObject>Raw_Job_Processing.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,5 @@
   <Import Project="..\Helper\Helper.projitems" Label="Shared" />
 
   <Import Project="..\DataPersistancy\DataPersistancy.projitems" Label="Shared" />
-
-  <Import Project="..\HTMLDev\HTMLDev.projitems" Label="Shared" />
 
 </Project>

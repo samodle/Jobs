@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-//using Windows.Media.Streaming.Adaptive;
-
-namespace Analytics
+﻿namespace Analytics
 {
     public static class Constants
     {
@@ -17,7 +12,7 @@ namespace Analytics
         public static class MongoStrings
         {
             public const string JOB_DB = "jobs";
-            public const string JOB_COLLECTION = "job_descriptions";
+            public const string JOB_COLLECTION = "jds"; //"job_descriptions";
 
             public const string GRAPH_DB = "graphs";
 

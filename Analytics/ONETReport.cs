@@ -39,7 +39,7 @@ namespace Analytics
                 }
                 catch (Exception e)
                 {
-                    int ie = 0;
+                   // int ie = 0;
                 }
             }
         }

@@ -93,31 +93,16 @@ namespace Raw_Job_Processing
 
                 foreach (var chunk in db_chunks)
                 {
-                    // get the chunk
-                    var bsonDocs = getSomeJDs(chunk.Item1, chunk.Item2);
+                        // get the chunk
+                        var bsonDocs = getSomeJDs(chunk.Item1, chunk.Item2);
 
                     if (bsonDocs.Count > 0)
                     {
-
-                        if (false)
-                        {
-                            Parallel.For(0, bsonDocs.Count, i =>
-                            {
-                                tmp_i++;
-                                JSON_Export_JD(bsonDocs[i], "fork_jobs_" + (chunk.Item1 + i).ToString());
-                       
-                            });
-                        }
-                        else
-                        {
                             foreach (var b in bsonDocs)
                             {
                                 JSON_Export_JD(b, "fork_jobs_" + tmp_i.ToString());
                                 tmp_i++;
                             }
-                        }
-
-
                     }
                     else
                     {

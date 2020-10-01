@@ -266,7 +266,7 @@ namespace HTMLDev
 
         public static void writePathGraphHTML(string FileName, string FileType = ".html")
         {
-            string a = "";
+           // string a = "";
             Random random = new Random();
             string fileName = Helper.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
 
@@ -342,7 +342,7 @@ namespace HTMLDev
 
         public static void writeGraphHTML_Demo(ONETReport forkReport, string FileName, string FileType = ".html")
             {
-                string a = "";
+               // string a = "";
                 Random random = new Random();
                 string fileName = Helper.Publics.FILEPATHS.PATH_FORK_HTML + FileName + FileType;
 
