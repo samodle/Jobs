@@ -13,6 +13,7 @@
         {
             public const string JOB_DB = "jobs";
             public const string JOB_COLLECTION = "jds"; //"job_descriptions";
+            public const string JOB_KPI_COLLECTION = "kpi"; //"job_descriptions";
 
             public const string GRAPH_DB = "graphs";
 

@@ -14,11 +14,11 @@ namespace Raw_Job_Processing
     {
 
 
-        enum RunModes { removeDuplicates, documentExport, populateProfessionNNs, jobKPIs }
+        enum RunModes { removeDuplicates, documentExport, populateProfessionNNs, jobKPIs, jobReports }
 
         static void Main(string[] args)
         {
-            var currentMode = RunModes.removeDuplicates;
+            var currentMode = RunModes.jobKPIs;
 
             Console.WriteLine("Launching Job Database Admin Tool. Mode: {0}", Enum.GetName(typeof(RunModes), currentMode));
 
@@ -37,6 +37,10 @@ namespace Raw_Job_Processing
                     break;
 
                 case RunModes.jobKPIs:
+                    JobAnalysis.AnalyzeJobs();
+                    break;
+
+                case RunModes.jobReports:
 
                     break;
             }
