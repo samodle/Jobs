@@ -26,6 +26,11 @@ namespace Raw_Job_Processing
         public List<DateTime> dates_found { get; set; }
 
 
+        public JobKPI getJobKPI()
+        {
+            return new JobKPI();
+        }
+
         public bool Equals(RawJobDescription other)
         {
             if (other.company.Equals(this.company, StringComparison.OrdinalIgnoreCase))

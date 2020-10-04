@@ -12,8 +12,6 @@ namespace Raw_Job_Processing
 {
     class Program
     {
-
-
         enum RunModes { removeDuplicates, documentExport, populateProfessionNNs, jobKPIs, jobReports }
 
         static void Main(string[] args)

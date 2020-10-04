@@ -1,7 +1,9 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static Analytics.Constants;
 
@@ -9,7 +11,7 @@ namespace Raw_Job_Processing
 {
     public static class JobAnalysis
     {
-        public static void AnalyzeJobs()
+        public static async void AnalyzeJobs()
         {
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
@@ -55,7 +57,7 @@ namespace Raw_Job_Processing
                 var tmp_i = 0;
 
                 //do we want to start in the middle?
-                var chunks_to_skip = 8;
+                var chunks_to_skip = 0;
 
                 if (chunks_to_skip > 0 && chunks_to_skip < db_chunks.Count)
                 {
@@ -67,15 +69,43 @@ namespace Raw_Job_Processing
                 foreach (var chunk in db_chunks)
                 {
                     // get the chunk
-                    var bsonDocs = getSomeJDs(chunk.Item1, chunk.Item2);
+                    var bsonDocs = MongoExport.getSomeJDs(chunk.Item1, chunk.Item2);
 
                     if (bsonDocs.Count > 0)
                     {
+                       // var kpiWriteList = new List<JobKPI>();
+
                         foreach (var b in bsonDocs)
                         {
-                            JSON_Export_JD(b, "fork_jobs_" + tmp_i.ToString());
+                            //convert to C# class object
+                            var jd = BsonSerializer.Deserialize<RawJobDescription>(b);
+
+                            //use class function to generate job kpi report
+                            var jd_kpi = jd.getJobKPI();
+
+                            //clean up dates (and search terms?)
+                            jd_kpi.Clean();
+
+                            //add it to the list
+                            var options = new ReplaceOptions { IsUpsert = true };
+                            var result = await kpi_collection.ReplaceOneAsync(new BsonDocument(), jd_kpi.ToBsonDocument(), options);
+
+                            //keep track of how many we've done
                             tmp_i++;
                         }
+
+                        //update||insert job kpi into database
+                        /*
+                        var EmpInfoArray = new List<BsonDocument>();
+
+                        foreach (JobKPI j in kpiWriteList)
+                        {
+                            EmpInfoArray.Add(j.ToBsonDocument());
+                        }
+
+                        var options = new UpdateOptions { IsUpsert = true };
+                        var result = await kpi_collection.UpdateManyAsync(new BsonDocument(), EmpInfoArray, options);
+                        */
                     }
                     else
                     {
@@ -91,7 +121,7 @@ namespace Raw_Job_Processing
                     ts.Milliseconds / 10);
 
                     chunk_counter++;
-                    Console.WriteLine(chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in " + elapsedTime + ". " + tmp_i.ToString() + " Jobs Saved.");
+                    Console.WriteLine(chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in " + elapsedTime + ". " + tmp_i.ToString() + " Jobs Analyzed.");
                 }
 
             }
