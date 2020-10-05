@@ -85,6 +85,7 @@ namespace Windows_Desktop
             BallSummaryCanvas.Visibility = Visibility.Hidden;
             B2Canvas.Visibility = Visibility.Hidden;
             B1Canvas.Visibility = Visibility.Visible;
+            UniversalSplashCanvas.Visibility = Visibility.Hidden;
             Landing_Role_AutoCompleteBox.ItemsSource = demoRoleList;
             Landing_Location_AutoCompleteBox.ItemsSource = demoLocationList;
 
@@ -351,7 +352,7 @@ namespace Windows_Desktop
         #endregion
 
         #region Splash
-        public enum SplashState { AddSkill, AddGoal, HelpA}
+        public enum SplashState { AddSkill, AddGoalA, AddGoalB, AddGoalC, AddGoalD, HelpA }
         private SplashState Splash_ActiveState = SplashState.AddSkill;
 
 
@@ -366,8 +367,20 @@ namespace Windows_Desktop
                     SkillSplashCanvas.Visibility = Visibility.Visible;
                     break;
 
-                case SplashState.AddGoal:
+                case SplashState.AddGoalA:
+                    GoalSplashCanvasA.Visibility = Visibility.Visible;
+                    break;
 
+                case SplashState.AddGoalB:
+                    GoalSplashCanvasB.Visibility = Visibility.Visible;
+                    break;
+
+                case SplashState.AddGoalC:
+                    GoalSplashCanvasC.Visibility = Visibility.Visible;
+                    break;
+
+                case SplashState.AddGoalD:
+                    GoalSplashCanvasD.Visibility = Visibility.Visible;
                     break;
             }
         }
@@ -380,14 +393,168 @@ namespace Windows_Desktop
         private void Splash_HideAllSubCanvases()
         {
             SkillSplashCanvas.Visibility = Visibility.Hidden;
+            GoalSplashCanvasA.Visibility = Visibility.Hidden;
+            GoalSplashCanvasB.Visibility = Visibility.Hidden;
+            GoalSplashCanvasC.Visibility = Visibility.Hidden;
+            GoalSplashCanvasD.Visibility = Visibility.Hidden;
         }
 
+        #region Splash Skill
         public void Splash_SkillSubmit(object sender, EventArgs e)
         {
             //splashskill rating, splash_skilltext
             E_AddSkill(Convert.ToInt32(SplashSkillRating.Value), Splash_SkillText.CurrentText);
             CloseSplash(new object(), f);
         }
+        #endregion
+
+        #region Splash Goals
+
+
+
+        public void Splash_GoalASubmitYes(object sender, EventArgs e)
+        {
+            E_Goal1A.Visibility = Visibility.Hidden;
+            E_Goal1B.Content = "Move";
+            E_Goal1B2.Content = "Anywhere";
+            E_Goal1B2.Visibility = Visibility.Visible;
+            if (E_Goal2B2.Visibility == Visibility.Hidden)
+            {
+                E_Goal2A.Visibility = Visibility.Visible;
+            }
+            E_Goal2B.Visibility = Visibility.Visible;
+            E_Goal1C1.Visibility = Visibility.Hidden;
+            E_Goal1C2.Visibility = Visibility.Visible;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalASubmitMid(object sender, EventArgs e)
+        {
+            E_Goal1A.Visibility = Visibility.Hidden;
+            E_Goal1B.Content = "Stay";
+            E_Goal1B2.Content = "Nearby";
+            E_Goal1B2.Visibility = Visibility.Visible;
+            if (E_Goal2B2.Visibility == Visibility.Hidden)
+            {
+                E_Goal2A.Visibility = Visibility.Visible;
+            }
+            E_Goal2B.Visibility = Visibility.Visible;
+            E_Goal1C1.Visibility = Visibility.Visible;
+            E_Goal1C2.Visibility = Visibility.Hidden;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalASubmitNo(object sender, EventArgs e)
+        {
+            E_Goal1A.Visibility = Visibility.Hidden;
+            E_Goal1B.Content = "No";
+            E_Goal1B2.Content = "Relocation";
+            E_Goal1B2.Visibility = Visibility.Visible;
+            if (E_Goal2B2.Visibility == Visibility.Hidden) { E_Goal2A.Visibility = Visibility.Visible; }
+            E_Goal2B.Visibility = Visibility.Visible;
+            E_Goal1C1.Visibility = Visibility.Visible;
+            E_Goal1C2.Visibility = Visibility.Hidden;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalBSubmit(object sender, EventArgs e)
+        {
+            E_Goal2A.Visibility = Visibility.Hidden;
+            E_Goal2B.Content = $"Next: ${Splash_GoalB1Text.Text}";
+            E_Goal2B2.Content = $"Later: ${Splash_GoalB2Text.Text}";
+            E_Goal2B2.Visibility = Visibility.Visible;
+            if (E_Goal3B2.Visibility == Visibility.Hidden)
+            {
+                E_Goal3A.Visibility = Visibility.Visible;
+            }
+            E_Goal3B.Visibility = Visibility.Visible;
+            E_Goal2C1.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalCSubmitYes(object sender, EventArgs e)
+        {
+            E_Goal3A.Visibility = Visibility.Hidden;
+            E_Goal3B.Content = "Prefer";
+            E_Goal3B2.Content = "Telework";
+            E_Goal3B2.Visibility = Visibility.Visible;
+            E_Goal4A.Visibility = Visibility.Visible;
+            E_Goal4B.Visibility = Visibility.Visible;
+            E_Goal3C1.Visibility = Visibility.Visible;
+            E_Goal3C2.Visibility = Visibility.Visible;
+            E_Goal3C3.Visibility = Visibility.Hidden;
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalCSubmitMaybe(object sender, EventArgs e)
+        {
+            E_Goal3A.Visibility = Visibility.Hidden;
+            E_Goal3B.Content = "Open To";
+            E_Goal3B2.Content = "Telework";
+            E_Goal3B2.Visibility = Visibility.Visible;
+            E_Goal4A.Visibility = Visibility.Visible;
+            E_Goal4B.Visibility = Visibility.Visible;
+            E_Goal3C1.Visibility = Visibility.Visible;
+            E_Goal3C2.Visibility = Visibility.Visible;
+            E_Goal3C3.Visibility = Visibility.Hidden;
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalCSubmitNo(object sender, EventArgs e)
+        {
+            E_Goal3A.Visibility = Visibility.Hidden;
+            E_Goal3B.Content = "No";
+            E_Goal3B2.Content = "Telework";
+            E_Goal3B2.Visibility = Visibility.Visible;
+            E_Goal4A.Visibility = Visibility.Visible;
+            E_Goal4B.Visibility = Visibility.Visible;
+            E_Goal3C1.Visibility = Visibility.Visible;
+            E_Goal3C2.Visibility = Visibility.Visible;
+            E_Goal3C3.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalDSubmitLong(object sender, EventArgs e)
+        {
+            E_Goal4A.Visibility = Visibility.Hidden;
+            E_Goal4B.Content = "Retirement:";
+            E_Goal4B2.Content = ">20 Years";
+            E_Goal4B2.Visibility = Visibility.Visible;
+            E_Goal4C1.Visibility = Visibility.Visible;
+            E_Goal4C2.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+
+        public void Splash_GoalDSubmitMid(object sender, EventArgs e)
+        {
+            E_Goal4A.Visibility = Visibility.Hidden;
+            E_Goal4B.Content = "Retirement:";
+            E_Goal4B2.Content = "10-20 Yrs";
+            E_Goal4B2.Visibility = Visibility.Visible;
+            E_Goal4C1.Visibility = Visibility.Visible;
+            E_Goal4C2.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+
+        public void Splash_GoalDSubmitShort(object sender, EventArgs e)
+        {
+            E_Goal4A.Visibility = Visibility.Hidden;
+            E_Goal4B.Content = "Retirement:";
+            E_Goal4B2.Content = "<10 Yrs";
+            E_Goal4B2.Visibility = Visibility.Visible;
+            E_Goal4C1.Visibility = Visibility.Visible;
+            E_Goal4C2.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+
+
+        #endregion
 
         #endregion
 
@@ -1389,6 +1556,35 @@ namespace Windows_Desktop
         #endregion
 
         #region Canvas E - Profile
+
+        #region Splash Launch (E)
+        public void E_LaunchGoalSplashA(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddGoalA;
+
+            LaunchSplash();
+        }
+        public void E_LaunchGoalSplashB(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddGoalB;
+            Splash_GoalB1Text.Clear();
+            Splash_GoalB2Text.Clear();
+            LaunchSplash();
+        }
+        public void E_LaunchGoalSplashC(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddGoalC;
+
+            LaunchSplash();
+        }
+        public void E_LaunchGoalSplashD(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddGoalD;
+ 
+            LaunchSplash();
+        }
+
+
         public void E_LaunchSkillSplash(object sender, EventArgs e)
         {
             Splash_ActiveState = SplashState.AddSkill;
@@ -1396,6 +1592,7 @@ namespace Windows_Desktop
             Splash_SkillText.Clear();
             LaunchSplash();
         }
+        #endregion
 
         private void E_AddSkill(int rating, string name)
         {

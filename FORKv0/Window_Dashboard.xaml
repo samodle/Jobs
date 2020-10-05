@@ -1119,19 +1119,41 @@
                             </Rectangle.Effect>
                         </Rectangle>
                         <Label Content="Goals" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="277"/>
-                        <Image  Height="137" Canvas.Left="19" Canvas.Top="338" Width="158" Opacity=".8" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="57" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
 
-                        <Image  Height="137" Canvas.Left="164" Canvas.Top="338" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="206" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
+                        <Image x:Name="E_Goal1A"  Height="137" Canvas.Left="19" Canvas.Top="338" Width="158" Opacity=".8" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchGoalSplashA" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label x:Name="E_Goal1B"   Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="57" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashA"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
+                        <Label x:Name="E_Goal1B2"   Content="Add Goal" Visibility="Hidden" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="57" Canvas.Top="456" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashA"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Image x:Name="E_Goal1C1"  Visibility="Hidden"   Height="117" Canvas.Left="27" Canvas.Top="348" Width="143" Opacity="1" Source="Images/noun_Home_blueIcon.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchGoalSplashA" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Image x:Name="E_Goal1C2"  Visibility="Hidden"   Height="117" Canvas.Left="27" Canvas.Top="348" Width="143" Opacity="1" Source="Images/noun_Map_blueIcon.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchGoalSplashA" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
+                        <Image  x:Name="E_Goal2A" Visibility="Hidden"  Height="137" Canvas.Left="164" Canvas.Top="338" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashB"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label  x:Name="E_Goal2B" Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="200" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashB"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label  x:Name="E_Goal2B2" Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="200" Canvas.Top="456" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashB"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Image  x:Name="E_Goal2C1" Visibility="Hidden"  Height="118" Canvas.Left="172" Canvas.Top="348" Width="143" Opacity="1" Source="Images/noun_dollar_blueIcon.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashB"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Image  Height="137" Canvas.Left="297" Canvas.Top="338" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="337" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
+                        <Image  x:Name="E_Goal3A"   Visibility="Hidden"  Height="137" Canvas.Left="297" Canvas.Top="338" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashC"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label x:Name="E_Goal3B"  Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="333" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashC"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" />
+                        <Label x:Name="E_Goal3B2"  Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="333" Canvas.Top="456" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashC"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" />
 
+                        <Ellipse x:Name="E_Goal3C2" Visibility="Hidden"  Height="85" Canvas.Left="333" Canvas.Top="366" Width="85" Fill="#002060" ></Ellipse>
+                        <Image  x:Name="E_Goal3C1" Visibility="Hidden"  Height="59" Canvas.Left="340" Canvas.Top="381" Width="72" Opacity="1" Source="Images/noun_Headset_white.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashC"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Rectangle x:Name="E_Goal3C3" Visibility="Hidden" Fill="White" Height="4" Width="50" Canvas.Left="351" Canvas.Top="411"   MouseDown="E_LaunchGoalSplashC"  RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-42.332"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
 
-                        <Image  Height="136" Canvas.Left="428" Canvas.Top="339" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="460" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
+                        <Image  x:Name="E_Goal4A"  Visibility="Hidden"   Height="136" Canvas.Left="428" Canvas.Top="339" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashD"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label x:Name="E_Goal4B"  Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="460" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashD"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label x:Name="E_Goal4B2"  Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="460" Canvas.Top="456" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashD"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Ellipse x:Name="E_Goal4C2" Visibility="Hidden"  Height="85" Canvas.Left="465" Canvas.Top="366" Width="85" Fill="#002060"   MouseDown="E_LaunchGoalSplashD"  ></Ellipse>
+                        <Image  x:Name="E_Goal4C1" Visibility="Hidden"  Height="59" Canvas.Left="474" Canvas.Top="382" Width="72" Opacity="1" Source="Images/noun_retiree_white.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashD"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
 
                         <!-- Skills -->
                         <Rectangle Fill="White" Height="528" Canvas.Left="618" Canvas.Top="10" Width="572">
@@ -1262,10 +1284,77 @@
             <Canvas x:Name="UniversalSplashCanvas" Visibility="Hidden">
                 <Rectangle Height="663" Width="1250" Fill="#FF1F1F1F" Opacity="0.7" MouseDown="CloseSplash"/>
 
-                <Canvas x:Name="SkillSplashCanvas" Visibility="Visible">
+                <Canvas x:Name="GoalSplashCanvasA" Visibility="Visible">
+                    <Rectangle Height="436" Width="1072" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="98"/>
+
+                    <Label Content="Am I Willing To Move (For The Right Job)?" FontWeight="ExtraBold" Canvas.Left="123" Canvas.Top="135" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="179" Canvas.Top="216"  MouseDown="Splash_GoalASubmitNo" ></Ellipse>
+                    <Label Content="No" FontWeight="ExtraBold" Canvas.Left="274" Canvas.Top="291" Height="74" Width="87" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitNo" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I want to stay in the same home." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="208" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitNo" />
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="509" Canvas.Top="216"  MouseDown="Splash_GoalASubmitMid"  ></Ellipse>
+                    <Label Content="Locally" FontWeight="ExtraBold" Canvas.Left="562" Canvas.Top="291" Height="74" Width="181" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitMid" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I want to stay near my community." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="546" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitMid" />
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="843" Canvas.Top="216"  MouseDown="Splash_GoalASubmitYes"  ></Ellipse>
+                    <Label Content="Yes" FontWeight="ExtraBold" Canvas.Left="934" Canvas.Top="291" Height="74" Width="87" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitYes" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I'll go anywhere." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="880" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitYes"  />
+                </Canvas>
+
+                <Canvas x:Name="GoalSplashCanvasB" Visibility="Hidden">
+                    <Rectangle Height="436" Width="731" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="291"/>
+
+
+                    <Label Content="In my next role, I want to make at least this much annually:" FontWeight="ExtraBold" Canvas.Left="328" Canvas.Top="139" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+                    <telerik:RadWatermarkTextBox x:Name="Splash_GoalB1Text" Width="171" Height="50" Canvas.Left="570" Canvas.Top="208" FontSize="20" WatermarkContent="$35,000"></telerik:RadWatermarkTextBox>
+
+                    <Label Content="In 5-10 years, I want to make at least this much annually:" FontWeight="ExtraBold" Canvas.Left="328" Canvas.Top="291" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+                    <telerik:RadWatermarkTextBox x:Name="Splash_GoalB2Text" Width="170" Height="50" Canvas.Left="571" Canvas.Top="356" FontSize="20" WatermarkContent="$55,000"></telerik:RadWatermarkTextBox>
+
+                    <Label Content="Submit" FontSize="18" FontWeight="ExtraBold" Background="#002060" Foreground="White" Canvas.Left="601" HorizontalContentAlignment="Center" Canvas.Top="466" Width="111" MouseDown="Splash_GoalBSubmit" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+                </Canvas>
+
+                <Canvas x:Name="GoalSplashCanvasC" Visibility="Hidden">
+                    <Rectangle Height="436" Width="1072" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="98"/>
+
+                    <Label Content="Am I Willing To Work Remotely?" FontWeight="ExtraBold" Canvas.Left="123" Canvas.Top="135" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="179" Canvas.Top="216" MouseDown="Splash_GoalCSubmitNo"  ></Ellipse>
+                    <Label Content="No" FontWeight="ExtraBold" Canvas.Left="274" Canvas.Top="291" Height="74" Width="87" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitNo" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="Absolutely Not." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="208" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitNo"  />
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="509" Canvas.Top="216" MouseDown="Splash_GoalCSubmitMaybe"  ></Ellipse>
+                    <Label Content="Maybe" FontWeight="ExtraBold" Canvas.Left="562" Canvas.Top="291" Height="74" Width="181" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitMaybe" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I'm open to it." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="546" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitMaybe"  />
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="843" Canvas.Top="216" MouseDown="Splash_GoalCSubmitYes"  ></Ellipse>
+                    <Label Content="Yes" FontWeight="ExtraBold" Canvas.Left="934" Canvas.Top="291" Height="74" Width="87" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitYes" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I prefer remote work." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="880" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitYes" />
+
+                </Canvas>
+
+                <Canvas x:Name="GoalSplashCanvasD" Visibility="Hidden">
+                    <Rectangle Height="436" Width="1072" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="98"/>
+
+                    <Label Content="When Do I Want To Retire?" FontWeight="ExtraBold" Canvas.Left="123" Canvas.Top="135" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="179" Canvas.Top="216" MouseDown="Splash_GoalDSubmitLong"  ></Ellipse>
+                    <Label Content="20+ Yrs" FontWeight="ExtraBold" Canvas.Left="228" Canvas.Top="291" Height="74" Width="249" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalDSubmitLong" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="509" Canvas.Top="216"  MouseDown="Splash_GoalDSubmitMid" ></Ellipse>
+                    <Label Content="10-20 Yrs" FontWeight="ExtraBold" Canvas.Left="546" Canvas.Top="295" Height="74" Width="197" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalDSubmitMid" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="843" Canvas.Top="216"  MouseDown="Splash_GoalDSubmitShort"  ></Ellipse>
+                    <Label Content="&lt;10 Yrs" FontWeight="ExtraBold" Canvas.Left="893" Canvas.Top="293" Height="74" Width="159" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalDSubmitShort" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+
+                </Canvas>
+
+                <Canvas x:Name="SkillSplashCanvas" Visibility="Hidden">
                     <Rectangle Height="437" Width="755" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="113" Canvas.Left="271"/>
-                    <Label Content="Add A Skill To Your Profile:" FontWeight="ExtraBold" Canvas.Left="294" Canvas.Top="134" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
-                    <!-- <TextBox Width="493" Height="50" Canvas.Left="405" Canvas.Top="198"></TextBox> -->
+                    <Label Content="Add A Skill To My Profile:" FontWeight="ExtraBold" Canvas.Left="294" Canvas.Top="134" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
                     <telerik:RadWatermarkTextBox x:Name="Splash_SkillText" Width="493" Height="50" Canvas.Left="405" Canvas.Top="198" FontSize="20" WatermarkContent="Type Skill Here"></telerik:RadWatermarkTextBox>
 
                     <Label Content="Rate Your Expertise:" FontWeight="ExtraBold" Canvas.Left="294" Canvas.Top="281" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
