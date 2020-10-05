@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:uc="clr-namespace:Windows_Desktop"
     x:Class="Windows_Desktop.dashboardwindow"
         mc:Ignorable="d"
         Loaded="fork_onload"      
@@ -214,7 +215,7 @@
                 </Canvas>
 
                 <!--B Canvas - Jobs -->
-                <Canvas x:Name="ContentCanvasB" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasB" Visibility="Hidden"
                         Height="557" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="493" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="#FFF3F3F3" >
@@ -1073,7 +1074,7 @@
                 </Canvas>
 
                 <!--E Canvas - Profile-->
-                <Canvas x:Name="ContentCanvasE" Visibility="Hidden"
+                <Canvas x:Name="ContentCanvasE" Visibility="Visible"
                         Height="554" Width="1247" Background="#FFF3F3F3">
 
                     <Canvas x:Name="E1Canvas" Height="590" Width="1200" Canvas.Left="17" Canvas.Top="5">
@@ -1132,7 +1133,6 @@
                         <Image  Height="136" Canvas.Left="428" Canvas.Top="339" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
                         <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="460" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
 
-
                         <!-- Skills -->
                         <Rectangle Fill="White" Height="528" Canvas.Left="618" Canvas.Top="10" Width="572">
                             <Rectangle.Effect>
@@ -1146,81 +1146,22 @@
                         </Rectangle>
                         <Label Content="Skills" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="629" Canvas.Top="5"/>
 
-                        <!-- Skill 1 -->
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="757" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
+                        <!-- Skills -->
+                        <uc:UserControlSkills x:Name="E_Skill1" Visibility="Hidden" Canvas.Left="703" Width="400" Height="150" Canvas.Top="59"></uc:UserControlSkills>
+                        <Image x:Name="E_Skill1a" Height="54" Visibility="Visible"  Canvas.Left="853" Canvas.Top="167" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchSkillSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="821" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
+                        <uc:UserControlSkills x:Name="E_Skill2"  Visibility="Hidden"  Canvas.Left="703" Width="400" Height="150" Canvas.Top="159"></uc:UserControlSkills>
+                        <Image  x:Name="E_Skill2a"  Height="54" Visibility="Hidden"  Canvas.Left="853" Canvas.Top="267" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchSkillSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="885" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
+                        <uc:UserControlSkills x:Name="E_Skill3"  Visibility="Hidden"  Canvas.Left="703" Width="400" Height="150" Canvas.Top="259"></uc:UserControlSkills>
+                        <Image x:Name="E_Skill3a"  Height="54" Visibility="Hidden"  Canvas.Left="853" Canvas.Top="367" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchSkillSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Rectangle   Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="944" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-
-                        <Rectangle   Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="1003" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Label Content="Leadership" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="726" Canvas.Top="76" FontSize="22" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
-                        <Rectangle   Fill="LightGray" Opacity=".4" Height="1" Canvas.Left="757" Canvas.Top="195" Width="286" RenderTransformOrigin="0.5,0.5"></Rectangle>
-
-                        <!-- Skill 2 -->
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="757" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="821" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="885" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-                        <Rectangle   Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="944" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-
-                        <Rectangle   Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="1003" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Label Content="Change Management" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="726" Canvas.Top="221" FontSize="22" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
-                        <Rectangle   Fill="LightGray" Opacity=".4" Height="1" Canvas.Left="757" Canvas.Top="338" Width="286" RenderTransformOrigin="0.5,0.5"></Rectangle>
-
-                        <!-- Skill 3 -->
-
-                        <!-- Skill 4 -->
+                        <uc:UserControlSkills x:Name="E_Skill4"  Visibility="Hidden"  Canvas.Left="703" Width="400" Height="150" Canvas.Top="359"></uc:UserControlSkills>
+                        <Image  x:Name="E_Skill4a"  Height="54" Visibility="Hidden"  Canvas.Left="853" Canvas.Top="467" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchSkillSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
                         <!-- Add Skills -->
-                        <Image  Height="54" Canvas.Left="867" Canvas.Top="361" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Skill" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="871" Canvas.Top="474" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
+
+                        <Label x:Name="E_SkillLabel" Content="Add Skill" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="847" Canvas.Top="145" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
 
 
                     </Canvas>
@@ -1316,6 +1257,32 @@
                 <Image x:Name="MenuLaunchIcon" Height="13" Canvas.Left="15" Canvas.Top="24" Width="24" Source="Images/MenuiconMain.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
                 <Canvas x:Name="HeaderKPIcanvas"  Height="43" Canvas.Left="514" Canvas.Top="8" Width="547"/>
             </Canvas>
+
+            <!--UniversalSplashCanvas-->
+            <Canvas x:Name="UniversalSplashCanvas" Visibility="Hidden">
+                <Rectangle Height="663" Width="1250" Fill="#FF1F1F1F" Opacity="0.7" MouseDown="CloseSplash"/>
+
+                <Canvas x:Name="SkillSplashCanvas" Visibility="Visible">
+                    <Rectangle Height="437" Width="755" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="113" Canvas.Left="271"/>
+                    <Label Content="Add A Skill To Your Profile:" FontWeight="ExtraBold" Canvas.Left="294" Canvas.Top="134" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+                    <!-- <TextBox Width="493" Height="50" Canvas.Left="405" Canvas.Top="198"></TextBox> -->
+                    <telerik:RadWatermarkTextBox x:Name="Splash_SkillText" Width="493" Height="50" Canvas.Left="405" Canvas.Top="198" FontSize="20" WatermarkContent="Type Skill Here"></telerik:RadWatermarkTextBox>
+
+                    <Label Content="Rate Your Expertise:" FontWeight="ExtraBold" Canvas.Left="294" Canvas.Top="281" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+                    <telerik:RadRating x:Name="SplashSkillRating" Canvas.Left="541" Canvas.Top="345" Width="327" Height="86" Foreground="White">
+                        <telerik:RadRatingItem Content="Novice" />
+                        <telerik:RadRatingItem Content=""/>
+                        <telerik:RadRatingItem Content="Average"/>
+                        <telerik:RadRatingItem Content=""/>
+                        <telerik:RadRatingItem Content="Expert"/>
+
+                    </telerik:RadRating>
+
+                    <Label Content="Submit" FontSize="18" FontWeight="ExtraBold" Background="#002060" Foreground="White" Canvas.Left="571" HorizontalContentAlignment="Center" Canvas.Top="431" Width="111" MouseDown="Splash_SkillSubmit" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                </Canvas>
+
+            </Canvas>
+
 
             <!--MainMenuCanvas-->
             <Canvas x:Name="MenuCanvas" Visibility="Hidden"

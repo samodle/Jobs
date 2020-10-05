@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Windows_Desktop.UserControlSkills"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="400">
+    <Grid>
+        <Canvas>
+            <!-- Skill 1 -->
+            <Rectangle  x:Name="Skill1"  Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="37" Canvas.Top="60" Width="35">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <Rectangle  x:Name="Skill2" Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="101" Canvas.Top="60" Width="35">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <Rectangle x:Name="Skill3"  Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="165" Canvas.Top="60" Width="35">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <Rectangle x:Name="Skill4"  Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="224" Canvas.Top="60" Width="35">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <Rectangle x:Name="Skill5"  Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="283" Canvas.Top="60" Width="35">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            
+            
+            <Label x:Name="SkillName" Content="Leadership" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="6" FontSize="22" Cursor="Hand"  Visibility="Visible" Canvas.Top="6"/>
+            <Rectangle   Fill="LightGray" Opacity=".4" Height="0" Canvas.Left="37" Canvas.Top="126" Width="286" RenderTransformOrigin="0.5,0.5"></Rectangle>
+        </Canvas>
+    </Grid>
+</UserControl>

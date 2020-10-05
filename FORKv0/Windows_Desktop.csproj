@@ -147,6 +147,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MyMapItem.cs" />
+    <Compile Include="UserControlSkills.xaml.cs">
+      <DependentUpon>UserControlSkills.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window_Dashboard.xaml.cs">
       <DependentUpon>Window_Dashboard.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControlSkills.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window_Dashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

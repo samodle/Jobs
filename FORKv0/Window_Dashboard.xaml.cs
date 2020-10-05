@@ -66,7 +66,7 @@ namespace Windows_Desktop
 
         public ObservableCollection<JD> D_ActiveDataCollection { get; set; } = new ObservableCollection<JD>();
 
-
+        #region Init
         public void fork_onload(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
@@ -348,6 +348,48 @@ namespace Windows_Desktop
             if (screenWidth < 1250 | screenHeight < 706)
                 this.WindowState = System.Windows.WindowState.Maximized;
         }
+        #endregion
+
+        #region Splash
+        public enum SplashState { AddSkill, AddGoal, HelpA}
+        private SplashState Splash_ActiveState = SplashState.AddSkill;
+
+
+        public void LaunchSplash()
+        {
+            Splash_HideAllSubCanvases();
+            UniversalSplashCanvas.Visibility = Visibility.Visible;
+
+            switch (Splash_ActiveState)
+            {
+                case SplashState.AddSkill:
+                    SkillSplashCanvas.Visibility = Visibility.Visible;
+                    break;
+
+                case SplashState.AddGoal:
+
+                    break;
+            }
+        }
+
+        public void CloseSplash(object sender, MouseButtonEventArgs e)
+        {
+            UniversalSplashCanvas.Visibility = Visibility.Hidden;
+        }
+
+        private void Splash_HideAllSubCanvases()
+        {
+            SkillSplashCanvas.Visibility = Visibility.Hidden;
+        }
+
+        public void Splash_SkillSubmit(object sender, EventArgs e)
+        {
+            //splashskill rating, splash_skilltext
+            E_AddSkill(Convert.ToInt32(SplashSkillRating.Value), Splash_SkillText.CurrentText);
+            CloseSplash(new object(), f);
+        }
+
+        #endregion
 
         #region Menu
         public void LaunchMenu(object sender, MouseButtonEventArgs e)
@@ -1344,6 +1386,52 @@ namespace Windows_Desktop
             System.Diagnostics.Process.Start(D_LinkTwo);
         }
 
+        #endregion
+
+        #region Canvas E - Profile
+        public void E_LaunchSkillSplash(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddSkill;
+            SplashSkillRating.Value = 0;
+            Splash_SkillText.Clear();
+            LaunchSplash();
+        }
+
+        private void E_AddSkill(int rating, string name)
+        {
+            E_SkillLabel.Visibility = Visibility.Hidden;
+
+            if(E_Skill1.Visibility == Visibility.Hidden)
+            {
+                E_Skill1.SkillName.Content = name;
+                E_Skill1.SetLevel(rating);
+                E_Skill1.Visibility = Visibility.Visible;
+            }
+            else if(E_Skill2.Visibility == Visibility.Hidden)
+            {
+                E_Skill2.SkillName.Content = name;
+                E_Skill2.SetLevel(rating);
+                E_Skill1a.Visibility = Visibility.Hidden;
+                E_Skill2.Visibility = Visibility.Visible;
+                E_Skill2a.Visibility = Visibility.Visible;
+            }
+            else if (E_Skill3.Visibility == Visibility.Hidden)
+            {
+                E_Skill3.SkillName.Content = name;
+                E_Skill3.SetLevel(rating);
+                E_Skill2a.Visibility = Visibility.Hidden;
+                E_Skill3.Visibility = Visibility.Visible;
+                E_Skill3a.Visibility = Visibility.Visible;
+            }
+            else if (E_Skill4.Visibility == Visibility.Hidden)
+            {
+                E_Skill4.SkillName.Content = name;
+                E_Skill4.SetLevel(rating);
+                E_Skill3a.Visibility = Visibility.Hidden;
+                E_Skill4.Visibility = Visibility.Visible;
+                E_Skill4a.Visibility = Visibility.Visible;
+            }
+        }
         #endregion
 
         #region Mouse Move/Leave/Down
