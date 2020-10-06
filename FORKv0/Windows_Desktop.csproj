@@ -219,9 +219,6 @@
     <Resource Include="Images\BGImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\Chronic.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Images\CILicon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -353,6 +350,18 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\noun_bracket_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_Circle_drawn_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_Arrow1_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\noun_Arrow1_black.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\noun_triangle_white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

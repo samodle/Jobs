@@ -1230,8 +1230,28 @@
                                 <uc:UserControlActionItem x:Name="F_Item11"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1700"></uc:UserControlActionItem>
                             </Canvas>
                         </ScrollViewer>
+                        <Canvas x:Name="F_GettingStartedCanvas">
+                            <Rectangle Fill="White" Height="276" Width="529" Canvas.Left="349" Canvas.Top="62">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <Label Content="Your Action Plan Is Empty!" FontWeight="ExtraBold" Canvas.Left="456" Canvas.Top="94" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="Black" Cursor="Hand"/>
+                            <Label Content="Favorite A Role To Get Started" FontWeight="Bold" Canvas.Left="456" Canvas.Top="255" Height="40" Width="261" VerticalContentAlignment="Center" Padding="2"  FontSize="18" Foreground="Black" Cursor="Hand"/>
+                            <Image Height="154" Canvas.Left="551" Canvas.Top="120" Width="150" Source="Images/noun_star_honey_empty.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                            <Image Height="122" Canvas.Left="672" Canvas.Top="166" Width="133" Source="Images/noun_Arrow1_black.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="-106.296"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
 
+                            </Image>
 
+                        </Canvas>
                     </Canvas>
                 </Canvas>
             </Canvas>
@@ -1243,16 +1263,324 @@
                 <Image x:Name="MenuLaunchIcon" Height="13" Canvas.Left="15" Canvas.Top="24" Width="24" Source="Images/MenuiconMain.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
                 <Canvas x:Name="HeaderKPIcanvas"  Height="43" Canvas.Left="514" Canvas.Top="8" Width="547"/>
 
-                <Image x:Name="MenuHelpIcon" Height="44" Canvas.Left="1189" Canvas.Top="8" Width="44" Source="Images/noun_help_2392630.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                <Image x:Name="MenuHelpIcon" Height="44" Canvas.Left="1189" Canvas.Top="8" Width="44" Source="Images/noun_help_2392630.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchGenericHelpSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
                 <Image x:Name="MenuShareIcon" Visibility="Hidden" Height="34" Canvas.Left="1142" Canvas.Top="13" Width="34" Source="Images/ExporttoExcel.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
             </Canvas>
 
             <!--UniversalSplashCanvas-->
-            <Canvas x:Name="UniversalSplashCanvas" Visibility="Hidden">
+            <Canvas x:Name="UniversalSplashCanvas" Visibility="Visible">
                 <Rectangle Height="663" Width="1250" Fill="#FF1F1F1F" Opacity="0.7" MouseDown="CloseSplash"/>
+                <Image Height="44" Canvas.Left="1189" Canvas.Top="8" Width="44" Source="Images/noun_help_2392630.png" Stretch="Fill" Cursor="Hand" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                <Canvas x:Name="GoalSplashCanvasA" Visibility="Visible">
+                <Canvas x:Name="F_HelpSplashA" Visibility="Hidden">
+                    <Image Height="162" Canvas.Left="15" Canvas.Top="13" Width="163" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="166" Canvas.Top="87" Height="154" Width="446" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Your action plan is empty because you haven't favorited any jobs, trainings, or roles.
+                        <LineBreak/> <LineBreak/>
+                        To Get started, click the Menu here then select "Career Pathfinder"
+                    </TextBlock>
+
+                    <Image Height="304" Canvas.Left="724" Canvas.Top="191" Width="386" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="784" Canvas.Top="418" Height="154" Width="446" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Action Items will appear right here
+                    </TextBlock>
+
+                    <Image Height="122" Canvas.Left="1076" Canvas.Top="10" Width="128" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.224"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1044" Canvas.Top="108" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Click here to close this help menu
+                    </TextBlock>
+
+                </Canvas>
+                <Canvas x:Name="F_HelpSplashB" Visibility="Hidden">
+                    <Image Height="122" Canvas.Left="1076" Canvas.Top="10" Width="128" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.224"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1044" Canvas.Top="108" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Click here to close this help menu
+                    </TextBlock>
+
+                    <Image Height="162" Canvas.Left="15" Canvas.Top="13" Width="163" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="160" Canvas.Top="108" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Click the Menu button to access other features
+                    </TextBlock>
+
+
+                    <Image Height="124" Canvas.Left="1099" Canvas.Top="359" Width="130" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="400.432"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="957" Canvas.Top="387" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Scroll to see more items
+                    </TextBlock>
+
+                    <Image Height="304" Canvas.Left="468" Canvas.Top="28" Width="590" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="634" Canvas.Top="257" Height="154" Width="289" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Check the box or click on the text to mark it complete
+                    </TextBlock>
+
+                </Canvas>
+
+                <Canvas x:Name="D_HelpSplash" Visibility="Visible">
+                    <Image Height="122" Canvas.Left="1076" Canvas.Top="10" Width="128" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.224"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1044" Canvas.Top="108" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Click here to close this help menu
+                    </TextBlock>
+
+                    <Image Height="122" Canvas.Left="43" Canvas.Top="-20" Width="112" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-42.036"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="159" Canvas.Top="6" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Click the Menu button to access other features
+                    </TextBlock>
+
+                    <Image Height="659" Canvas.Left="427" Canvas.Top="20" Width="440" Source="Images/noun_bracket_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.826"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="389" Canvas.Top="324" Height="154" Width="207" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Detailed Information about the selected role.
+                    </TextBlock>
+
+                    <Image Height="190" Canvas.Left="153" Canvas.Top="53" Width="136" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-18.742"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="293" Canvas.Top="139" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        This dropdown toggles between internal roles, external roles, and all roles.
+                    </TextBlock>
+
+
+                    <Image Height="301" Canvas.Left="-22" Canvas.Top="209" Width="301" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="40" Canvas.Top="439" Height="154" Width="194" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Click each bubble to learn more about any given role.
+                    </TextBlock>
+
+
+
+
+
+
+                    <Image Height="190" Canvas.Left="665" Canvas.Top="403" Width="136" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-146.631"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="677" Canvas.Top="391" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Favorite
+                    </TextBlock>
+
+                    <Image Height="135" Canvas.Left="782" Canvas.Top="452" Width="108" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-192.601"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="854" Canvas.Top="439" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Delete
+                    </TextBlock>
+
+
+
+
+                    <Image Height="235" Canvas.Left="1097" Canvas.Top="376" Width="163" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-161.855"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1081" Canvas.Top="377" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        See Job Map
+                    </TextBlock>
+
+                    <Image Height="129" Canvas.Left="1006" Canvas.Top="495" Width="113" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-274.027"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="956" Canvas.Top="482" Height="154" Width="125" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        See Open Jobs
+                    </TextBlock>
+
+
+
+
+                </Canvas>
+
+                <Canvas x:Name="E_HelpSplash" Visibility="Hidden">
+                    <Image Height="122" Canvas.Left="1076" Canvas.Top="10" Width="128" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.224"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1044" Canvas.Top="108" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Click here to close this help menu
+                    </TextBlock>
+
+                    <Image Height="162" Canvas.Left="15" Canvas.Top="13" Width="163" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="160" Canvas.Top="108" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Click the Menu button to access other features
+                    </TextBlock>
+
+                    <Image Height="410" Canvas.Left="713" Canvas.Top="43" Width="383" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="795" Canvas.Top="357" Height="154" Width="289" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        The "Add Skill" button brings up a menu where you can add your skills to your profile.
+                    </TextBlock>
+
+
+                    <Image Height="410" Canvas.Left="-64" Canvas.Top="268" Width="383" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="242" Canvas.Top="441" Height="154" Width="289" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        The "Add Goal" button brings up a menu to walk you through various career goals.
+                    </TextBlock>
+
+                </Canvas>
+
+                <Canvas x:Name="GoalSplashCanvasA" Visibility="Hidden">
                     <Rectangle Height="436" Width="1072" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="98"/>
 
                     <Label Content="Am I Willing To Move (For The Right Job)?" FontWeight="ExtraBold" Canvas.Left="123" Canvas.Top="135" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>

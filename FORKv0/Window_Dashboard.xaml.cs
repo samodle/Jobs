@@ -354,9 +354,27 @@ namespace Windows_Desktop
         #endregion
 
         #region Splash
-        public enum SplashState { AddSkill, AddGoalA, AddGoalB, AddGoalC, AddGoalD, HelpA }
+        public enum SplashState { AddSkill, AddGoalA, AddGoalB, AddGoalC, AddGoalD, HelpF, HelpD, HelpE }
         private SplashState Splash_ActiveState = SplashState.AddSkill;
 
+        public void LaunchGenericHelpSplash(object sender, MouseButtonEventArgs e)
+        {
+            if(ContentCanvasF.Visibility == Visibility.Visible)
+            {
+                Splash_ActiveState = SplashState.HelpF;
+                LaunchSplash();
+            }
+            else if(ContentCanvasD.Visibility == Visibility.Visible)
+            {
+                Splash_ActiveState = SplashState.HelpD;
+                LaunchSplash();
+            }
+            else if (ContentCanvasE.Visibility == Visibility.Visible)
+            {
+                Splash_ActiveState = SplashState.HelpE;
+                LaunchSplash();
+            }
+        }
 
         public void LaunchSplash()
         {
@@ -384,6 +402,23 @@ namespace Windows_Desktop
                 case SplashState.AddGoalD:
                     GoalSplashCanvasD.Visibility = Visibility.Visible;
                     break;
+
+                case SplashState.HelpF:
+                    if(F_GettingStartedCanvas.Visibility == Visibility.Visible)
+                    {
+                        F_HelpSplashA.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        F_HelpSplashB.Visibility = Visibility.Visible;
+                    }
+                    break;
+                case SplashState.HelpD:
+                    D_HelpSplash.Visibility = Visibility.Visible;
+                    break;
+                case SplashState.HelpE:
+                    E_HelpSplash.Visibility = Visibility.Visible;
+                    break;
             }
         }
 
@@ -399,6 +434,11 @@ namespace Windows_Desktop
             GoalSplashCanvasB.Visibility = Visibility.Hidden;
             GoalSplashCanvasC.Visibility = Visibility.Hidden;
             GoalSplashCanvasD.Visibility = Visibility.Hidden;
+
+            F_HelpSplashA.Visibility = Visibility.Hidden;
+            F_HelpSplashB.Visibility = Visibility.Hidden;
+            D_HelpSplash.Visibility = Visibility.Hidden;
+            E_HelpSplash.Visibility = Visibility.Hidden;
         }
 
         #region Splash Skill
@@ -1613,6 +1653,8 @@ namespace Windows_Desktop
             {
                 D_Favorite_Unselected.Visibility = Visibility.Hidden;
                 D_Favorite_Selected.Visibility = Visibility.Visible;
+
+                F_GettingStartedCanvas.Visibility = Visibility.Hidden;
 
                 //Add to item list
                 if (D_ActiveNode.Actions.Count > 0)
