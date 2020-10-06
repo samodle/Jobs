@@ -78,8 +78,10 @@ namespace Windows_Desktop
             this.map2.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
             this.BminiJobMap.Provider = provider;
             this.D_miniJobMap.Provider = provider;
- 
 
+            F_ThisCanvas.Height = 4060;
+            F_ThisCanvas.Width = 1180;
+            D_MorePathwayCanvas.Visibility = Visibility.Hidden;
 
             LaunchCanvas.Visibility = Visibility.Visible;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
@@ -426,6 +428,8 @@ namespace Windows_Desktop
             E_Goal1C1.Visibility = Visibility.Hidden;
             E_Goal1C2.Visibility = Visibility.Visible;
 
+            D_IgnoreRelocate = false;
+
             CloseSplash(new object(), f);
         }
 
@@ -443,6 +447,8 @@ namespace Windows_Desktop
             E_Goal1C1.Visibility = Visibility.Visible;
             E_Goal1C2.Visibility = Visibility.Hidden;
 
+            D_IgnoreRelocate = false;
+
             CloseSplash(new object(), f);
         }
 
@@ -456,6 +462,8 @@ namespace Windows_Desktop
             E_Goal2B.Visibility = Visibility.Visible;
             E_Goal1C1.Visibility = Visibility.Visible;
             E_Goal1C2.Visibility = Visibility.Hidden;
+
+            D_IgnoreRelocate = true;
 
             CloseSplash(new object(), f);
         }
@@ -486,6 +494,9 @@ namespace Windows_Desktop
             E_Goal3C1.Visibility = Visibility.Visible;
             E_Goal3C2.Visibility = Visibility.Visible;
             E_Goal3C3.Visibility = Visibility.Hidden;
+
+            D_IgnoreRemote = false;
+
             CloseSplash(new object(), f);
         }
 
@@ -500,6 +511,9 @@ namespace Windows_Desktop
             E_Goal3C1.Visibility = Visibility.Visible;
             E_Goal3C2.Visibility = Visibility.Visible;
             E_Goal3C3.Visibility = Visibility.Hidden;
+
+            D_IgnoreRemote = false;
+
             CloseSplash(new object(), f);
         }
 
@@ -514,6 +528,9 @@ namespace Windows_Desktop
             E_Goal3C1.Visibility = Visibility.Visible;
             E_Goal3C2.Visibility = Visibility.Visible;
             E_Goal3C3.Visibility = Visibility.Visible;
+
+            D_IgnoreRemote = true;
+
             CloseSplash(new object(), f);
         }
 
@@ -1088,6 +1105,9 @@ namespace Windows_Desktop
         private string D_LinkOne;
         private string D_LinkTwo;
 
+        private bool D_IgnoreRemote = false;
+        private bool D_IgnoreRelocate = false;
+
         private void CanvasD_init()
         {
 
@@ -1115,7 +1135,48 @@ namespace Windows_Desktop
             D_UpdateUIFromGraph();
         }
 
+        private void MorePathwayIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(D_MorePathwayCanvas.Visibility == Visibility.Hidden)
+            {
+                D_MorePathwayCanvas.Visibility = Visibility.Visible;
+                LessPathwayIcon.Visibility = Visibility.Visible;
+                MorePathwayIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                D_MorePathwayCanvas.Visibility = Visibility.Hidden;
+                LessPathwayIcon.Visibility = Visibility.Hidden;
+                MorePathwayIcon.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void AllPathways_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
+            D_MorePathwayCanvas.Visibility = Visibility.Hidden;
+            LessPathwayIcon.Visibility = Visibility.Hidden;
+            MorePathwayIcon.Visibility = Visibility.Visible;
+            D_PathwayTitleLabel.Content = "All Pathways";
+        }
+
+        private void InPathways_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
+            D_MorePathwayCanvas.Visibility = Visibility.Hidden;
+            LessPathwayIcon.Visibility = Visibility.Hidden;
+            MorePathwayIcon.Visibility = Visibility.Visible;
+            D_PathwayTitleLabel.Content = "Internal Pathways";
+        }
+
+        private void ExPathways_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
+            D_MorePathwayCanvas.Visibility = Visibility.Hidden;
+            LessPathwayIcon.Visibility = Visibility.Hidden;
+            MorePathwayIcon.Visibility = Visibility.Visible;
+            D_PathwayTitleLabel.Content = "External Pathways";
+        }
 
         private void D_UpdateSideCardFromSelection(CPM_Node n)
         {
@@ -1728,6 +1789,7 @@ namespace Windows_Desktop
             {
                 HideAllDashboards();
                 ContentCanvasF.Visibility = Visibility.Visible;
+                MenuShareIcon.Visibility = Visibility.Visible;
             }
         }
 
@@ -1747,6 +1809,8 @@ namespace Windows_Desktop
             ContentCanvasD.Visibility = Visibility.Hidden;
             ContentCanvasE.Visibility = Visibility.Hidden;
             ContentCanvasF.Visibility = Visibility.Hidden;
+
+            MenuShareIcon.Visibility = Visibility.Hidden;
         }
         #endregion
 
@@ -2736,9 +2800,10 @@ namespace Windows_Desktop
 
 
 
+
         #endregion
 
- 
+
     }
 
     static class BrushColors

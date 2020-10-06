@@ -6,6 +6,8 @@ using static Analytics.Constants;
 
 namespace Analytics
 {
+    public enum NodeInternalExternal { Internal, External, Both}
+
     public class CPM_Node
     {
         public CPM_Node(int ID, string Name, string Summary, double Growth, List<string> Strengths, List<int> NextSteps)
@@ -31,6 +33,7 @@ namespace Analytics
         public double Salary_TN { get; set; }
         public double Salary_R { get; set; }
         public double Salary_X { get; set; }
+        public NodeInternalExternal InExStatus { get; set; }
 
         public string Salary { get; set; }
 
@@ -57,6 +60,16 @@ namespace Analytics
         public bool isRelocate()
         {
             return Salary_X > 0;
+        }
+
+        public bool isInternal()
+        {
+            return (InExStatus == NodeInternalExternal.Both || InExStatus == NodeInternalExternal.Internal);
+        }
+
+        public bool isExternal()
+        {
+            return (InExStatus == NodeInternalExternal.Both || InExStatus == NodeInternalExternal.External);
         }
 
         public double getSalary(ActiveLocations l) {

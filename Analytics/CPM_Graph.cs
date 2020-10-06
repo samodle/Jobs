@@ -10,13 +10,17 @@ namespace Analytics
     {
         public ActiveLocations Loc { get; set; }
 
-        public CPM_Node OneA {get;set;}
+        public CPM_Node OneA { get; set; }
         public CPM_Node TwoA { get; set; }
         public CPM_Node TwoB { get; set; }
         public CPM_Node ThreeA { get; set; }
         public CPM_Node ThreeB { get; set; }
         public CPM_Node ThreeC { get; set; }
         public CPM_Node ThreeD { get; set; }
+
+        private bool filterOutRemote { get; set; } = false;
+        private bool filterOutRelocate { get; set; } = false;
+
 
         public void Delete_Node(CPM_Node n)
         {
@@ -75,10 +79,22 @@ namespace Analytics
 
 
 
-
+        //simple make graph - no restrictions
         public CPM_Graph(CPM_Node startingPoint, ActiveLocations l)
         {
             foreach (CPM_Node n in DemoIO.nodes) { n.JuiceSalary(l);  }
+
+            setOneA(startingPoint);
+            Loc = l;
+        }
+
+        //restrict by remote, relocate, and internal/external
+        public CPM_Graph(CPM_Node startingPoint, ActiveLocations l, NodeInternalExternal targetInEx, bool removeRelocate, bool removeRemote)
+        {
+            this.filterOutRelocate = removeRelocate;
+            this.filterOutRemote = removeRemote;
+
+            foreach (CPM_Node n in DemoIO.nodes) { n.JuiceSalary(l); }
 
             setOneA(startingPoint);
             Loc = l;
