@@ -38,5 +38,11 @@ namespace Windows_Desktop
                 PrimaryTextLabel.Foreground = Brushes.DarkGray;
             }
         }
+
+        public void SetInfo(string numLabel, string mainText)
+        {
+            NumberLabel.Content = numLabel;
+            PrimaryTextLabel.Content = mainText;
+        }
     }
 }

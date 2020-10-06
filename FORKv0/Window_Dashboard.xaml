@@ -1017,15 +1017,11 @@
                         <Image Height="163" Width="207" Stretch="Fill"  Source="Images/networkB.png" Canvas.Left="332"/>
                         <Image Height="163" Width="207" Stretch="Fill"  Source="Images/networkB.png" Canvas.Top="261" Canvas.Left="344"/>
 
-
                         <Ellipse x:Name="Ball_1A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="92" Canvas.Top="193" MouseDown="Ball_1A_MouseDown"/>
-                        <!--  <Image x:Name="Ball_1A_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="200" Canvas.Left="95"/>
-                        <Image x:Name="Ball_1A_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform" Canvas.Top="200" Canvas.Left="95"/> -->
 
                         <Label x:Name="Label_1A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="54" Canvas.Top="233"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="259" Canvas.Left="62"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_1A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="72" Canvas.Top="255" Width="126"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
-
 
                         <Ellipse x:Name="Ball_2A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="305" Canvas.Top="64" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
                         <Image x:Name="Ball_2A_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
@@ -1033,11 +1029,9 @@
                         <Image x:Name="Ball_2A_Relocate_Unselected" Visibility="Visible" Height="28" Width="35" Source="Images/noun_Plane_blue.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Image x:Name="Ball_2A_Relocate_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Plane_white.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
 
-
                         <Label x:Name="Label_2A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="269" Canvas.Top="104"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="127" Canvas.Left="269"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_2A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="279" Canvas.Top="123" Width="126"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
-
 
                         <Ellipse x:Name="Ball_2B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="305" Canvas.Top="324" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"  />
                         <Image x:Name="Ball_2B_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="331" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
@@ -1223,17 +1217,17 @@
 
                         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="539" Width="1236" Canvas.Left="-24">
                             <Canvas x:Name="F_ThisCanvas" Height="2000" Width="1180">
-                                <uc:UserControlActionItem x:Name="F_Item1" Height="160" Width="1180"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item2"  Height="160" Width="1180" Canvas.Top="170"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item3"  Height="160" Width="1180" Canvas.Top="340"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item4"  Height="160" Width="1180" Canvas.Top="510"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item5"  Height="160" Width="1180" Canvas.Top="680"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item6"  Height="160" Width="1180" Canvas.Top="850"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item7"  Height="160" Width="1180" Canvas.Top="1020"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item8"  Height="160" Width="1180" Canvas.Top="1190"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item9"  Height="160" Width="1180" Canvas.Top="1360"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item10"  Height="160" Width="1180" Canvas.Top="1530"></uc:UserControlActionItem>
-                                <uc:UserControlActionItem x:Name="F_Item11"  Height="160" Width="1180" Canvas.Top="1700"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item1" Visibility="Hidden" Height="160" Width="1180"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item2"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="170"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item3"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="340"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item4"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="510"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item5"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="680"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item6"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="850"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item7"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1020"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item8" Visibility="Hidden"   Height="160" Width="1180" Canvas.Top="1190"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item9"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1360"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item10"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1530"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item11"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1700"></uc:UserControlActionItem>
                             </Canvas>
                         </ScrollViewer>
 

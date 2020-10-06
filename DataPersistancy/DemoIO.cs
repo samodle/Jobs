@@ -113,7 +113,7 @@ namespace DataPersistancy
             switch (ID)
             {
                 case 0:
-                    return new List<int> { 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17 };
+                    return new List<int> { 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 38 };
                 case 1:
                     return new List<int> { 35, 23, 27, 26, 7, 6, 24, 22, 11 };
                 case 2:
@@ -160,6 +160,8 @@ namespace DataPersistancy
                     return new List<int> { 34, 23, 37, 6, 7 };
                 case 37:
                     return new List<int> { 34, 23, 36, 6, 7 };
+                case 38:
+                    return new List<int> { 1, 6, 7, 13, 14, 15, 35 };
                 default:
                     return new List<int> { 6, 7 };
             }

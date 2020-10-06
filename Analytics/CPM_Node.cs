@@ -94,7 +94,7 @@ namespace Analytics
             }
         }
 
-        public CPM_Node NextNode(int offset, ActiveLocations loc)
+        public CPM_Node NextNode(int offset, ActiveLocations loc, bool noRemote, bool noRelocate, NodeInternalExternal targetInExState)
         {
             if(NextSteps.Count == 1) { return DemoIO.getNode(NextSteps[0]); }
             else if(NextSteps.Count == 2) { return DemoIO.getNode(NextSteps[offset]); }
@@ -103,15 +103,19 @@ namespace Analytics
                 bool toggle = offset==0? true : false;
                 for(int i = 0; i < NextSteps.Count; i++)
                 {
-                    if (DemoIO.getNode(NextSteps[i]).getSalary(loc) > 0)
+                    if (DemoIO.getNode(NextSteps[i]).getSalary(loc) > 0) // if this node is present in this location
                     {
-                        if (toggle)
-                        {
-                            return (DemoIO.getNode(NextSteps[i]));
-                        }
-                        else
-                        {
-                            toggle = true;
+                        if (!(noRemote && DemoIO.getNode(NextSteps[i]).isRemote()) && !(noRelocate && DemoIO.getNode(NextSteps[i]).isRelocate())) { // if filters are ok
+                            if ( (   (targetInExState == NodeInternalExternal.External || targetInExState == NodeInternalExternal.Both)     && DemoIO.getNode(NextSteps[i]).isExternal()) || (  (targetInExState == NodeInternalExternal.Internal || targetInExState == NodeInternalExternal.Both) && DemoIO.getNode(NextSteps[i]).isInternal()) ) {
+                                if (toggle)
+                                {
+                                    return (DemoIO.getNode(NextSteps[i]));
+                                }
+                                else
+                                {
+                                    toggle = true;
+                                }
+                            }
                         }
                     }
                 }

@@ -20,7 +20,7 @@
             </Ellipse>
             <Image x:Name="Checkbox"  Height="101" Canvas.Left="1027" Canvas.Top="24" Width="130" Opacity="1" Source="Images/noun_Checkbox_grey.png" Stretch="Uniform" Cursor="Hand" MouseDown="Checkbox_MouseDown"/>
             <Image x:Name="Check" Visibility="Hidden"  Height="137" Canvas.Left="1022" Canvas.Top="0" Width="158" Opacity="1" Source="Images/noun_Check_green.png" Stretch="Uniform" Cursor="Hand" MouseDown="Checkbox_MouseDown"/>
-            <Label x:Name="NumberLabel" Content="1" FontWeight="ExtraBold" Canvas.Left="54" Canvas.Top="31" Height="66" Width="112" VerticalContentAlignment="Center" Padding="2"  FontSize="62.667" Foreground="White" Cursor="Hand"/>
+            <Label x:Name="NumberLabel" Content="1" FontWeight="ExtraBold" Canvas.Left="47" Canvas.Top="24" Height="94" Width="142" VerticalContentAlignment="Center" Padding="2"  FontSize="62.667" Foreground="White" Cursor="Hand"/>
             <Label x:Name="PrimaryTextLabel"  MouseDown="Checkbox_MouseDown" Content="Complete Training: AM Step 4" FontWeight="ExtraBold" Canvas.Left="151" Canvas.Top="18" Height="106" Width="720" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="Black" Cursor="Hand"/>
 
 

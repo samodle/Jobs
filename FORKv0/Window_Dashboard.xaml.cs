@@ -278,7 +278,7 @@ namespace Windows_Desktop
                     CanvasA_init();
                     CanvasB_init();
                     CanvasC_init();
-                    CanvasD_init();
+                    //CanvasD_init();
 
                     ToggleShowHide_CanvasD(sender, f);
                 }
@@ -288,9 +288,9 @@ namespace Windows_Desktop
                     CanvasA_init();
                     CanvasB_init();
                     CanvasC_init();
-                    CanvasD_init();
+                    //CanvasD_init();
 
-                    ToggleShowHide_CanvasD(sender, f);
+                    ToggleShowHide_CanvasF(sender, f);
                     firstInitComplete = true;
                 }
             }
@@ -1107,6 +1107,7 @@ namespace Windows_Desktop
 
         private bool D_IgnoreRemote = false;
         private bool D_IgnoreRelocate = false;
+        private NodeInternalExternal TargetNodeState = NodeInternalExternal.Both;
 
         private void CanvasD_init()
         {
@@ -1116,7 +1117,7 @@ namespace Windows_Desktop
             D_MapCanvas.Visibility = Visibility.Hidden;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
 
-            D_Graph = new CPM_Graph(DemoIO.nodes.First(n => n.Name == ROLE_NAME), SelectedLocation);
+            D_Graph = new CPM_Graph(DemoIO.nodes.First(n => n.Name == ROLE_NAME), SelectedLocation, TargetNodeState, D_IgnoreRelocate, D_IgnoreRemote);
 
             if(SelectedLocation == ActiveLocations.AR)
             {
@@ -1158,6 +1159,9 @@ namespace Windows_Desktop
             LessPathwayIcon.Visibility = Visibility.Hidden;
             MorePathwayIcon.Visibility = Visibility.Visible;
             D_PathwayTitleLabel.Content = "All Pathways";
+            TargetNodeState = NodeInternalExternal.Both;
+
+            CanvasD_init();
         }
 
         private void InPathways_MouseDown(object sender, MouseButtonEventArgs e)
@@ -1167,6 +1171,9 @@ namespace Windows_Desktop
             LessPathwayIcon.Visibility = Visibility.Hidden;
             MorePathwayIcon.Visibility = Visibility.Visible;
             D_PathwayTitleLabel.Content = "Internal Pathways";
+            TargetNodeState = NodeInternalExternal.Internal;
+
+            CanvasD_init();
         }
 
         private void ExPathways_MouseDown(object sender, MouseButtonEventArgs e)
@@ -1176,6 +1183,9 @@ namespace Windows_Desktop
             LessPathwayIcon.Visibility = Visibility.Hidden;
             MorePathwayIcon.Visibility = Visibility.Visible;
             D_PathwayTitleLabel.Content = "External Pathways";
+            TargetNodeState = NodeInternalExternal.External;
+
+            CanvasD_init();
         }
 
         private void D_UpdateSideCardFromSelection(CPM_Node n)
@@ -1405,8 +1415,10 @@ namespace Windows_Desktop
 
         private void Ball_Generic_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // D_HideAllBallImages();
             D_UpdateUIFromGraph();
+
+            D_Favorite_Unselected.Visibility = Visibility.Visible;
+            D_Favorite_Selected.Visibility = Visibility.Hidden;
 
             BallSummaryCanvas.Visibility = Visibility.Visible;
 
@@ -1588,6 +1600,8 @@ namespace Windows_Desktop
         }
 
 
+        private bool D_AddedResume = false;
+
         private void D_Favorite_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (D_Favorite_Unselected.Visibility == Visibility.Hidden)
@@ -1599,6 +1613,27 @@ namespace Windows_Desktop
             {
                 D_Favorite_Unselected.Visibility = Visibility.Hidden;
                 D_Favorite_Selected.Visibility = Visibility.Visible;
+
+                //Add to item list
+                if (D_ActiveNode.Actions.Count > 0)
+                {
+                    foreach (Tuple<string, string> i in D_ActiveNode.Actions) { F_AddItem($"Training: {i.Item1}"); }
+                }
+                if (D_ActiveNode.isExternal())
+                {
+                    if (!D_AddedResume)
+                    {
+                        D_AddedResume = true;
+                        F_AddItem("Update/Create Resume");
+                    }
+
+                    F_AddItem($"Apply: {D_ActiveNode.Name}");
+                }
+                else
+                {
+                    F_AddItem("Email jobposter@unilever.com to express interest.");
+                    F_AddItem($"Apply: {D_ActiveNode.Name}");
+                }
             }
 
         }
@@ -1692,6 +1727,67 @@ namespace Windows_Desktop
         }
         #endregion
 
+        #region Canvas F - Action Plan
+        private void F_AddItem(string newText)
+        {
+            if(F_Item1.Visibility == Visibility.Hidden)
+            {
+                F_Item1.Visibility = Visibility.Visible;
+                F_Item1.SetInfo("1", newText);
+            }
+            else if (F_Item2.Visibility == Visibility.Hidden)
+            {
+                F_Item2.Visibility = Visibility.Visible;
+                F_Item2.SetInfo("2", newText);
+            }
+            else if (F_Item3.Visibility == Visibility.Hidden)
+            {
+                F_Item3.Visibility = Visibility.Visible;
+                F_Item3.SetInfo("3", newText);
+            }
+            else if (F_Item4.Visibility == Visibility.Hidden)
+            {
+                F_Item4.Visibility = Visibility.Visible;
+                F_Item4.SetInfo("4", newText);
+            }
+            else if (F_Item5.Visibility == Visibility.Hidden)
+            {
+                F_Item5.Visibility = Visibility.Visible;
+                F_Item5.SetInfo("5", newText);
+            }
+            else if (F_Item6.Visibility == Visibility.Hidden)
+            {
+                F_Item6.Visibility = Visibility.Visible;
+                F_Item6.SetInfo("6", newText);
+            }
+            else if (F_Item7.Visibility == Visibility.Hidden)
+            {
+                F_Item7.Visibility = Visibility.Visible;
+                F_Item7.SetInfo("7", newText);
+            }
+            else if (F_Item8.Visibility == Visibility.Hidden)
+            {
+                F_Item8.Visibility = Visibility.Visible;
+                F_Item8.SetInfo("8", newText);
+            }
+            else if (F_Item9.Visibility == Visibility.Hidden)
+            {
+                F_Item9.Visibility = Visibility.Visible;
+                F_Item9.SetInfo("9", newText);
+            }
+            else if (F_Item10.Visibility == Visibility.Hidden)
+            {
+                F_Item10.Visibility = Visibility.Visible;
+                F_Item10.SetInfo("10", newText);
+            }
+            else if (F_Item11.Visibility == Visibility.Hidden)
+            {
+                F_Item11.Visibility = Visibility.Visible;
+                F_Item11.SetInfo("11", newText);
+            }
+        }
+        #endregion
+
         #region Mouse Move/Leave/Down
         public void Generalmousemove(object sender, EventArgs e)
         {
@@ -1768,7 +1864,7 @@ namespace Windows_Desktop
             if (ContentCanvasD.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-              //  HeaderTitleLabel.Content = "Discover Career Paths";
+                CanvasD_init();
                 ContentCanvasD.Visibility = Visibility.Visible;
             }
         }
