@@ -148,17 +148,20 @@ namespace Analytics
                         tmpList.Add(j);
                     }
                 }
-                else if (ID == 0)
+                else if (ID == 0 || ID > 33)
                 {
-                    if (j.search_term.Contains("Packer"))
+                    if (j.search_term.Contains("Packer") || j.search_term.Contains("Mechanic") || j.search_term.Contains("Automation") || j.search_term.Contains("Operator"))
                     {
-                        if (j.isAR && l == ActiveLocations.AR && Salary_AR > 0)
+                        if (!j.JobTitle.Contains("Bagger"))
                         {
-                            tmpList.Add(j);
-                        }
-                        else if (j.isTN && l == ActiveLocations.TN && Salary_TN > 0)
-                        {
-                            tmpList.Add(j);
+                            if (j.isAR && l == ActiveLocations.AR && Salary_AR > 0)
+                            {
+                                tmpList.Add(j);
+                            }
+                            else if (j.isTN && l == ActiveLocations.TN && Salary_TN > 0)
+                            {
+                                tmpList.Add(j);
+                            }
                         }
                     }
                 }

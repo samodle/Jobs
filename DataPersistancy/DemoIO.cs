@@ -115,7 +115,7 @@ namespace DataPersistancy
                 case 0:
                     return new List<int> { 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 17, 38 };
                 case 1:
-                    return new List<int> { 35, 23, 27, 26, 7, 6, 24, 22, 11 };
+                    return new List<int> { 35, 23, 34, 37, 27, 26, 7, 6, 24, 22, 11 };
                 case 2:
                     return new List<int> { 4, 1, 13, 6, 7, 14, 22, 11 };
                 case 3:

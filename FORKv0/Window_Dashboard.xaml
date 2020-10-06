@@ -1269,7 +1269,7 @@
             </Canvas>
 
             <!--UniversalSplashCanvas-->
-            <Canvas x:Name="UniversalSplashCanvas" Visibility="Visible">
+            <Canvas x:Name="UniversalSplashCanvas" Visibility="Hidden">
                 <Rectangle Height="663" Width="1250" Fill="#FF1F1F1F" Opacity="0.7" MouseDown="CloseSplash"/>
                 <Image Height="44" Canvas.Left="1189" Canvas.Top="8" Width="44" Source="Images/noun_help_2392630.png" Stretch="Fill" Cursor="Hand" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
