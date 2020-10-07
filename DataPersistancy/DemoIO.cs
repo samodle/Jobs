@@ -147,11 +147,11 @@ namespace DataPersistancy
                 case 16:
                     return new List<int> { 1, 4, 6, 7, 5, 13, 14, 22, 11 };
                 case 23:
-                    return new List<int> { 6, 34, 7, 35, 36, 37 };
+                    return new List<int> { 6, 34, 7, 35, 36, 37, 11, 26, 30, 31 };
                 case 26:
-                    return new List<int> { 29 };
+                    return new List<int> { 29, 30, 31 };
                 case 27:
-                    return new List<int> { 28 };
+                    return new List<int> { 28, 30, 31, 34, 36, 37 };
                 case 34:
                     return new List<int> { 23, 36, 37, 6, 7 };
                 case 35:
@@ -163,7 +163,7 @@ namespace DataPersistancy
                 case 38:
                     return new List<int> { 1, 6, 7, 13, 14, 15, 35 };
                 default:
-                    return new List<int> { 6, 7 };
+                    return new List<int> { 6, 7, 38, 35 };
             }
         }
 
