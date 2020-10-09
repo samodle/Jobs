@@ -21,6 +21,11 @@ namespace Raw_Job_Processing
         Unknown = 2
     }
 
+    public class PaySummary
+    {
+        public JobPayType pType { get; set; }
+    }
+
 
     public class JobKPI
     {
@@ -31,11 +36,18 @@ namespace Raw_Job_Processing
         public JobCommitment Commitment { get; set; }
         public string State { get; set; }
         public string City { get; set; }
+        public List<DateTime> DatesFound { get; set; }
 
         //pay low
         //pay high
 
-        public void Clean() { }
+        public void Clean()
+        { 
+            foreach(DateTime d in DatesFound)
+            {
+
+            }
+        }
 
     }
 }

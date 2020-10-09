@@ -73,8 +73,6 @@ namespace Raw_Job_Processing
 
                     if (bsonDocs.Count > 0)
                     {
-                       // var kpiWriteList = new List<JobKPI>();
-
                         foreach (var b in bsonDocs)
                         {
                             //convert to C# class object
@@ -93,19 +91,6 @@ namespace Raw_Job_Processing
                             //keep track of how many we've done
                             tmp_i++;
                         }
-
-                        //update||insert job kpi into database
-                        /*
-                        var EmpInfoArray = new List<BsonDocument>();
-
-                        foreach (JobKPI j in kpiWriteList)
-                        {
-                            EmpInfoArray.Add(j.ToBsonDocument());
-                        }
-
-                        var options = new UpdateOptions { IsUpsert = true };
-                        var result = await kpi_collection.UpdateManyAsync(new BsonDocument(), EmpInfoArray, options);
-                        */
                     }
                     else
                     {

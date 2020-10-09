@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Raw_Job_Processing
 {
@@ -28,6 +29,18 @@ namespace Raw_Job_Processing
 
         public JobKPI getJobKPI()
         {
+            var newKPI = new JobKPI();
+
+            newKPI.JobTitle = this.JobTitle;
+
+            //consolidate dates
+            foreach(DateTime d in dates_found)
+            {
+                newKPI.DatesFound.Add(d.Date);
+            }
+            newKPI.DatesFound = newKPI.DatesFound.Distinct().ToList();
+
+
             return new JobKPI();
         }
 
