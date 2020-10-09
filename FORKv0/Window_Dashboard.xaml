@@ -4,11 +4,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:uc="clr-namespace:Windows_Desktop"
     x:Class="Windows_Desktop.dashboardwindow"
         mc:Ignorable="d"
         Loaded="fork_onload"      
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="Fork - Beta v0.12.1"  Height="706" Width="1250" ResizeMode="CanResizeWithGrip" MinHeight="451" MinWidth="800"       
+        Title="Fork v0.23.7"  Height="706" Width="1250" ResizeMode="CanResizeWithGrip" MinHeight="451" MinWidth="800"       
         WindowStartupLocation="CenterScreen"   >
     <Window.Resources>
         <ResourceDictionary>
@@ -214,7 +215,7 @@
                 </Canvas>
 
                 <!--B Canvas - Jobs -->
-                <Canvas x:Name="ContentCanvasB" Visibility="Visible"
+                <Canvas x:Name="ContentCanvasB" Visibility="Hidden"
                         Height="557" Width="1239" Background="White">
 
                     <Canvas x:Name="MainBChartCanvas"  Height="493" Canvas.Left="10" Canvas.Top="64" Width="1219" Background="#FFF3F3F3" >
@@ -709,7 +710,7 @@
                 </Canvas>
 
                 <!--D Canvas - Pathfinder-->
-                <Canvas x:Name="ContentCanvasD" Visibility="Hidden"
+                <Canvas x:Name="ContentCanvasD" Visibility="Visible"
                         Height="557" Width="1239" Background="#FFF3F3F3">
 
 
@@ -722,7 +723,33 @@
 
                         <!-- Pathway Explorer -->
                         <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Top="-45" Width="211"/>
-                        <Label Content="Pathway Explorer" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="13" Canvas.Top="-50"/>
+                        <Label x:Name="D_PathwayTitleLabel" Content="All Pathways" FontSize="18" FontWeight="ExtraBold" MouseDown="MorePathwayIcon_MouseDown"  Foreground="White" Canvas.Left="13" Canvas.Top="-50"/>
+                        <Image x:Name="MorePathwayIcon" Height="27" Canvas.Left="180" Canvas.Top="-42" Width="28" Source="Images/noun_triangle_white.png" Stretch="Fill" Cursor="Hand" MouseDown="MorePathwayIcon_MouseDown" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <Image x:Name="LessPathwayIcon" Visibility="Hidden" Height="27" Canvas.Left="180" Canvas.Top="-42" Width="28" Source="Images/noun_triangle_white.png" Stretch="Fill" Cursor="Hand" MouseDown="MorePathwayIcon_MouseDown" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-90"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                        <Canvas x:Name="D_MorePathwayCanvas">
+                            <Rectangle   Fill="#002060" Opacity=".8" Height="88" Canvas.Top="-16" Width="211"/>
+                            <Label Content="External Pathways" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="13" Canvas.Top="38" Cursor="Hand" MouseDown="ExPathways_MouseDown" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                            <Label Content="Internal Pathways" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="13" Canvas.Top="9" Cursor="Hand" MouseDown="InPathways_MouseDown" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                            <Label Content="All Pathways" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="13" Canvas.Top="-18" Cursor="Hand" MouseDown="AllPathways_MouseDown" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        </Canvas>
 
                         <Canvas x:Name="BallSummaryCanvas" Visibility="Visible">
 
@@ -990,15 +1017,11 @@
                         <Image Height="163" Width="207" Stretch="Fill"  Source="Images/networkB.png" Canvas.Left="332"/>
                         <Image Height="163" Width="207" Stretch="Fill"  Source="Images/networkB.png" Canvas.Top="261" Canvas.Left="344"/>
 
-
                         <Ellipse x:Name="Ball_1A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="92" Canvas.Top="193" MouseDown="Ball_1A_MouseDown"/>
-                        <!--  <Image x:Name="Ball_1A_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="200" Canvas.Left="95"/>
-                        <Image x:Name="Ball_1A_Remote_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_white.png" Stretch="Uniform" Canvas.Top="200" Canvas.Left="95"/> -->
 
                         <Label x:Name="Label_1A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="54" Canvas.Top="233"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="259" Canvas.Left="62"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_1A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="72" Canvas.Top="255" Width="126"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
-
 
                         <Ellipse x:Name="Ball_2A" Style="{StaticResource NetworkBallStyle}" Canvas.Left="305" Canvas.Top="64" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown" />
                         <Image x:Name="Ball_2A_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
@@ -1006,11 +1029,9 @@
                         <Image x:Name="Ball_2A_Relocate_Unselected" Visibility="Visible" Height="28" Width="35" Source="Images/noun_Plane_blue.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Image x:Name="Ball_2A_Relocate_Selected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Plane_white.png" Stretch="Uniform" Canvas.Top="70" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
 
-
                         <Label x:Name="Label_2A_Role" FontWeight="Bold" FontSize="15" Content="Sales Associate" Canvas.Left="269" Canvas.Top="104"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Image Height="24" Width="39" Source="Images/noun_Money_purple.png" Stretch="Uniform" Canvas.Top="127" Canvas.Left="269"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
                         <Label x:Name="Label_2A_Pay"  Content="55k - 65k" FontSize="14" FontWeight="DemiBold" Foreground="Black" Typography.Capitals="AllSmallCaps" HorizontalContentAlignment="Center" Canvas.Left="279" Canvas.Top="123" Width="126"  MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
-
 
                         <Ellipse x:Name="Ball_2B" Style="{StaticResource NetworkBallStyle}" Canvas.Left="305" Canvas.Top="324" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"  />
                         <Image x:Name="Ball_2B_Remote_Unselected" Visibility="Hidden" Height="28" Width="35" Source="Images/noun_Headset_blue.png" Stretch="Uniform" Canvas.Top="331" Canvas.Left="308" MouseMove="Ballmousemove" MouseLeave="Ballmouseleave" MouseDown="Ball_Generic_MouseDown"/>
@@ -1088,7 +1109,6 @@
                         <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="10" Width="167">
                         </Rectangle>
 
-
                         <Label Content="Personal Info" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
                         <Label Content="Name" Foreground="Black" FontWeight="DemiBold" Canvas.Left="71" Canvas.Top="69" FontSize="12" Typography.Capitals="AllSmallCaps"/>
                         <Label Content="Samuel Ryan Odle" Foreground="Black" FontWeight="DemiBold" Canvas.Left="145" Canvas.Top="59" FontSize="22"/>
@@ -1118,19 +1138,40 @@
                             </Rectangle.Effect>
                         </Rectangle>
                         <Label Content="Goals" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="277"/>
-                        <Image  Height="137" Canvas.Left="19" Canvas.Top="338" Width="158" Opacity=".8" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="57" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
 
-                        <Image  Height="137" Canvas.Left="164" Canvas.Top="338" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="206" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
+                        <Image x:Name="E_Goal1A"  Height="137" Canvas.Left="19" Canvas.Top="338" Width="158" Opacity=".8" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchGoalSplashA" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label x:Name="E_Goal1B"   Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="57" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashA"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
+                        <Label x:Name="E_Goal1B2"   Content="Add Goal" Visibility="Hidden" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="57" Canvas.Top="456" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashA"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Image x:Name="E_Goal1C1"  Visibility="Hidden"   Height="117" Canvas.Left="27" Canvas.Top="348" Width="143" Opacity="1" Source="Images/noun_Home_blueIcon.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchGoalSplashA" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Image x:Name="E_Goal1C2"  Visibility="Hidden"   Height="117" Canvas.Left="27" Canvas.Top="348" Width="143" Opacity="1" Source="Images/noun_Map_blueIcon.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchGoalSplashA" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
+                        <Image  x:Name="E_Goal2A" Visibility="Hidden"  Height="137" Canvas.Left="164" Canvas.Top="338" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashB"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label  x:Name="E_Goal2B" Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="200" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashB"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label  x:Name="E_Goal2B2" Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="200" Canvas.Top="456" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashB"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Image  x:Name="E_Goal2C1" Visibility="Hidden"  Height="118" Canvas.Left="172" Canvas.Top="348" Width="143" Opacity="1" Source="Images/noun_dollar_blueIcon.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashB"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Image  Height="137" Canvas.Left="297" Canvas.Top="338" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="337" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
+                        <Image  x:Name="E_Goal3A"   Visibility="Hidden"  Height="137" Canvas.Left="297" Canvas.Top="338" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashC"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label x:Name="E_Goal3B"  Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="333" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashC"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" />
+                        <Label x:Name="E_Goal3B2"  Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="333" Canvas.Top="456" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashC"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" />
 
+                        <Ellipse x:Name="E_Goal3C2" Visibility="Hidden"  Height="85" Canvas.Left="333" Canvas.Top="366" Width="85" Fill="#002060" ></Ellipse>
+                        <Image  x:Name="E_Goal3C1" Visibility="Hidden"  Height="59" Canvas.Left="340" Canvas.Top="381" Width="72" Opacity="1" Source="Images/noun_Headset_white.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashC"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Rectangle x:Name="E_Goal3C3" Visibility="Hidden" Fill="White" Height="4" Width="50" Canvas.Left="351" Canvas.Top="411"   MouseDown="E_LaunchGoalSplashC"  RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-42.332"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
 
-                        <Image  Height="136" Canvas.Left="428" Canvas.Top="339" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="460" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
+                        <Image  x:Name="E_Goal4A"  Visibility="Hidden"   Height="136" Canvas.Left="428" Canvas.Top="339" Width="158" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashD"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label x:Name="E_Goal4B"  Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="460" Canvas.Top="441" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashD"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Label x:Name="E_Goal4B2"  Visibility="Hidden"  Content="Add Goal" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="460" Canvas.Top="456" FontSize="18" Cursor="Hand" MouseDown="E_LaunchGoalSplashD"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                        <Ellipse x:Name="E_Goal4C2" Visibility="Hidden"  Height="85" Canvas.Left="465" Canvas.Top="366" Width="85" Fill="#002060"   MouseDown="E_LaunchGoalSplashD"  ></Ellipse>
+                        <Image  x:Name="E_Goal4C1" Visibility="Hidden"  Height="59" Canvas.Left="474" Canvas.Top="382" Width="72" Opacity="1" Source="Images/noun_retiree_white.png" Stretch="Uniform" Cursor="Hand"  MouseDown="E_LaunchGoalSplashD"  MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
 
                         <!-- Skills -->
@@ -1146,81 +1187,22 @@
                         </Rectangle>
                         <Label Content="Skills" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="629" Canvas.Top="5"/>
 
-                        <!-- Skill 1 -->
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="757" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
+                        <!-- Skills -->
+                        <uc:UserControlSkills x:Name="E_Skill1" Visibility="Hidden" Canvas.Left="703" Width="400" Height="150" Canvas.Top="59"></uc:UserControlSkills>
+                        <Image x:Name="E_Skill1a" Height="54" Visibility="Visible"  Canvas.Left="853" Canvas.Top="167" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchSkillSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="821" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
+                        <uc:UserControlSkills x:Name="E_Skill2"  Visibility="Hidden"  Canvas.Left="703" Width="400" Height="150" Canvas.Top="159"></uc:UserControlSkills>
+                        <Image  x:Name="E_Skill2a"  Height="54" Visibility="Hidden"  Canvas.Left="853" Canvas.Top="267" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchSkillSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="885" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
+                        <uc:UserControlSkills x:Name="E_Skill3"  Visibility="Hidden"  Canvas.Left="703" Width="400" Height="150" Canvas.Top="259"></uc:UserControlSkills>
+                        <Image x:Name="E_Skill3a"  Height="54" Visibility="Hidden"  Canvas.Left="853" Canvas.Top="367" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchSkillSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
-                        <Rectangle   Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="944" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-
-                        <Rectangle   Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="1003" Canvas.Top="130" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Label Content="Leadership" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="726" Canvas.Top="76" FontSize="22" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
-                        <Rectangle   Fill="LightGray" Opacity=".4" Height="1" Canvas.Left="757" Canvas.Top="195" Width="286" RenderTransformOrigin="0.5,0.5"></Rectangle>
-
-                        <!-- Skill 2 -->
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="757" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="821" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-                        <Rectangle   Fill="#806EB1" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="885" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-                        <Rectangle   Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="944" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-
-
-                        <Rectangle   Fill="White" Stroke="#806EB1" StrokeThickness="5"  Opacity="1" Height="29" Canvas.Left="1003" Canvas.Top="277" Width="35">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Label Content="Change Management" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="726" Canvas.Top="221" FontSize="22" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
-                        <Rectangle   Fill="LightGray" Opacity=".4" Height="1" Canvas.Left="757" Canvas.Top="338" Width="286" RenderTransformOrigin="0.5,0.5"></Rectangle>
-
-                        <!-- Skill 3 -->
-
-                        <!-- Skill 4 -->
+                        <uc:UserControlSkills x:Name="E_Skill4"  Visibility="Hidden"  Canvas.Left="703" Width="400" Height="150" Canvas.Top="359"></uc:UserControlSkills>
+                        <Image  x:Name="E_Skill4a"  Height="54" Visibility="Hidden"  Canvas.Left="853" Canvas.Top="467" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="E_LaunchSkillSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
 
                         <!-- Add Skills -->
-                        <Image  Height="54" Canvas.Left="867" Canvas.Top="361" Width="67" Opacity=".3" Source="Images/noun_add button_blue.png" Stretch="Uniform" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
-                        <Label Content="Add Skill" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="871" Canvas.Top="474" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Hidden"/>
+
+                        <Label x:Name="E_SkillLabel" Content="Add Skill" Typography.Capitals="AllSmallCaps" Foreground="Black" FontWeight="DemiBold" Canvas.Left="847" Canvas.Top="145" FontSize="18" Cursor="Hand" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" Visibility="Visible"/>
 
 
                     </Canvas>
@@ -1232,81 +1214,46 @@
                         Height="554" Width="1247" Background="#FFF3F3F3">
 
                     <Canvas x:Name="F1Canvas" Height="590" Width="1200" Canvas.Left="17" Canvas.Top="5">
-                        <!--Jobs-->
-                        <Rectangle Fill="White" Height="257" Canvas.Left="10" Canvas.Top="10" Width="587">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
 
-                        <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="10" Width="167">
-                        </Rectangle>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="539" Width="1236" Canvas.Left="-24">
+                            <Canvas x:Name="F_ThisCanvas" Height="2000" Width="1180">
+                                <uc:UserControlActionItem x:Name="F_Item1" Visibility="Hidden" Height="160" Width="1180"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item2"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="170"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item3"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="340"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item4"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="510"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item5"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="680"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item6"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="850"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item7"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1020"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item8" Visibility="Hidden"   Height="160" Width="1180" Canvas.Top="1190"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item9"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1360"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item10"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1530"></uc:UserControlActionItem>
+                                <uc:UserControlActionItem x:Name="F_Item11"  Visibility="Hidden"  Height="160" Width="1180" Canvas.Top="1700"></uc:UserControlActionItem>
+                            </Canvas>
+                        </ScrollViewer>
+                        <Canvas x:Name="F_GettingStartedCanvas">
+                            <Rectangle Fill="White" Height="276" Width="529" Canvas.Left="349" Canvas.Top="62">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <Label Content="Your Action Plan Is Empty!" FontWeight="ExtraBold" Canvas.Left="456" Canvas.Top="94" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="Black" Cursor="Hand"/>
+                            <Label Content="Favorite A Role To Get Started" FontWeight="Bold" Canvas.Left="456" Canvas.Top="255" Height="40" Width="261" VerticalContentAlignment="Center" Padding="2"  FontSize="18" Foreground="Black" Cursor="Hand"/>
+                            <Image Height="154" Canvas.Left="551" Canvas.Top="120" Width="150" Source="Images/noun_star_honey_empty.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                            <Image Height="122" Canvas.Left="672" Canvas.Top="166" Width="133" Source="Images/noun_Arrow1_black.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="-106.296"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
 
+                            </Image>
 
-                        <Label Content="Jobs" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="5"/>
-
-                        <telerik:RadGridView x:Name="F_JobGridView" GroupRenderMode="Flat" IsFilteringAllowed="True"
-							 CanUserFreezeColumns="False"
-							 RowIndicatorVisibility="Collapsed"
-							 IsReadOnly="True"
-							 ItemsSource="{Binding B1SelectedJobs}"
-							 AutoGenerateColumns="False" Height="206" Width="567" Canvas.Top="51" Canvas.Left="19" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
-                            <telerik:RadGridView.Columns>
-                                <telerik:GridViewDataColumn Header="Title" Width="300"
-											DataMemberBinding="{Binding CustomerID}" />
-                                <telerik:GridViewDataColumn Header="Company" Width="250"
-											DataMemberBinding="{Binding CompanyName}" />
-
-
-                            </telerik:RadGridView.Columns>
-                        </telerik:RadGridView>
-                        <!--Training-->
-                        <Rectangle Fill="White" Height="256" Canvas.Left="10" Canvas.Top="282" Width="587">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="10" Canvas.Top="282" Width="167">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Label Content="Classes" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="19" Canvas.Top="277"/>
-
-
-                        <telerik:RadGridView x:Name="F_ClassGridView" GroupRenderMode="Flat" IsFilteringAllowed="True"
-							 CanUserFreezeColumns="False"
-							 RowIndicatorVisibility="Collapsed"
-							 IsReadOnly="True"
-							 ItemsSource="{Binding B1SelectedJobs}"
-							 AutoGenerateColumns="False" Height="206" Width="567" Canvas.Top="322" Canvas.Left="19" ShowGroupPanel="False" telerik:StyleManager.Theme="Transparent">
-                            <telerik:RadGridView.Columns>
-                                <telerik:GridViewDataColumn Header="Title" Width="300"
-											DataMemberBinding="{Binding CustomerID}" />
-                                <telerik:GridViewDataColumn Header="Provider" Width="250"
-											DataMemberBinding="{Binding CompanyName}" />
-
-
-                            </telerik:RadGridView.Columns>
-                        </telerik:RadGridView>
-
-                        <!--Summary-->
-                        <Rectangle Fill="White" Height="528" Canvas.Left="618" Canvas.Top="10" Width="572">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Rectangle   Fill="#002060" Opacity=".8" Height="29" Canvas.Left="618" Canvas.Top="10" Width="167">
-                            <Rectangle.Effect>
-                                <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
-                            </Rectangle.Effect>
-                        </Rectangle>
-                        <Label Content="Summary" FontSize="18" FontWeight="ExtraBold" Foreground="White" Canvas.Left="629" Canvas.Top="5"/>
+                        </Canvas>
                     </Canvas>
-
                 </Canvas>
-
-
             </Canvas>
 
             <Canvas x:Name="MainSeparatorCanvas"  HorizontalAlignment="Left" Height="3" Margin="-3,60,-4,0" VerticalAlignment="Top" Width="1250" Background="#FFF0F0F0" Grid.ColumnSpan="2"/>
@@ -1315,6 +1262,410 @@
                 <!-- Foreground="#FF666666" FontWeight="DemiBold"-->
                 <Image x:Name="MenuLaunchIcon" Height="13" Canvas.Left="15" Canvas.Top="24" Width="24" Source="Images/MenuiconMain.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
                 <Canvas x:Name="HeaderKPIcanvas"  Height="43" Canvas.Left="514" Canvas.Top="8" Width="547"/>
+
+                <Image x:Name="MenuHelpIcon" Height="44" Canvas.Left="1189" Canvas.Top="8" Width="44" Source="Images/noun_help_2392630.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchGenericHelpSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                <Image x:Name="MenuShareIcon" Visibility="Hidden" Height="34" Canvas.Left="1142" Canvas.Top="13" Width="34" Source="Images/ExporttoExcel.png" Stretch="Fill" Cursor="Hand" MouseDown="LaunchMenu" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+            </Canvas>
+
+            <!--UniversalSplashCanvas-->
+            <Canvas x:Name="UniversalSplashCanvas" Visibility="Hidden">
+                <Rectangle Height="663" Width="1250" Fill="#FF1F1F1F" Opacity="0.7" MouseDown="CloseSplash"/>
+                <Image Height="44" Canvas.Left="1189" Canvas.Top="8" Width="44" Source="Images/noun_help_2392630.png" Stretch="Fill" Cursor="Hand" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+                <Canvas x:Name="F_HelpSplashA" Visibility="Hidden">
+                    <Image Height="162" Canvas.Left="15" Canvas.Top="13" Width="163" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="166" Canvas.Top="87" Height="154" Width="446" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Your action plan is empty because you haven't favorited any jobs, trainings, or roles.
+                        <LineBreak/> <LineBreak/>
+                        To Get started, click the Menu here then select "Career Pathfinder"
+                    </TextBlock>
+
+                    <Image Height="304" Canvas.Left="724" Canvas.Top="191" Width="386" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="784" Canvas.Top="418" Height="154" Width="446" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Action Items will appear right here
+                    </TextBlock>
+
+                    <Image Height="122" Canvas.Left="1076" Canvas.Top="10" Width="128" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.224"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1044" Canvas.Top="108" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Click here to close this help menu
+                    </TextBlock>
+
+                </Canvas>
+                <Canvas x:Name="F_HelpSplashB" Visibility="Hidden">
+                    <Image Height="122" Canvas.Left="1076" Canvas.Top="10" Width="128" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.224"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1044" Canvas.Top="108" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Click here to close this help menu
+                    </TextBlock>
+
+                    <Image Height="162" Canvas.Left="15" Canvas.Top="13" Width="163" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="160" Canvas.Top="108" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Click the Menu button to access other features
+                    </TextBlock>
+
+
+                    <Image Height="124" Canvas.Left="1099" Canvas.Top="359" Width="130" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="400.432"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="957" Canvas.Top="387" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Scroll to see more items
+                    </TextBlock>
+
+                    <Image Height="304" Canvas.Left="468" Canvas.Top="28" Width="590" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="634" Canvas.Top="257" Height="154" Width="289" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Check the box or click on the text to mark it complete
+                    </TextBlock>
+
+                </Canvas>
+
+                <Canvas x:Name="D_HelpSplash" Visibility="Visible">
+                    <Image Height="122" Canvas.Left="1076" Canvas.Top="10" Width="128" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.224"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1044" Canvas.Top="108" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Click here to close this help menu
+                    </TextBlock>
+
+                    <Image Height="122" Canvas.Left="43" Canvas.Top="-20" Width="112" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-42.036"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="159" Canvas.Top="6" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Click the Menu button to access other features
+                    </TextBlock>
+
+                    <Image Height="659" Canvas.Left="427" Canvas.Top="20" Width="440" Source="Images/noun_bracket_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.826"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="389" Canvas.Top="324" Height="154" Width="207" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Detailed Information about the selected role.
+                    </TextBlock>
+
+                    <Image Height="190" Canvas.Left="153" Canvas.Top="53" Width="136" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-18.742"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="293" Canvas.Top="139" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        This dropdown toggles between internal roles, external roles, and all roles.
+                    </TextBlock>
+
+
+                    <Image Height="301" Canvas.Left="-22" Canvas.Top="209" Width="301" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="40" Canvas.Top="439" Height="154" Width="194" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Click each bubble to learn more about any given role.
+                    </TextBlock>
+
+
+
+
+
+
+                    <Image Height="190" Canvas.Left="665" Canvas.Top="403" Width="136" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-146.631"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="677" Canvas.Top="391" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Favorite
+                    </TextBlock>
+
+                    <Image Height="135" Canvas.Left="782" Canvas.Top="452" Width="108" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-192.601"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="854" Canvas.Top="439" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Delete
+                    </TextBlock>
+
+
+
+
+                    <Image Height="235" Canvas.Left="1097" Canvas.Top="376" Width="163" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-161.855"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1081" Canvas.Top="377" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        See Job Map
+                    </TextBlock>
+
+                    <Image Height="129" Canvas.Left="1006" Canvas.Top="495" Width="113" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-274.027"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="956" Canvas.Top="482" Height="154" Width="125" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        See Open Jobs
+                    </TextBlock>
+
+
+
+
+                </Canvas>
+
+                <Canvas x:Name="E_HelpSplash" Visibility="Hidden">
+                    <Image Height="122" Canvas.Left="1076" Canvas.Top="10" Width="128" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.224"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="1044" Canvas.Top="108" Height="154" Width="186" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                       Click here to close this help menu
+                    </TextBlock>
+
+                    <Image Height="162" Canvas.Left="15" Canvas.Top="13" Width="163" Source="Images/noun_Arrow1_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="160" Canvas.Top="108" Height="154" Width="227" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        Click the Menu button to access other features
+                    </TextBlock>
+
+                    <Image Height="410" Canvas.Left="713" Canvas.Top="43" Width="383" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="795" Canvas.Top="357" Height="154" Width="289" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        The "Add Skill" button brings up a menu where you can add your skills to your profile.
+                    </TextBlock>
+
+
+                    <Image Height="410" Canvas.Left="-64" Canvas.Top="268" Width="383" Source="Images/noun_Circle_drawn_white.png" Stretch="Fill" MouseDown="CloseSplash" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave" RenderTransformOrigin="0.5,0.5">
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-5.988"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <TextBlock FontWeight="Bold" Canvas.Left="242" Canvas.Top="441" Height="154" Width="289" TextWrapping="Wrap" Padding="2"  FontSize="18" Foreground="White" Cursor="Hand">
+                        The "Add Goal" button brings up a menu to walk you through various career goals.
+                    </TextBlock>
+
+                </Canvas>
+
+                <Canvas x:Name="GoalSplashCanvasA" Visibility="Hidden">
+                    <Rectangle Height="436" Width="1072" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="98"/>
+
+                    <Label Content="Am I Willing To Move (For The Right Job)?" FontWeight="ExtraBold" Canvas.Left="123" Canvas.Top="135" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="179" Canvas.Top="216"  MouseDown="Splash_GoalASubmitNo" ></Ellipse>
+                    <Label Content="No" FontWeight="ExtraBold" Canvas.Left="274" Canvas.Top="291" Height="74" Width="87" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitNo" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I want to stay in the same home." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="208" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitNo" />
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="509" Canvas.Top="216"  MouseDown="Splash_GoalASubmitMid"  ></Ellipse>
+                    <Label Content="Locally" FontWeight="ExtraBold" Canvas.Left="562" Canvas.Top="291" Height="74" Width="181" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitMid" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I want to stay near my community." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="546" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitMid" />
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="843" Canvas.Top="216"  MouseDown="Splash_GoalASubmitYes"  ></Ellipse>
+                    <Label Content="Yes" FontWeight="ExtraBold" Canvas.Left="934" Canvas.Top="291" Height="74" Width="87" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitYes" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I'll go anywhere." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="880" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalASubmitYes"  />
+                </Canvas>
+
+                <Canvas x:Name="GoalSplashCanvasB" Visibility="Hidden">
+                    <Rectangle Height="436" Width="731" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="291"/>
+
+
+                    <Label Content="In my next role, I want to make at least this much annually:" FontWeight="ExtraBold" Canvas.Left="328" Canvas.Top="139" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+                    <telerik:RadWatermarkTextBox x:Name="Splash_GoalB1Text" Width="171" Height="50" Canvas.Left="570" Canvas.Top="208" FontSize="20" WatermarkContent="$35,000"></telerik:RadWatermarkTextBox>
+
+                    <Label Content="In 5-10 years, I want to make at least this much annually:" FontWeight="ExtraBold" Canvas.Left="328" Canvas.Top="291" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+                    <telerik:RadWatermarkTextBox x:Name="Splash_GoalB2Text" Width="170" Height="50" Canvas.Left="571" Canvas.Top="356" FontSize="20" WatermarkContent="$55,000"></telerik:RadWatermarkTextBox>
+
+                    <Label Content="Submit" FontSize="18" FontWeight="ExtraBold" Background="#002060" Foreground="White" Canvas.Left="601" HorizontalContentAlignment="Center" Canvas.Top="466" Width="111" MouseDown="Splash_GoalBSubmit" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+                </Canvas>
+
+                <Canvas x:Name="GoalSplashCanvasC" Visibility="Hidden">
+                    <Rectangle Height="436" Width="1072" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="98"/>
+
+                    <Label Content="Am I Willing To Work Remotely?" FontWeight="ExtraBold" Canvas.Left="123" Canvas.Top="135" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="179" Canvas.Top="216" MouseDown="Splash_GoalCSubmitNo"  ></Ellipse>
+                    <Label Content="No" FontWeight="ExtraBold" Canvas.Left="274" Canvas.Top="291" Height="74" Width="87" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitNo" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="Absolutely Not." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="208" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitNo"  />
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="509" Canvas.Top="216" MouseDown="Splash_GoalCSubmitMaybe"  ></Ellipse>
+                    <Label Content="Maybe" FontWeight="ExtraBold" Canvas.Left="562" Canvas.Top="291" Height="74" Width="181" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitMaybe" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I'm open to it." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="546" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitMaybe"  />
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="843" Canvas.Top="216" MouseDown="Splash_GoalCSubmitYes"  ></Ellipse>
+                    <Label Content="Yes" FontWeight="ExtraBold" Canvas.Left="934" Canvas.Top="291" Height="74" Width="87" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitYes" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                    <TextBlock Text="I prefer remote work." HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontWeight="ExtraBold" Canvas.Left="880" Canvas.Top="351" Height="115" Width="197"  Padding="2"  FontSize="18" Foreground="White" Cursor="Hand" MouseDown="Splash_GoalCSubmitYes" />
+
+                </Canvas>
+
+                <Canvas x:Name="GoalSplashCanvasD" Visibility="Hidden">
+                    <Rectangle Height="436" Width="1072" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="114" Canvas.Left="98"/>
+
+                    <Label Content="When Do I Want To Retire?" FontWeight="ExtraBold" Canvas.Left="123" Canvas.Top="135" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="179" Canvas.Top="216" MouseDown="Splash_GoalDSubmitLong"  ></Ellipse>
+                    <Label Content="20+ Yrs" FontWeight="ExtraBold" Canvas.Left="228" Canvas.Top="291" Height="74" Width="249" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalDSubmitLong" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="509" Canvas.Top="216"  MouseDown="Splash_GoalDSubmitMid" ></Ellipse>
+                    <Label Content="10-20 Yrs" FontWeight="ExtraBold" Canvas.Left="546" Canvas.Top="295" Height="74" Width="197" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalDSubmitMid" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+                    <Ellipse Height="250" Width="250" Fill="#002060" Canvas.Left="843" Canvas.Top="216"  MouseDown="Splash_GoalDSubmitShort"  ></Ellipse>
+                    <Label Content="&lt;10 Yrs" FontWeight="ExtraBold" Canvas.Left="893" Canvas.Top="293" Height="74" Width="159" HorizontalAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="White" Cursor="Hand"  MouseDown="Splash_GoalDSubmitShort" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+
+
+                </Canvas>
+
+                <Canvas x:Name="SkillSplashCanvas" Visibility="Hidden">
+                    <Rectangle Height="437" Width="755" Fill="#FF1F1F1F" Opacity="0.9" MouseDown="CloseSplash" Canvas.Top="113" Canvas.Left="271"/>
+                    <Label Content="Add A Skill To My Profile:" FontWeight="ExtraBold" Canvas.Left="294" Canvas.Top="134" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+                    <telerik:RadWatermarkTextBox x:Name="Splash_SkillText" Width="493" Height="50" Canvas.Left="405" Canvas.Top="198" FontSize="20" WatermarkContent="Type Skill Here"></telerik:RadWatermarkTextBox>
+
+                    <Label Content="Rate Your Expertise:" FontWeight="ExtraBold" Canvas.Left="294" Canvas.Top="281" Height="40" Width="674" VerticalContentAlignment="Center" Padding="2"  FontSize="22.667" Foreground="White" Cursor="Hand"/>
+                    <telerik:RadRating x:Name="SplashSkillRating" Canvas.Left="541" Canvas.Top="345" Width="327" Height="86" Foreground="White">
+                        <telerik:RadRatingItem Content="Novice" />
+                        <telerik:RadRatingItem Content=""/>
+                        <telerik:RadRatingItem Content="Average"/>
+                        <telerik:RadRatingItem Content=""/>
+                        <telerik:RadRatingItem Content="Expert"/>
+
+                    </telerik:RadRating>
+
+                    <Label Content="Submit" FontSize="18" FontWeight="ExtraBold" Background="#002060" Foreground="White" Canvas.Left="571" HorizontalContentAlignment="Center" Canvas.Top="431" Width="111" MouseDown="Splash_SkillSubmit" MouseMove="Generalmousemove" MouseLeave="Generalmouseleave"/>
+                </Canvas>
+
             </Canvas>
 
             <!--MainMenuCanvas-->

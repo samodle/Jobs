@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Windows_Desktop.UserControlActionItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="160" d:DesignWidth="1180">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DefaultImgStyle" TargetType="Image">
+                <Setter Property="Opacity" Value="1"/>
+                <Setter Property="Stretch" Value="Uniform"/>
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Height="160" Width="1180">
+        <Canvas Height="160" Width="1180">
+            <Rectangle Fill="White" Height="160" Width="1180">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <Ellipse Width="100" Height="100" Fill="#002060" Canvas.Left="24" Canvas.Top="24">
+                <Ellipse.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#FFDADADA" ShadowDepth="0.5"/>
+                </Ellipse.Effect>
+            </Ellipse>
+            <Image x:Name="Checkbox" Style="{StaticResource DefaultImgStyle}" Height="101" Canvas.Left="938" Canvas.Top="24" Width="130" Source="Images/noun_Checkbox_grey.png" MouseMove="MouseMoveGeneric" MouseLeave="MouseLeaveGeneric" MouseDown="Checkbox_MouseDown"/>
+            <Image x:Name="Check" Style="{StaticResource DefaultImgStyle}" Visibility="Visible"  Height="137" Canvas.Left="941" Canvas.Top="0" Width="158" Source="Images/noun_Check_green.png" MouseMove="MouseMoveGeneric" MouseLeave="MouseLeaveGeneric"  MouseDown="Checkbox_MouseDown"/>
+            <Label x:Name="NumberLabel" Content="1" FontWeight="ExtraBold" Canvas.Left="21" Canvas.Top="24" Height="94" Width="103" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="62.667" Foreground="White" Cursor="Hand"/>
+            <Label x:Name="PrimaryTextLabel"  MouseDown="Checkbox_MouseDown" Content="Complete Training: AM Step 4" FontWeight="ExtraBold" Canvas.Left="151" Canvas.Top="18" Height="106" Width="720" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="Black" Cursor="Hand"/>
+
+            <Image x:Name="Trash" Style="{StaticResource DefaultImgStyle}" Height="24" Canvas.Left="1130" Canvas.Top="10" Width="50" Source="Images/DeleteTrashCanbuttonicon.png" MouseMove="MouseMoveGeneric" MouseLeave="MouseLeaveGeneric"  MouseDown="MouseDown_Trash"/>
+            <Image x:Name="MoveUp" Style="{StaticResource DefaultImgStyle}" Height="61" Canvas.Left="1128" Canvas.Top="48" Width="50" Source="Images/noun_triangle_grey.png" MouseMove="MouseMoveGeneric" MouseLeave="MouseLeaveGeneric"  MouseDown="MouseDown_Up" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="180"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="MoveDown" Style="{StaticResource DefaultImgStyle}" Height="62" Canvas.Left="1128" Canvas.Top="73" Width="50" Source="Images/noun_triangle_grey.png" MouseMove="MouseMoveGeneric" MouseLeave="MouseLeaveGeneric"  MouseDown="MouseDown_Down"/>
+        </Canvas>
+    </Grid>
+</UserControl>

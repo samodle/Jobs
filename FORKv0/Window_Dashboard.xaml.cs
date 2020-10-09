@@ -66,7 +66,7 @@ namespace Windows_Desktop
 
         public ObservableCollection<JD> D_ActiveDataCollection { get; set; } = new ObservableCollection<JD>();
 
-
+        #region Init
         public void fork_onload(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
@@ -78,13 +78,16 @@ namespace Windows_Desktop
             this.map2.Provider = new BingRestMapProvider(MapMode.Aerial, true, Analytics.Constants.BING_MAPS_API_KEY);
             this.BminiJobMap.Provider = provider;
             this.D_miniJobMap.Provider = provider;
- 
 
+            F_ThisCanvas.Height = 4060;
+            F_ThisCanvas.Width = 1180;
+            D_MorePathwayCanvas.Visibility = Visibility.Hidden;
 
             LaunchCanvas.Visibility = Visibility.Visible;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
             B2Canvas.Visibility = Visibility.Hidden;
             B1Canvas.Visibility = Visibility.Visible;
+            UniversalSplashCanvas.Visibility = Visibility.Hidden;
             Landing_Role_AutoCompleteBox.ItemsSource = demoRoleList;
             Landing_Location_AutoCompleteBox.ItemsSource = demoLocationList;
 
@@ -275,7 +278,7 @@ namespace Windows_Desktop
                     CanvasA_init();
                     CanvasB_init();
                     CanvasC_init();
-                    CanvasD_init();
+                    //CanvasD_init();
 
                     ToggleShowHide_CanvasD(sender, f);
                 }
@@ -285,9 +288,9 @@ namespace Windows_Desktop
                     CanvasA_init();
                     CanvasB_init();
                     CanvasC_init();
-                    CanvasD_init();
+                    //CanvasD_init();
 
-                    ToggleShowHide_CanvasD(sender, f);
+                    ToggleShowHide_CanvasF(sender, f);
                     firstInitComplete = true;
                 }
             }
@@ -348,6 +351,269 @@ namespace Windows_Desktop
             if (screenWidth < 1250 | screenHeight < 706)
                 this.WindowState = System.Windows.WindowState.Maximized;
         }
+        #endregion
+
+        #region Splash
+        public enum SplashState { AddSkill, AddGoalA, AddGoalB, AddGoalC, AddGoalD, HelpF, HelpD, HelpE }
+        private SplashState Splash_ActiveState = SplashState.AddSkill;
+
+        public void LaunchGenericHelpSplash(object sender, MouseButtonEventArgs e)
+        {
+            if(ContentCanvasF.Visibility == Visibility.Visible)
+            {
+                Splash_ActiveState = SplashState.HelpF;
+                LaunchSplash();
+            }
+            else if(ContentCanvasD.Visibility == Visibility.Visible)
+            {
+                Splash_ActiveState = SplashState.HelpD;
+                LaunchSplash();
+            }
+            else if (ContentCanvasE.Visibility == Visibility.Visible)
+            {
+                Splash_ActiveState = SplashState.HelpE;
+                LaunchSplash();
+            }
+        }
+
+        public void LaunchSplash()
+        {
+            Splash_HideAllSubCanvases();
+            UniversalSplashCanvas.Visibility = Visibility.Visible;
+
+            switch (Splash_ActiveState)
+            {
+                case SplashState.AddSkill:
+                    SkillSplashCanvas.Visibility = Visibility.Visible;
+                    break;
+
+                case SplashState.AddGoalA:
+                    GoalSplashCanvasA.Visibility = Visibility.Visible;
+                    break;
+
+                case SplashState.AddGoalB:
+                    GoalSplashCanvasB.Visibility = Visibility.Visible;
+                    break;
+
+                case SplashState.AddGoalC:
+                    GoalSplashCanvasC.Visibility = Visibility.Visible;
+                    break;
+
+                case SplashState.AddGoalD:
+                    GoalSplashCanvasD.Visibility = Visibility.Visible;
+                    break;
+
+                case SplashState.HelpF:
+                    if(F_GettingStartedCanvas.Visibility == Visibility.Visible)
+                    {
+                        F_HelpSplashA.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        F_HelpSplashB.Visibility = Visibility.Visible;
+                    }
+                    break;
+                case SplashState.HelpD:
+                    D_HelpSplash.Visibility = Visibility.Visible;
+                    break;
+                case SplashState.HelpE:
+                    E_HelpSplash.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
+        public void CloseSplash(object sender, MouseButtonEventArgs e)
+        {
+            UniversalSplashCanvas.Visibility = Visibility.Hidden;
+        }
+
+        private void Splash_HideAllSubCanvases()
+        {
+            SkillSplashCanvas.Visibility = Visibility.Hidden;
+            GoalSplashCanvasA.Visibility = Visibility.Hidden;
+            GoalSplashCanvasB.Visibility = Visibility.Hidden;
+            GoalSplashCanvasC.Visibility = Visibility.Hidden;
+            GoalSplashCanvasD.Visibility = Visibility.Hidden;
+
+            F_HelpSplashA.Visibility = Visibility.Hidden;
+            F_HelpSplashB.Visibility = Visibility.Hidden;
+            D_HelpSplash.Visibility = Visibility.Hidden;
+            E_HelpSplash.Visibility = Visibility.Hidden;
+        }
+
+        #region Splash Skill
+        public void Splash_SkillSubmit(object sender, EventArgs e)
+        {
+            //splashskill rating, splash_skilltext
+            E_AddSkill(Convert.ToInt32(SplashSkillRating.Value), Splash_SkillText.CurrentText);
+            CloseSplash(new object(), f);
+        }
+        #endregion
+
+        #region Splash Goals
+
+
+
+        public void Splash_GoalASubmitYes(object sender, EventArgs e)
+        {
+            E_Goal1A.Visibility = Visibility.Hidden;
+            E_Goal1B.Content = "Move";
+            E_Goal1B2.Content = "Anywhere";
+            E_Goal1B2.Visibility = Visibility.Visible;
+            if (E_Goal2B2.Visibility == Visibility.Hidden)
+            {
+                E_Goal2A.Visibility = Visibility.Visible;
+            }
+            E_Goal2B.Visibility = Visibility.Visible;
+            E_Goal1C1.Visibility = Visibility.Hidden;
+            E_Goal1C2.Visibility = Visibility.Visible;
+
+            D_IgnoreRelocate = false;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalASubmitMid(object sender, EventArgs e)
+        {
+            E_Goal1A.Visibility = Visibility.Hidden;
+            E_Goal1B.Content = "Stay";
+            E_Goal1B2.Content = "Nearby";
+            E_Goal1B2.Visibility = Visibility.Visible;
+            if (E_Goal2B2.Visibility == Visibility.Hidden)
+            {
+                E_Goal2A.Visibility = Visibility.Visible;
+            }
+            E_Goal2B.Visibility = Visibility.Visible;
+            E_Goal1C1.Visibility = Visibility.Visible;
+            E_Goal1C2.Visibility = Visibility.Hidden;
+
+            D_IgnoreRelocate = false;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalASubmitNo(object sender, EventArgs e)
+        {
+            E_Goal1A.Visibility = Visibility.Hidden;
+            E_Goal1B.Content = "No";
+            E_Goal1B2.Content = "Relocation";
+            E_Goal1B2.Visibility = Visibility.Visible;
+            if (E_Goal2B2.Visibility == Visibility.Hidden) { E_Goal2A.Visibility = Visibility.Visible; }
+            E_Goal2B.Visibility = Visibility.Visible;
+            E_Goal1C1.Visibility = Visibility.Visible;
+            E_Goal1C2.Visibility = Visibility.Hidden;
+
+            D_IgnoreRelocate = true;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalBSubmit(object sender, EventArgs e)
+        {
+            E_Goal2A.Visibility = Visibility.Hidden;
+            E_Goal2B.Content = $"Next: ${Splash_GoalB1Text.Text}";
+            E_Goal2B2.Content = $"Later: ${Splash_GoalB2Text.Text}";
+            E_Goal2B2.Visibility = Visibility.Visible;
+            if (E_Goal3B2.Visibility == Visibility.Hidden)
+            {
+                E_Goal3A.Visibility = Visibility.Visible;
+            }
+            E_Goal3B.Visibility = Visibility.Visible;
+            E_Goal2C1.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalCSubmitYes(object sender, EventArgs e)
+        {
+            E_Goal3A.Visibility = Visibility.Hidden;
+            E_Goal3B.Content = "Prefer";
+            E_Goal3B2.Content = "Telework";
+            E_Goal3B2.Visibility = Visibility.Visible;
+            E_Goal4A.Visibility = Visibility.Visible;
+            E_Goal4B.Visibility = Visibility.Visible;
+            E_Goal3C1.Visibility = Visibility.Visible;
+            E_Goal3C2.Visibility = Visibility.Visible;
+            E_Goal3C3.Visibility = Visibility.Hidden;
+
+            D_IgnoreRemote = false;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalCSubmitMaybe(object sender, EventArgs e)
+        {
+            E_Goal3A.Visibility = Visibility.Hidden;
+            E_Goal3B.Content = "Open To";
+            E_Goal3B2.Content = "Telework";
+            E_Goal3B2.Visibility = Visibility.Visible;
+            E_Goal4A.Visibility = Visibility.Visible;
+            E_Goal4B.Visibility = Visibility.Visible;
+            E_Goal3C1.Visibility = Visibility.Visible;
+            E_Goal3C2.Visibility = Visibility.Visible;
+            E_Goal3C3.Visibility = Visibility.Hidden;
+
+            D_IgnoreRemote = false;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalCSubmitNo(object sender, EventArgs e)
+        {
+            E_Goal3A.Visibility = Visibility.Hidden;
+            E_Goal3B.Content = "No";
+            E_Goal3B2.Content = "Telework";
+            E_Goal3B2.Visibility = Visibility.Visible;
+            E_Goal4A.Visibility = Visibility.Visible;
+            E_Goal4B.Visibility = Visibility.Visible;
+            E_Goal3C1.Visibility = Visibility.Visible;
+            E_Goal3C2.Visibility = Visibility.Visible;
+            E_Goal3C3.Visibility = Visibility.Visible;
+
+            D_IgnoreRemote = true;
+
+            CloseSplash(new object(), f);
+        }
+
+        public void Splash_GoalDSubmitLong(object sender, EventArgs e)
+        {
+            E_Goal4A.Visibility = Visibility.Hidden;
+            E_Goal4B.Content = "Retirement:";
+            E_Goal4B2.Content = ">20 Years";
+            E_Goal4B2.Visibility = Visibility.Visible;
+            E_Goal4C1.Visibility = Visibility.Visible;
+            E_Goal4C2.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+
+        public void Splash_GoalDSubmitMid(object sender, EventArgs e)
+        {
+            E_Goal4A.Visibility = Visibility.Hidden;
+            E_Goal4B.Content = "Retirement:";
+            E_Goal4B2.Content = "10-20 Yrs";
+            E_Goal4B2.Visibility = Visibility.Visible;
+            E_Goal4C1.Visibility = Visibility.Visible;
+            E_Goal4C2.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+
+        public void Splash_GoalDSubmitShort(object sender, EventArgs e)
+        {
+            E_Goal4A.Visibility = Visibility.Hidden;
+            E_Goal4B.Content = "Retirement:";
+            E_Goal4B2.Content = "<10 Yrs";
+            E_Goal4B2.Visibility = Visibility.Visible;
+            E_Goal4C1.Visibility = Visibility.Visible;
+            E_Goal4C2.Visibility = Visibility.Visible;
+            CloseSplash(new object(), f);
+        }
+
+
+
+        #endregion
+
+        #endregion
 
         #region Menu
         public void LaunchMenu(object sender, MouseButtonEventArgs e)
@@ -879,6 +1145,10 @@ namespace Windows_Desktop
         private string D_LinkOne;
         private string D_LinkTwo;
 
+        private bool D_IgnoreRemote = false;
+        private bool D_IgnoreRelocate = false;
+        private NodeInternalExternal TargetNodeState = NodeInternalExternal.Both;
+
         private void CanvasD_init()
         {
 
@@ -887,7 +1157,7 @@ namespace Windows_Desktop
             D_MapCanvas.Visibility = Visibility.Hidden;
             BallSummaryCanvas.Visibility = Visibility.Hidden;
 
-            D_Graph = new CPM_Graph(DemoIO.nodes.First(n => n.Name == ROLE_NAME), SelectedLocation);
+            D_Graph = new CPM_Graph(DemoIO.nodes.First(n => n.Name == ROLE_NAME), SelectedLocation, TargetNodeState, D_IgnoreRelocate, D_IgnoreRemote);
 
             if(SelectedLocation == ActiveLocations.AR)
             {
@@ -906,7 +1176,57 @@ namespace Windows_Desktop
             D_UpdateUIFromGraph();
         }
 
+        private void MorePathwayIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(D_MorePathwayCanvas.Visibility == Visibility.Hidden)
+            {
+                D_MorePathwayCanvas.Visibility = Visibility.Visible;
+                LessPathwayIcon.Visibility = Visibility.Visible;
+                MorePathwayIcon.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                D_MorePathwayCanvas.Visibility = Visibility.Hidden;
+                LessPathwayIcon.Visibility = Visibility.Hidden;
+                MorePathwayIcon.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void AllPathways_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
+            D_MorePathwayCanvas.Visibility = Visibility.Hidden;
+            LessPathwayIcon.Visibility = Visibility.Hidden;
+            MorePathwayIcon.Visibility = Visibility.Visible;
+            D_PathwayTitleLabel.Content = "All Pathways";
+            TargetNodeState = NodeInternalExternal.Both;
+
+            CanvasD_init();
+        }
+
+        private void InPathways_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
+            D_MorePathwayCanvas.Visibility = Visibility.Hidden;
+            LessPathwayIcon.Visibility = Visibility.Hidden;
+            MorePathwayIcon.Visibility = Visibility.Visible;
+            D_PathwayTitleLabel.Content = "Internal Pathways";
+            TargetNodeState = NodeInternalExternal.Internal;
+
+            CanvasD_init();
+        }
+
+        private void ExPathways_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BallSummaryCanvas.Visibility = Visibility.Hidden;
+            D_MorePathwayCanvas.Visibility = Visibility.Hidden;
+            LessPathwayIcon.Visibility = Visibility.Hidden;
+            MorePathwayIcon.Visibility = Visibility.Visible;
+            D_PathwayTitleLabel.Content = "External Pathways";
+            TargetNodeState = NodeInternalExternal.External;
+
+            CanvasD_init();
+        }
 
         private void D_UpdateSideCardFromSelection(CPM_Node n)
         {
@@ -1135,8 +1455,10 @@ namespace Windows_Desktop
 
         private void Ball_Generic_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            // D_HideAllBallImages();
             D_UpdateUIFromGraph();
+
+            D_Favorite_Unselected.Visibility = Visibility.Visible;
+            D_Favorite_Selected.Visibility = Visibility.Hidden;
 
             BallSummaryCanvas.Visibility = Visibility.Visible;
 
@@ -1318,6 +1640,8 @@ namespace Windows_Desktop
         }
 
 
+        private bool D_AddedResume = false;
+
         private void D_Favorite_Toggle_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (D_Favorite_Unselected.Visibility == Visibility.Hidden)
@@ -1329,6 +1653,29 @@ namespace Windows_Desktop
             {
                 D_Favorite_Unselected.Visibility = Visibility.Hidden;
                 D_Favorite_Selected.Visibility = Visibility.Visible;
+
+                F_GettingStartedCanvas.Visibility = Visibility.Hidden;
+
+                //Add to item list
+                if (D_ActiveNode.Actions.Count > 0)
+                {
+                    foreach (Tuple<string, string> i in D_ActiveNode.Actions) { F_AddItem($"Training: {i.Item1}"); }
+                }
+                if (D_ActiveNode.isExternal())
+                {
+                    if (!D_AddedResume)
+                    {
+                        D_AddedResume = true;
+                        F_AddItem("Update/Create Resume");
+                    }
+
+                    F_AddItem($"Apply: {D_ActiveNode.Name}");
+                }
+                else
+                {
+                    F_AddItem("Email jobposter@unilever.com to express interest.");
+                    F_AddItem($"Apply: {D_ActiveNode.Name}");
+                }
             }
 
         }
@@ -1344,6 +1691,143 @@ namespace Windows_Desktop
             System.Diagnostics.Process.Start(D_LinkTwo);
         }
 
+        #endregion
+
+        #region Canvas E - Profile
+
+        #region Splash Launch (E)
+        public void E_LaunchGoalSplashA(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddGoalA;
+
+            LaunchSplash();
+        }
+        public void E_LaunchGoalSplashB(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddGoalB;
+            Splash_GoalB1Text.Clear();
+            Splash_GoalB2Text.Clear();
+            LaunchSplash();
+        }
+        public void E_LaunchGoalSplashC(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddGoalC;
+
+            LaunchSplash();
+        }
+        public void E_LaunchGoalSplashD(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddGoalD;
+ 
+            LaunchSplash();
+        }
+
+
+        public void E_LaunchSkillSplash(object sender, EventArgs e)
+        {
+            Splash_ActiveState = SplashState.AddSkill;
+            SplashSkillRating.Value = 0;
+            Splash_SkillText.Clear();
+            LaunchSplash();
+        }
+        #endregion
+
+        private void E_AddSkill(int rating, string name)
+        {
+            E_SkillLabel.Visibility = Visibility.Hidden;
+
+            if(E_Skill1.Visibility == Visibility.Hidden)
+            {
+                E_Skill1.SkillName.Content = name;
+                E_Skill1.SetLevel(rating);
+                E_Skill1.Visibility = Visibility.Visible;
+            }
+            else if(E_Skill2.Visibility == Visibility.Hidden)
+            {
+                E_Skill2.SkillName.Content = name;
+                E_Skill2.SetLevel(rating);
+                E_Skill1a.Visibility = Visibility.Hidden;
+                E_Skill2.Visibility = Visibility.Visible;
+                E_Skill2a.Visibility = Visibility.Visible;
+            }
+            else if (E_Skill3.Visibility == Visibility.Hidden)
+            {
+                E_Skill3.SkillName.Content = name;
+                E_Skill3.SetLevel(rating);
+                E_Skill2a.Visibility = Visibility.Hidden;
+                E_Skill3.Visibility = Visibility.Visible;
+                E_Skill3a.Visibility = Visibility.Visible;
+            }
+            else if (E_Skill4.Visibility == Visibility.Hidden)
+            {
+                E_Skill4.SkillName.Content = name;
+                E_Skill4.SetLevel(rating);
+                E_Skill3a.Visibility = Visibility.Hidden;
+                E_Skill4.Visibility = Visibility.Visible;
+                E_Skill4a.Visibility = Visibility.Visible;
+            }
+        }
+        #endregion
+
+        #region Canvas F - Action Plan
+        private void F_AddItem(string newText)
+        {
+            if(F_Item1.Visibility == Visibility.Hidden)
+            {
+                F_Item1.Visibility = Visibility.Visible;
+                F_Item1.SetInfo("1", newText);
+            }
+            else if (F_Item2.Visibility == Visibility.Hidden)
+            {
+                F_Item2.Visibility = Visibility.Visible;
+                F_Item2.SetInfo("2", newText);
+            }
+            else if (F_Item3.Visibility == Visibility.Hidden)
+            {
+                F_Item3.Visibility = Visibility.Visible;
+                F_Item3.SetInfo("3", newText);
+            }
+            else if (F_Item4.Visibility == Visibility.Hidden)
+            {
+                F_Item4.Visibility = Visibility.Visible;
+                F_Item4.SetInfo("4", newText);
+            }
+            else if (F_Item5.Visibility == Visibility.Hidden)
+            {
+                F_Item5.Visibility = Visibility.Visible;
+                F_Item5.SetInfo("5", newText);
+            }
+            else if (F_Item6.Visibility == Visibility.Hidden)
+            {
+                F_Item6.Visibility = Visibility.Visible;
+                F_Item6.SetInfo("6", newText);
+            }
+            else if (F_Item7.Visibility == Visibility.Hidden)
+            {
+                F_Item7.Visibility = Visibility.Visible;
+                F_Item7.SetInfo("7", newText);
+            }
+            else if (F_Item8.Visibility == Visibility.Hidden)
+            {
+                F_Item8.Visibility = Visibility.Visible;
+                F_Item8.SetInfo("8", newText);
+            }
+            else if (F_Item9.Visibility == Visibility.Hidden)
+            {
+                F_Item9.Visibility = Visibility.Visible;
+                F_Item9.SetInfo("9", newText);
+            }
+            else if (F_Item10.Visibility == Visibility.Hidden)
+            {
+                F_Item10.Visibility = Visibility.Visible;
+                F_Item10.SetInfo("10", newText);
+            }
+            else if (F_Item11.Visibility == Visibility.Hidden)
+            {
+                F_Item11.Visibility = Visibility.Visible;
+                F_Item11.SetInfo("11", newText);
+            }
+        }
         #endregion
 
         #region Mouse Move/Leave/Down
@@ -1422,7 +1906,7 @@ namespace Windows_Desktop
             if (ContentCanvasD.Visibility != Visibility.Visible)
             {
                 HideAllDashboards();
-              //  HeaderTitleLabel.Content = "Discover Career Paths";
+                CanvasD_init();
                 ContentCanvasD.Visibility = Visibility.Visible;
             }
         }
@@ -1443,6 +1927,7 @@ namespace Windows_Desktop
             {
                 HideAllDashboards();
                 ContentCanvasF.Visibility = Visibility.Visible;
+                MenuShareIcon.Visibility = Visibility.Visible;
             }
         }
 
@@ -1462,6 +1947,8 @@ namespace Windows_Desktop
             ContentCanvasD.Visibility = Visibility.Hidden;
             ContentCanvasE.Visibility = Visibility.Hidden;
             ContentCanvasF.Visibility = Visibility.Hidden;
+
+            MenuShareIcon.Visibility = Visibility.Hidden;
         }
         #endregion
 
@@ -2451,9 +2938,10 @@ namespace Windows_Desktop
 
 
 
+
         #endregion
 
- 
+
     }
 
     static class BrushColors
