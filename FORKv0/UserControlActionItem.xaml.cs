@@ -20,23 +20,11 @@ namespace Windows_Desktop
     /// </summary>
     public partial class UserControlActionItem : UserControl
     {
+        public event EventHandler StatusEvent, TrashEvent, MoveUpEvent, MoveDownEvent;
+
         public UserControlActionItem()
         {
             InitializeComponent();
-        }
-
-        private void Checkbox_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if(Check.Visibility == Visibility.Visible)
-            {
-                Check.Visibility = Visibility.Hidden;
-                PrimaryTextLabel.Foreground = Brushes.Black;
-            }
-            else
-            {
-                Check.Visibility = Visibility.Visible;
-                PrimaryTextLabel.Foreground = Brushes.DarkGray;
-            }
         }
 
         public void SetInfo(string numLabel, string mainText)
@@ -54,6 +42,40 @@ namespace Windows_Desktop
             }
         }
 
+        #region MouseDown
+        private void MouseDown_Trash(object sender, MouseButtonEventArgs e)
+        {
+            if (this.TrashEvent != null) { this.TrashEvent(this, new EventArgs()); }
+        }
+
+        private void MouseDown_Up(object sender, MouseButtonEventArgs e)
+        {
+            if (this.MoveUpEvent != null) { this.MoveUpEvent(this, new EventArgs()); }
+        }
+
+        private void MouseDown_Down(object sender, MouseButtonEventArgs e)
+        {
+            if (this.MoveDownEvent != null) { this.MoveDownEvent(this, new EventArgs()); }
+        }
+
+        private void Checkbox_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Check.Visibility == Visibility.Visible)
+            {
+                Check.Visibility = Visibility.Hidden;
+                PrimaryTextLabel.Foreground = Brushes.Black;
+
+                if (this.StatusEvent != null) { this.StatusEvent(this, new EventArgs()); }
+            }
+            else
+            {
+                Check.Visibility = Visibility.Visible;
+                PrimaryTextLabel.Foreground = Brushes.DarkGray;
+
+                if (this.StatusEvent != null) { this.StatusEvent(this, new EventArgs()); }
+            }
+        }
+        #endregion
 
         #region Mouse Move/Leave
         public void MouseMoveGeneric(object sender, EventArgs e)

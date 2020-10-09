@@ -350,7 +350,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\noun_triangle_grey.png" />
+    <Resource Include="Images\noun_triangle_grey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\noun_bracket_white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
