@@ -43,6 +43,49 @@ namespace Windows_Desktop
         {
             NumberLabel.Content = numLabel;
             PrimaryTextLabel.Content = mainText;
+
+            if (numLabel.Equals("1"))
+            {
+                MoveUp.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                MoveUp.Visibility = Visibility.Visible;
+            }
         }
+
+
+        #region Mouse Move/Leave
+        public void MouseMoveGeneric(object sender, EventArgs e)
+        {
+            if (sender.GetType().ToString().EndsWith("Image"))
+            {
+                Image tempsender = (Image)sender;
+                tempsender.Opacity = 0.8;
+            }
+            else
+            {
+                Control tempsender = (Control)sender;
+                tempsender.Opacity = 0.8;
+            }
+
+        }
+
+        public void MouseLeaveGeneric(object sender, EventArgs e)
+        {
+            if (sender.GetType().ToString().EndsWith("Image"))
+            {
+                Image tempsender = (Image)sender;
+                tempsender.Opacity = 1.0;
+            }
+            else
+            {
+                Control tempsender = (Control)sender;
+                tempsender.Opacity = 1.0;
+            }
+        }
+        #endregion
+
+
     }
 }
