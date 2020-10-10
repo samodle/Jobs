@@ -26,24 +26,6 @@ namespace Raw_Job_Processing
         public List<string> search_terms { get; set; } 
         public List<DateTime> dates_found { get; set; }
 
-
-        public JobKPI getJobKPI()
-        {
-            var newKPI = new JobKPI();
-
-            newKPI.JobTitle = this.JobTitle;
-
-            //consolidate dates
-            foreach(DateTime d in dates_found)
-            {
-                newKPI.DatesFound.Add(d.Date);
-            }
-            newKPI.DatesFound = newKPI.DatesFound.Distinct().ToList();
-
-
-            return new JobKPI();
-        }
-
         public bool Equals(RawJobDescription other)
         {
             if (other.company.Equals(this.company, StringComparison.OrdinalIgnoreCase))

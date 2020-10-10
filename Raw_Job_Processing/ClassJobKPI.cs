@@ -2,11 +2,13 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Raw_Job_Processing
 {
-    public enum JobCommitment 
+    public enum JobCommitment
     {
         FullTime = 0,
         PartTime = 1,
@@ -14,12 +16,15 @@ namespace Raw_Job_Processing
         Unknown = 3
     }
 
-    public enum JobPayType
+    public enum JobSource
     {
-        Hourly = 0,
-        Salary = 1,
-        Unknown = 2
+        Monster = 0,
+        CareerBuilder = 1,
+        Indeed = 2,
+        Unknown = 3
     }
+
+
 
     public class PaySummary
     {
@@ -29,25 +34,119 @@ namespace Raw_Job_Processing
 
     public class JobKPI
     {
+        #region Properties
         [BsonId]
         public ObjectId ID { get; set; }
-        public bool isRemote { get; set; }
+        public bool isRemote { get; set; } = false;
         public string JobTitle { get; set; }
+        public string Company { get; set; }
         public JobCommitment Commitment { get; set; }
         public string State { get; set; }
         public string City { get; set; }
-        public List<DateTime> DatesFound { get; set; }
+        public List<DateTime> DatesFound { get; set; } = new List<DateTime>();
+        public JobSource Source { get; set; }
 
+        public JobPay Pay { get; set; }
         //pay low
         //pay high
 
-        public void Clean()
-        { 
-            foreach(DateTime d in DatesFound)
-            {
+        #region
 
-            }
+        public bool isNewLastNDays(int n)
+        {
+            var nowDate = DateTime.Now.Date;
+            var testDate = nowDate.AddDays(-n);
+
+            return getDateFirstDiscovered() > testDate;
+        }
+        public DateTime getDateFirstDiscovered()
+        {
+            return DatesFound.Min();
         }
 
+
+        public JobKPI(RawJobDescription rjd)
+        {
+            JobTitle = rjd.JobTitle;
+            Company = rjd.company;
+            ID = rjd.ID;
+
+            //Dates
+            foreach (DateTime d in rjd.dates_found)
+            {
+                this.DatesFound.Add(d.Date);
+            }
+            this.DatesFound = this.DatesFound.Distinct().ToList();
+
+            //Commitment
+            if (rjd.commitment.Contains("Contractor")) { Commitment = JobCommitment.Contractor; }
+            else if (rjd.commitment.Contains("Full")) { Commitment = JobCommitment.FullTime; }
+            else if (rjd.commitment.Contains("Part")) { Commitment = JobCommitment.PartTime; }
+            else { Commitment = JobCommitment.Unknown; }
+
+
+            //Location & Remote
+            if (rjd.location.Contains("remote", StringComparison.OrdinalIgnoreCase))
+            {
+                isRemote = true;
+            }
+            else
+            {
+                SetCityState(rjd.location);
+
+                //detailed location info
+
+                //check description for remote
+                if (rjd.description.Contains("remote", StringComparison.OrdinalIgnoreCase)) { isRemote = true; }
+            }
+
+            //source
+            if (rjd.source.Contains("monster", StringComparison.OrdinalIgnoreCase)) { Source = JobSource.Monster; }
+            else if (rjd.source.Contains("indeed", StringComparison.OrdinalIgnoreCase)) { Source = JobSource.Indeed; }
+            else if (rjd.source.Contains("career", StringComparison.OrdinalIgnoreCase)) { Source = JobSource.CareerBuilder; }
+            else { Source = JobSource.Unknown; }
+
+            //pay
+            Pay = new JobPay(rjd.salary);
+        }
+
+        private void SetCityState(string sAddress)
+        {
+            //string[] split = sAddress.Split(new Char[] { ' ', });
+            //return split;
+            sAddress = sAddress.Replace("-", ",");
+            sAddress = sAddress.Replace(".", "");
+            sAddress = sAddress.Replace(",", ", ");
+            sAddress = sAddress.Replace("  ", " ");
+
+            //Regex addressPattern = new Regex(@"(?<city>[A-Za-z',.\s]+) (?<state>([A-Za-z]{2}|[A-Za-z]{2},))\s*(?<zip>\d{5}(-\d{4})|\d{5})");
+            Regex addressPattern = new Regex(@"(?<city>[A-Za-z',.\s]+) (?<state>([A-Za-z]{2}|[A-Za-z]{2}))");
+
+            MatchCollection matches = addressPattern.Matches(sAddress);
+
+            if (matches.Count > 0)
+            {  //for (int mc = 0; mc < matches.Count; mc++)
+                var tmpCity = matches[0].Groups["city"].Value;
+                var tmpState = matches[0].Groups["state"].Value;
+
+                City = tmpCity.Replace(",", "").Trim();
+                State = tmpState.Trim();
+            }
+            else
+            {
+                addressPattern = new Regex(@"(?<state>([A-Za-z]{2}|[A-Za-z]{2})) (?<city>[A-Za-z',.\s]+)");
+
+                if (matches.Count > 0)
+                {  //for (int mc = 0; mc < matches.Count; mc++)
+                    var tmpCity = matches[0].Groups["city"].Value;
+                    var tmpState = matches[0].Groups["state"].Value;
+
+                    City = tmpCity.Replace(",", "").Trim();
+                    State = tmpState.Trim();
+                }
+                else
+                { }
+            }
+        }
     }
 }

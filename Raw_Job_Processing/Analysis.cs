@@ -79,10 +79,10 @@ namespace Raw_Job_Processing
                             var jd = BsonSerializer.Deserialize<RawJobDescription>(b);
 
                             //use class function to generate job kpi report
-                            var jd_kpi = jd.getJobKPI();
+                            var jd_kpi = new JobKPI(jd);
 
                             //clean up dates (and search terms?)
-                            jd_kpi.Clean();
+                            //jd_kpi.Clean();
 
                             //add it to the list
                             var options = new ReplaceOptions { IsUpsert = true };

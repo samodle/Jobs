@@ -19,7 +19,7 @@
 
             public const string CONNECTION = "mongodb://forkAdmin:ForkAdmin123@localhost:27017";
 
-            public const int CHUNK_SIZE = 20000;
+            public const int CHUNK_SIZE = 1000;
         }
 
         //Adjacency Constance
