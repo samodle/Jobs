@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helper;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -15,12 +16,20 @@ namespace Raw_Job_Processing
         Unknown = 3
     }
 
+    public enum CurrencyType
+    {
+        USDollar = 0,
+        BritishPound = 1,
+        Euro = 2,
+        CanadianDollar = 3
+    }
+
     public class JobPay
     {
         private static double HRS_PER_YEAR = 2000;
 
         public JobPayType PayType { get; set; }
-
+        public CurrencyType Currency { get; set; } = CurrencyType.USDollar;
         public double EstAnnualSalary { get; set; } 
 
         public Tuple<double, double> AnnualSalaryRange { get; set; }
@@ -45,28 +54,52 @@ namespace Raw_Job_Processing
 
                 string[] words = s.Split(separatingStrings, StringSplitOptions.RemoveEmptyEntries);
                 
-                foreach(string word in words)
+                for(int i = 0; i < words.Count(); i++)
                 {
-                    word.Replace("-", "");
                     if(PayType == JobPayType.Hourly)
                     {
-                        word.Replace("/hr", "");
-                        word.Replace("/hour", "");
+                        words[i] = words[i].Replace("/hr", "");
+                        words[i] = words[i].Replace("an hour", "");
+                        words[i] = words[i].Replace("/hour", "");
                     } 
                     else // if(PayType == JobPayType.Salary)
                     {
-                        word.Replace("/yr", "");
-                        word.Replace("/year", "");
-                        word.Replace("k", "");
+                        words[i] = words[i].Replace("/yr", "");
+                        words[i] = words[i].Replace("/year", "");
+                        words[i] = words[i].Replace("a year", "");
+                        words[i] = words[i].Replace("k", "");
                     }
-                    word.Trim();
+                    words[i] = words[i].Trim();
                 }
 
                 if(words.Count() == 2)
                 {
+                    decimal highVal, lowVal;
 
-                    var lowVal = decimal.Parse(words[0], NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
-                    var highVal = decimal.Parse(words[1], NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+                    if (s.Contains("£"))
+                    {
+                        Currency = CurrencyType.BritishPound;
+
+                        if(PayType == JobPayType.Salary)
+                        {
+                            lowVal = words[0].OnlyDigits();
+                            highVal = words[1].OnlyDigits();
+                        }
+                        else // hourly
+                        {
+                            words[0] = words[0].Replace("£", "$");
+                            words[1] = words[1].Replace("£", "$");
+
+                            lowVal = decimal.Parse(words[0], NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+                            highVal = decimal.Parse(words[1], NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+                        }
+
+                    }
+                    else
+                    {
+                        lowVal = decimal.Parse(words[0], NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+                        highVal = decimal.Parse(words[1], NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
+                    }
 
                     if(PayType == JobPayType.Hourly)
                     {

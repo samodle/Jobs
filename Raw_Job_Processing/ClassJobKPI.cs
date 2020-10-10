@@ -46,11 +46,13 @@ namespace Raw_Job_Processing
         public List<DateTime> DatesFound { get; set; } = new List<DateTime>();
         public JobSource Source { get; set; }
 
+        public List<string> AttributeReport { get; set; }
+
         public JobPay Pay { get; set; }
         //pay low
         //pay high
 
-        #region
+        #endregion
 
         public bool isNewLastNDays(int n)
         {
@@ -117,24 +119,14 @@ namespace Raw_Job_Processing
             sAddress = sAddress.Replace("-", ",");
             sAddress = sAddress.Replace(".", "");
             sAddress = sAddress.Replace(",", ", ");
-            sAddress = sAddress.Replace("  ", " ");
+            sAddress = sAddress.Replace("  ", " ").Trim();
 
-            //Regex addressPattern = new Regex(@"(?<city>[A-Za-z',.\s]+) (?<state>([A-Za-z]{2}|[A-Za-z]{2},))\s*(?<zip>\d{5}(-\d{4})|\d{5})");
-            Regex addressPattern = new Regex(@"(?<city>[A-Za-z',.\s]+) (?<state>([A-Za-z]{2}|[A-Za-z]{2}))");
-
-            MatchCollection matches = addressPattern.Matches(sAddress);
-
-            if (matches.Count > 0)
-            {  //for (int mc = 0; mc < matches.Count; mc++)
-                var tmpCity = matches[0].Groups["city"].Value;
-                var tmpState = matches[0].Groups["state"].Value;
-
-                City = tmpCity.Replace(",", "").Trim();
-                State = tmpState.Trim();
-            }
-            else
+            if (sAddress.Length > 2)
             {
-                addressPattern = new Regex(@"(?<state>([A-Za-z]{2}|[A-Za-z]{2})) (?<city>[A-Za-z',.\s]+)");
+                //Regex addressPattern = new Regex(@"(?<city>[A-Za-z',.\s]+) (?<state>([A-Za-z]{2}|[A-Za-z]{2},))\s*(?<zip>\d{5}(-\d{4})|\d{5})");
+                Regex addressPattern = new Regex(@"(?<city>[A-Za-z',.\s]+) (?<state>([A-Za-z]{2}|[A-Za-z]{2}))");
+
+                MatchCollection matches = addressPattern.Matches(sAddress);
 
                 if (matches.Count > 0)
                 {  //for (int mc = 0; mc < matches.Count; mc++)
@@ -145,7 +137,22 @@ namespace Raw_Job_Processing
                     State = tmpState.Trim();
                 }
                 else
-                { }
+                {
+                    addressPattern = new Regex(@"(?<state>([A-Za-z]{2}|[A-Za-z]{2})) (?<city>[A-Za-z',.\s]+)");
+
+                    matches = addressPattern.Matches(sAddress);
+
+                    if (matches.Count > 0)
+                    {  //for (int mc = 0; mc < matches.Count; mc++)
+                        var tmpCity = matches[0].Groups["city"].Value;
+                        var tmpState = matches[0].Groups["state"].Value;
+
+                        City = tmpCity.Replace(",", "").Trim();
+                        State = tmpState.Trim();
+                    }
+                    else
+                    { }
+                }
             }
         }
     }
