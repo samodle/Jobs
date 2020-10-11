@@ -4,7 +4,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using static Analytics.Constants;
 
 namespace Raw_Job_Processing
@@ -157,15 +156,7 @@ namespace Raw_Job_Processing
                 }
                 db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
 
-                // Get the elapsed time as a TimeSpan value.
-                TimeSpan ts = watch.Elapsed;
-
-                // Format and display the TimeSpan value.
-
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
-                Console.WriteLine($"Setup Complete: {elapsedTime}");
+                Helpers.printTimeStatus(watch.Elapsed, "Setup Complete:");
 
                 var tmp_i = 0;
 
@@ -194,9 +185,6 @@ namespace Raw_Job_Processing
                             //use class function to generate job kpi report
                             var jd_kpi = new JobKPI(jd);
 
-                            //clean up dates (and search terms?)
-                            //jd_kpi.Clean();
-
                             //add it to the list
                             var filter = Builders<BsonDocument>.Filter.Eq("_id", jd_kpi.ID);
                             var options = new ReplaceOptions { IsUpsert = true };
@@ -210,19 +198,9 @@ namespace Raw_Job_Processing
                     {
                         Console.WriteLine("ERROR - EMPTY CHUNK!!!!");
                     }
-
-                    // Get the elapsed time as a TimeSpan value.
-                    ts = watch.Elapsed;
-
-                    // Format and display the TimeSpan value.
-                    elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-
                     chunk_counter++;
-                    Console.WriteLine(chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in " + elapsedTime + ". " + tmp_i.ToString() + " Jobs Analyzed.");
+                    Helpers.printTimeStatus(watch.Elapsed, chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in", tmp_i.ToString() + " Jobs Analyzed.");
                 }
-
             }
             else
             {

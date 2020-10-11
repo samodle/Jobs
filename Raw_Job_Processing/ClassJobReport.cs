@@ -25,17 +25,56 @@ namespace Raw_Job_Processing
 
         public ClassJobReport(DateTime start, DateTime end, ClassJobReportType type)
         {
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+
             StartDate = start;
             EndDate = end;
             Type = type;
 
             // Step 1: Iterate through database to find all KPIs in range, generating an ID list
             findTargetIDs();
+            Helpers.printTimeStatus(watch.Elapsed, "Target ID's 100% Identified: ");
 
-            // Step 2: Iterate through ID list (in chunks) to generate stats
+            // Step 2: Create chunks out of our IDs
+            if (TargetIDs.Count <= MongoStrings.CHUNK_SIZE) { analyzeChunk(TargetIDs); }
+            else
+            {
+                long num_chunks = TargetIDs.Count / MongoStrings.CHUNK_SIZE;
+
+                if (num_chunks > 0)
+                {
+                    int chunk_remainder = (int)(TargetIDs.Count % MongoStrings.CHUNK_SIZE);
+
+                    int start_incrementer = 0;
+                    int chunk_counter = 0;
+
+                    var db_chunks = new List<Tuple<int, int>>();
+
+                    for (int i = 0; i < num_chunks; i++)
+                    {
+                        db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
+                        start_incrementer += MongoStrings.CHUNK_SIZE;
+                    }
+                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
+
+                    Helpers.printTimeStatus(watch.Elapsed, "Chunk Setup Complete: ");
+                }
+            }
+
+
+            //Step 3: Analyze Each Chunk (if there are chunks)
 
 
             // Step ?: Store Results in Database
+
+            Helpers.printTimeStatus(watch.Elapsed, "Execution Complete: ");
+        }
+
+
+        private void analyzeChunk(List<ObjectId> targetIDs)
+        {
+
         }
 
         private void findTargetIDs()
@@ -66,20 +105,12 @@ namespace Raw_Job_Processing
 
                 for (int i = 0; i < num_chunks; i++)
                 {
-                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
+                    db_chunks.Add(new Tuple<int, int>(i == 0? start_incrementer : start_incrementer++, start_incrementer + MongoStrings.CHUNK_SIZE));
                     start_incrementer += MongoStrings.CHUNK_SIZE;
                 }
                 db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
 
-                // Get the elapsed time as a TimeSpan value.
-                TimeSpan ts = watch.Elapsed;
-
-                // Format and display the TimeSpan value.
-
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
-                Console.WriteLine($"Setup Complete: {elapsedTime}");
+                Helpers.printTimeStatus(watch.Elapsed, "Setup Complete:");
 
                 var tmp_i = 0;
 
@@ -106,7 +137,7 @@ namespace Raw_Job_Processing
                             var jd_kpi = BsonSerializer.Deserialize<JobKPI>(b);
 
                             //see if we want to keep it, add it to our list
-                            if(Type == ClassJobReportType.AllInTimePeriod && jd_kpi.isPresentInRange(StartDate, EndDate))
+                            if (Type == ClassJobReportType.AllInTimePeriod && jd_kpi.isPresentInRange(StartDate, EndDate))
                             {
                                 TargetIDs.Add(jd_kpi.ID);
                             }
@@ -124,16 +155,8 @@ namespace Raw_Job_Processing
                         Console.WriteLine("ERROR - EMPTY CHUNK!!!!");
                     }
 
-                    // Get the elapsed time as a TimeSpan value.
-                    ts = watch.Elapsed;
-
-                    // Format and display the TimeSpan value.
-                    elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-
                     chunk_counter++;
-                    Console.WriteLine(chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in " + elapsedTime + ". " + tmp_i.ToString() + " Jobs Analyzed.");
+                    Helpers.printTimeStatus(watch.Elapsed, chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in", tmp_i.ToString() + " Jobs Analyzed.");
                 }
 
             }

@@ -16,7 +16,7 @@ namespace Raw_Job_Processing
 
         static void Main(string[] args)
         {
-            var currentMode = RunModes.jobKPIs;
+            var currentMode = RunModes.jobReports;
 
             Console.WriteLine("Launching Job Genome Express v2.3.1. Mode: {0}", Enum.GetName(typeof(RunModes), currentMode));
 
@@ -39,7 +39,7 @@ namespace Raw_Job_Processing
                     break;
 
                 case RunModes.jobReports:
-
+                    JobReportScripts.WeeklyReport();
                     break;
             }
 
