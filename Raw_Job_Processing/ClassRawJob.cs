@@ -50,8 +50,7 @@ namespace Raw_Job_Processing
         }
     }
 
-
-    public static class DataCleaning
+    public static class ClassRawJob
     {
         public static RawJobDescription CleanJobDescription(RawJobDescription rawJob)
         {

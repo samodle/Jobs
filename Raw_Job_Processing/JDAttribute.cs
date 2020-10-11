@@ -6,7 +6,7 @@ using System.Text;
 namespace Raw_Job_Processing
 {
 
-    public enum AttributeType
+    public enum JDAttributeType
     {
         Certification = 0,
         Keyword = 1,
@@ -16,18 +16,18 @@ namespace Raw_Job_Processing
     public class JDAttribute
     {
         public string Name { get; set; }
-        public AttributeType Type {get;set;}
+        public JDAttributeType Type {get;set;}
 
         public List<string> SearchTerms { get; set; } = new List<string>();
 
-        public JDAttribute(string name, AttributeType type, List<string> searchTerms)
+        public JDAttribute(string name, JDAttributeType type, List<string> searchTerms)
         {
             Name = name;
             Type = type;
             SearchTerms = searchTerms;
         }
 
-        public JDAttribute(string name, AttributeType type)
+        public JDAttribute(string name, JDAttributeType type)
         {
             Name = name;
             Type = type;

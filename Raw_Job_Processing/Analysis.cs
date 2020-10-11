@@ -17,103 +17,106 @@ namespace Raw_Job_Processing
         {
             var ret = new List<JDAttribute>();
 
-            ret.Add(new JDAttribute("Help Desk", AttributeType.Keyword));
+            ret.Add(new JDAttribute("Help Desk", JDAttributeType.Keyword));
 
-            ret.Add(new JDAttribute("Windows", AttributeType.Keyword));
-            ret.Add(new JDAttribute("Linux", AttributeType.Keyword));
-            ret.Add(new JDAttribute("OSX", AttributeType.Keyword));
-            ret.Add(new JDAttribute("Docker", AttributeType.Keyword));
+            ret.Add(new JDAttribute("Windows", JDAttributeType.Keyword));
+            ret.Add(new JDAttribute("Linux", JDAttributeType.Keyword));
+            ret.Add(new JDAttribute("OSX", JDAttributeType.Keyword));
+            ret.Add(new JDAttribute("Docker", JDAttributeType.Keyword));
 
             var a = new List<string> { "Kubernetes", "K8" };
-            ret.Add(new JDAttribute("Kubernetes", AttributeType.Keyword, a));
+            ret.Add(new JDAttribute("Kubernetes", JDAttributeType.Keyword, a));
 
-             a = new List<string> { "Machine Learning", "ML" };
-            ret.Add(new JDAttribute("Machine Learning", AttributeType.Keyword, a));
+             a = new List<string> { "Machine Learning" };
+            ret.Add(new JDAttribute("Machine Learning", JDAttributeType.Keyword, a));
 
-             a = new List<string> { "Artificial Intelligence", "AI" };
-            ret.Add(new JDAttribute("Artificial Intelligence", AttributeType.Keyword, a));
+             a = new List<string> { "Artificial Intelligence" };
+            ret.Add(new JDAttribute("Artificial Intelligence", JDAttributeType.Keyword, a));
 
             a = new List<string>{"AWS","Amazon Web" };
-            ret.Add(new JDAttribute("AWS", AttributeType.Keyword, a));
+            ret.Add(new JDAttribute("AWS", JDAttributeType.Keyword, a));
 
             a = new List<string> { "DevOps", "DevSecOps" };
-            ret.Add(new JDAttribute("DevOps", AttributeType.Keyword, a));
+            ret.Add(new JDAttribute("DevOps", JDAttributeType.Keyword, a));
 
             a = new List<string> { "Azure", "Microsoft Cloud" };
-            ret.Add(new JDAttribute("Azure", AttributeType.Keyword, a));
+            ret.Add(new JDAttribute("Azure", JDAttributeType.Keyword, a));
 
             a = new List<string> { "GCP", "Google Cloud" };
-            ret.Add(new JDAttribute("GCP", AttributeType.Keyword, a));
+            ret.Add(new JDAttribute("GCP", JDAttributeType.Keyword, a));
 
             a = new List<string> { "PMP", "Project Management Professional" };
-            ret.Add(new JDAttribute("Project Management Professional (PMP)", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Project Management Professional (PMP)", JDAttributeType.Certification, a));
 
-            ret.Add(new JDAttribute("ITIL", AttributeType.Certification));
+            ret.Add(new JDAttribute("ITIL", JDAttributeType.Certification));
 
             a = new List<string> { "Certified Scrum Master", "CSM" };
-            ret.Add(new JDAttribute("Certified Scrum Master (CSM)", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Certified Scrum Master (CSM)", JDAttributeType.Certification, a));
 
             a = new List<string> { "CEH", "Certified Ethical Hacker" };
-            ret.Add(new JDAttribute("Certified Ethical Hacker", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Certified Ethical Hacker", JDAttributeType.Certification, a));
 
             a = new List<string> { "CISSP", "Certified Information Systems Security Professional" };
-            ret.Add(new JDAttribute("Certified Information Systems Security Professional (CISSP)", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Certified Information Systems Security Professional (CISSP)", JDAttributeType.Certification, a));
 
             a = new List<string> { "Certified in Risk and Information Systems Control", "CRISC" };
-            ret.Add(new JDAttribute("Certified in Risk and Information Systems Control (CRISC)", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Certified in Risk and Information Systems Control (CRISC)", JDAttributeType.Certification, a));
 
             a = new List<string> { "Certified Information Systems Auditor", "CISA" };
-            ret.Add(new JDAttribute("Certified Information Systems Auditor (CISA)", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Certified Information Systems Auditor (CISA)", JDAttributeType.Certification, a));
 
             a = new List<string> { "CEH", "Certified Ethical Hacker" };
-            ret.Add(new JDAttribute("Certified Ethical Hacker", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Certified Ethical Hacker", JDAttributeType.Certification, a));
 
             a = new List<string> { "AWS Certified Solutions Architect", "AWS Certified Developer", "AWS Certified" };
-            ret.Add(new JDAttribute("AWS Cert", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("AWS Cert", JDAttributeType.Certification, a));
 
-            a = new List<string> { "Google Certified Professional Cloud Architect", "" };
-            ret.Add(new JDAttribute("GCP Cert", AttributeType.Certification, a));
+            a = new List<string> { "Google Certified Professional Cloud Architect", "Google Certified" };
+            ret.Add(new JDAttribute("GCP Cert", JDAttributeType.Certification, a));
 
             a = new List<string> { "Citrix Certified", "Citrix Certified Professional – Virtualization (CCP-V)", "Citrix Certified Associate – Networking (CCA-N)" };
-            ret.Add(new JDAttribute("Citrix Certs", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Citrix Certs", JDAttributeType.Certification, a));
 
             a = new List<string> { "CCNP Routing and Switching", "CCNP Enterprise Certification", "Cisco Certified Networking Professional" };
-            ret.Add(new JDAttribute("CCNP Enterprise Certification", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("CCNP Enterprise Certification", JDAttributeType.Certification, a));
 
             a = new List<string> { "Microsoft Certified: Azure"};
-            ret.Add(new JDAttribute("Azure Certs", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("Azure Certs", JDAttributeType.Certification, a));
 
-            ret.Add(new JDAttribute("Certified Information Security Manager (CISM)", AttributeType.Certification));
+            ret.Add(new JDAttribute("Certified Information Security Manager (CISM)", JDAttributeType.Certification));
 
             a = new List<string> { "TOGAF", "The Open Group Architecture Framework" };
-            ret.Add(new JDAttribute("TOGAF", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("TOGAF", JDAttributeType.Certification, a));
 
             a = new List<string> { "CompTIA Security+", "CompTIA Network+" };
-            ret.Add(new JDAttribute("CompTIA", AttributeType.Certification, a));
+            ret.Add(new JDAttribute("CompTIA", JDAttributeType.Certification, a));
 
 
 
-            ret.Add(new JDAttribute("C#", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("JavaScript", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Java ", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("C", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("C++", AttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("C#", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("JavaScript", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Java ", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("C", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("C++", JDAttributeType.ProgrammingLanguage));
             a = new List<string> { "Go", "Golang" };
-            ret.Add(new JDAttribute("Go", AttributeType.ProgrammingLanguage, a));
-            ret.Add(new JDAttribute("R", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Swift", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("PHP", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("SQL", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Mongo", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Dart", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Kotlin", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Scala", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Groovy", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Jenkins", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Ruby", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Perl", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("MATLAB", AttributeType.ProgrammingLanguage));
-            ret.Add(new JDAttribute("Python", AttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Go", JDAttributeType.ProgrammingLanguage, a));
+            ret.Add(new JDAttribute("R", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Swift", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("PHP", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("SQL", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Mongo", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Dart", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Kotlin", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Scala", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Groovy", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Jenkins", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Ruby", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Perl", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("MATLAB", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Python", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Flask", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Django", JDAttributeType.ProgrammingLanguage));
+            ret.Add(new JDAttribute("Tensor", JDAttributeType.ProgrammingLanguage));
 
 
             return ret;
@@ -179,7 +182,7 @@ namespace Raw_Job_Processing
                 foreach (var chunk in db_chunks)
                 {
                     // get the chunk
-                    var bsonDocs = MongoExport.getSomeJDs(chunk.Item1, chunk.Item2);
+                    var bsonDocs = MongoExport.getBSONDocs(chunk.Item1, chunk.Item2, MongoStrings.JOB_DB, MongoStrings.JOB_COLLECTION);
 
                     if (bsonDocs.Count > 0)
                     {

@@ -49,7 +49,7 @@ namespace Raw_Job_Processing
                     foreach (var a in rawData)
                     {
                         var b = BsonSerializer.Deserialize<RawJobDescription>(a);
-                        rawJobs.Add(DataCleaning.CleanJobDescription(b));
+                        rawJobs.Add(ClassRawJob.CleanJobDescription(b));
                     }
 
                     //for each job description, check if there are any duplicates

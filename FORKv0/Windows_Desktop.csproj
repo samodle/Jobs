@@ -80,15 +80,6 @@
     <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="EO.Web">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Essential Objects\EO.Total 2020\EO.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="EO.WebBrowser.Wpf">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Essential Objects\EO.Total 2020\EO.WebBrowser.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="EO.Wpf">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Essential Objects\EO.Total 2020\EO.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>

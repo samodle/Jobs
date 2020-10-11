@@ -1,57 +1,61 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Text;
 using static Analytics.Constants;
 
 namespace Raw_Job_Processing
 {
-    public static class MongoExport
+    public enum ClassJobReportType
     {
-        public static List<BsonDocument> getBSONDocs(int indexA, int indexB, string db, string col, string conn = MongoStrings.CONNECTION)
-        {
-            //connect to database, get appropriate database and collection
-            MongoClient dbClient = new MongoClient(conn);
-            IMongoDatabase database = dbClient.GetDatabase(db);
-            var raw_collection = database.GetCollection<BsonDocument>(col);
+        AllInTimePeriod = 0,
+        UniqueInTimePeriod = 1
+    }
+    class ClassJobReport
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public ClassJobReportType Type { get; set; }
 
-            return raw_collection.Find(FilterDefinition<BsonDocument>.Empty).Skip(indexA).Limit(indexB - indexA).ToList();
+        public List<ObjectId> TargetIDs { get; set; } = new List<ObjectId>();
+
+
+        public ClassJobReport(DateTime start, DateTime end, ClassJobReportType type)
+        {
+            StartDate = start;
+            EndDate = end;
+            Type = type;
+
+            // Step 1: Iterate through database to find all KPIs in range, generating an ID list
+            findTargetIDs();
+
+            // Step 2: Iterate through ID list (in chunks) to generate stats
+
+
+            // Step ?: Store Results in Database
         }
 
-        public static void JSON_Export_JD(BsonDocument bDoc, string FileName, string FileType = ".json")
-        {
-            var exportObject = BsonSerializer.Deserialize<RawJobDescription>(bDoc);
-            string jsonData = JsonConvert.SerializeObject(exportObject);
-            string fileName = Helper.Publics.FILEPATHS.PATH_BIG_EXPORT + FileName + FileType;
-            FileStream fcreate = File.Open(fileName, FileMode.Create);
-            using (StreamWriter writer = new StreamWriter(fcreate))
-            {
-                writer.Write(jsonData);
-                writer.Close();
-            }
-        }
-
-        public static void ExportEachDocument()
+        private void findTargetIDs()
         {
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            //connect to database, get appropriate database and collection
             MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
             IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
-            var raw_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_COLLECTION);
+
+            var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
+            var report_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_REPORT_COLLECTION);
 
             //find total number of documents
-            long docsInCollection = raw_collection.CountDocuments(new BsonDocument());
+            long docsInCollection = kpi_collection.CountDocuments(new BsonDocument());
 
             //figure out what the chunk indices will be
             long num_chunks = docsInCollection / MongoStrings.CHUNK_SIZE;
 
-            if(num_chunks > 0)
+            if (num_chunks > 0)
             {
                 int chunk_remainder = (int)(docsInCollection % MongoStrings.CHUNK_SIZE);
 
@@ -60,7 +64,7 @@ namespace Raw_Job_Processing
 
                 var db_chunks = new List<Tuple<int, int>>();
 
-                for(int i = 0; i < num_chunks; i++)
+                for (int i = 0; i < num_chunks; i++)
                 {
                     db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
                     start_incrementer += MongoStrings.CHUNK_SIZE;
@@ -80,9 +84,9 @@ namespace Raw_Job_Processing
                 var tmp_i = 0;
 
                 //do we want to start in the middle?
-                var chunks_to_skip = 8;
+                var chunks_to_skip = 0;
 
-                if(chunks_to_skip > 0 && chunks_to_skip < db_chunks.Count)
+                if (chunks_to_skip > 0 && chunks_to_skip < db_chunks.Count)
                 {
                     tmp_i = (chunks_to_skip * MongoStrings.CHUNK_SIZE) + 1;
                     chunk_counter = chunks_to_skip;
@@ -91,16 +95,29 @@ namespace Raw_Job_Processing
 
                 foreach (var chunk in db_chunks)
                 {
-                        // get the chunk
-                        var bsonDocs = getBSONDocs(chunk.Item1, chunk.Item2, MongoStrings.JOB_DB, MongoStrings.JOB_COLLECTION);
+                    // get the chunk
+                    var bsonDocs = MongoExport.getBSONDocs(chunk.Item1, chunk.Item2, MongoStrings.JOB_DB, MongoStrings.JOB_KPI_COLLECTION);
 
                     if (bsonDocs.Count > 0)
                     {
-                            foreach (var b in bsonDocs)
+                        foreach (var b in bsonDocs)
+                        {
+                            //convert to C# class object
+                            var jd_kpi = BsonSerializer.Deserialize<JobKPI>(b);
+
+                            //see if we want to keep it, add it to our list
+                            if(Type == ClassJobReportType.AllInTimePeriod && jd_kpi.isPresentInRange(StartDate, EndDate))
                             {
-                                JSON_Export_JD(b, "fork_jobs_" + tmp_i.ToString());
-                                tmp_i++;
+                                TargetIDs.Add(jd_kpi.ID);
                             }
+                            else if (Type == ClassJobReportType.UniqueInTimePeriod && jd_kpi.isNewInRange(StartDate, EndDate))
+                            {
+                                TargetIDs.Add(jd_kpi.ID);
+                            }
+
+                            //keep track of how many we've done
+                            tmp_i++;
+                        }
                     }
                     else
                     {
@@ -116,7 +133,7 @@ namespace Raw_Job_Processing
                     ts.Milliseconds / 10);
 
                     chunk_counter++;
-                    Console.WriteLine(chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in " + elapsedTime + ". " + tmp_i.ToString() + " Jobs Saved.");
+                    Console.WriteLine(chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in " + elapsedTime + ". " + tmp_i.ToString() + " Jobs Analyzed.");
                 }
 
             }
@@ -124,6 +141,12 @@ namespace Raw_Job_Processing
             {
                 Console.WriteLine("NO CHUNKS!!!");
             }
+
+        }
+
+        public override string ToString()
+        {
+            return $"{StartDate} - {EndDate}, Type:  {Enum.GetName(typeof(ClassJobReportType), Type)}";
         }
     }
 }
