@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
@@ -45,27 +46,35 @@ namespace Raw_Job_Processing
                 if (num_chunks > 0)
                 {
                     int chunk_remainder = (int)(TargetIDs.Count % MongoStrings.CHUNK_SIZE);
+                    chunk_remainder--; //for the list we're counting 0
 
                     int start_incrementer = 0;
                     int chunk_counter = 0;
 
-                    var db_chunks = new List<Tuple<int, int>>();
+                    var list_chunks = new List<Tuple<int, int>>();
 
                     for (int i = 0; i < num_chunks; i++)
                     {
-                        db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
+                        list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
                         start_incrementer += MongoStrings.CHUNK_SIZE;
                     }
-                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
+                    if (chunk_remainder > 0)
+                        list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
 
                     Helpers.printTimeStatus(watch.Elapsed, "Chunk Setup Complete: ");
+
+
+                    //Step 3: Analyze Each Chunk (if there are chunks)
+                    foreach (Tuple<int, int> chunk in list_chunks)
+                    {
+                        analyzeChunk(TargetIDs.Skip(chunk.Item1).Take(chunk.Item2 - chunk.Item1).ToList());
+
+                        chunk_counter++;
+                        Helpers.printTimeStatus(watch.Elapsed, $"{chunk_counter} of {list_chunks.Count} in");
+                    }
                 }
+                else { Console.WriteLine("ERROR - NO CHUNKS"); }
             }
-
-
-            //Step 3: Analyze Each Chunk (if there are chunks)
-
-
             // Step ?: Store Results in Database
 
             Helpers.printTimeStatus(watch.Elapsed, "Execution Complete: ");
@@ -74,6 +83,15 @@ namespace Raw_Job_Processing
 
         private void analyzeChunk(List<ObjectId> targetIDs)
         {
+            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
+            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
+
+            var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
+
+            var filter = Builders<BsonDocument>.Filter.In("_id", targetIDs);
+            var kpiList = kpi_collection.Find(filter).ToList();
+
+
 
         }
 
@@ -86,7 +104,6 @@ namespace Raw_Job_Processing
             IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
 
             var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
-            var report_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_REPORT_COLLECTION);
 
             //find total number of documents
             long docsInCollection = kpi_collection.CountDocuments(new BsonDocument());
@@ -105,7 +122,7 @@ namespace Raw_Job_Processing
 
                 for (int i = 0; i < num_chunks; i++)
                 {
-                    db_chunks.Add(new Tuple<int, int>(i == 0? start_incrementer : start_incrementer++, start_incrementer + MongoStrings.CHUNK_SIZE));
+                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
                     start_incrementer += MongoStrings.CHUNK_SIZE;
                 }
                 db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
