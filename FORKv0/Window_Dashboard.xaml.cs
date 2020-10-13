@@ -97,6 +97,54 @@ namespace Windows_Desktop
             Thread onetThread = new Thread(setONETReport);
             onetThread.Start();
 
+            //event handler binding
+            this.F_Item1.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item2.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item3.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item4.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item5.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item6.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item7.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item8.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item9.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item10.TrashEvent += new EventHandler(F_EventHandler_Trash);
+            this.F_Item11.TrashEvent += new EventHandler(F_EventHandler_Trash);
+
+            this.F_Item1.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item2.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item3.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item4.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item5.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item6.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item7.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item8.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item9.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item10.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+            this.F_Item11.MoveUpEvent += new EventHandler(F_EventHandler_MoveUp);
+
+            this.F_Item1.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item2.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item3.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item4.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item5.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item6.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item7.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item8.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item9.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item10.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+            this.F_Item11.MoveDownEvent += new EventHandler(F_EventHandler_MoveDown);
+
+            this.F_Item1.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item2.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item3.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item4.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item5.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item6.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item7.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item8.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item9.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item10.StatusEvent += new EventHandler(F_EventHandler_Checked);
+            this.F_Item11.StatusEvent += new EventHandler(F_EventHandler_Checked);
         }
 
         private void ClusterMouseClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -1769,6 +1817,32 @@ namespace Windows_Desktop
         #endregion
 
         #region Canvas F - Action Plan
+
+        public void F_EventHandler_Checked(object sender, EventArgs e)
+        {
+            int i = ((Control)sender).Name.OnlyDigits();
+            //your code here
+        }
+
+        public void F_EventHandler_Trash(object sender, EventArgs e)
+        {
+            int i = ((Control)sender).Name.OnlyDigits();
+            //your code here
+        }
+
+        public void F_EventHandler_MoveUp(object sender, EventArgs e)
+        {
+            int i = ((Control)sender).Name.OnlyDigits();
+            //your code here
+        }
+
+        public void F_EventHandler_MoveDown(object sender, EventArgs e)
+        {
+            int i = ((Control)sender).Name.OnlyDigits();
+            //your code here
+        }
+
+
         private void F_AddItem(string newText)
         {
             if(F_Item1.Visibility == Visibility.Hidden)

@@ -141,6 +141,9 @@
     <Compile Include="UserControlActionItem.xaml.cs">
       <DependentUpon>UserControlActionItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControlPathwayNode.xaml.cs">
+      <DependentUpon>UserControlPathwayNode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControlSkills.xaml.cs">
       <DependentUpon>UserControlSkills.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControlActionItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControlPathwayNode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
