@@ -1820,25 +1820,25 @@ namespace Windows_Desktop
 
         public void F_EventHandler_Checked(object sender, EventArgs e)
         {
-            int i = Convert.ToInt32(GlobalFcns.onlyDigits(((Control)sender).Name));
+            int i = ((Control)sender).Name.OnlyDigits();
             //your code here
         }
 
         public void F_EventHandler_Trash(object sender, EventArgs e)
         {
-            int i = Convert.ToInt32(GlobalFcns.onlyDigits(((Control)sender).Name));
+            int i = ((Control)sender).Name.OnlyDigits();
             //your code here
         }
 
         public void F_EventHandler_MoveUp(object sender, EventArgs e)
         {
-            int i = Convert.ToInt32(GlobalFcns.onlyDigits(((Control)sender).Name));
+            int i = ((Control)sender).Name.OnlyDigits();
             //your code here
         }
 
         public void F_EventHandler_MoveDown(object sender, EventArgs e)
         {
-            int i = Convert.ToInt32(GlobalFcns.onlyDigits(((Control)sender).Name));
+            int i = ((Control)sender).Name.OnlyDigits();
             //your code here
         }
 
