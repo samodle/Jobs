@@ -15,6 +15,8 @@ namespace Raw_Job_Processing
     class ETL_ONet
     {
         //ETL the profession info, add top adjacencies to profession node (this part is bad and needs to go)
+
+        /*
         private static void ONET_ETL_Profession()
         {
             var ForkReport = new ONETReport();
@@ -134,10 +136,10 @@ namespace Raw_Job_Processing
                 EmpInfoArray.Add(j.ToBsonDocument());
             }
             profession_collection.InsertMany(EmpInfoArray);
-            */
+            * /
 
         }
 
-
+    */
     }
 }

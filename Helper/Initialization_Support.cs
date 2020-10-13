@@ -39,6 +39,23 @@ namespace Helper
         }
     }
 
+
+    public static class StringExtensions
+    {
+        public static bool Contains(this string source, string toCheck, StringComparison comp)
+        {
+            return source?.IndexOf(toCheck, comp) >= 0;
+        }
+
+        public static int OnlyDigits(this string source)
+        {
+            Regex regexObj = new Regex(@"[^\d]");
+            string s = regexObj.Replace(source, "");
+            return Convert.ToInt32(s);
+        }
+    }
+
+    /*
     static class GlobalFcns
     {
         public static string onlyDigits(string s)
@@ -51,4 +68,5 @@ namespace Helper
 
         }
     }
+    */
 }

@@ -6,20 +6,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Analytics.Constants;
 
 namespace Raw_Job_Processing
 {
     public static class MongoExport
     {
-        public static List<BsonDocument> getSomeJDs(int indexA, int indexB)
+        public static List<BsonDocument> getBSONDocs(int indexA, int indexB, string db, string col, string conn = MongoStrings.CONNECTION)
         {
             //connect to database, get appropriate database and collection
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
-            var raw_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_COLLECTION);
+            MongoClient dbClient = new MongoClient(conn);
+            IMongoDatabase database = dbClient.GetDatabase(db);
+            var raw_collection = database.GetCollection<BsonDocument>(col);
 
             return raw_collection.Find(FilterDefinition<BsonDocument>.Empty).Skip(indexA).Limit(indexB - indexA).ToList();
         }
@@ -94,7 +92,7 @@ namespace Raw_Job_Processing
                 foreach (var chunk in db_chunks)
                 {
                         // get the chunk
-                        var bsonDocs = getSomeJDs(chunk.Item1, chunk.Item2);
+                        var bsonDocs = getBSONDocs(chunk.Item1, chunk.Item2, MongoStrings.JOB_DB, MongoStrings.JOB_COLLECTION);
 
                     if (bsonDocs.Count > 0)
                     {

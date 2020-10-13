@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Raw_Job_Processing
 {
@@ -24,12 +25,6 @@ namespace Raw_Job_Processing
         public string post_date { get; set; }
         public List<string> search_terms { get; set; } 
         public List<DateTime> dates_found { get; set; }
-
-
-        public JobKPI getJobKPI()
-        {
-            return new JobKPI();
-        }
 
         public bool Equals(RawJobDescription other)
         {
@@ -55,8 +50,7 @@ namespace Raw_Job_Processing
         }
     }
 
-
-    public static class DataCleaning
+    public static class ClassRawJob
     {
         public static RawJobDescription CleanJobDescription(RawJobDescription rawJob)
         {

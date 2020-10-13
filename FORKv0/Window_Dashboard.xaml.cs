@@ -1,7 +1,7 @@
 ﻿using Analytics;
 using DataPersistancy;
 using Helper;
-using Microsoft.VisualBasic;
+//using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -714,7 +714,7 @@ namespace Windows_Desktop
             if (sender.GetType().ToString().IndexOf("Image") > -1)
             {
                 Image tempsender = (Image)sender;
-                menuitem = Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
+                menuitem = tempsender.Name.OnlyDigits(); // Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
                 if (menuitem != -1)
                 {
 
@@ -725,7 +725,7 @@ namespace Windows_Desktop
             else if (sender.GetType().ToString().IndexOf("Label") > -1)
             {
                 Label tempsender = (Label)sender;
-                menuitem = Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
+                menuitem = tempsender.Name.OnlyDigits(); // Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
                 tempsender.Foreground = Brushes.Orange;
                 getMenuItem_Canvas_fromitemindex(Menu_InternalInfiniteCanvas, -1, "", "Menu" + menuitem).Background = BrushColors.mybrushverylightgray_forcardbackground;
             }
@@ -738,7 +738,7 @@ namespace Windows_Desktop
             if (sender.GetType().ToString().IndexOf("Image") > -1)
             {
                 Image tempsender = (Image)sender;
-                menuitem = Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
+                menuitem = tempsender.Name.OnlyDigits(); // Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
                 if (menuitem != Menuitemclicked_number)
                 {
                     if (menuitem != -1)
@@ -752,11 +752,10 @@ namespace Windows_Desktop
             else if (sender.GetType().ToString().IndexOf("Label") > -1)
             {
                 Label tempsender = (Label)sender;
-                menuitem = Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
+                menuitem = tempsender.Name.OnlyDigits(); // Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
                 if (menuitem != Menuitemclicked_number)
                 {
                     tempsender.Foreground = BrushColors.mybrushfontgray;
-                    //  getMenuItem_Image_fromitemindex(Menu_InternalInfiniteCanvas, menuitem);
                     getMenuItem_Canvas_fromitemindex(Menu_InternalInfiniteCanvas, -1, "", "Menu" + menuitem).Background = Brushes.White;
                 }
             }
@@ -769,7 +768,7 @@ namespace Windows_Desktop
             if (sender.GetType().ToString().IndexOf("Image") > -1)
             {
                 Image tempsender = (Image)sender;
-                menuitem = Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
+                menuitem = tempsender.Name.OnlyDigits(); // Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
                 if (menuitem != -1)
                 {
                     Canvas tempcanvas;
@@ -781,7 +780,7 @@ namespace Windows_Desktop
             else if (sender.GetType().ToString().IndexOf("Label") > -1)
             {
                 Label tempsender = (Label)sender;
-                menuitem = Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
+                menuitem = tempsender.Name.OnlyDigits(); // Convert.ToInt32(GlobalFcns.onlyDigits(tempsender.Name));
                 tempsender.Foreground = Brushes.Orange;
                 getMenuItem_Canvas_fromitemindex(Menu_InternalInfiniteCanvas, menuitem).Background = BrushColors.mybrushverylightgray_forcardbackground;
 
