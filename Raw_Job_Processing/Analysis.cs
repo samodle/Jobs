@@ -207,7 +207,6 @@ namespace Raw_Job_Processing
             {
                 Console.WriteLine("NO CHUNKS!!!");
             }
-
         }
     }
 }
