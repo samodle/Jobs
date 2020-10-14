@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
@@ -25,59 +26,107 @@ namespace Raw_Job_Processing
 
         public ClassJobReport(DateTime start, DateTime end, ClassJobReportType type)
         {
-            var watch = new System.Diagnostics.Stopwatch();
-            watch.Start();
-
             StartDate = start;
             EndDate = end;
             Type = type;
+        }
 
-            // Step 1: Iterate through database to find all KPIs in range, generating an ID list
-            findTargetIDs();
-            Helpers.printTimeStatus(watch.Elapsed, "Target ID's 100% Identified: ");
+        /// <summary>
+        /// Saves instance of ClassJobReport to MongoDB
+        /// </summary>
+        public void DatabaseSave()
+        {
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
 
-            // Step 2: Create chunks out of our IDs
-            if (TargetIDs.Count <= MongoStrings.CHUNK_SIZE) { analyzeChunk(TargetIDs); }
-            else
-            {
-                long num_chunks = TargetIDs.Count / MongoStrings.CHUNK_SIZE;
+            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
+            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
 
-                if (num_chunks > 0)
-                {
-                    int chunk_remainder = (int)(TargetIDs.Count % MongoStrings.CHUNK_SIZE);
+            var target_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_REPORT_COLLECTION);
 
-                    int start_incrementer = 0;
-                    int chunk_counter = 0;
+            // Step Final: Store Results in Database. Strategy -> upsert document based on: start date, end date and type
+            var filter = Builders<BsonDocument>.Filter.Eq("StartDate", this.StartDate) & Builders<BsonDocument>.Filter.Eq("EndDate", this.EndDate) & Builders<BsonDocument>.Filter.Eq("Type", this.Type);
 
-                    var db_chunks = new List<Tuple<int, int>>();
+            var options = new ReplaceOptions { IsUpsert = true };
+            target_collection.ReplaceOne(filter, this.ToBsonDocument(), options);
 
-                    for (int i = 0; i < num_chunks; i++)
-                    {
-                        db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
-                        start_incrementer += MongoStrings.CHUNK_SIZE;
-                    }
-                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
-
-                    Helpers.printTimeStatus(watch.Elapsed, "Chunk Setup Complete: ");
-                }
-            }
-
-
-            //Step 3: Analyze Each Chunk (if there are chunks)
-
-
-            // Step ?: Store Results in Database
-
-            Helpers.printTimeStatus(watch.Elapsed, "Execution Complete: ");
+            Helpers.printTimeStatus(watch.Elapsed, "DB Save Complete: ");
         }
 
 
         private void analyzeChunk(List<ObjectId> targetIDs)
         {
+            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
+            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
+
+            var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
+
+            var filter = Builders<BsonDocument>.Filter.In("_id", targetIDs);
+            var kpiList = kpi_collection.Find(filter).ToList();
+
+
 
         }
 
-        private void findTargetIDs()
+
+        /// <summary>
+        /// Generate metrics for IDs
+        /// </summary>
+        public void AnalyzeIDs()
+        {
+            if (TargetIDs.Count > 0)
+            {
+                var watch = new System.Diagnostics.Stopwatch();
+                watch.Start(); 
+
+                //Create chunks out of our IDs
+                if (TargetIDs.Count <= MongoStrings.CHUNK_SIZE) { analyzeChunk(TargetIDs); }
+                else
+                {
+                    long num_chunks = TargetIDs.Count / MongoStrings.CHUNK_SIZE;
+
+                    if (num_chunks > 0)
+                    {
+                        int chunk_remainder = (int)(TargetIDs.Count % MongoStrings.CHUNK_SIZE);
+                        chunk_remainder--; //for the list we're counting 0
+
+                        int start_incrementer = 0;
+                        int chunk_counter = 0;
+
+                        var list_chunks = new List<Tuple<int, int>>();
+
+                        for (int i = 0; i < num_chunks; i++)
+                        {
+                            list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
+                            start_incrementer += MongoStrings.CHUNK_SIZE;
+                        }
+                        if (chunk_remainder > 0)
+                            list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
+
+                        Helpers.printTimeStatus(watch.Elapsed, "Chunk Setup Complete: ");
+
+
+                        //Step 3: Analyze Each Chunk (if there are chunks)
+                        foreach (Tuple<int, int> chunk in list_chunks)
+                        {
+                            analyzeChunk(TargetIDs.Skip(chunk.Item1).Take(chunk.Item2 - chunk.Item1).ToList());
+
+                            chunk_counter++;
+                            Helpers.printTimeStatus(watch.Elapsed, $"{chunk_counter} of {list_chunks.Count} in");
+                        }
+                    }
+                    else { Console.WriteLine("ERROR - NO CHUNKS"); }
+                }
+            }
+            else { Console.WriteLine("No IDs found! Populate ID list before running this function."); }
+        }
+
+
+
+        /// <summary>
+        /// Identifies JobKPI records in range for current analysis
+        /// </summary>
+        public void PopulateIDList()
         {
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
@@ -86,7 +135,6 @@ namespace Raw_Job_Processing
             IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
 
             var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
-            var report_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_REPORT_COLLECTION);
 
             //find total number of documents
             long docsInCollection = kpi_collection.CountDocuments(new BsonDocument());
@@ -105,7 +153,7 @@ namespace Raw_Job_Processing
 
                 for (int i = 0; i < num_chunks; i++)
                 {
-                    db_chunks.Add(new Tuple<int, int>(i == 0? start_incrementer : start_incrementer++, start_incrementer + MongoStrings.CHUNK_SIZE));
+                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
                     start_incrementer += MongoStrings.CHUNK_SIZE;
                 }
                 db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));

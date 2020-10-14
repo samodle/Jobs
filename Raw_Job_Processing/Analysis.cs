@@ -154,7 +154,8 @@ namespace Raw_Job_Processing
                     db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
                     start_incrementer += MongoStrings.CHUNK_SIZE;
                 }
-                db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
+                if (chunk_remainder > 0)
+                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
 
                 Helpers.printTimeStatus(watch.Elapsed, "Setup Complete:");
 
@@ -206,7 +207,6 @@ namespace Raw_Job_Processing
             {
                 Console.WriteLine("NO CHUNKS!!!");
             }
-
         }
     }
 }
