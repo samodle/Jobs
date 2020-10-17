@@ -28,7 +28,7 @@
                 </Ellipse.Effect>
             </Ellipse>
             <Image x:Name="Checkbox" Style="{StaticResource DefaultImgStyle}" Height="101" Canvas.Left="938" Canvas.Top="24" Width="130" Source="Images/noun_Checkbox_grey.png" MouseMove="MouseMoveGeneric" MouseLeave="MouseLeaveGeneric" MouseDown="Checkbox_MouseDown"/>
-            <Image x:Name="Check" Style="{StaticResource DefaultImgStyle}" Visibility="Visible"  Height="137" Canvas.Left="941" Canvas.Top="0" Width="158" Source="Images/noun_Check_green.png" MouseMove="MouseMoveGeneric" MouseLeave="MouseLeaveGeneric"  MouseDown="Checkbox_MouseDown"/>
+            <Image x:Name="Check" Style="{StaticResource DefaultImgStyle}" Visibility="Hidden"  Height="137" Canvas.Left="941" Canvas.Top="0" Width="158" Source="Images/noun_Check_green.png" MouseMove="MouseMoveGeneric" MouseLeave="MouseLeaveGeneric"  MouseDown="Checkbox_MouseDown"/>
             <Label x:Name="NumberLabel" Content="1" FontWeight="ExtraBold" Canvas.Left="21" Canvas.Top="24" Height="94" Width="103" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="2"  FontSize="62.667" Foreground="White" Cursor="Hand"/>
             <Label x:Name="PrimaryTextLabel"  MouseDown="Checkbox_MouseDown" Content="Complete Training: AM Step 4" FontWeight="ExtraBold" Canvas.Left="151" Canvas.Top="18" Height="106" Width="720" VerticalContentAlignment="Center" Padding="2"  FontSize="42.667" Foreground="Black" Cursor="Hand"/>
 
