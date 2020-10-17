@@ -15,13 +15,19 @@ namespace Raw_Job_Processing
         AllInTimePeriod = 0,
         UniqueInTimePeriod = 1
     }
-    class ClassJobReport
+    public class ClassJobReport
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public ClassJobReportType Type { get; set; }
 
         public List<ObjectId> TargetIDs { get; set; } = new List<ObjectId>();
+
+
+        //metrics
+        public int RemoteCount { get; set; } = 0;
+
+       // public List<Tuple<JobCommitment, int>> 
 
 
         public ClassJobReport(DateTime start, DateTime end, ClassJobReportType type)
@@ -54,23 +60,8 @@ namespace Raw_Job_Processing
         }
 
 
-        private void analyzeChunk(List<ObjectId> targetIDs)
-        {
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
-
-            var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
-
-            var filter = Builders<BsonDocument>.Filter.In("_id", targetIDs);
-            var kpiList = kpi_collection.Find(filter).ToList();
-
-
-
-        }
-
-
         /// <summary>
-        /// Generate metrics for IDs
+        /// Generate metrics for IDs (break into chunks, call sub routine to make metrics
         /// </summary>
         public void AnalyzeIDs()
         {
@@ -121,7 +112,27 @@ namespace Raw_Job_Processing
             else { Console.WriteLine("No IDs found! Populate ID list before running this function."); }
         }
 
+        private void analyzeChunk(List<ObjectId> targetIDs)
+        {
+            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
+            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
 
+            var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
+
+            var filter = Builders<BsonDocument>.Filter.In("_id", targetIDs);
+            var kpiList = kpi_collection.Find(filter).ToList();
+
+            foreach(BsonDocument bkpi in kpiList)
+            {
+                //convert to C# class object
+                var kpi = BsonSerializer.Deserialize<JobKPI>(bkpi);
+
+                //count it!
+
+            }
+
+
+        }
 
         /// <summary>
         /// Identifies JobKPI records in range for current analysis
@@ -193,7 +204,6 @@ namespace Raw_Job_Processing
                             {
                                 TargetIDs.Add(jd_kpi.ID);
                             }
-
                             //keep track of how many we've done
                             tmp_i++;
                         }
@@ -206,13 +216,11 @@ namespace Raw_Job_Processing
                     chunk_counter++;
                     Helpers.printTimeStatus(watch.Elapsed, chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in", tmp_i.ToString() + " Jobs Analyzed.");
                 }
-
             }
             else
             {
                 Console.WriteLine("NO CHUNKS!!!");
             }
-
         }
 
         public override string ToString()

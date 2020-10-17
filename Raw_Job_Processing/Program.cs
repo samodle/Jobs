@@ -16,60 +16,37 @@ namespace Raw_Job_Processing
 
         static void Main(string[] args)
         {
-            /*
-            var chunkSize = 3;
-            var testList = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
-            var newList = new List<int>();
+            var currentModes = new List<RunModes> { RunModes.removeDuplicates, RunModes.jobKPIs };
+            //            var currentModes = new List<RunModes> { RunModes.jobReports};
 
-            long num_chunks = testList.Count / chunkSize;
-
-            int chunk_remainder = (int)(testList.Count % chunkSize);
-
-            int start_incrementer = 0;
-
-            var list_chunks = new List<Tuple<int, int>>();
-
-            for (int i = 0; i < num_chunks; i++)
+            foreach (var currentMode in currentModes)
             {
-                list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunkSize));
-                start_incrementer += chunkSize;
+                Console.WriteLine("Launching Job Genome Express v2.3.1. Mode: {0}", Enum.GetName(typeof(RunModes), currentMode));
+
+                switch (currentMode)
+                {
+                    case RunModes.removeDuplicates:
+                        RemoveDupes.removeDupes();
+                        break;
+
+                    case RunModes.documentExport:
+                        MongoExport.ExportEachDocument();
+                        break;
+
+                    case RunModes.populateProfessionNNs:
+                        PopulateAllProfessionNearestNeighbors(20);
+                        break;
+
+                    case RunModes.jobKPIs:
+                        JobAnalysis.AnalyzeJobs();
+                        break;
+
+                    case RunModes.jobReports:
+                        JobReportScripts.WeeklyReport();
+                        break;
+                }
             }
-            ; if (chunk_remainder > 0)
-            {
-                list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
-            }
-            foreach (Tuple<int, int> chunk in list_chunks)
-            {
-                var xx = testList.Skip(chunk.Item1).Take(chunk.Item2 - chunk.Item1).ToList();
-                newList.AddRange(xx);
-            }
-            */
-            var currentMode = RunModes.jobReports;
 
-            Console.WriteLine("Launching Job Genome Express v2.3.1. Mode: {0}", Enum.GetName(typeof(RunModes), currentMode));
-
-            switch (currentMode)
-            {
-                case RunModes.removeDuplicates:
-                    RemoveDupes.removeDupes();
-                    break;
-
-                case RunModes.documentExport:
-                    MongoExport.ExportEachDocument();
-                    break;
-
-                case RunModes.populateProfessionNNs:
-                    PopulateAllProfessionNearestNeighbors(20);
-                    break;
-
-                case RunModes.jobKPIs:
-                    JobAnalysis.AnalyzeJobs();
-                    break;
-
-                case RunModes.jobReports:
-                    JobReportScripts.WeeklyReport();
-                    break;
-            }
 
 
             Console.WriteLine(" - - - - - -");

@@ -48,8 +48,7 @@ namespace Raw_Job_Processing
         public List<string> Labels { get; set; } = new List<string>();
 
         public JobPay Pay { get; set; }
-        //pay low
-        //pay high
+ 
         #endregion
 
         public bool isPresentInRange(DateTime earliest, DateTime latest)
