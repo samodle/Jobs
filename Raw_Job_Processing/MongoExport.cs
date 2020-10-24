@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Newtonsoft.Json;
+using Oden.Mongo;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,16 +13,6 @@ namespace Raw_Job_Processing
 {
     public static class MongoExport
     {
-        public static List<BsonDocument> getBSONDocs(int indexA, int indexB, string db, string col, string conn = MongoStrings.CONNECTION)
-        {
-            //connect to database, get appropriate database and collection
-            MongoClient dbClient = new MongoClient(conn);
-            IMongoDatabase database = dbClient.GetDatabase(db);
-            var raw_collection = database.GetCollection<BsonDocument>(col);
-
-            return raw_collection.Find(FilterDefinition<BsonDocument>.Empty).Skip(indexA).Limit(indexB - indexA).ToList();
-        }
-
         public static void JSON_Export_JD(BsonDocument bDoc, string FileName, string FileType = ".json")
         {
             var exportObject = BsonSerializer.Deserialize<RawJobDescription>(bDoc);
@@ -41,9 +32,9 @@ namespace Raw_Job_Processing
             watch.Start();
 
             //connect to database, get appropriate database and collection
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
-            var raw_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_COLLECTION);
+            MongoClient dbClient = new MongoClient(Connection.LOCAL);
+            IMongoDatabase database = dbClient.GetDatabase(DB.JOB);
+            var raw_collection = database.GetCollection<BsonDocument>(Collection.JOB);
 
             //find total number of documents
             long docsInCollection = raw_collection.CountDocuments(new BsonDocument());
@@ -93,7 +84,7 @@ namespace Raw_Job_Processing
                 foreach (var chunk in db_chunks)
                 {
                         // get the chunk
-                        var bsonDocs = getBSONDocs(chunk.Item1, chunk.Item2, MongoStrings.JOB_DB, MongoStrings.JOB_COLLECTION);
+                        var bsonDocs = Oden.Mongo.Helpers.getBSONDocs(chunk.Item1, chunk.Item2, DB.JOB, Collection.JOB);
 
                     if (bsonDocs.Count > 0)
                     {

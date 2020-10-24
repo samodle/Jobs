@@ -8,8 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="LumenWorks.Framework.IO" Version="3.8.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.11.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Oden" Version="1.0.3" />
   </ItemGroup>
 
   <Import Project="..\Analytics\Analytics.projitems" Label="Shared" />

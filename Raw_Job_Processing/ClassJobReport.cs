@@ -2,6 +2,7 @@
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using Oden.Mongo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,10 +46,10 @@ namespace Raw_Job_Processing
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
+            MongoClient dbClient = new MongoClient(Connection.LOCAL);
+            IMongoDatabase database = dbClient.GetDatabase(DB.JOB);
 
-            var target_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_REPORT_COLLECTION);
+            var target_collection = database.GetCollection<BsonDocument>(Collection.JOB_REPORT);
 
             // Step Final: Store Results in Database. Strategy -> upsert document based on: start date, end date and type
             var filter = Builders<BsonDocument>.Filter.Eq("StartDate", this.StartDate) & Builders<BsonDocument>.Filter.Eq("EndDate", this.EndDate) & Builders<BsonDocument>.Filter.Eq("Type", this.Type);
@@ -114,10 +115,10 @@ namespace Raw_Job_Processing
 
         private void analyzeChunk(List<ObjectId> targetIDs)
         {
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
+            MongoClient dbClient = new MongoClient(Connection.LOCAL);
+            IMongoDatabase database = dbClient.GetDatabase(DB.JOB);
 
-            var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
+            var kpi_collection = database.GetCollection<BsonDocument>(Collection.JOB_KPI);
 
             var filter = Builders<BsonDocument>.Filter.In("_id", targetIDs);
             var kpiList = kpi_collection.Find(filter).ToList();
@@ -142,10 +143,10 @@ namespace Raw_Job_Processing
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
+            MongoClient dbClient = new MongoClient(Connection.LOCAL);
+            IMongoDatabase database = dbClient.GetDatabase(DB.JOB);
 
-            var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
+            var kpi_collection = database.GetCollection<BsonDocument>(Collection.JOB_KPI);
 
             //find total number of documents
             long docsInCollection = kpi_collection.CountDocuments(new BsonDocument());
@@ -186,7 +187,7 @@ namespace Raw_Job_Processing
                 foreach (var chunk in db_chunks)
                 {
                     // get the chunk
-                    var bsonDocs = MongoExport.getBSONDocs(chunk.Item1, chunk.Item2, MongoStrings.JOB_DB, MongoStrings.JOB_KPI_COLLECTION);
+                    var bsonDocs = Oden.Mongo.Helpers.getBSONDocs(chunk.Item1, chunk.Item2, DB.JOB, Collection.JOB_KPI);
 
                     if (bsonDocs.Count > 0)
                     {

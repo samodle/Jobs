@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using Oden.Mongo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace Raw_Job_Processing
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
-            var raw_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_COLLECTION);
+            MongoClient dbClient = new MongoClient(Connection.LOCAL);
+            IMongoDatabase database = dbClient.GetDatabase(DB.JOB);
+            var raw_collection = database.GetCollection<BsonDocument>(Collection.JOB);
 
             var unique_companies = raw_collection.Distinct<string>("company", FilterDefinition<BsonDocument>.Empty).ToList();
 

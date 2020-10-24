@@ -6,6 +6,7 @@ using DataPersistancy;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using Oden.Mongo;
 using static Analytics.Constants;
 
 namespace Raw_Job_Processing
@@ -57,8 +58,8 @@ namespace Raw_Job_Processing
         //
         private static void PopulateAllProfessionNearestNeighbors(int n)
         {
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.GRAPH_DB);
+            MongoClient dbClient = new MongoClient(Connection.LOCAL);
+            IMongoDatabase database = dbClient.GetDatabase(DB.GRAPH);
 
             var edge_collection = database.GetCollection<BsonDocument>("edges_professions");
             var destination_collection = database.GetCollection<BsonDocument>("nearest_neighbors_profession");

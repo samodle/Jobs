@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Analytics.Constants;
+using Oden.Mongo;
 
 namespace Raw_Job_Processing
 {
@@ -128,11 +129,11 @@ namespace Raw_Job_Processing
 
             ALL_JD_ATTRIBUTES = GetAllJDAttributes();
 
-            MongoClient dbClient = new MongoClient(MongoStrings.CONNECTION);
-            IMongoDatabase database = dbClient.GetDatabase(MongoStrings.JOB_DB);
+            MongoClient dbClient = new MongoClient(Connection.LOCAL);
+            IMongoDatabase database = dbClient.GetDatabase(DB.JOB);
 
-            var raw_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_COLLECTION);
-            var kpi_collection = database.GetCollection<BsonDocument>(MongoStrings.JOB_KPI_COLLECTION);
+            var raw_collection = database.GetCollection<BsonDocument>(Collection.JOB);
+            var kpi_collection = database.GetCollection<BsonDocument>(Collection.JOB_KPI);
 
             //find total number of documents
             long docsInCollection = raw_collection.CountDocuments(new BsonDocument());
@@ -174,7 +175,7 @@ namespace Raw_Job_Processing
                 foreach (var chunk in db_chunks)
                 {
                     // get the chunk
-                    var bsonDocs = MongoExport.getBSONDocs(chunk.Item1, chunk.Item2, MongoStrings.JOB_DB, MongoStrings.JOB_COLLECTION);
+                    var bsonDocs = Oden.Mongo.Helpers.getBSONDocs(chunk.Item1, chunk.Item2, DB.JOB, Collection.JOB);
 
                     if (bsonDocs.Count > 0)
                     {
