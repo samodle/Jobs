@@ -5,8 +5,6 @@ using Oden.Mongo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using static Analytics.Constants;
 
 namespace Raw_Job_Processing
 {
@@ -26,14 +24,7 @@ namespace Raw_Job_Processing
             int complete_counter = 0;
             int delete_counter = 0;
 
-            // Get the elapsed time as a TimeSpan value.
-            TimeSpan ts = watch.Elapsed;
-
-            // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
-            Console.WriteLine($"Setup Complete: {elapsedTime}");
+            Helpers.printTimeStatus(watch.Elapsed, "Setup Complete: ");
 
             foreach (string company in unique_companies)
             {
@@ -109,15 +100,7 @@ namespace Raw_Job_Processing
 
                 //update the console
                 complete_counter++;
-
-                // Get the elapsed time as a TimeSpan value.
-                ts = watch.Elapsed;
-
-                // Format and display the TimeSpan value.
-                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
-                Console.WriteLine(Math.Round(complete_counter * 100.0 / unique_companies.Count, 1).ToString() + "%, " + delete_counter.ToString() + " Deleted, " + complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in " + elapsedTime);
+                Helpers.printTimeStatus(watch.Elapsed, Math.Round(complete_counter * 100.0 / unique_companies.Count, 1).ToString() + "%, " + delete_counter.ToString() + " Deleted, " + complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in ");
             }
         }
     }
