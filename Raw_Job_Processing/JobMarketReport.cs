@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using Oden.Mongo;
 using System;
@@ -11,27 +12,33 @@ using static Analytics.Constants;
 
 namespace Raw_Job_Processing
 {
-    public enum ClassJobReportType
+    /// <summary>
+    /// Two Job Report Types Available:
+    /// - All includes every JD that was found in the given time period
+    /// - Unique includes on those JDs that FIRST appeared during that time period
+    /// </summary>
+    public enum JobMarketReportType
     {
         AllInTimePeriod = 0,
         UniqueInTimePeriod = 1
     }
-    public class ClassJobReport
+    public class JobMarketReport
     {
+        [BsonId]
+        public ObjectId ID { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public ClassJobReportType Type { get; set; }
+        public JobMarketReportType Type { get; set; }
 
         public List<ObjectId> TargetIDs { get; set; } = new List<ObjectId>();
-
 
         //metrics
         public int RemoteCount { get; set; } = 0;
 
-       // public List<Tuple<JobCommitment, int>> 
+        public List<Tuple<JobCommitment, int>> Commitments = new List<Tuple<JobCommitment, int>>();
 
 
-        public ClassJobReport(DateTime start, DateTime end, ClassJobReportType type)
+        public JobMarketReport(DateTime start, DateTime end, JobMarketReportType type)
         {
             StartDate = start;
             EndDate = end;
@@ -57,7 +64,7 @@ namespace Raw_Job_Processing
             var options = new ReplaceOptions { IsUpsert = true };
             target_collection.ReplaceOne(filter, this.ToBsonDocument(), options);
 
-            Helpers.printTimeStatus(watch.Elapsed, "DB Save Complete: ");
+            Oden.ConsoleIO.printTimeStatus(watch.Elapsed, "DB Save Complete: ");
         }
 
 
@@ -95,7 +102,7 @@ namespace Raw_Job_Processing
                         if (chunk_remainder > 0)
                             list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
 
-                        Helpers.printTimeStatus(watch.Elapsed, "Chunk Setup Complete: ");
+                        Oden.ConsoleIO.printTimeStatus(watch.Elapsed, "Chunk Setup Complete: ");
 
 
                         //Step 3: Analyze Each Chunk (if there are chunks)
@@ -104,7 +111,7 @@ namespace Raw_Job_Processing
                             analyzeChunk(TargetIDs.Skip(chunk.Item1).Take(chunk.Item2 - chunk.Item1).ToList());
 
                             chunk_counter++;
-                            Helpers.printTimeStatus(watch.Elapsed, $"{chunk_counter} of {list_chunks.Count} in");
+                            Oden.ConsoleIO.printTimeStatus(watch.Elapsed, $"{chunk_counter} of {list_chunks.Count} in");
                         }
                     }
                     else { Console.WriteLine("ERROR - NO CHUNKS"); }
@@ -128,7 +135,18 @@ namespace Raw_Job_Processing
                 //convert to C# class object
                 var kpi = BsonSerializer.Deserialize<JobKPI>(bkpi);
 
-                //count it!
+                //remote count
+                if (kpi.isRemote)
+                    RemoteCount++;
+
+                //commitment
+                int index = Commitments.FindIndex(t => t.Item1 == kpi.Commitment);
+             //   if (index >= 0)
+           //         Commitments[index].Item2;
+             //   else
+              //      Commitments.Add(new Tuple<JobCommitment, int>(kpi.Commitment, 1));
+
+                //keywords
 
             }
 
@@ -143,6 +161,8 @@ namespace Raw_Job_Processing
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
+            TargetIDs = new List<ObjectId>();
+
             MongoClient dbClient = new MongoClient(Connection.LOCAL);
             IMongoDatabase database = dbClient.GetDatabase(DB.JOB);
 
@@ -153,11 +173,10 @@ namespace Raw_Job_Processing
 
             //figure out what the chunk indices will be
             long num_chunks = docsInCollection / MongoStrings.CHUNK_SIZE;
+            int chunk_remainder = (int)(docsInCollection % MongoStrings.CHUNK_SIZE);
 
-            if (num_chunks > 0)
+            if (num_chunks > 0 || chunk_remainder > 0)
             {
-                int chunk_remainder = (int)(docsInCollection % MongoStrings.CHUNK_SIZE);
-
                 int start_incrementer = 0;
                 int chunk_counter = 0;
 
@@ -170,13 +189,12 @@ namespace Raw_Job_Processing
                 }
                 db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
 
-                Helpers.printTimeStatus(watch.Elapsed, "Setup Complete:");
+                Oden.ConsoleIO.printTimeStatus(watch.Elapsed, "Setup Complete:");
 
                 var tmp_i = 0;
 
                 //do we want to start in the middle?
                 var chunks_to_skip = 0;
-
                 if (chunks_to_skip > 0 && chunks_to_skip < db_chunks.Count)
                 {
                     tmp_i = (chunks_to_skip * MongoStrings.CHUNK_SIZE) + 1;
@@ -197,11 +215,11 @@ namespace Raw_Job_Processing
                             var jd_kpi = BsonSerializer.Deserialize<JobKPI>(b);
 
                             //see if we want to keep it, add it to our list
-                            if (Type == ClassJobReportType.AllInTimePeriod && jd_kpi.isPresentInRange(StartDate, EndDate))
+                            if (Type == JobMarketReportType.AllInTimePeriod && jd_kpi.isPresentInRange(StartDate, EndDate))
                             {
                                 TargetIDs.Add(jd_kpi.ID);
                             }
-                            else if (Type == ClassJobReportType.UniqueInTimePeriod && jd_kpi.isNewInRange(StartDate, EndDate))
+                            else if (Type == JobMarketReportType.UniqueInTimePeriod && jd_kpi.isNewInRange(StartDate, EndDate))
                             {
                                 TargetIDs.Add(jd_kpi.ID);
                             }
@@ -215,7 +233,7 @@ namespace Raw_Job_Processing
                     }
 
                     chunk_counter++;
-                    Helpers.printTimeStatus(watch.Elapsed, chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in", tmp_i.ToString() + " Jobs Analyzed.");
+                    Oden.ConsoleIO.printTimeStatus(watch.Elapsed, chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in", tmp_i.ToString() + " Jobs Analyzed.");
                 }
             }
             else
@@ -226,7 +244,7 @@ namespace Raw_Job_Processing
 
         public override string ToString()
         {
-            return $"{StartDate} - {EndDate}, Type:  {Enum.GetName(typeof(ClassJobReportType), Type)}";
+            return $"{StartDate} - {EndDate}, Type:  {Enum.GetName(typeof(JobMarketReportType), Type)}";
         }
     }
 }

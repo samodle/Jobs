@@ -8,6 +8,18 @@ using System.Text.RegularExpressions;
 
 namespace Raw_Job_Processing
 {
+    public class KPI<T>
+    {
+        T KPIType { get; set; }
+        int count { get; set; }
+        double pct { get; set; }
+
+        public void setPct(int net_count)
+        {
+            pct = count / net_count;
+        }
+    }
+    
     public enum JobCommitment
     {
         FullTime = 0,

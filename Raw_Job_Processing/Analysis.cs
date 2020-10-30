@@ -158,7 +158,7 @@ namespace Raw_Job_Processing
                 if (chunk_remainder > 0)
                     db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
 
-                Helpers.printTimeStatus(watch.Elapsed, "Setup Complete:");
+                Oden.ConsoleIO.printTimeStatus(watch.Elapsed, "Setup Complete:");
 
                 var tmp_i = 0;
 
@@ -201,7 +201,7 @@ namespace Raw_Job_Processing
                         Console.WriteLine("ERROR - EMPTY CHUNK!!!!");
                     }
                     chunk_counter++;
-                    Helpers.printTimeStatus(watch.Elapsed, chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in", tmp_i.ToString() + " Jobs Analyzed.");
+                    Oden.ConsoleIO.printTimeStatus(watch.Elapsed, chunk_counter.ToString() + " of " + db_chunks.Count.ToString() + " in", tmp_i.ToString() + " Jobs Analyzed.");
                 }
             }
             else

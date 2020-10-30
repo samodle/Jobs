@@ -24,7 +24,7 @@ namespace Raw_Job_Processing
             int complete_counter = 0;
             int delete_counter = 0;
 
-            Helpers.printTimeStatus(watch.Elapsed, "Setup Complete: ");
+            Oden.ConsoleIO.printTimeStatus(watch.Elapsed, "Setup Complete: ");
 
             foreach (string company in unique_companies)
             {
@@ -100,7 +100,7 @@ namespace Raw_Job_Processing
 
                 //update the console
                 complete_counter++;
-                Helpers.printTimeStatus(watch.Elapsed, Math.Round(complete_counter * 100.0 / unique_companies.Count, 1).ToString() + "%, " + delete_counter.ToString() + " Deleted, " + complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in ");
+                Oden.ConsoleIO.printTimeStatus(watch.Elapsed, Math.Round(complete_counter * 100.0 / unique_companies.Count, 1).ToString() + "%, " + delete_counter.ToString() + " Deleted, " + complete_counter.ToString() + "/" + unique_companies.Count.ToString() + " " + company + " Complete in ");
             }
         }
     }

@@ -695,7 +695,7 @@
       <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="Oden">
-      <Version>1.0.3</Version>
+      <Version>1.1.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\Analytics\Analytics.projitems" Label="Shared" />
