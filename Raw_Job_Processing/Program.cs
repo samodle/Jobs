@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Analytics;
-using DataPersistancy;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Oden.Mongo;
-using static Analytics.Constants;
 
 namespace Raw_Job_Processing
 {
@@ -35,7 +32,7 @@ namespace Raw_Job_Processing
                         break;
 
                     case RunModes.populateProfessionNNs:
-                        PopulateAllProfessionNearestNeighbors(20);
+                        //PopulateAllProfessionNearestNeighbors(20); //not fully implemented post oden migration
                         break;
 
                     case RunModes.jobKPIs:
@@ -64,9 +61,11 @@ namespace Raw_Job_Processing
             var edge_collection = database.GetCollection<BsonDocument>("edges_professions");
             var destination_collection = database.GetCollection<BsonDocument>("nearest_neighbors_profession");
 
-            var ForkReport = new ONETReport();
-            ForkReport.MasterOccupationList = JSON_IO.Import_OccupationList(Helper.Publics.FILENAMES.OCCUPATIONS + ".txt");
+           // var ForkReport = new ONETReport();
+            //  ForkReport.MasterOccupationList = JSON_IO.Import_OccupationList(Helper.Publics.FILENAMES.OCCUPATIONS + ".txt");
+            throw new Exception("Not Implemented");
 
+            /*
             Console.WriteLine("Iterating Through Occupations...");
 
             foreach (Occupation o in ForkReport.MasterOccupationList)
@@ -108,6 +107,7 @@ namespace Raw_Job_Processing
                 destination_collection.InsertOne(newNeighborList.ToBsonDocument());
 
             }
+            */
         }
 
     }

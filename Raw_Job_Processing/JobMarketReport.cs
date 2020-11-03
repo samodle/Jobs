@@ -3,12 +3,12 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using Oden.Enums;
 using Oden.Mongo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using static Analytics.Constants;
 
 namespace Raw_Job_Processing
 {
@@ -29,6 +29,8 @@ namespace Raw_Job_Processing
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public JobMarketReportType Type { get; set; }
+        public Oden.Locations.Location Location { get; set; }
+
 
         public List<ObjectId> TargetIDs { get; set; } = new List<ObjectId>();
 
@@ -71,7 +73,7 @@ namespace Raw_Job_Processing
         /// <summary>
         /// Generate metrics for IDs (break into chunks, call sub routine to make metrics
         /// </summary>
-        public void AnalyzeIDs()
+        public void AnalyzeIDs(int CHUNK_SIZE = 10000)
         {
             if (TargetIDs.Count > 0)
             {
@@ -79,14 +81,14 @@ namespace Raw_Job_Processing
                 watch.Start(); 
 
                 //Create chunks out of our IDs
-                if (TargetIDs.Count <= MongoStrings.CHUNK_SIZE) { analyzeChunk(TargetIDs); }
+                if (TargetIDs.Count <= CHUNK_SIZE) { analyzeChunk(TargetIDs); }
                 else
                 {
-                    long num_chunks = TargetIDs.Count / MongoStrings.CHUNK_SIZE;
+                    long num_chunks = TargetIDs.Count / CHUNK_SIZE;
 
                     if (num_chunks > 0)
                     {
-                        int chunk_remainder = (int)(TargetIDs.Count % MongoStrings.CHUNK_SIZE);
+                        int chunk_remainder = (int)(TargetIDs.Count % CHUNK_SIZE);
                         chunk_remainder--; //for the list we're counting 0
 
                         int start_incrementer = 0;
@@ -96,8 +98,8 @@ namespace Raw_Job_Processing
 
                         for (int i = 0; i < num_chunks; i++)
                         {
-                            list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
-                            start_incrementer += MongoStrings.CHUNK_SIZE;
+                            list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + CHUNK_SIZE));
+                            start_incrementer += CHUNK_SIZE;
                         }
                         if (chunk_remainder > 0)
                             list_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
@@ -156,7 +158,7 @@ namespace Raw_Job_Processing
         /// <summary>
         /// Identifies JobKPI records in range for current analysis
         /// </summary>
-        public void PopulateIDList()
+        public void PopulateIDList(int CHUNK_SIZE = 10000)
         {
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
@@ -172,8 +174,8 @@ namespace Raw_Job_Processing
             long docsInCollection = kpi_collection.CountDocuments(new BsonDocument());
 
             //figure out what the chunk indices will be
-            long num_chunks = docsInCollection / MongoStrings.CHUNK_SIZE;
-            int chunk_remainder = (int)(docsInCollection % MongoStrings.CHUNK_SIZE);
+            long num_chunks = docsInCollection / CHUNK_SIZE;
+            int chunk_remainder = (int)(docsInCollection % CHUNK_SIZE);
 
             if (num_chunks > 0 || chunk_remainder > 0)
             {
@@ -184,8 +186,8 @@ namespace Raw_Job_Processing
 
                 for (int i = 0; i < num_chunks; i++)
                 {
-                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
-                    start_incrementer += MongoStrings.CHUNK_SIZE;
+                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + CHUNK_SIZE));
+                    start_incrementer += CHUNK_SIZE;
                 }
                 db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
 
@@ -197,7 +199,7 @@ namespace Raw_Job_Processing
                 var chunks_to_skip = 0;
                 if (chunks_to_skip > 0 && chunks_to_skip < db_chunks.Count)
                 {
-                    tmp_i = (chunks_to_skip * MongoStrings.CHUNK_SIZE) + 1;
+                    tmp_i = (chunks_to_skip * CHUNK_SIZE) + 1;
                     chunk_counter = chunks_to_skip;
                     db_chunks = db_chunks.Skip(chunks_to_skip).ToList();
                 }

@@ -18,6 +18,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DemoIO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GeneralIO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Initialization_Support.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JSON_IO.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ONETImportScripts.cs" />
   </ItemGroup>

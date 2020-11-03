@@ -11,19 +11,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows_Desktop", "FORKv0\W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Raw_Job_Processing", "Raw_Job_Processing\Raw_Job_Processing.csproj", "{B96CBF47-FF45-44C6-A14D-0F1CDBACD239}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Helper", "Helper\Helper.shproj", "{44173835-3802-44BD-A9A1-7D6AEB067443}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OdenInterface", "OdenInterface\OdenInterface.shproj", "{43E29447-F1A7-48CE-A405-DB1AF68D79D9}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Analytics\Analytics.projitems*{06a8c764-fff2-4e80-af20-745a9820c7cc}*SharedItemsImports = 13
 		Analytics\Analytics.projitems*{105711ad-6819-4b82-8250-59d73a4ce9fc}*SharedItemsImports = 4
 		DataPersistancy\DataPersistancy.projitems*{105711ad-6819-4b82-8250-59d73a4ce9fc}*SharedItemsImports = 4
-		Helper\Helper.projitems*{105711ad-6819-4b82-8250-59d73a4ce9fc}*SharedItemsImports = 4
 		DataPersistancy\DataPersistancy.projitems*{29c3feb4-950c-488b-bc8d-b1568ee0413b}*SharedItemsImports = 13
-		Helper\Helper.projitems*{44173835-3802-44bd-a9a1-7d6aeb067443}*SharedItemsImports = 13
-		Analytics\Analytics.projitems*{b96cbf47-ff45-44c6-a14d-0f1cdbacd239}*SharedItemsImports = 5
-		DataPersistancy\DataPersistancy.projitems*{b96cbf47-ff45-44c6-a14d-0f1cdbacd239}*SharedItemsImports = 5
-		Helper\Helper.projitems*{b96cbf47-ff45-44c6-a14d-0f1cdbacd239}*SharedItemsImports = 5
+		OdenInterface\OdenInterface.projitems*{43e29447-f1a7-48ce-a405-db1af68d79d9}*SharedItemsImports = 13
+		OdenInterface\OdenInterface.projitems*{b96cbf47-ff45-44c6-a14d-0f1cdbacd239}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU

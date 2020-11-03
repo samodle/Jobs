@@ -1,68 +1,42 @@
-﻿using Helper;
-using Oden;
+﻿using Oden;
+using Oden.Enums;
+using Oden.Profession;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
 
-namespace Raw_Job_Processing
+namespace OdenGenerator
 {
-    public enum JobPayType
+    public static class OdenGen
     {
-        Hourly = 0,
-        Salary = 1,
-        Gig = 2,
-        Unknown = 3
-    }
-
-    public enum CurrencyType
-    {
-        USDollar = 0,
-        BritishPound = 1,
-        Euro = 2,
-        CanadianDollar = 3
-    }
-
-    public class JobPay
-    {
-        private static double HRS_PER_YEAR = 2000;
-
-        public JobPayType PayType { get; set; }
-        public CurrencyType Currency { get; set; } = CurrencyType.USDollar;
-        public double EstAnnualSalary { get; set; } 
-
-        public Tuple<double, double> AnnualSalaryRange { get; set; }
-        public Tuple<double, double> HourlySalaryRange { get; set; }
-
-
-        public JobPay(string s)
+        public static Pay getPayFromString(string s)
         {
+            Pay p = new Pay();
+
             if (s.Contains("hr", StringComparison.OrdinalIgnoreCase) || s.Contains("hour", StringComparison.OrdinalIgnoreCase))
             {
-                PayType = JobPayType.Hourly;
+                p.PayType = JobPayType.Hourly;
             }
             else if (s.Contains("yr", StringComparison.OrdinalIgnoreCase) || s.Contains("year", StringComparison.OrdinalIgnoreCase))
             {
-                PayType = JobPayType.Salary;
+                p.PayType = JobPayType.Salary;
             }
-            else { PayType = JobPayType.Unknown; }
+            else { p.PayType = JobPayType.Unknown; }
 
-            if ((PayType == JobPayType.Hourly || PayType == JobPayType.Salary) && s.Contains("-"))
+            if ((p.PayType == JobPayType.Hourly || p.PayType == JobPayType.Salary) && s.Contains("-"))
             {
-                string[] separatingStrings = { "-"};
+                string[] separatingStrings = { "-" };
 
                 string[] words = s.Split(separatingStrings, StringSplitOptions.RemoveEmptyEntries);
-                
-                for(int i = 0; i < words.Count(); i++)
+
+                for (int i = 0; i < words.Count(); i++)
                 {
-                    if(PayType == JobPayType.Hourly)
+                    if (p.PayType == JobPayType.Hourly)
                     {
                         words[i] = words[i].Replace("/hr", "");
                         words[i] = words[i].Replace("an hour", "");
                         words[i] = words[i].Replace("/hour", "");
-                    } 
+                    }
                     else // if(PayType == JobPayType.Salary)
                     {
                         words[i] = words[i].Replace("/yr", "");
@@ -73,15 +47,15 @@ namespace Raw_Job_Processing
                     words[i] = words[i].Trim();
                 }
 
-                if(words.Count() == 2)
+                if (words.Count() == 2)
                 {
                     decimal highVal, lowVal;
 
                     if (s.Contains("£"))
                     {
-                        Currency = CurrencyType.BritishPound;
+                        p.Currency = CurrencyType.BritishPound;
 
-                        if(PayType == JobPayType.Salary)
+                        if (p.PayType == JobPayType.Salary)
                         {
                             lowVal = words[0].OnlyDigits();
                             highVal = words[1].OnlyDigits();
@@ -102,36 +76,40 @@ namespace Raw_Job_Processing
                         highVal = decimal.Parse(words[1], NumberStyles.AllowCurrencySymbol | NumberStyles.Number);
                     }
 
-                    if(PayType == JobPayType.Hourly)
+                    if (p.PayType == JobPayType.Hourly)
                     {
-                        HourlySalaryRange = new Tuple<double, double>(Convert.ToDouble(lowVal), Convert.ToDouble(highVal));
-                        AnnualSalaryRange = new Tuple<double, double>(HourlySalaryRange.Item1 * HRS_PER_YEAR, HourlySalaryRange.Item2 * HRS_PER_YEAR);
+                        p.HourlySalaryRange = new Tuple<double, double>(Convert.ToDouble(lowVal), Convert.ToDouble(highVal));
+                        p.AnnualSalaryRange = new Tuple<double, double>(p.HourlySalaryRange.Item1 * Constants.HRS_PER_YEAR, p.HourlySalaryRange.Item2 * Constants.HRS_PER_YEAR);
                     }
                     else // if (PayType == JobPayType.Salary)
                     {
                         var a = Convert.ToDouble(lowVal);
                         var b = Convert.ToDouble(highVal);
 
-                        if(a < 1000)
+                        if (a < 1000)
                         {
                             a = a * 1000;
                             b = b * 1000;
                         }
 
-                        AnnualSalaryRange = new Tuple<double, double>(a, b);
-                        HourlySalaryRange = new Tuple<double, double>(a / HRS_PER_YEAR, b/HRS_PER_YEAR);
+                        p.AnnualSalaryRange = new Tuple<double, double>(a, b);
+                        p.HourlySalaryRange = new Tuple<double, double>(a / Constants.HRS_PER_YEAR, b / Constants.HRS_PER_YEAR);
                     }
 
-                    EstAnnualSalary = (AnnualSalaryRange.Item1 + AnnualSalaryRange.Item2) / 2;
+                    p.EstAnnualSalary = (p.AnnualSalaryRange.Item1 + p.AnnualSalaryRange.Item2) / 2;
                 }
                 else
                 {
-
+                    Oden.ConsoleIO.printEmphStatus("WHY ARE WE HERE????? PayGeneration.cs line 102ish");
                 }
 
-
+                
             }
-
+            return p;
         }
+
     }
+
 }
+
+

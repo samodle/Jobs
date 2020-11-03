@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static Analytics.Constants;
 
 namespace Raw_Job_Processing
 {
@@ -17,7 +16,7 @@ namespace Raw_Job_Processing
         {
             var exportObject = BsonSerializer.Deserialize<RawJobDescription>(bDoc);
             string jsonData = JsonConvert.SerializeObject(exportObject);
-            string fileName = Helper.Publics.FILEPATHS.PATH_BIG_EXPORT + FileName + FileType;
+            string fileName = "H:\\Fork\\Fork_JD_Export_08022020\\" + FileName + FileType;
             FileStream fcreate = File.Open(fileName, FileMode.Create);
             using (StreamWriter writer = new StreamWriter(fcreate))
             {
@@ -26,7 +25,7 @@ namespace Raw_Job_Processing
             }
         }
 
-        public static void ExportEachDocument()
+        public static void ExportEachDocument(int CHUNK_SIZE = 10000)
         {
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
@@ -40,11 +39,11 @@ namespace Raw_Job_Processing
             long docsInCollection = raw_collection.CountDocuments(new BsonDocument());
 
             //figure out what the chunk indices will be
-            long num_chunks = docsInCollection / MongoStrings.CHUNK_SIZE;
+            long num_chunks = docsInCollection / CHUNK_SIZE;
 
             if(num_chunks > 0)
             {
-                int chunk_remainder = (int)(docsInCollection % MongoStrings.CHUNK_SIZE);
+                int chunk_remainder = (int)(docsInCollection % CHUNK_SIZE);
 
                 int start_incrementer = 0;
                 int chunk_counter = 0;
@@ -53,8 +52,8 @@ namespace Raw_Job_Processing
 
                 for(int i = 0; i < num_chunks; i++)
                 {
-                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + MongoStrings.CHUNK_SIZE));
-                    start_incrementer += MongoStrings.CHUNK_SIZE;
+                    db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + CHUNK_SIZE));
+                    start_incrementer += CHUNK_SIZE;
                 }
                 if (chunk_remainder > 0)
                     db_chunks.Add(new Tuple<int, int>(start_incrementer, start_incrementer + chunk_remainder));
@@ -76,7 +75,7 @@ namespace Raw_Job_Processing
 
                 if(chunks_to_skip > 0 && chunks_to_skip < db_chunks.Count)
                 {
-                    tmp_i = (chunks_to_skip * MongoStrings.CHUNK_SIZE) + 1;
+                    tmp_i = (chunks_to_skip * CHUNK_SIZE) + 1;
                     chunk_counter = chunks_to_skip;
                     db_chunks = db_chunks.Skip(chunks_to_skip).ToList();
                 }

@@ -1,5 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Oden.Enums;
+using OdenGenerator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,27 +22,6 @@ namespace Raw_Job_Processing
         }
     }
     
-    public enum JobCommitment
-    {
-        FullTime = 0,
-        PartTime = 1,
-        Contractor = 2,
-        Unknown = 3
-    }
-
-    public enum JobSource
-    {
-        Monster = 0,
-        CareerBuilder = 1,
-        Indeed = 2,
-        Unknown = 3
-    }
-
-
-    public class PaySummary
-    {
-        public JobPayType pType { get; set; }
-    }
 
     public class JobKPI
     {
@@ -59,7 +40,7 @@ namespace Raw_Job_Processing
         public List<string> AttributeReport { get; set; } = new List<string>();
         public List<string> Labels { get; set; } = new List<string>();
 
-        public JobPay Pay { get; set; }
+        public Oden.Profession.Pay Pay { get; set; }
  
         #endregion
 
@@ -153,7 +134,7 @@ namespace Raw_Job_Processing
             else { Source = JobSource.Unknown; }
 
             //pay
-            Pay = new JobPay(rjd.salary);
+            Pay = OdenGen.getPayFromString(rjd.salary);
 
             //attributes
             foreach(JDAttribute a in JobAnalysis.ALL_JD_ATTRIBUTES)
